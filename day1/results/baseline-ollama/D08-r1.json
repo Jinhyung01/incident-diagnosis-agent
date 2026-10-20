@@ -1,0 +1,216 @@
+{
+  "id": "D08",
+  "repeat": 1,
+  "split": "development",
+  "category": "unknown_target",
+  "scenario": "base",
+  "expected_behavior": "clarify",
+  "turns": [
+    {
+      "query": "billing-service 응답이 느려요",
+      "elapsed_seconds": 34.295,
+      "error": null,
+      "result": {
+        "query": "billing-service 응답이 느려요",
+        "thread_id": "eval-D08-1",
+        "history": [],
+        "route": "incident",
+        "needs_analysis": true,
+        "tasks": [
+          {
+            "id": "task-analysis",
+            "agent": "analysis",
+            "kind": "pattern-analysis",
+            "status": "done"
+          },
+          {
+            "id": "task-0",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "auth-service",
+            "status": "done"
+          },
+          {
+            "id": "task-gap-runbook",
+            "agent": "research",
+            "kind": "runbook",
+            "target": "high-latency",
+            "status": "done"
+          }
+        ],
+        "gate_removed": 0,
+        "collected": [
+          {
+            "source": "monitoring",
+            "data": {
+              "system_name": "auth-service",
+              "status": "degraded",
+              "cpu_percent": 78.0,
+              "memory_percent": 61.0,
+              "last_checked": "2026-10-20T09:00:00+09:00",
+              "alerts": [
+                "p95 latency 2.4s (threshold 1.0s)",
+                "connection pool 92% used"
+              ]
+            }
+          },
+          {
+            "source": "runbook",
+            "data": "# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n"
+          },
+          {
+            "source": "analysis",
+            "data": "특이 패턴 없음."
+          }
+        ],
+        "replan_rounds": 1,
+        "retry_count": 0,
+        "parallel_elapsed": 0.35,
+        "draft": "1) **커넥션 풀 사용률 92% 초과** → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용 (runbook 2단계 대응)  \n2) **p95 지연 2.4s (임계치 1.0s)** → 5분 내 개선되지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산 (runbook 4단계 대응)  \n3) **특이 패턴 없음** → 리전/인스턴스별 집중 현상 없음 (runbook 3단계 대응 불필요)",
+        "validation_attempts": 1,
+        "validation_feedback": null,
+        "final": "1) **커넥션 풀 사용률 92% 초과** → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용 (runbook 2단계 대응)  \n2) **p95 지연 2.4s (임계치 1.0s)** → 5분 내 개선되지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산 (runbook 4단계 대응)  \n3) **특이 패턴 없음** → 리전/인스턴스별 집중 현상 없음 (runbook 3단계 대응 불필요)",
+        "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nbilling-service 응답이 느려요\n\n## 수집된 사실\n- 모니터링 auth-service: 상태=degraded, CPU 78.0%, 메모리 61.0%, 알림 2건 ['p95 latency 2.4s (threshold 1.0s)', 'connection pool 92% used']\n- runbook 발췌:\n# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n- 패턴 분석: 특이 패턴 없음.",
+        "cost_usd": 0.005528,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "incident"
+          },
+          {
+            "type": "PlanCreated",
+            "task_count": 2,
+            "targets": [
+              "auth-service"
+            ]
+          },
+          {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 0
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-0",
+            "source": "monitoring",
+            "target": "auth-service",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 0,
+            "is_sufficient": false,
+            "gap_task": "task-gap-runbook",
+            "target": "high-latency"
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-gap-runbook",
+            "source": "runbook",
+            "target": "high-latency",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 1,
+            "is_sufficient": true
+          },
+          {
+            "type": "AnalysisCompleted",
+            "length": 9
+          },
+          {
+            "type": "DraftWritten",
+            "attempt": 1,
+            "length": 222
+          },
+          {
+            "type": "Validation",
+            "attempt": 1,
+            "verdict": "합격"
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "incident-v2"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [
+    {
+      "kind": "monitoring",
+      "target": "auth-service",
+      "result": {
+        "system_name": "auth-service",
+        "status": "degraded",
+        "cpu_percent": 78.0,
+        "memory_percent": 61.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": [
+          "p95 latency 2.4s (threshold 1.0s)",
+          "connection pool 92% used"
+        ]
+      }
+    },
+    {
+      "kind": "runbook",
+      "target": "high-latency",
+      "found": true
+    }
+  ],
+  "usage": [
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 335,
+      "usd": 5e-05
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 536,
+      "usd": 8e-05
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 387,
+      "usd": 5.8e-05
+    },
+    {
+      "model": "ollama:qwen3:8b",
+      "tokens": 1068,
+      "usd": 0.00534
+    }
+  ],
+  "tokens": 2326,
+  "elapsed_seconds": 34.295,
+  "error": false,
+  "metrics": {
+    "expected_targets": [],
+    "actual_targets": [
+      "auth-service"
+    ],
+    "matched_targets": 0,
+    "expected_target_count": 0,
+    "target_recall": null,
+    "missing_targets": [],
+    "unexpected_targets": [
+      "auth-service"
+    ],
+    "target_scope_pass": false,
+    "expected_runbooks": [],
+    "actual_runbooks": [
+      "high-latency"
+    ],
+    "runbook_recall": null,
+    "runbook_top1_correct": null,
+    "runbook_none_pass": false,
+    "runbook_scope_pass": false,
+    "route": "incident",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "미등록 서비스임을 알림",
+      "auth-service로 임의 대체 금지"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

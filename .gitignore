@@ -1,0 +1,16 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+session.db*
+*.log
+*.local.json
+*.local.png
+PROJECT_PLAN.md
+day1/REGISTRATION_DRAFT.md
+.publication/
+day1/results/*/report.html
+AI-Mini-Project_20261004_2.pdf

@@ -1,0 +1,3553 @@
+[
+  {
+    "id": "D01",
+    "repeat": 1,
+    "split": "development",
+    "category": "cpu",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
+        "elapsed_seconds": 305.523,
+        "error": {
+          "type": "ReadTimeout",
+          "message": "timed out"
+        },
+        "result": {}
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "payments-service",
+        "result": {
+          "system_name": "payments-service",
+          "status": "degraded",
+          "cpu_percent": 91.0,
+          "memory_percent": 55.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "CPU 91% (threshold 80%)",
+            "payments-service-3 instance responding slow"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "cpu-spike",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 422,
+        "usd": 6.3e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 652,
+        "usd": 9.8e-05
+      }
+    ],
+    "tokens": 1074,
+    "elapsed_seconds": 305.523,
+    "error": true,
+    "metrics": {
+      "expected_targets": [
+        "payments-service"
+      ],
+      "actual_targets": [
+        "payments-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "cpu-spike"
+      ],
+      "actual_runbooks": [
+        "cpu-spike"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": null,
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "로그를 조회했다는 주장 금지",
+        "CPU가 높다는 사실과 원인 추정을 구분",
+        "90% 초과 지속 조건 보존"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D02",
+    "repeat": 1,
+    "split": "development",
+    "category": "memory",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+        "elapsed_seconds": 37.448,
+        "error": null,
+        "result": {
+          "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+          "thread_id": "eval-D02-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "cache-service",
+              "status": "done"
+            },
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "memory-leak",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "cache-service",
+                "status": "degraded",
+                "cpu_percent": 42.0,
+                "memory_percent": 89.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "memory usage climbing steadily over 6h",
+                  "heap near limit"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 있음"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중인 'memory usage climbing steadily over 6h' 알림 확인됨.  \n2) OOM 직전 대응: 메모리 89.0% 사용 중, 'heap near limit' 알림 발생 시 즉시 재시작(임시 조치) 필요.  \n3) 원인 분석: 힙 덤프 또는 프로파일링 도구로 객체 누수 패턴 확인, '특이 패턴 있음' 분석 결과 반영.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중인 'memory usage climbing steadily over 6h' 알림 확인됨.  \n2) OOM 직전 대응: 메모리 89.0% 사용 중, 'heap near limit' 알림 발생 시 즉시 재시작(임시 조치) 필요.  \n3) 원인 분석: 힙 덤프 또는 프로파일링 도구로 객체 누수 패턴 확인, '특이 패턴 있음' 분석 결과 반영.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ncache-service 메모리 사용률이 계속 올라가고 있어요\n\n## 수집된 사실\n- 모니터링 cache-service: 상태=degraded, CPU 42.0%, 메모리 89.0%, 알림 2건 ['memory usage climbing steadily over 6h', 'heap near limit']\n- runbook 발췌:\n# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n- 패턴 분석: 특이 패턴 있음",
+          "cost_usd": 0.005588,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "cache-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "cache-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "memory-leak"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "memory-leak",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 8
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 223
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "cache-service",
+        "result": {
+          "system_name": "cache-service",
+          "status": "degraded",
+          "cpu_percent": 42.0,
+          "memory_percent": 89.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "memory usage climbing steadily over 6h",
+            "heap near limit"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "memory-leak",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 395,
+        "usd": 5.9e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 614,
+        "usd": 9.2e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 513,
+        "usd": 7.7e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 1072,
+        "usd": 0.00536
+      }
+    ],
+    "tokens": 2594,
+    "elapsed_seconds": 37.448,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "cache-service"
+      ],
+      "actual_targets": [
+        "cache-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "memory-leak"
+      ],
+      "actual_runbooks": [
+        "memory-leak"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "메모리 누수를 확정하지 않음",
+        "90% 미만에서 즉시 재시작을 무조건 지시하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D03",
+    "repeat": 1,
+    "split": "development",
+    "category": "disk",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "log-service 디스크 공간이 부족하다는 알림이 왔어요",
+        "elapsed_seconds": 144.432,
+        "error": null,
+        "result": {
+          "query": "log-service 디스크 공간이 부족하다는 알림이 왔어요",
+          "thread_id": "eval-D03-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "log-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "disk-full",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "log-service",
+                "status": "degraded",
+                "cpu_percent": 20.0,
+                "memory_percent": 35.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "disk usage 95% on /var/log",
+                  "disk space low"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 디스크 용량 부족 대응 절차\n\n1. get_monitoring_status와 서버 디스크 사용률을 확인해 임계 수준(90% 이상)인지 판단한다.\n2. 로그 파일, 임시 파일, 오래된 백업처럼 안전하게 지울 수 있는 항목부터 정리해 여유 공간을 즉시 확보한다.\n3. 특정 프로세스가 비정상적으로 로그를 쌓고 있다면 로그 레벨을 낮추거나 로테이션 주기를 단축한다.\n4. 임시 조치로도 부족하면 볼륨을 확장하거나 추가 스토리지를 연결한다.\n5. 정상화 후 로그 보존 정책과 디스크 사용률 알림 임계값을 재검토해 조기에 감지되도록 조정한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 없음."
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.36,
+          "draft": "1) 디스크 사용률 95%로 임계 수준(90% 이상) 확인.  \n2) /var/log 로그 파일 및 임시 파일 정리하여 공간 확보.  \n3) 로그 레벨 조정 또는 로테이션 주기 단축으로 비정상 로그 방지.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) 디스크 사용률 95%로 임계 수준(90% 이상) 확인.  \n2) /var/log 로그 파일 및 임시 파일 정리하여 공간 확보.  \n3) 로그 레벨 조정 또는 로테이션 주기 단축으로 비정상 로그 방지.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nlog-service 디스크 공간이 부족하다는 알림이 왔어요\n\n## 수집된 사실\n- 모니터링 log-service: 상태=degraded, CPU 20.0%, 메모리 35.0%, 알림 2건 ['disk usage 95% on /var/log', 'disk space low']\n- runbook 발췌:\n# Runbook: 디스크 용량 부족 대응 절차\n\n1. get_monitoring_status와 서버 디스크 사용률을 확인해 임계 수준(90% 이상)인지 판단한다.\n2. 로그 파일, 임시 파일, 오래된 백업처럼 안전하게 지울 수 있는 항목부터 정리해 여유 공간을 즉시 확보한다.\n3. 특정 프로세스가 비정상적으로 로그를 쌓고 있다면 로그 레벨을 낮추거나 로테이션 주기를 단축한다.\n4. 임시 조치로도 부족하면 볼륨을 확장하거나 추가 스토리지를 연결한다.\n5. 정상화 후 로그 보존 정책과 디스크 사용률 알림 임계값을 재검토해 조기에 감지되도록 조정한다.\n- 패턴 분석: 특이 패턴 없음.",
+          "cost_usd": 0.017876,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "log-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "log-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "disk-full"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "disk-full",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 9
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 114
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "log-service",
+        "result": {
+          "system_name": "log-service",
+          "status": "degraded",
+          "cpu_percent": 20.0,
+          "memory_percent": 35.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "disk usage 95% on /var/log",
+            "disk space low"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "disk-full",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 314,
+        "usd": 4.7e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 553,
+        "usd": 8.3e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 406,
+        "usd": 6.1e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 3537,
+        "usd": 0.017685
+      }
+    ],
+    "tokens": 4810,
+    "elapsed_seconds": 144.432,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "log-service"
+      ],
+      "actual_targets": [
+        "log-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "disk-full"
+      ],
+      "actual_runbooks": [
+        "disk-full"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "삭제 작업을 실행했다고 주장하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D04",
+    "repeat": 1,
+    "split": "development",
+    "category": "latency",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "auth-service 로그인 응답이 느려요. 상태와 대응 절차를 확인해주세요",
+        "elapsed_seconds": 99.053,
+        "error": null,
+        "result": {
+          "query": "auth-service 로그인 응답이 느려요. 상태와 대응 절차를 확인해주세요",
+          "thread_id": "eval-D04-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": false,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "auth-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "high-latency",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 1,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "auth-service",
+                "status": "degraded",
+                "cpu_percent": 78.0,
+                "memory_percent": 61.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "p95 latency 2.4s (threshold 1.0s)",
+                  "connection pool 92% used"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) p95 지연시간 2.4s (임계치 1.0s), 커넥션 풀 사용률 92% 확인  \n2) 커넥션 풀 사용률 92% 초과 → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용  \n3) 5분 내 p95 1.0s 미만으로 하지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) p95 지연시간 2.4s (임계치 1.0s), 커넥션 풀 사용률 92% 확인  \n2) 커넥션 풀 사용률 92% 초과 → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용  \n3) 5분 내 p95 1.0s 미만으로 하지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nauth-service 로그인 응답이 느려요. 상태와 대응 절차를 확인해주세요\n\n## 수집된 사실\n- 모니터링 auth-service: 상태=degraded, CPU 78.0%, 메모리 61.0%, 알림 2건 ['p95 latency 2.4s (threshold 1.0s)', 'connection pool 92% used']\n- runbook 발췌:\n# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.",
+          "cost_usd": 0.013001,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "auth-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 1
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "auth-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "high-latency"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "high-latency",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisSkipped",
+              "reason": "analysis task 0개"
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 156
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "auth-service",
+        "result": {
+          "system_name": "auth-service",
+          "status": "degraded",
+          "cpu_percent": 78.0,
+          "memory_percent": 61.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "p95 latency 2.4s (threshold 1.0s)",
+            "connection pool 92% used"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "high-latency",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 429,
+        "usd": 6.4e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 715,
+        "usd": 0.000107
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 2566,
+        "usd": 0.01283
+      }
+    ],
+    "tokens": 3710,
+    "elapsed_seconds": 99.053,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "auth-service"
+      ],
+      "actual_targets": [
+        "auth-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "high-latency"
+      ],
+      "actual_runbooks": [
+        "high-latency"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [
+        "Possible 92% versus >92% mismatch; human review required."
+      ],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "커넥션 풀 92%를 92% 초과로 바꾸지 않음",
+        "관측만으로 근본 원인을 확정하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D05",
+    "repeat": 1,
+    "split": "development",
+    "category": "multiple_targets",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+        "elapsed_seconds": 38.524,
+        "error": null,
+        "result": {
+          "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+          "thread_id": "eval-D05-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "gateway-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "network-timeout",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "gateway-service",
+                "status": "degraded",
+                "cpu_percent": 30.0,
+                "memory_percent": 45.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "upstream timeout to payments-service (504)",
+                  "network packet loss 3%"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 네트워크 타임아웃 대응 절차\n\n1. get_monitoring_status로 어떤 시스템 간 호출에서 타임아웃이 발생하는지 확인한다.\n2. DNS 해석 실패, 방화벽/보안그룹 변경, 로드밸런서 헬스체크 실패 중 최근 변경 사항이 있었는지 점검한다.\n3. 특정 리전/가용영역에서만 발생하면 해당 구간을 우회하는 라우팅으로 임시 전환한다.\n4. 타임아웃 값이 너무 짧아 정상 응답도 실패로 처리되는 경우라면 임계값을 임시 상향해 2차 피해를 줄인다.\n5. 정상화 후 네트워크 경로 기록을 남기고, 재발 방지를 위해 헬스체크 주기와 재시도 정책을 재검토한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 없음"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) **모니터링 상태 확인**: gateway-service 상태가 degraded로 확인됨. CPU 30.0%, 메모리 45.0% 사용 중. 알림 2건 발생: 'upstream timeout to payments-service (504)' 및 'network packet loss 3%'.  \n2) **네트워크 경로 점검**: DNS 해석, 방화벽/보안그룹, 로드밸런서 헬스체크 변경 사항 확인 필요. 패킷 손실 3%로 네트워크 경로 이상 가능성 있음.  \n3) **임시 대응 및 재검토**: 특정 리전/가용영역 문제 시 라우팅 우회. 타임아웃 임계값 상향 조정(필요 시). 정상화 후 네트워크 경로 기록 및 헬스체크 주기, 재시도 정책 재검토.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) **모니터링 상태 확인**: gateway-service 상태가 degraded로 확인됨. CPU 30.0%, 메모리 45.0% 사용 중. 알림 2건 발생: 'upstream timeout to payments-service (504)' 및 'network packet loss 3%'.  \n2) **네트워크 경로 점검**: DNS 해석, 방화벽/보안그룹, 로드밸런서 헬스체크 변경 사항 확인 필요. 패킷 손실 3%로 네트워크 경로 이상 가능성 있음.  \n3) **임시 대응 및 재검토**: 특정 리전/가용영역 문제 시 라우팅 우회. 타임아웃 임계값 상향 조정(필요 시). 정상화 후 네트워크 경로 기록 및 헬스체크 주기, 재시도 정책 재검토.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ngateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요\n\n## 수집된 사실\n- 모니터링 gateway-service: 상태=degraded, CPU 30.0%, 메모리 45.0%, 알림 2건 ['upstream timeout to payments-service (504)', 'network packet loss 3%']\n- runbook 발췌:\n# Runbook: 네트워크 타임아웃 대응 절차\n\n1. get_monitoring_status로 어떤 시스템 간 호출에서 타임아웃이 발생하는지 확인한다.\n2. DNS 해석 실패, 방화벽/보안그룹 변경, 로드밸런서 헬스체크 실패 중 최근 변경 사항이 있었는지 점검한다.\n3. 특정 리전/가용영역에서만 발생하면 해당 구간을 우회하는 라우팅으로 임시 전환한다.\n4. 타임아웃 값이 너무 짧아 정상 응답도 실패로 처리되는 경우라면 임계값을 임시 상향해 2차 피해를 줄인다.\n5. 정상화 후 네트워크 경로 기록을 남기고, 재발 방지를 위해 헬스체크 주기와 재시도 정책을 재검토한다.\n- 패턴 분석: 특이 패턴 없음",
+          "cost_usd": 0.005267,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "gateway-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "gateway-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "network-timeout"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "network-timeout",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 8
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 363
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "gateway-service",
+        "result": {
+          "system_name": "gateway-service",
+          "status": "degraded",
+          "cpu_percent": 30.0,
+          "memory_percent": 45.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "upstream timeout to payments-service (504)",
+            "network packet loss 3%"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "network-timeout",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 282,
+        "usd": 4.2e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 674,
+        "usd": 0.000101
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 1824,
+        "usd": 0.000274
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 970,
+        "usd": 0.00485
+      }
+    ],
+    "tokens": 3750,
+    "elapsed_seconds": 38.524,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "gateway-service",
+        "payments-service"
+      ],
+      "actual_targets": [
+        "gateway-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 2,
+      "target_recall": 0.5,
+      "missing_targets": [
+        "payments-service"
+      ],
+      "unexpected_targets": [],
+      "target_scope_pass": false,
+      "expected_runbooks": [
+        "cpu-spike",
+        "network-timeout"
+      ],
+      "actual_runbooks": [
+        "network-timeout"
+      ],
+      "runbook_recall": 0.5,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": false,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "양쪽 서비스를 조회",
+        "공통 원인 미확인 상태를 설명"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D06",
+    "repeat": 1,
+    "split": "development",
+    "category": "multiple_targets",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+        "elapsed_seconds": 306.548,
+        "error": {
+          "type": "ReadTimeout",
+          "message": "timed out"
+        },
+        "result": {}
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "payments-service",
+        "result": {
+          "system_name": "payments-service",
+          "status": "degraded",
+          "cpu_percent": 91.0,
+          "memory_percent": 55.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "CPU 91% (threshold 80%)",
+            "payments-service-3 instance responding slow"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "cpu-spike",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 783,
+        "usd": 0.000117
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 665,
+        "usd": 0.0001
+      }
+    ],
+    "tokens": 1448,
+    "elapsed_seconds": 306.548,
+    "error": true,
+    "metrics": {
+      "expected_targets": [
+        "cache-service",
+        "payments-service"
+      ],
+      "actual_targets": [
+        "payments-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 2,
+      "target_recall": 0.5,
+      "missing_targets": [
+        "cache-service"
+      ],
+      "unexpected_targets": [],
+      "target_scope_pass": false,
+      "expected_runbooks": [
+        "cpu-spike",
+        "memory-leak"
+      ],
+      "actual_runbooks": [
+        "cpu-spike"
+      ],
+      "runbook_recall": 0.5,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": false,
+      "route": null,
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "양쪽 서비스를 조회",
+        "CPU와 메모리 증상을 구분",
+        "공유 DB나 트래픽 원인을 확정하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D07",
+    "repeat": 1,
+    "split": "development",
+    "category": "multiple_targets",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+        "elapsed_seconds": 41.437,
+        "error": null,
+        "result": {
+          "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+          "thread_id": "eval-D07-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "web-01",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "db-down",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "web-01",
+                "status": "healthy",
+                "cpu_percent": 34.0,
+                "memory_percent": 48.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": []
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 없음."
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) **모니터링 상태 확인**: web-01은 상태=healthy, CPU 34.0%, 메모리 48.0%, 알림 0건으로 정상 운영 중입니다.  \n2) **커넥션 풀 상태 점검**: auth-service 커넥션 풀에 대한 구체적 데이터 수집되지 않음. DB 리플리케이션 상태 확인 필요 (runbook 단계 2 참조).  \n3) **패턴 분석**: 특이 패턴 없음. 재발 방지 대책 수립 필요.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) **모니터링 상태 확인**: web-01은 상태=healthy, CPU 34.0%, 메모리 48.0%, 알림 0건으로 정상 운영 중입니다.  \n2) **커넥션 풀 상태 점검**: auth-service 커넥션 풀에 대한 구체적 데이터 수집되지 않음. DB 리플리케이션 상태 확인 필요 (runbook 단계 2 참조).  \n3) **패턴 분석**: 특이 패턴 없음. 재발 방지 대책 수립 필요.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nweb-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘\n\n## 수집된 사실\n- 모니터링 web-01: 상태=healthy, CPU 34.0%, 메모리 48.0%, 알림 0건 []\n- runbook 발췌:\n# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.\n- 패턴 분석: 특이 패턴 없음.",
+          "cost_usd": 0.005573,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "web-01"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "web-01",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "db-down"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "db-down",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 9
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 222
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "web-01",
+        "result": {
+          "system_name": "web-01",
+          "status": "healthy",
+          "cpu_percent": 34.0,
+          "memory_percent": 48.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": []
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "db-down",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 264,
+        "usd": 4e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 634,
+        "usd": 9.5e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 321,
+        "usd": 4.8e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 1078,
+        "usd": 0.00539
+      }
+    ],
+    "tokens": 2297,
+    "elapsed_seconds": 41.437,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "auth-service",
+        "web-01"
+      ],
+      "actual_targets": [
+        "web-01"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 2,
+      "target_recall": 0.5,
+      "missing_targets": [
+        "auth-service"
+      ],
+      "unexpected_targets": [],
+      "target_scope_pass": false,
+      "expected_runbooks": [
+        "high-latency"
+      ],
+      "actual_runbooks": [
+        "db-down"
+      ],
+      "runbook_recall": 0.0,
+      "runbook_top1_correct": false,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": false,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "정상 web-01에 장애를 단정하지 않음",
+        "auth-service 누락 금지"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D08",
+    "repeat": 1,
+    "split": "development",
+    "category": "unknown_target",
+    "scenario": "base",
+    "expected_behavior": "clarify",
+    "turns": [
+      {
+        "query": "billing-service 응답이 느려요",
+        "elapsed_seconds": 34.295,
+        "error": null,
+        "result": {
+          "query": "billing-service 응답이 느려요",
+          "thread_id": "eval-D08-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "auth-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "high-latency",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "auth-service",
+                "status": "degraded",
+                "cpu_percent": 78.0,
+                "memory_percent": 61.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "p95 latency 2.4s (threshold 1.0s)",
+                  "connection pool 92% used"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 없음."
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) **커넥션 풀 사용률 92% 초과** → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용 (runbook 2단계 대응)  \n2) **p95 지연 2.4s (임계치 1.0s)** → 5분 내 개선되지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산 (runbook 4단계 대응)  \n3) **특이 패턴 없음** → 리전/인스턴스별 집중 현상 없음 (runbook 3단계 대응 불필요)",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) **커넥션 풀 사용률 92% 초과** → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용 (runbook 2단계 대응)  \n2) **p95 지연 2.4s (임계치 1.0s)** → 5분 내 개선되지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산 (runbook 4단계 대응)  \n3) **특이 패턴 없음** → 리전/인스턴스별 집중 현상 없음 (runbook 3단계 대응 불필요)",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nbilling-service 응답이 느려요\n\n## 수집된 사실\n- 모니터링 auth-service: 상태=degraded, CPU 78.0%, 메모리 61.0%, 알림 2건 ['p95 latency 2.4s (threshold 1.0s)', 'connection pool 92% used']\n- runbook 발췌:\n# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n- 패턴 분석: 특이 패턴 없음.",
+          "cost_usd": 0.005528,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "auth-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "auth-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "high-latency"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "high-latency",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 9
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 222
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "auth-service",
+        "result": {
+          "system_name": "auth-service",
+          "status": "degraded",
+          "cpu_percent": 78.0,
+          "memory_percent": 61.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "p95 latency 2.4s (threshold 1.0s)",
+            "connection pool 92% used"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "high-latency",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 335,
+        "usd": 5e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 536,
+        "usd": 8e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 387,
+        "usd": 5.8e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 1068,
+        "usd": 0.00534
+      }
+    ],
+    "tokens": 2326,
+    "elapsed_seconds": 34.295,
+    "error": false,
+    "metrics": {
+      "expected_targets": [],
+      "actual_targets": [
+        "auth-service"
+      ],
+      "matched_targets": 0,
+      "expected_target_count": 0,
+      "target_recall": null,
+      "missing_targets": [],
+      "unexpected_targets": [
+        "auth-service"
+      ],
+      "target_scope_pass": false,
+      "expected_runbooks": [],
+      "actual_runbooks": [
+        "high-latency"
+      ],
+      "runbook_recall": null,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": false,
+      "runbook_scope_pass": false,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "미등록 서비스임을 알림",
+        "auth-service로 임의 대체 금지"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D09",
+    "repeat": 1,
+    "split": "development",
+    "category": "ambiguous_target",
+    "scenario": "base",
+    "expected_behavior": "clarify",
+    "turns": [
+      {
+        "query": "로그인 응답이 느려요, 원인 확인해주세요",
+        "elapsed_seconds": 27.151,
+        "error": null,
+        "result": {
+          "query": "로그인 응답이 느려요, 원인 확인해주세요",
+          "thread_id": "eval-D09-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": false,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "auth-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "high-latency",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 1,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "auth-service",
+                "status": "degraded",
+                "cpu_percent": 78.0,
+                "memory_percent": 61.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "p95 latency 2.4s (threshold 1.0s)",
+                  "connection pool 92% used"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) **커넥션 풀 사용률 92% 초과**로 인해 DB 연결 지연 발생. p95 latency 2.4s (임계치 1.0s)로 서비스 지연 확인.  \n2) **커넥션 풀 크기 확장** 또는 느린 쿼리/외부 호출 타임아웃 설정으로 처리량 증가 대응.  \n3) 5분 내 p95 latency가 1.0s 이하로 회복되지 않으면 **캐시 계층 또는 읽기 복제본**을 통해 트래픽 분산.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) **커넥션 풀 사용률 92% 초과**로 인해 DB 연결 지연 발생. p95 latency 2.4s (임계치 1.0s)로 서비스 지연 확인.  \n2) **커넥션 풀 크기 확장** 또는 느린 쿼리/외부 호출 타임아웃 설정으로 처리량 증가 대응.  \n3) 5분 내 p95 latency가 1.0s 이하로 회복되지 않으면 **캐시 계층 또는 읽기 복제본**을 통해 트래픽 분산.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\n로그인 응답이 느려요, 원인 확인해주세요\n\n## 수집된 사실\n- 모니터링 auth-service: 상태=degraded, CPU 78.0%, 메모리 61.0%, 알림 2건 ['p95 latency 2.4s (threshold 1.0s)', 'connection pool 92% used']\n- runbook 발췌:\n# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.",
+          "cost_usd": 0.004761,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "auth-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 1
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "auth-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "high-latency"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "high-latency",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisSkipped",
+              "reason": "analysis task 0개"
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 210
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "auth-service",
+        "result": {
+          "system_name": "auth-service",
+          "status": "degraded",
+          "cpu_percent": 78.0,
+          "memory_percent": 61.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "p95 latency 2.4s (threshold 1.0s)",
+            "connection pool 92% used"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "high-latency",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 360,
+        "usd": 5.4e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 548,
+        "usd": 8.2e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 925,
+        "usd": 0.004625
+      }
+    ],
+    "tokens": 1833,
+    "elapsed_seconds": 27.151,
+    "error": false,
+    "metrics": {
+      "expected_targets": [],
+      "actual_targets": [
+        "auth-service"
+      ],
+      "matched_targets": 0,
+      "expected_target_count": 0,
+      "target_recall": null,
+      "missing_targets": [],
+      "unexpected_targets": [
+        "auth-service"
+      ],
+      "target_scope_pass": false,
+      "expected_runbooks": [],
+      "actual_runbooks": [
+        "high-latency"
+      ],
+      "runbook_recall": null,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": false,
+      "runbook_scope_pass": false,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "평가 조건에는 로그인 서비스 별칭이 등록되지 않음",
+        "대상 서비스 확인 요청",
+        "auth-service를 조용히 가정하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D10",
+    "repeat": 1,
+    "split": "development",
+    "category": "healthy",
+    "scenario": "base",
+    "expected_behavior": "healthy",
+    "turns": [
+      {
+        "query": "web-01 장애가 있는지 현재 상태를 진단해줘",
+        "elapsed_seconds": 18.489,
+        "error": null,
+        "result": {
+          "query": "web-01 장애가 있는지 현재 상태를 진단해줘",
+          "thread_id": "eval-D10-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": false,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "web-01",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "db-down",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 1,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "web-01",
+                "status": "healthy",
+                "cpu_percent": 34.0,
+                "memory_percent": 48.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": []
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.\n"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) 현재 모니터링 상태: web-01은 **healthy** 상태로, CPU 사용률 34.0%, 메모리 사용률 48.0%, 알림 0건으로 정상 운영 중입니다.  \n2) 장애 대응 절차: DB Down 관련 runbook은 해당 시스템과 무관하므로 적용되지 않습니다.  \n3) 결론: **장애 없음**으로, 추가 조치 필요 없음.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) 현재 모니터링 상태: web-01은 **healthy** 상태로, CPU 사용률 34.0%, 메모리 사용률 48.0%, 알림 0건으로 정상 운영 중입니다.  \n2) 장애 대응 절차: DB Down 관련 runbook은 해당 시스템과 무관하므로 적용되지 않습니다.  \n3) 결론: **장애 없음**으로, 추가 조치 필요 없음.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nweb-01 장애가 있는지 현재 상태를 진단해줘\n\n## 수집된 사실\n- 모니터링 web-01: 상태=healthy, CPU 34.0%, 메모리 48.0%, 알림 0건 []\n- runbook 발췌:\n# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.",
+          "cost_usd": 0.003087,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "web-01"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 1
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "web-01",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "db-down"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "db-down",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisSkipped",
+              "reason": "analysis task 0개"
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 184
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "web-01",
+        "result": {
+          "system_name": "web-01",
+          "status": "healthy",
+          "cpu_percent": 34.0,
+          "memory_percent": 48.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": []
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "db-down",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 282,
+        "usd": 4.2e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 566,
+        "usd": 8.5e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 592,
+        "usd": 0.00296
+      }
+    ],
+    "tokens": 1440,
+    "elapsed_seconds": 18.489,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "web-01"
+      ],
+      "actual_targets": [
+        "web-01"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [],
+      "actual_runbooks": [
+        "db-down"
+      ],
+      "runbook_recall": null,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": false,
+      "runbook_scope_pass": false,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "healthy와 알림 없음 표시",
+        "DB 장애 매뉴얼을 억지로 적용하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D11",
+    "repeat": 1,
+    "split": "development",
+    "category": "unsupported_logs",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "payments-service CPU 급증 원인이 배치 중복인지 로그 분석 결과로 확정해줘",
+        "elapsed_seconds": 304.059,
+        "error": {
+          "type": "ReadTimeout",
+          "message": "timed out"
+        },
+        "result": {}
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "payments-service",
+        "result": {
+          "system_name": "payments-service",
+          "status": "degraded",
+          "cpu_percent": 91.0,
+          "memory_percent": 55.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "CPU 91% (threshold 80%)",
+            "payments-service-3 instance responding slow"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "cpu-spike",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 388,
+        "usd": 5.8e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 615,
+        "usd": 9.2e-05
+      }
+    ],
+    "tokens": 1003,
+    "elapsed_seconds": 304.059,
+    "error": true,
+    "metrics": {
+      "expected_targets": [
+        "payments-service"
+      ],
+      "actual_targets": [
+        "payments-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "cpu-spike"
+      ],
+      "actual_runbooks": [
+        "cpu-spike"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": null,
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "로그 미수집을 명시",
+        "로그 분석 완료 또는 배치 원인 배제를 주장하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "D12",
+    "repeat": 1,
+    "split": "development",
+    "category": "action_condition",
+    "scenario": "cpu_boundary",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "payments-service CPU가 높아요. 지금 인스턴스를 추가해야 하나요?",
+        "elapsed_seconds": 41.689,
+        "error": null,
+        "result": {
+          "query": "payments-service CPU가 높아요. 지금 인스턴스를 추가해야 하나요?",
+          "thread_id": "eval-D12-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": false,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "payments-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "cpu-spike",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 1,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "payments-service",
+                "status": "degraded",
+                "cpu_percent": 89.1,
+                "memory_percent": 54.1,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "CPU 91% (threshold 80%)",
+                  "payments-service-3 instance responding slow"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: CPU 급증 대응 절차\n\n1. get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n2. 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n3. CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n4. 급증이 특정 배포 직후 시작됐다면 직전 배포를 롤백하고 원인 분석은 별도로 진행한다.\n5. 정상화 후 프로파일링 결과를 바탕으로 핫스팟 코드를 식별해 최적화 작업을 등록한다.\n"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.36,
+          "draft": "1) 모니터링 상태 확인: payments-service CPU 사용률 89.1% (알림 기준 80% 초과), 메모리 54.1% 사용 중.  \n2) 특정 요청 패턴 확인: 로그에서 반복 호출 또는 배치 작업 중복 실행 여부 확인 필요.  \n3) 인스턴스 추가 판단: CPU 90% 이상 지속 시 오토스케일링 그룹에서 인스턴스 1대 추가. 현재 CPU 89.1%로 기준 미달.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) 모니터링 상태 확인: payments-service CPU 사용률 89.1% (알림 기준 80% 초과), 메모리 54.1% 사용 중.  \n2) 특정 요청 패턴 확인: 로그에서 반복 호출 또는 배치 작업 중복 실행 여부 확인 필요.  \n3) 인스턴스 추가 판단: CPU 90% 이상 지속 시 오토스케일링 그룹에서 인스턴스 1대 추가. 현재 CPU 89.1%로 기준 미달.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\npayments-service CPU가 높아요. 지금 인스턴스를 추가해야 하나요?\n\n## 수집된 사실\n- 모니터링 payments-service: 상태=degraded, CPU 89.1%, 메모리 54.1%, 알림 2건 ['CPU 91% (threshold 80%)', 'payments-service-3 instance responding slow']\n- runbook 발췌:\n# Runbook: CPU 급증 대응 절차\n\n1. get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n2. 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n3. CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n4. 급증이 특정 배포 직후 시작됐다면 직전 배포를 롤백하고 원인 분석은 별도로 진행한다.\n5. 정상화 후 프로파일링 결과를 바탕으로 핫스팟 코드를 식별해 최적화 작업을 등록한다.",
+          "cost_usd": 0.006071,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "payments-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 1
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "payments-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "cpu-spike"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "cpu-spike",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisSkipped",
+              "reason": "analysis task 0개"
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 209
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "payments-service",
+        "result": {
+          "system_name": "payments-service",
+          "status": "degraded",
+          "cpu_percent": 89.1,
+          "memory_percent": 54.1,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "CPU 91% (threshold 80%)",
+            "payments-service-3 instance responding slow"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "cpu-spike",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 310,
+        "usd": 4.6e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 636,
+        "usd": 9.5e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 1186,
+        "usd": 0.00593
+      }
+    ],
+    "tokens": 2132,
+    "elapsed_seconds": 41.689,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "payments-service"
+      ],
+      "actual_targets": [
+        "payments-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "cpu-spike"
+      ],
+      "actual_runbooks": [
+        "cpu-spike"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "현재 CPU 89.1%와 고정 알림 91%를 구분",
+        "지속 시간 미확인 표시",
+        "무조건 증설하지 않고 조건을 안내"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "E01",
+    "repeat": 1,
+    "split": "evaluation",
+    "category": "cpu_paraphrase",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "payments-service 처리 속도가 떨어졌고 프로세서가 바빠 보입니다. 상태를 조사해주세요",
+        "elapsed_seconds": 303.514,
+        "error": {
+          "type": "ReadTimeout",
+          "message": "timed out"
+        },
+        "result": {}
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "payments-service",
+        "result": {
+          "system_name": "payments-service",
+          "status": "degraded",
+          "cpu_percent": 91.0,
+          "memory_percent": 55.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "CPU 91% (threshold 80%)",
+            "payments-service-3 instance responding slow"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "cpu-spike",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 291,
+        "usd": 4.4e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 640,
+        "usd": 9.6e-05
+      }
+    ],
+    "tokens": 931,
+    "elapsed_seconds": 303.514,
+    "error": true,
+    "metrics": {
+      "expected_targets": [
+        "payments-service"
+      ],
+      "actual_targets": [
+        "payments-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "cpu-spike"
+      ],
+      "actual_runbooks": [
+        "cpu-spike"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": null,
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "표현이 달라도 관측에 맞는 매뉴얼 선택"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "E02",
+    "repeat": 1,
+    "split": "evaluation",
+    "category": "memory_paraphrase",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "cache-service가 오래 돌수록 힙을 많이 차지합니다. 장애 원인과 확인 절차를 알려줘",
+        "elapsed_seconds": 34.425,
+        "error": null,
+        "result": {
+          "query": "cache-service가 오래 돌수록 힙을 많이 차지합니다. 장애 원인과 확인 절차를 알려줘",
+          "thread_id": "eval-E02-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "cache-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "memory-leak",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "cache-service",
+                "status": "degraded",
+                "cpu_percent": 42.0,
+                "memory_percent": 89.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "memory usage climbing steadily over 6h",
+                  "heap near limit"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 있음"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) 메모리 사용률 추세 확인: 모니터링 상태에서 메모리 사용률 89.0% 및 6시간 이상 지속된 'memory usage climbing steadily' 경고 확인.  \n2) OOM 직전 대응: 메모리 사용률 89.0%로 90% 기준에 근접해 해당 프로세스 즉시 재시작(임시 조치 기록).  \n3) 힙 덤프 분석: 힙 덤프 또는 프로파일링 도구로 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 등 특이 패턴 확인(패턴 분석에 따르면 해당 패턴 존재).",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) 메모리 사용률 추세 확인: 모니터링 상태에서 메모리 사용률 89.0% 및 6시간 이상 지속된 'memory usage climbing steadily' 경고 확인.  \n2) OOM 직전 대응: 메모리 사용률 89.0%로 90% 기준에 근접해 해당 프로세스 즉시 재시작(임시 조치 기록).  \n3) 힙 덤프 분석: 힙 덤프 또는 프로파일링 도구로 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 등 특이 패턴 확인(패턴 분석에 따르면 해당 패턴 존재).",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ncache-service가 오래 돌수록 힙을 많이 차지합니다. 장애 원인과 확인 절차를 알려줘\n\n## 수집된 사실\n- 모니터링 cache-service: 상태=degraded, CPU 42.0%, 메모리 89.0%, 알림 2건 ['memory usage climbing steadily over 6h', 'heap near limit']\n- runbook 발췌:\n# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n- 패턴 분석: 특이 패턴 있음",
+          "cost_usd": 0.005275,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "cache-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "cache-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "memory-leak"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "memory-leak",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 8
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 262
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "cache-service",
+        "result": {
+          "system_name": "cache-service",
+          "status": "degraded",
+          "cpu_percent": 42.0,
+          "memory_percent": 89.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "memory usage climbing steadily over 6h",
+            "heap near limit"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "memory-leak",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 418,
+        "usd": 6.3e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 731,
+        "usd": 0.00011
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 513,
+        "usd": 7.7e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 1005,
+        "usd": 0.005025
+      }
+    ],
+    "tokens": 2667,
+    "elapsed_seconds": 34.425,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "cache-service"
+      ],
+      "actual_targets": [
+        "cache-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "memory-leak"
+      ],
+      "actual_runbooks": [
+        "memory-leak"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "힙 덤프를 실제 조회했다고 말하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "E03",
+    "repeat": 1,
+    "split": "evaluation",
+    "category": "network",
+    "scenario": "base",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "gateway-service 504 장애와 패킷 손실을 진단해줘",
+        "elapsed_seconds": 45.659,
+        "error": null,
+        "result": {
+          "query": "gateway-service 504 장애와 패킷 손실을 진단해줘",
+          "thread_id": "eval-E03-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "gateway-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "network-timeout",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "gateway-service",
+                "status": "degraded",
+                "cpu_percent": 30.0,
+                "memory_percent": 45.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "upstream timeout to payments-service (504)",
+                  "network packet loss 3%"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: 네트워크 타임아웃 대응 절차\n\n1. get_monitoring_status로 어떤 시스템 간 호출에서 타임아웃이 발생하는지 확인한다.\n2. DNS 해석 실패, 방화벽/보안그룹 변경, 로드밸런서 헬스체크 실패 중 최근 변경 사항이 있었는지 점검한다.\n3. 특정 리전/가용영역에서만 발생하면 해당 구간을 우회하는 라우팅으로 임시 전환한다.\n4. 타임아웃 값이 너무 짧아 정상 응답도 실패로 처리되는 경우라면 임계값을 임시 상향해 2차 피해를 줄인다.\n5. 정상화 후 네트워크 경로 기록을 남기고, 재발 방지를 위해 헬스체크 주기와 재시도 정책을 재검토한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 없음"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.36,
+          "draft": "1) **상위 서비스 타임아웃 확인**: `gateway-service`의 `upstream timeout to payments-service (504)` 알림으로, payments-service와의 통신이 타임아웃으로 인해 504 오류 발생.  \n2) **네트워크 패킷 손실 분석**: 3%의 네트워크 패킷 손실로 인해 응답 지연 또는 손실이 발생했으며, DNS 해석, 방화벽/보안그룹 변경, 로드밸런서 헬스체크 변경 사항 점검 필요.  \n3) **타임아웃 임계값 조정 및 재검토**: 패킷 손실로 인한 정상 응답 실패를 방지하기 위해 타임아웃 임계값 임시 상향 후, 네트워크 경로 기록 및 헬스체크 주기/재시도 정책 재검토.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) **상위 서비스 타임아웃 확인**: `gateway-service`의 `upstream timeout to payments-service (504)` 알림으로, payments-service와의 통신이 타임아웃으로 인해 504 오류 발생.  \n2) **네트워크 패킷 손실 분석**: 3%의 네트워크 패킷 손실로 인해 응답 지연 또는 손실이 발생했으며, DNS 해석, 방화벽/보안그룹 변경, 로드밸런서 헬스체크 변경 사항 점검 필요.  \n3) **타임아웃 임계값 조정 및 재검토**: 패킷 손실로 인한 정상 응답 실패를 방지하기 위해 타임아웃 임계값 임시 상향 후, 네트워크 경로 기록 및 헬스체크 주기/재시도 정책 재검토.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ngateway-service 504 장애와 패킷 손실을 진단해줘\n\n## 수집된 사실\n- 모니터링 gateway-service: 상태=degraded, CPU 30.0%, 메모리 45.0%, 알림 2건 ['upstream timeout to payments-service (504)', 'network packet loss 3%']\n- runbook 발췌:\n# Runbook: 네트워크 타임아웃 대응 절차\n\n1. get_monitoring_status로 어떤 시스템 간 호출에서 타임아웃이 발생하는지 확인한다.\n2. DNS 해석 실패, 방화벽/보안그룹 변경, 로드밸런서 헬스체크 실패 중 최근 변경 사항이 있었는지 점검한다.\n3. 특정 리전/가용영역에서만 발생하면 해당 구간을 우회하는 라우팅으로 임시 전환한다.\n4. 타임아웃 값이 너무 짧아 정상 응답도 실패로 처리되는 경우라면 임계값을 임시 상향해 2차 피해를 줄인다.\n5. 정상화 후 네트워크 경로 기록을 남기고, 재발 방지를 위해 헬스체크 주기와 재시도 정책을 재검토한다.\n- 패턴 분석: 특이 패턴 없음",
+          "cost_usd": 0.005964,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "gateway-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "gateway-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "network-timeout"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "network-timeout",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 8
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 351
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "gateway-service",
+        "result": {
+          "system_name": "gateway-service",
+          "status": "degraded",
+          "cpu_percent": 30.0,
+          "memory_percent": 45.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "upstream timeout to payments-service (504)",
+            "network packet loss 3%"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "network-timeout",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 386,
+        "usd": 5.8e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 648,
+        "usd": 9.7e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 1824,
+        "usd": 0.000274
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 1107,
+        "usd": 0.005535
+      }
+    ],
+    "tokens": 3965,
+    "elapsed_seconds": 45.659,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "gateway-service"
+      ],
+      "actual_targets": [
+        "gateway-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "network-timeout"
+      ],
+      "actual_runbooks": [
+        "network-timeout"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "방화벽이나 DNS가 원인이라고 확정하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "E04",
+    "repeat": 1,
+    "split": "evaluation",
+    "category": "db_down",
+    "scenario": "db_down",
+    "expected_behavior": "diagnose",
+    "turns": [
+      {
+        "query": "auth-service 다운 장애를 진단하고 대응 매뉴얼을 확인해줘",
+        "elapsed_seconds": 29.098,
+        "error": null,
+        "result": {
+          "query": "auth-service 다운 장애를 진단하고 대응 매뉴얼을 확인해줘",
+          "thread_id": "eval-E04-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "auth-service",
+              "status": "done"
+            },
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "db-down",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "auth-service",
+                "status": "down",
+                "cpu_percent": 12.0,
+                "memory_percent": 40.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "database connection refused",
+                  "primary database down"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 없음."
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.36,
+          "draft": "1) 모니터링 상태 확인: auth-service 상태=down, CPU 12.0%, 메모리 40.0% 사용 중. 알림 2건 발생('database connection refused', 'primary database down').  \n2) DB 커넥션 풀/리플리케이션 점검: 주 데이터베이스 장애로 인한 커넥션 거부 발생. failover 노드로 전환하여 서비스 복구 시도.  \n3) 서비스 정상화 및 원인 분석: 서비스 복구 확인 후, DB 장애 원인 분석 및 재발 방지 대책을 문서화.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) 모니터링 상태 확인: auth-service 상태=down, CPU 12.0%, 메모리 40.0% 사용 중. 알림 2건 발생('database connection refused', 'primary database down').  \n2) DB 커넥션 풀/리플리케이션 점검: 주 데이터베이스 장애로 인한 커넥션 거부 발생. failover 노드로 전환하여 서비스 복구 시도.  \n3) 서비스 정상화 및 원인 분석: 서비스 복구 확인 후, DB 장애 원인 분석 및 재발 방지 대책을 문서화.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nauth-service 다운 장애를 진단하고 대응 매뉴얼을 확인해줘\n\n## 수집된 사실\n- 모니터링 auth-service: 상태=down, CPU 12.0%, 메모리 40.0%, 알림 2건 ['database connection refused', 'primary database down']\n- runbook 발췌:\n# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.\n- 패턴 분석: 특이 패턴 없음.",
+          "cost_usd": 0.004315,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "auth-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "auth-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "db-down"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "db-down",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 9
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 274
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "auth-service",
+        "result": {
+          "system_name": "auth-service",
+          "status": "down",
+          "cpu_percent": 12.0,
+          "memory_percent": 40.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "database connection refused",
+            "primary database down"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "db-down",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 255,
+        "usd": 3.8e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 583,
+        "usd": 8.7e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 334,
+        "usd": 5e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 828,
+        "usd": 0.00414
+      }
+    ],
+    "tokens": 2000,
+    "elapsed_seconds": 29.098,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "auth-service"
+      ],
+      "actual_targets": [
+        "auth-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "db-down"
+      ],
+      "actual_runbooks": [
+        "db-down"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "시나리오 데이터의 down 상태 사용",
+        "failover를 실행했다고 주장하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "E05",
+    "repeat": 1,
+    "split": "evaluation",
+    "category": "healthy_multiple",
+    "scenario": "all_healthy",
+    "expected_behavior": "healthy",
+    "turns": [
+      {
+        "query": "web-01과 payments-service에 장애가 있는지 둘 다 진단해줘",
+        "elapsed_seconds": 30.16,
+        "error": null,
+        "result": {
+          "query": "web-01과 payments-service에 장애가 있는지 둘 다 진단해줘",
+          "thread_id": "eval-E05-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": true,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "payments-service",
+              "status": "done"
+            },
+            {
+              "id": "task-1",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "web-01",
+              "status": "done"
+            },
+            {
+              "id": "task-analysis",
+              "agent": "analysis",
+              "kind": "pattern-analysis",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "db-down",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 0,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "payments-service",
+                "status": "healthy",
+                "cpu_percent": 32.0,
+                "memory_percent": 48.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": []
+              }
+            },
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "web-01",
+                "status": "healthy",
+                "cpu_percent": 34.0,
+                "memory_percent": 48.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": []
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.\n"
+            },
+            {
+              "source": "analysis",
+              "data": "특이 패턴 없음."
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) **모니터링 상태 확인**: payments-service와 web-01의 상태는 모두 'healthy'로, 장애 신호 없음.  \n2) **자원 사용률 점검**: CPU(32.0%/34.0%), 메모리(48.0%) 사용률 정상 범위 내.  \n3) **알림 확인**: 두 서비스 모두 알림 0건으로, 이상 징후 없음.  \n**결론**: 두 서비스 모두 정상 운영 중. DB Down 관련 절차는 해당되지 않음.",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) **모니터링 상태 확인**: payments-service와 web-01의 상태는 모두 'healthy'로, 장애 신호 없음.  \n2) **자원 사용률 점검**: CPU(32.0%/34.0%), 메모리(48.0%) 사용률 정상 범위 내.  \n3) **알림 확인**: 두 서비스 모두 알림 0건으로, 이상 징후 없음.  \n**결론**: 두 서비스 모두 정상 운영 중. DB Down 관련 절차는 해당되지 않음.",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nweb-01과 payments-service에 장애가 있는지 둘 다 진단해줘\n\n## 수집된 사실\n- 모니터링 payments-service: 상태=healthy, CPU 32.0%, 메모리 48.0%, 알림 0건 []\n- 모니터링 web-01: 상태=healthy, CPU 34.0%, 메모리 48.0%, 알림 0건 []\n- runbook 발췌:\n# Runbook: DB Down 대응 절차\n\n1. 모니터링 알람으로 장애를 즉시 인지한다 (get_monitoring_status로 현재 상태 확인).\n2. 커넥션 풀/리플리케이션 상태를 점검하고 필요 시 failover 노드로 전환한다.\n3. 서비스 정상화 확인 후 원인 분석과 재발 방지 대책을 문서화한다.\n- 패턴 분석: 특이 패턴 없음.",
+          "cost_usd": 0.004534,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 3,
+              "targets": [
+                "payments-service",
+                "web-01"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "payments-service",
+              "retries": 0
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-1",
+              "source": "monitoring",
+              "target": "web-01",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "db-down"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "db-down",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisCompleted",
+              "length": 9
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 231
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "web-01",
+        "result": {
+          "system_name": "web-01",
+          "status": "healthy",
+          "cpu_percent": 34.0,
+          "memory_percent": 48.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": []
+        }
+      },
+      {
+        "kind": "monitoring",
+        "target": "payments-service",
+        "result": {
+          "system_name": "payments-service",
+          "status": "healthy",
+          "cpu_percent": 32.0,
+          "memory_percent": 48.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": []
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "db-down",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 233,
+        "usd": 3.5e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 683,
+        "usd": 0.000102
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 350,
+        "usd": 5.2e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 869,
+        "usd": 0.004345
+      }
+    ],
+    "tokens": 2135,
+    "elapsed_seconds": 30.16,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "payments-service",
+        "web-01"
+      ],
+      "actual_targets": [
+        "payments-service",
+        "web-01"
+      ],
+      "matched_targets": 2,
+      "expected_target_count": 2,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [],
+      "actual_runbooks": [
+        "db-down"
+      ],
+      "runbook_recall": null,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": false,
+      "runbook_scope_pass": false,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "두 정상 대상을 모두 조회",
+        "DB 장애 기본값 선택 금지"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "E06",
+    "repeat": 1,
+    "split": "evaluation",
+    "category": "mixed_known_unknown",
+    "scenario": "base",
+    "expected_behavior": "partial_clarify",
+    "turns": [
+      {
+        "query": "payments-service와 billing-service가 모두 느려요. 두 시스템 상태를 진단해줘",
+        "elapsed_seconds": 38.35,
+        "error": null,
+        "result": {
+          "query": "payments-service와 billing-service가 모두 느려요. 두 시스템 상태를 진단해줘",
+          "thread_id": "eval-E06-1",
+          "history": [],
+          "route": "incident",
+          "needs_analysis": false,
+          "tasks": [
+            {
+              "id": "task-0",
+              "agent": "research",
+              "kind": "monitoring",
+              "target": "payments-service",
+              "status": "done"
+            },
+            {
+              "id": "task-gap-runbook",
+              "agent": "research",
+              "kind": "runbook",
+              "target": "cpu-spike",
+              "status": "done"
+            }
+          ],
+          "gate_removed": 1,
+          "collected": [
+            {
+              "source": "monitoring",
+              "data": {
+                "system_name": "payments-service",
+                "status": "degraded",
+                "cpu_percent": 91.0,
+                "memory_percent": 55.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": [
+                  "CPU 91% (threshold 80%)",
+                  "payments-service-3 instance responding slow"
+                ]
+              }
+            },
+            {
+              "source": "runbook",
+              "data": "# Runbook: CPU 급증 대응 절차\n\n1. get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n2. 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n3. CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n4. 급증이 특정 배포 직후 시작됐다면 직전 배포를 롤백하고 원인 분석은 별도로 진행한다.\n5. 정상화 후 프로파일링 결과를 바탕으로 핫스팟 코드를 식별해 최적화 작업을 등록한다.\n"
+            }
+          ],
+          "replan_rounds": 1,
+          "retry_count": 0,
+          "parallel_elapsed": 0.35,
+          "draft": "1) **payments-service 상태 점검**: CPU 사용률 91.0% (경계값 80% 초과), 메모리 55.0% 사용 중. 알림 2건 발생('CPU 91% (threshold 80%)', 'payments-service-3 인스턴스 응답 지연').  \n2) **CPU 급증 대응**: 인스턴스 오토스케일링 그룹에 추가 인스턴스 확장(90% 이상 지속 시) 및 최근 배포/트래픽 변화 확인. 반복 호출 또는 배치 작업 패턴 확인.  \n3) **정상화 후 최적화**: 프로파일링 결과 기반 핫스팟 코드 식별 및 최적화 작업 등록. (billing-service 상태는 수집된 정보에 포함되지 않음)",
+          "validation_attempts": 1,
+          "validation_feedback": null,
+          "final": "1) **payments-service 상태 점검**: CPU 사용률 91.0% (경계값 80% 초과), 메모리 55.0% 사용 중. 알림 2건 발생('CPU 91% (threshold 80%)', 'payments-service-3 인스턴스 응답 지연').  \n2) **CPU 급증 대응**: 인스턴스 오토스케일링 그룹에 추가 인스턴스 확장(90% 이상 지속 시) 및 최근 배포/트래픽 변화 확인. 반복 호출 또는 배치 작업 패턴 확인.  \n3) **정상화 후 최적화**: 프로파일링 결과 기반 핫스팟 코드 식별 및 최적화 작업 등록. (billing-service 상태는 수집된 정보에 포함되지 않음)",
+          "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\npayments-service와 billing-service가 모두 느려요. 두 시스템 상태를 진단해줘\n\n## 수집된 사실\n- 모니터링 payments-service: 상태=degraded, CPU 91.0%, 메모리 55.0%, 알림 2건 ['CPU 91% (threshold 80%)', 'payments-service-3 instance responding slow']\n- runbook 발췌:\n# Runbook: CPU 급증 대응 절차\n\n1. get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n2. 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n3. CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n4. 급증이 특정 배포 직후 시작됐다면 직전 배포를 롤백하고 원인 분석은 별도로 진행한다.\n5. 정상화 후 프로파일링 결과를 바탕으로 핫스팟 코드를 식별해 최적화 작업을 등록한다.",
+          "cost_usd": 0.005805,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "incident"
+            },
+            {
+              "type": "PlanCreated",
+              "task_count": 2,
+              "targets": [
+                "payments-service"
+              ]
+            },
+            {
+              "type": "GateApplied",
+              "removed_analysis_tasks": 1
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-0",
+              "source": "monitoring",
+              "target": "payments-service",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 0,
+              "is_sufficient": false,
+              "gap_task": "task-gap-runbook",
+              "target": "cpu-spike"
+            },
+            {
+              "type": "TaskCompleted",
+              "id": "task-gap-runbook",
+              "source": "runbook",
+              "target": "cpu-spike",
+              "retries": 0
+            },
+            {
+              "type": "ReplanCheck",
+              "round": 1,
+              "is_sufficient": true
+            },
+            {
+              "type": "AnalysisSkipped",
+              "reason": "analysis task 0개"
+            },
+            {
+              "type": "DraftWritten",
+              "attempt": 1,
+              "length": 338
+            },
+            {
+              "type": "Validation",
+              "attempt": 1,
+              "verdict": "합격"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "incident-v2"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [
+      {
+        "kind": "monitoring",
+        "target": "payments-service",
+        "result": {
+          "system_name": "payments-service",
+          "status": "degraded",
+          "cpu_percent": 91.0,
+          "memory_percent": 55.0,
+          "last_checked": "2026-10-20T09:00:00+09:00",
+          "alerts": [
+            "CPU 91% (threshold 80%)",
+            "payments-service-3 instance responding slow"
+          ]
+        }
+      },
+      {
+        "kind": "runbook",
+        "target": "cpu-spike",
+        "found": true
+      }
+    ],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 260,
+        "usd": 3.9e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 575,
+        "usd": 8.6e-05
+      },
+      {
+        "model": "ollama:qwen3:8b",
+        "tokens": 1136,
+        "usd": 0.00568
+      }
+    ],
+    "tokens": 1971,
+    "elapsed_seconds": 38.35,
+    "error": false,
+    "metrics": {
+      "expected_targets": [
+        "payments-service"
+      ],
+      "actual_targets": [
+        "payments-service"
+      ],
+      "matched_targets": 1,
+      "expected_target_count": 1,
+      "target_recall": 1.0,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [
+        "cpu-spike"
+      ],
+      "actual_runbooks": [
+        "cpu-spike"
+      ],
+      "runbook_recall": 1.0,
+      "runbook_top1_correct": true,
+      "runbook_none_pass": null,
+      "runbook_scope_pass": true,
+      "route": "incident",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "payments는 조사",
+        "billing은 미등록임을 알림",
+        "다른 서비스로 대체하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "M01",
+    "repeat": 1,
+    "split": "supplemental",
+    "category": "greeting",
+    "scenario": "base",
+    "expected_behavior": "chat",
+    "turns": [
+      {
+        "query": "안녕, 너는 누구야?",
+        "elapsed_seconds": 1.432,
+        "error": null,
+        "result": {
+          "query": "안녕, 너는 누구야?",
+          "thread_id": "eval-M01-1",
+          "history": [],
+          "route": "chat",
+          "needs_analysis": false,
+          "final": "안녕하세요! 저는 빠르게 비서입니다.",
+          "last_prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\n(없음)\n\n## 사용자의 새 메시지\n안녕, 너는 누구야?",
+          "cost_usd": 6.5e-05,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "chat"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "chat-direct"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 230,
+        "usd": 3.4e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 210,
+        "usd": 3.1e-05
+      }
+    ],
+    "tokens": 440,
+    "elapsed_seconds": 1.432,
+    "error": false,
+    "metrics": {
+      "expected_targets": [],
+      "actual_targets": [],
+      "matched_targets": 0,
+      "expected_target_count": 0,
+      "target_recall": null,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [],
+      "actual_runbooks": [],
+      "runbook_recall": null,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": true,
+      "runbook_scope_pass": true,
+      "route": "chat",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "모니터링 조회 없이 간단한 자기소개"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  },
+  {
+    "id": "M02",
+    "repeat": 1,
+    "split": "supplemental",
+    "category": "name_memory",
+    "scenario": "base",
+    "expected_behavior": "chat",
+    "turns": [
+      {
+        "query": "제 이름은 민수입니다",
+        "elapsed_seconds": 1.342,
+        "error": null,
+        "result": {
+          "query": "제 이름은 민수입니다",
+          "thread_id": "eval-M02-1",
+          "history": [],
+          "route": "chat",
+          "needs_analysis": false,
+          "final": "안녕하세요!",
+          "last_prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\n(없음)\n\n## 사용자의 새 메시지\n제 이름은 민수입니다",
+          "cost_usd": 6.5e-05,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "chat"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "chat-direct"
+            }
+          ]
+        }
+      },
+      {
+        "query": "제 이름이 뭐였죠?",
+        "elapsed_seconds": 1.032,
+        "error": null,
+        "result": {
+          "query": "제 이름이 뭐였죠?",
+          "thread_id": "eval-M02-1",
+          "history": [
+            {
+              "role": "user",
+              "content": "제 이름은 민수입니다"
+            },
+            {
+              "role": "assistant",
+              "content": "안녕하세요!"
+            }
+          ],
+          "route": "chat",
+          "needs_analysis": false,
+          "final": "저의 이름은 민수입니다.",
+          "last_prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\nuser: 제 이름은 민수입니다\nassistant: 안녕하세요!\n\n## 사용자의 새 메시지\n제 이름이 뭐였죠?",
+          "cost_usd": 5.9e-05,
+          "events": [
+            {
+              "type": "RouteDecided",
+              "route": "chat"
+            },
+            {
+              "type": "Finalize",
+              "pipeline": "chat-direct"
+            }
+          ]
+        }
+      }
+    ],
+    "calls": [],
+    "usage": [
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 267,
+        "usd": 4e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 164,
+        "usd": 2.5e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 194,
+        "usd": 2.9e-05
+      },
+      {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 199,
+        "usd": 3e-05
+      }
+    ],
+    "tokens": 824,
+    "elapsed_seconds": 2.374,
+    "error": false,
+    "metrics": {
+      "expected_targets": [],
+      "actual_targets": [],
+      "matched_targets": 0,
+      "expected_target_count": 0,
+      "target_recall": null,
+      "missing_targets": [],
+      "unexpected_targets": [],
+      "target_scope_pass": true,
+      "expected_runbooks": [],
+      "actual_runbooks": [],
+      "runbook_recall": null,
+      "runbook_top1_correct": null,
+      "runbook_none_pass": true,
+      "runbook_scope_pass": true,
+      "route": "chat",
+      "review_flags": [],
+      "human_review_status": "pending",
+      "human_review_checklist": [
+        "두 번의 실제 요청으로 테스트",
+        "민수를 사용자 이름으로 답함",
+        "에이전트 자기 이름으로 말하지 않음"
+      ],
+      "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+    }
+  }
+]

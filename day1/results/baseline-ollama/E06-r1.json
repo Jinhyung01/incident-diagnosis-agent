@@ -1,0 +1,204 @@
+{
+  "id": "E06",
+  "repeat": 1,
+  "split": "evaluation",
+  "category": "mixed_known_unknown",
+  "scenario": "base",
+  "expected_behavior": "partial_clarify",
+  "turns": [
+    {
+      "query": "payments-service와 billing-service가 모두 느려요. 두 시스템 상태를 진단해줘",
+      "elapsed_seconds": 38.35,
+      "error": null,
+      "result": {
+        "query": "payments-service와 billing-service가 모두 느려요. 두 시스템 상태를 진단해줘",
+        "thread_id": "eval-E06-1",
+        "history": [],
+        "route": "incident",
+        "needs_analysis": false,
+        "tasks": [
+          {
+            "id": "task-0",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "payments-service",
+            "status": "done"
+          },
+          {
+            "id": "task-gap-runbook",
+            "agent": "research",
+            "kind": "runbook",
+            "target": "cpu-spike",
+            "status": "done"
+          }
+        ],
+        "gate_removed": 1,
+        "collected": [
+          {
+            "source": "monitoring",
+            "data": {
+              "system_name": "payments-service",
+              "status": "degraded",
+              "cpu_percent": 91.0,
+              "memory_percent": 55.0,
+              "last_checked": "2026-10-20T09:00:00+09:00",
+              "alerts": [
+                "CPU 91% (threshold 80%)",
+                "payments-service-3 instance responding slow"
+              ]
+            }
+          },
+          {
+            "source": "runbook",
+            "data": "# Runbook: CPU 급증 대응 절차\n\n1. get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n2. 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n3. CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n4. 급증이 특정 배포 직후 시작됐다면 직전 배포를 롤백하고 원인 분석은 별도로 진행한다.\n5. 정상화 후 프로파일링 결과를 바탕으로 핫스팟 코드를 식별해 최적화 작업을 등록한다.\n"
+          }
+        ],
+        "replan_rounds": 1,
+        "retry_count": 0,
+        "parallel_elapsed": 0.35,
+        "draft": "1) **payments-service 상태 점검**: CPU 사용률 91.0% (경계값 80% 초과), 메모리 55.0% 사용 중. 알림 2건 발생('CPU 91% (threshold 80%)', 'payments-service-3 인스턴스 응답 지연').  \n2) **CPU 급증 대응**: 인스턴스 오토스케일링 그룹에 추가 인스턴스 확장(90% 이상 지속 시) 및 최근 배포/트래픽 변화 확인. 반복 호출 또는 배치 작업 패턴 확인.  \n3) **정상화 후 최적화**: 프로파일링 결과 기반 핫스팟 코드 식별 및 최적화 작업 등록. (billing-service 상태는 수집된 정보에 포함되지 않음)",
+        "validation_attempts": 1,
+        "validation_feedback": null,
+        "final": "1) **payments-service 상태 점검**: CPU 사용률 91.0% (경계값 80% 초과), 메모리 55.0% 사용 중. 알림 2건 발생('CPU 91% (threshold 80%)', 'payments-service-3 인스턴스 응답 지연').  \n2) **CPU 급증 대응**: 인스턴스 오토스케일링 그룹에 추가 인스턴스 확장(90% 이상 지속 시) 및 최근 배포/트래픽 변화 확인. 반복 호출 또는 배치 작업 패턴 확인.  \n3) **정상화 후 최적화**: 프로파일링 결과 기반 핫스팟 코드 식별 및 최적화 작업 등록. (billing-service 상태는 수집된 정보에 포함되지 않음)",
+        "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\npayments-service와 billing-service가 모두 느려요. 두 시스템 상태를 진단해줘\n\n## 수집된 사실\n- 모니터링 payments-service: 상태=degraded, CPU 91.0%, 메모리 55.0%, 알림 2건 ['CPU 91% (threshold 80%)', 'payments-service-3 instance responding slow']\n- runbook 발췌:\n# Runbook: CPU 급증 대응 절차\n\n1. get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n2. 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n3. CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n4. 급증이 특정 배포 직후 시작됐다면 직전 배포를 롤백하고 원인 분석은 별도로 진행한다.\n5. 정상화 후 프로파일링 결과를 바탕으로 핫스팟 코드를 식별해 최적화 작업을 등록한다.",
+        "cost_usd": 0.005805,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "incident"
+          },
+          {
+            "type": "PlanCreated",
+            "task_count": 2,
+            "targets": [
+              "payments-service"
+            ]
+          },
+          {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 1
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-0",
+            "source": "monitoring",
+            "target": "payments-service",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 0,
+            "is_sufficient": false,
+            "gap_task": "task-gap-runbook",
+            "target": "cpu-spike"
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-gap-runbook",
+            "source": "runbook",
+            "target": "cpu-spike",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 1,
+            "is_sufficient": true
+          },
+          {
+            "type": "AnalysisSkipped",
+            "reason": "analysis task 0개"
+          },
+          {
+            "type": "DraftWritten",
+            "attempt": 1,
+            "length": 338
+          },
+          {
+            "type": "Validation",
+            "attempt": 1,
+            "verdict": "합격"
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "incident-v2"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [
+    {
+      "kind": "monitoring",
+      "target": "payments-service",
+      "result": {
+        "system_name": "payments-service",
+        "status": "degraded",
+        "cpu_percent": 91.0,
+        "memory_percent": 55.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": [
+          "CPU 91% (threshold 80%)",
+          "payments-service-3 instance responding slow"
+        ]
+      }
+    },
+    {
+      "kind": "runbook",
+      "target": "cpu-spike",
+      "found": true
+    }
+  ],
+  "usage": [
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 260,
+      "usd": 3.9e-05
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 575,
+      "usd": 8.6e-05
+    },
+    {
+      "model": "ollama:qwen3:8b",
+      "tokens": 1136,
+      "usd": 0.00568
+    }
+  ],
+  "tokens": 1971,
+  "elapsed_seconds": 38.35,
+  "error": false,
+  "metrics": {
+    "expected_targets": [
+      "payments-service"
+    ],
+    "actual_targets": [
+      "payments-service"
+    ],
+    "matched_targets": 1,
+    "expected_target_count": 1,
+    "target_recall": 1.0,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [
+      "cpu-spike"
+    ],
+    "actual_runbooks": [
+      "cpu-spike"
+    ],
+    "runbook_recall": 1.0,
+    "runbook_top1_correct": true,
+    "runbook_none_pass": null,
+    "runbook_scope_pass": true,
+    "route": "incident",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "payments는 조사",
+      "billing은 미등록임을 알림",
+      "다른 서비스로 대체하지 않음"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

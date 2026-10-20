@@ -1,0 +1,218 @@
+{
+  "id": "D02",
+  "repeat": 1,
+  "split": "development",
+  "category": "memory",
+  "scenario": "base",
+  "expected_behavior": "diagnose",
+  "turns": [
+    {
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "elapsed_seconds": 37.448,
+      "error": null,
+      "result": {
+        "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+        "thread_id": "eval-D02-1",
+        "history": [],
+        "route": "incident",
+        "needs_analysis": true,
+        "tasks": [
+          {
+            "id": "task-0",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "cache-service",
+            "status": "done"
+          },
+          {
+            "id": "task-analysis",
+            "agent": "analysis",
+            "kind": "pattern-analysis",
+            "status": "done"
+          },
+          {
+            "id": "task-gap-runbook",
+            "agent": "research",
+            "kind": "runbook",
+            "target": "memory-leak",
+            "status": "done"
+          }
+        ],
+        "gate_removed": 0,
+        "collected": [
+          {
+            "source": "monitoring",
+            "data": {
+              "system_name": "cache-service",
+              "status": "degraded",
+              "cpu_percent": 42.0,
+              "memory_percent": 89.0,
+              "last_checked": "2026-10-20T09:00:00+09:00",
+              "alerts": [
+                "memory usage climbing steadily over 6h",
+                "heap near limit"
+              ]
+            }
+          },
+          {
+            "source": "runbook",
+            "data": "# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n"
+          },
+          {
+            "source": "analysis",
+            "data": "특이 패턴 있음"
+          }
+        ],
+        "replan_rounds": 1,
+        "retry_count": 0,
+        "parallel_elapsed": 0.35,
+        "draft": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중인 'memory usage climbing steadily over 6h' 알림 확인됨.  \n2) OOM 직전 대응: 메모리 89.0% 사용 중, 'heap near limit' 알림 발생 시 즉시 재시작(임시 조치) 필요.  \n3) 원인 분석: 힙 덤프 또는 프로파일링 도구로 객체 누수 패턴 확인, '특이 패턴 있음' 분석 결과 반영.",
+        "validation_attempts": 1,
+        "validation_feedback": null,
+        "final": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중인 'memory usage climbing steadily over 6h' 알림 확인됨.  \n2) OOM 직전 대응: 메모리 89.0% 사용 중, 'heap near limit' 알림 발생 시 즉시 재시작(임시 조치) 필요.  \n3) 원인 분석: 힙 덤프 또는 프로파일링 도구로 객체 누수 패턴 확인, '특이 패턴 있음' 분석 결과 반영.",
+        "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ncache-service 메모리 사용률이 계속 올라가고 있어요\n\n## 수집된 사실\n- 모니터링 cache-service: 상태=degraded, CPU 42.0%, 메모리 89.0%, 알림 2건 ['memory usage climbing steadily over 6h', 'heap near limit']\n- runbook 발췌:\n# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n- 패턴 분석: 특이 패턴 있음",
+        "cost_usd": 0.005588,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "incident"
+          },
+          {
+            "type": "PlanCreated",
+            "task_count": 2,
+            "targets": [
+              "cache-service"
+            ]
+          },
+          {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 0
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-0",
+            "source": "monitoring",
+            "target": "cache-service",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 0,
+            "is_sufficient": false,
+            "gap_task": "task-gap-runbook",
+            "target": "memory-leak"
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-gap-runbook",
+            "source": "runbook",
+            "target": "memory-leak",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 1,
+            "is_sufficient": true
+          },
+          {
+            "type": "AnalysisCompleted",
+            "length": 8
+          },
+          {
+            "type": "DraftWritten",
+            "attempt": 1,
+            "length": 223
+          },
+          {
+            "type": "Validation",
+            "attempt": 1,
+            "verdict": "합격"
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "incident-v2"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [
+    {
+      "kind": "monitoring",
+      "target": "cache-service",
+      "result": {
+        "system_name": "cache-service",
+        "status": "degraded",
+        "cpu_percent": 42.0,
+        "memory_percent": 89.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": [
+          "memory usage climbing steadily over 6h",
+          "heap near limit"
+        ]
+      }
+    },
+    {
+      "kind": "runbook",
+      "target": "memory-leak",
+      "found": true
+    }
+  ],
+  "usage": [
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 395,
+      "usd": 5.9e-05
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 614,
+      "usd": 9.2e-05
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 513,
+      "usd": 7.7e-05
+    },
+    {
+      "model": "ollama:qwen3:8b",
+      "tokens": 1072,
+      "usd": 0.00536
+    }
+  ],
+  "tokens": 2594,
+  "elapsed_seconds": 37.448,
+  "error": false,
+  "metrics": {
+    "expected_targets": [
+      "cache-service"
+    ],
+    "actual_targets": [
+      "cache-service"
+    ],
+    "matched_targets": 1,
+    "expected_target_count": 1,
+    "target_recall": 1.0,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [
+      "memory-leak"
+    ],
+    "actual_runbooks": [
+      "memory-leak"
+    ],
+    "runbook_recall": 1.0,
+    "runbook_top1_correct": true,
+    "runbook_none_pass": null,
+    "runbook_scope_pass": true,
+    "route": "incident",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "메모리 누수를 확정하지 않음",
+      "90% 미만에서 즉시 재시작을 무조건 지시하지 않음"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

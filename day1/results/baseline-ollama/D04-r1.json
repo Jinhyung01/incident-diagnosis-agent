@@ -1,0 +1,205 @@
+{
+  "id": "D04",
+  "repeat": 1,
+  "split": "development",
+  "category": "latency",
+  "scenario": "base",
+  "expected_behavior": "diagnose",
+  "turns": [
+    {
+      "query": "auth-service 로그인 응답이 느려요. 상태와 대응 절차를 확인해주세요",
+      "elapsed_seconds": 99.053,
+      "error": null,
+      "result": {
+        "query": "auth-service 로그인 응답이 느려요. 상태와 대응 절차를 확인해주세요",
+        "thread_id": "eval-D04-1",
+        "history": [],
+        "route": "incident",
+        "needs_analysis": false,
+        "tasks": [
+          {
+            "id": "task-0",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "auth-service",
+            "status": "done"
+          },
+          {
+            "id": "task-gap-runbook",
+            "agent": "research",
+            "kind": "runbook",
+            "target": "high-latency",
+            "status": "done"
+          }
+        ],
+        "gate_removed": 1,
+        "collected": [
+          {
+            "source": "monitoring",
+            "data": {
+              "system_name": "auth-service",
+              "status": "degraded",
+              "cpu_percent": 78.0,
+              "memory_percent": 61.0,
+              "last_checked": "2026-10-20T09:00:00+09:00",
+              "alerts": [
+                "p95 latency 2.4s (threshold 1.0s)",
+                "connection pool 92% used"
+              ]
+            }
+          },
+          {
+            "source": "runbook",
+            "data": "# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n"
+          }
+        ],
+        "replan_rounds": 1,
+        "retry_count": 0,
+        "parallel_elapsed": 0.35,
+        "draft": "1) p95 지연시간 2.4s (임계치 1.0s), 커넥션 풀 사용률 92% 확인  \n2) 커넥션 풀 사용률 92% 초과 → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용  \n3) 5분 내 p95 1.0s 미만으로 하지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산",
+        "validation_attempts": 1,
+        "validation_feedback": null,
+        "final": "1) p95 지연시간 2.4s (임계치 1.0s), 커넥션 풀 사용률 92% 확인  \n2) 커넥션 풀 사용률 92% 초과 → 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용  \n3) 5분 내 p95 1.0s 미만으로 하지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산",
+        "last_prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nauth-service 로그인 응답이 느려요. 상태와 대응 절차를 확인해주세요\n\n## 수집된 사실\n- 모니터링 auth-service: 상태=degraded, CPU 78.0%, 메모리 61.0%, 알림 2건 ['p95 latency 2.4s (threshold 1.0s)', 'connection pool 92% used']\n- runbook 발췌:\n# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.",
+        "cost_usd": 0.013001,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "incident"
+          },
+          {
+            "type": "PlanCreated",
+            "task_count": 2,
+            "targets": [
+              "auth-service"
+            ]
+          },
+          {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 1
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-0",
+            "source": "monitoring",
+            "target": "auth-service",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 0,
+            "is_sufficient": false,
+            "gap_task": "task-gap-runbook",
+            "target": "high-latency"
+          },
+          {
+            "type": "TaskCompleted",
+            "id": "task-gap-runbook",
+            "source": "runbook",
+            "target": "high-latency",
+            "retries": 0
+          },
+          {
+            "type": "ReplanCheck",
+            "round": 1,
+            "is_sufficient": true
+          },
+          {
+            "type": "AnalysisSkipped",
+            "reason": "analysis task 0개"
+          },
+          {
+            "type": "DraftWritten",
+            "attempt": 1,
+            "length": 156
+          },
+          {
+            "type": "Validation",
+            "attempt": 1,
+            "verdict": "합격"
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "incident-v2"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [
+    {
+      "kind": "monitoring",
+      "target": "auth-service",
+      "result": {
+        "system_name": "auth-service",
+        "status": "degraded",
+        "cpu_percent": 78.0,
+        "memory_percent": 61.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": [
+          "p95 latency 2.4s (threshold 1.0s)",
+          "connection pool 92% used"
+        ]
+      }
+    },
+    {
+      "kind": "runbook",
+      "target": "high-latency",
+      "found": true
+    }
+  ],
+  "usage": [
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 429,
+      "usd": 6.4e-05
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 715,
+      "usd": 0.000107
+    },
+    {
+      "model": "ollama:qwen3:8b",
+      "tokens": 2566,
+      "usd": 0.01283
+    }
+  ],
+  "tokens": 3710,
+  "elapsed_seconds": 99.053,
+  "error": false,
+  "metrics": {
+    "expected_targets": [
+      "auth-service"
+    ],
+    "actual_targets": [
+      "auth-service"
+    ],
+    "matched_targets": 1,
+    "expected_target_count": 1,
+    "target_recall": 1.0,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [
+      "high-latency"
+    ],
+    "actual_runbooks": [
+      "high-latency"
+    ],
+    "runbook_recall": 1.0,
+    "runbook_top1_correct": true,
+    "runbook_none_pass": null,
+    "runbook_scope_pass": true,
+    "route": "incident",
+    "review_flags": [
+      "Possible 92% versus >92% mismatch; human review required."
+    ],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "커넥션 풀 92%를 92% 초과로 바꾸지 않음",
+      "관측만으로 근본 원인을 확정하지 않음"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

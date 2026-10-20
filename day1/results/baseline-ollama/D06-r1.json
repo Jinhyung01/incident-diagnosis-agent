@@ -1,0 +1,93 @@
+{
+  "id": "D06",
+  "repeat": 1,
+  "split": "development",
+  "category": "multiple_targets",
+  "scenario": "base",
+  "expected_behavior": "diagnose",
+  "turns": [
+    {
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "elapsed_seconds": 306.548,
+      "error": {
+        "type": "ReadTimeout",
+        "message": "timed out"
+      },
+      "result": {}
+    }
+  ],
+  "calls": [
+    {
+      "kind": "monitoring",
+      "target": "payments-service",
+      "result": {
+        "system_name": "payments-service",
+        "status": "degraded",
+        "cpu_percent": 91.0,
+        "memory_percent": 55.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": [
+          "CPU 91% (threshold 80%)",
+          "payments-service-3 instance responding slow"
+        ]
+      }
+    },
+    {
+      "kind": "runbook",
+      "target": "cpu-spike",
+      "found": true
+    }
+  ],
+  "usage": [
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 783,
+      "usd": 0.000117
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 665,
+      "usd": 0.0001
+    }
+  ],
+  "tokens": 1448,
+  "elapsed_seconds": 306.548,
+  "error": true,
+  "metrics": {
+    "expected_targets": [
+      "cache-service",
+      "payments-service"
+    ],
+    "actual_targets": [
+      "payments-service"
+    ],
+    "matched_targets": 1,
+    "expected_target_count": 2,
+    "target_recall": 0.5,
+    "missing_targets": [
+      "cache-service"
+    ],
+    "unexpected_targets": [],
+    "target_scope_pass": false,
+    "expected_runbooks": [
+      "cpu-spike",
+      "memory-leak"
+    ],
+    "actual_runbooks": [
+      "cpu-spike"
+    ],
+    "runbook_recall": 0.5,
+    "runbook_top1_correct": null,
+    "runbook_none_pass": null,
+    "runbook_scope_pass": false,
+    "route": null,
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "양쪽 서비스를 조회",
+      "CPU와 메모리 증상을 구분",
+      "공유 DB나 트래픽 원인을 확정하지 않음"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

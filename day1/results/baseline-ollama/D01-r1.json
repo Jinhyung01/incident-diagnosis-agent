@@ -1,0 +1,89 @@
+{
+  "id": "D01",
+  "repeat": 1,
+  "split": "development",
+  "category": "cpu",
+  "scenario": "base",
+  "expected_behavior": "diagnose",
+  "turns": [
+    {
+      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
+      "elapsed_seconds": 305.523,
+      "error": {
+        "type": "ReadTimeout",
+        "message": "timed out"
+      },
+      "result": {}
+    }
+  ],
+  "calls": [
+    {
+      "kind": "monitoring",
+      "target": "payments-service",
+      "result": {
+        "system_name": "payments-service",
+        "status": "degraded",
+        "cpu_percent": 91.0,
+        "memory_percent": 55.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": [
+          "CPU 91% (threshold 80%)",
+          "payments-service-3 instance responding slow"
+        ]
+      }
+    },
+    {
+      "kind": "runbook",
+      "target": "cpu-spike",
+      "found": true
+    }
+  ],
+  "usage": [
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 422,
+      "usd": 6.3e-05
+    },
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 652,
+      "usd": 9.8e-05
+    }
+  ],
+  "tokens": 1074,
+  "elapsed_seconds": 305.523,
+  "error": true,
+  "metrics": {
+    "expected_targets": [
+      "payments-service"
+    ],
+    "actual_targets": [
+      "payments-service"
+    ],
+    "matched_targets": 1,
+    "expected_target_count": 1,
+    "target_recall": 1.0,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [
+      "cpu-spike"
+    ],
+    "actual_runbooks": [
+      "cpu-spike"
+    ],
+    "runbook_recall": 1.0,
+    "runbook_top1_correct": true,
+    "runbook_none_pass": null,
+    "runbook_scope_pass": true,
+    "route": null,
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "로그를 조회했다는 주장 금지",
+      "CPU가 높다는 사실과 원인 추정을 구분",
+      "90% 초과 지속 조건 보존"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}
