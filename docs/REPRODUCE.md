@@ -84,3 +84,7 @@ OpenAI 백엔드와 실제 운영 데이터, 부하·동시 사용자 성능은 
 `day2/scripts/serve_capture_session.py`를 한 터미널에서 실행하고 다른 터미널에서 같은 파일에 `--proxy`를 붙여 실행한다. 브라우저는 `http://127.0.0.1:8706/`이며 8206/8706 포트를 먼저 확인한다. 모델과 의존성은 기본 실행과 같다. 별도 DB는 `day2/runtime/contextual-captures/`에 저장하며 공개하지 않는다.
 
 순차로 질문하면 실제 보고 LLM의 반환값과 SSE 이벤트를 `day2/results/contextual-captures/`에 고유 파일명으로 저장한다. 답변을 대체하지 않는다. 동시 요청의 로그 격리는 이 시험의 범위가 아니다. 앱 화면의 최종 답변과 `raw_model_output`은 구분해 비교한다. `LLM_RAW.txt`는 저장된 JSON의 원문을 보여주는 파생 파일이다. 과거 기록은 덮어쓰지 않으며 이 실행은 기존 20건 통계에 합산하지 않는다. 종료할 때 두 터미널에서 Ctrl+C를 누른다.
+
+## 같은 질문의 시간 초과·부분 근거 재현
+
+발표 시연은 `day2/scripts/serve_presentation_scenarios.py --output day2/results/new-story-demo`와 별도 터미널의 같은 명령에 `--proxy`를 붙여 실행한다. 비어 있는 새 폴더를 지정해 이전 기록을 보존한다. 포트8205/8705가 비어 있어야 한다. 같은 payments·cache 질문을 UI에 입력하면 생성 의존성30초 지연·요청 상한8초 시험이 실행된다. 일반 기본60초와 구분한다. 원시 이벤트·실제 화면은 기존20건 시간 통계에 합산하지 않는다.

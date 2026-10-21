@@ -21,7 +21,9 @@
   },
   "before-main-full.jpg": {
     "sha256": "a1319fa11943b9625835a49f174161ca11932d1d9f0e00a3c586054914fc927d",
-    "kind": "actual browser UI screenshot"
+    "kind": "actual browser UI screenshot",
+    "presentation_usable": false,
+    "note": "Legacy collapsed layout. Current story deck uses the genuine before-main-viewport.jpg from the same execution."
   },
   "before-main-viewport.jpg": {
     "sha256": "2a0e1e6e0bd8559f51e4f1a24d81c65e6ba07e0125ad8904489d9737468ab8dc",
@@ -226,6 +228,30 @@
   "review-q06-full.jpg": {
     "sha256": "97436363e9ff81c7950e80b8382d6a158170f3a77a40352fc871fbe90117cda7",
     "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "story-timeout-full.jpg": {
+    "sha256": "cc55b642c4afc849c0f745dc60aec398af95f46fd964f4e0d3d1a5b5665b727a",
+    "kind": "actual controlled failure browser screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "story-timeout-first.jpg": {
+    "sha256": "b63725ef6743e1bd899ccc137bd0d5dc4cea1be8fc1b305478ea84e79a18d966",
+    "kind": "actual controlled failure browser screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "story-timeout-second.jpg": {
+    "sha256": "9136dbf34a37318619f0e63962e5acce0a9203c52f1cd4285f91824bb8fe32d8",
+    "kind": "actual controlled failure browser screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "story-evaluation-report.jpg": {
+    "sha256": "5cc133f83e538b0dbcf345d12a7fbf93ef63509f8dc0a7b1a3370a39007f6280",
+    "kind": "actual comparison report browser screenshot",
     "image_text_edited": false,
     "ppt_crop_applied": false
   }

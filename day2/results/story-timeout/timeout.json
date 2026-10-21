@@ -1,0 +1,159 @@
+{
+  "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+  "controlled_test": true,
+  "fixture": "monitoring-fixture.json",
+  "request_timeout_seconds": 8,
+  "injected_report_delay_seconds": 30,
+  "events": [
+    {
+      "type": "RouteDecided",
+      "route": "incident",
+      "node": "scope"
+    },
+    {
+      "type": "ScopeChecked",
+      "targets": [
+        "payments-service",
+        "cache-service"
+      ],
+      "unknown": [],
+      "node": "scope"
+    },
+    {
+      "type": "PlanCreated",
+      "targets": [
+        "payments-service",
+        "cache-service"
+      ],
+      "task_count": 3,
+      "recovered_targets": [],
+      "plan_error": null,
+      "node": "plan"
+    },
+    {
+      "type": "GateApplied",
+      "removed_analysis_tasks": 0,
+      "node": "plan"
+    },
+    {
+      "type": "TaskCompleted",
+      "source": "monitoring",
+      "target": "payments-service",
+      "retries": 0,
+      "node": "monitoring"
+    },
+    {
+      "type": "TaskCompleted",
+      "source": "monitoring",
+      "target": "cache-service",
+      "retries": 0,
+      "node": "monitoring"
+    },
+    {
+      "type": "RunbookSelected",
+      "target": "payments-service",
+      "incident_type": "cpu-spike",
+      "score": 0.600725,
+      "node": "retrieval"
+    },
+    {
+      "type": "RunbookSelected",
+      "target": "cache-service",
+      "incident_type": "memory-leak",
+      "score": 0.662015,
+      "node": "retrieval"
+    },
+    {
+      "type": "AnalysisCompleted",
+      "scope": "관측 비교 한계 확인",
+      "cause_confirmed": false,
+      "node": "analysis"
+    },
+    {
+      "type": "RequestLimited",
+      "reason": "처리 시간 제한",
+      "error_type": "TimeoutError"
+    },
+    {
+      "type": "FinalAnswer",
+      "reply": "처리 시간 제한에 도달해 조사를 완료하지 못했습니다. 현재까지 확인한 내용만 안내합니다.\n\n### payments-service\n확인된 상태: degraded · CPU 91.0% · 메모리 55.0%\n조회 시각: 2026-10-22T08:30:22.891582\n활성 알림: CPU 91% (threshold 80%); payments-service-3 instance responding slow\n참고 매뉴얼: Runbook: CPU 급증 대응 절차 (cpu-spike)\n확인·대응 절차 (매뉴얼 원문, 조치 미실행):\n- get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n- 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n- CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n\n### cache-service\n확인된 상태: degraded · CPU 42.0% · 메모리 89.0%\n조회 시각: 2026-10-22T08:30:22.833606\n활성 알림: memory usage climbing steadily over 6h; heap near limit\n참고 매뉴얼: Runbook: 메모리 누수(Memory Leak) 대응 절차 (memory-leak)\n확인·대응 절차 (매뉴얼 원문, 조치 미실행):\n- get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n- OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n- 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n\n추가 확인: 실제 로그·배포 이력·시계열은 수집하지 않아 근본 원인과 조치 조건의 지속 여부는 확인하지 못했습니다.\n공통 원인: 서비스별 상태는 확인했으나 의존 관계·동시 변화 자료가 없어 확정할 수 없습니다.",
+      "prompt": null,
+      "evidence": {
+        "services": [
+          {
+            "system_name": "payments-service",
+            "state": "investigate",
+            "monitoring": {
+              "system_name": "payments-service",
+              "status": "degraded",
+              "cpu_percent": 91.0,
+              "memory_percent": 55.0,
+              "last_checked": "2026-10-22T08:30:22.891582",
+              "alerts": [
+                "CPU 91% (threshold 80%)",
+                "payments-service-3 instance responding slow"
+              ]
+            },
+            "runbook": {
+              "id": "cpu-spike",
+              "title": "Runbook: CPU 급증 대응 절차",
+              "uri": "runbook://incident-response/cpu-spike",
+              "score": 0.600725,
+              "body": "# Runbook: CPU 급증 대응 절차\n\n1. get_monitoring_status로 CPU 사용률과 최근 배포/트래픽 변화 시점을 확인한다.\n2. 반복 호출, 배치 작업 중복 실행 같은 특정 요청 패턴이 원인인지 최근 로그에서 확인한다.\n3. CPU가 90%를 넘고 지속되면 해당 인스턴스를 오토스케일링 그룹에서 한 대 더 띄워 부하를 분산한다.\n4. 급증이 특정 배포 직후 시작됐다면 직전 배포를 롤백하고 원인 분석은 별도로 진행한다.\n5. 정상화 후 프로파일링 결과를 바탕으로 핫스팟 코드를 식별해 최적화 작업을 등록한다.\n",
+              "retrieved_at": "2026-10-21T23:30:24.015651+00:00",
+              "embedding_model": "bge-m3"
+            }
+          },
+          {
+            "system_name": "cache-service",
+            "state": "investigate",
+            "monitoring": {
+              "system_name": "cache-service",
+              "status": "degraded",
+              "cpu_percent": 42.0,
+              "memory_percent": 89.0,
+              "last_checked": "2026-10-22T08:30:22.833606",
+              "alerts": [
+                "memory usage climbing steadily over 6h",
+                "heap near limit"
+              ]
+            },
+            "runbook": {
+              "id": "memory-leak",
+              "title": "Runbook: 메모리 누수(Memory Leak) 대응 절차",
+              "uri": "runbook://incident-response/memory-leak",
+              "score": 0.662015,
+              "body": "# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n",
+              "retrieved_at": "2026-10-21T23:30:24.064209+00:00",
+              "embedding_model": "bge-m3"
+            }
+          }
+        ],
+        "unregistered": [],
+        "unconfirmed_targets": [],
+        "limitations": [
+          "교육용 모의 모니터링",
+          "실제 로그·배포 이력·의존 관계·시계열 미수집",
+          "서버 조치는 실행하지 않음"
+        ],
+        "errors": []
+      },
+      "metadata": {
+        "answer_status": "timeout",
+        "route": "incident",
+        "targets": [
+          "payments-service",
+          "cache-service"
+        ],
+        "validation_attempts": 0,
+        "validation_issues": [],
+        "retry_count": 0,
+        "elapsed_seconds": 8.004,
+        "request_timeout_seconds": 8.0,
+        "delivery": "validated-report-chunks",
+        "llm_backend": "ollama",
+        "implementation": "improved-v2"
+      }
+    }
+  ]
+}

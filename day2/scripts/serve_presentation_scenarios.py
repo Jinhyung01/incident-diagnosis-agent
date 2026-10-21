@@ -18,7 +18,9 @@ OUT = ROOT / "day2/results/presentation-scenarios"
 RUNTIME = ROOT / "day2/runtime/presentation-scenarios"
 parser = argparse.ArgumentParser()
 parser.add_argument("--proxy", action="store_true")
+parser.add_argument("--output", type=Path, default=OUT)
 args = parser.parse_args()
+OUT = args.output.resolve()
 sys.path.insert(0, str(SOURCE))
 os.environ.update(
     LLM_BACKEND="ollama",

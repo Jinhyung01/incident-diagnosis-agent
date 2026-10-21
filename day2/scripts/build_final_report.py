@@ -12,7 +12,7 @@ md=f'''# 운영 장애 진단 AI 에이전트 개선
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-review.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-presentation.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -24,7 +24,8 @@ md=f'''# 운영 장애 진단 AI 에이전트 개선
 
 | 개선 | 변경한 동작 | 확인 사례 |
 |---|---|---|
-| 대상 누락·임의 대체 방지 | 명시한 등록 대상 전체와 계획을 대조, 실패한 대상은 별도 표시 | D05·D06·D07 다중 대상, D08 미등록, E06 혼합 |
+| 조사 대상 누락 방지 | 명시한 등록 대상 전체와 계획 대조·보완 | D05·D06·D07 다중 대상 |
+| 미등록 대상 처리 | 다른 서비스로 대체하지 않고 등록 이름 확인 요청 | D08 미등록, E06 혼합 |
 | 상태별 매뉴얼 선택 | 정상·정보 부족은 검색 생략, 서비스별 관측 알림으로 검색 | D10 정상, E05 정상 복수 대상 |
 | 근거와 조치 조건 검증 | 서비스·수치·문서·절차 번호 대조, 원인 확정 거절, 조건은 원문 출력 | D11 로그 미수집, D12 CPU 89.1%와 알림 91% |
 | 생성·실패 처리 | 생성 512토큰, 호출 25초·전체 60초 기본 상한, 최대 2회 후 사실 중심 안내 | E06 검증 실패, 단위 테스트의 시간 초과·부분 실패 |
@@ -48,63 +49,85 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 기존 기술을 직접 새로 만들었다고 주장하지 않는다. 전문 멀티에이전트 확장이나 LangSmith 연결 검증은 이번 성과에 포함하지 않았다. OpenAI 경로는 보존 원본에 있으며 개선 버전은 Ollama를 검증했다.
 
-## 4. 구현·최종 실행 화면
+## 4. 최초 실행의 문제와 같은 질문의 개선 결과
 
-### 다중 서비스 조회와 근거
+개선 전 사진은 사용자가 2026-10-20 직접 실행해 제공한 원본이다. 개선 후는 같은 질문의 별도 실행이다. 최초 모의 지표에는 무작위 변동이 있어 수치가 다르며, CPU·메모리 값의 차이를 개선 효과로 해석하지 않는다. 정량 비교는 다음 절의 고정 질문·지표 평가로 구분한다.
 
-아래는 실제 개선 UI에서 두 서비스를 조회한 화면이다. payments에는 CPU, cache에는 메모리 매뉴얼이 연결된다. 공통 원인은 추가 자료가 없어 미확인으로 안내한다.
+### 개선 1. 다중 서비스 조사 누락
 
-![개선 버전의 두 서비스 조회](day2/evidence/after-main-full.jpg)
+최초 payments·cache 요청에서는 payments만 수집하고 공통 원인 후보를 제시했다. cache 지표와 공유 의존 관계가 없어 공통 원인을 판단할 근거가 부족했다.
 
-### 원본의 문제와 같은 입력의 개선 결과
+![사용자 최초 payments·cache 질문과 답변](day1/evidence/user-screenshots/04-payments-cache.png)
 
-원본에 `web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘`를 입력했다. 실제 진행 기록은 web-01만 조회하고 db-down 문서를 선택했다. 답변은 healthy·CPU 34%·메모리 48%·알림 0건을 인용하면서 auth 미수집과 DB 리플리케이션 확인을 안내했다.
+명시한 서비스 전체를 계획과 대조해 누락 조사를 보완했다. 같은 질문에서 두 서비스를 각각 조회하고, CPU·메모리 매뉴얼을 따로 연결했다. 의존 관계·동시 변화 자료가 없어 공통 원인은 미확인으로 남긴다.
 
-![원본의 실제 최종 답변](day2/evidence/before-healthy-answer-revision.jpg)
+![같은 질문의 개선 응답 1](day2/evidence/review-q06-first.jpg)
 
-최종 프롬프트도 web-01 지표와 DB Down 문서만 포함했다. 개선 버전은 같은 입력·고정 모의 지표에서 두 서비스를 조회하고 정상 web의 문서 검색은 생략하며 auth에 high-latency 문서를 연결했다. 아래 정상·장애 구분 화면이 해당 개선 결과다.
+![같은 실행의 개선 응답 2](day2/evidence/review-q06-second.jpg)
 
-### 정상·장애 구분
+### 개선 2. 미등록 대상의 임의 대체
 
-web-01은 healthy·활성 알림 없음으로 문서 검색을 생략하고, auth-service는 응답 지연 매뉴얼을 연결했다.
+최초 billing 요청에서 실제 수집한 대상은 auth였다. 이는 원래 기본 정책이지만 요청 대상과 조회 대상이 달라지는 문제로 보아 정책을 변경했다.
 
-![정상 서비스와 장애 서비스 구분](day2/evidence/context-healthy-full.jpg)
+![사용자 최초 billing 질문과 auth 조회](day1/evidence/user-screenshots/06-billing.png)
 
-### 실제 질문·응답과 모델 원문
+등록 목록과 대조하고, 미등록이면 다른 서비스의 조회·보고 생성을 생략한 뒤 확인할 이름을 요청한다. 이 응답은 LLM 보고 생성이 아닌 코드 안내다.
 
-현재 발표는 질문과 최종 답변이 함께 있는 실제 viewport를 사용한다. 긴 답변은 같은 요청의 연속 화면으로 보여주며 전체 페이지 원본도 보존했다. 질문 고정 표시는 CSS 변경이며 답변 문장은 편집하지 않았다.
+![같은 billing 질문의 확인 요청](day2/evidence/context-unknown-frame.jpg)
 
-![같은 질문의 전체 최종 답변](day2/evidence/context-healthy-answer.jpg)
+### 개선 3. 정상·장애·정보 부족과 매뉴얼 선택
 
-![같은 요청의 조회 근거](day2/evidence/context-healthy-evidence.jpg)
+최초 web·auth 요청은 web이 healthy·알림0건인데 db-down 문서를 선택했다.
 
-LLM이 실제 반환한 값은 서비스·수치·문서 ID·절차 번호의 JSON이다. 검증 후 코드가 관측과 매뉴얼 원문으로 최종 보고서를 구성한다. 미등록·정보 부족 안내는 보고 LLM을 호출하지 않는다. [질문별 실제 기록](day2/results/contextual-captures/SUMMARY.md)과 [화면별 출처](presentation/EVIDENCE_INDEX.md)를 연결했다. 이 새 호출은 기존 20건 통계와 별도다. 수업의 원래 10개 시나리오는 [전체 UI 증빙 목록](presentation/EVIDENCE_INDEX.md#수업의-원래-10개-시나리오)에서 각각 질문·실제 응답·원시 기록으로 연결했다. Q05·Q08은 직전 완료 화면을 재사용하고 나머지를 보강했다. 이름 회상은 같은 DB·대화의 서버 재시작 뒤 실제로 확인했다.
+![사용자 최초 web·auth 질문과 DB 문서](day1/evidence/user-screenshots/03-web-auth.png)
 
-### 미등록 서비스
+상태를 먼저 구분하고 정상은 검색을 생략한다. 같은 질문에서 web은 정상으로, auth는 관측 알림에 맞는 지연 문서로 보고한다. 최초41%·51.5%와 아래34%·48%는 다른 시점의 모의 값이다.
 
-billing-service를 auth-service로 바꾸어 조회하지 않고 확인할 등록 서비스 이름을 요청한다.
+![같은 web·auth 질문의 개선](day2/evidence/context-healthy-answer.jpg)
 
-![미등록 서비스 확인 요청](day2/evidence/context-unknown-full.jpg)
+### 개선 4. 수집 근거와 답변·조치 조건의 대조
 
-### 같은 입력의 원본 실행
+최초 payments 답변에는 로그 분석 결과라는 표현이 있지만 실제 로그는 수집하지 않았다.
 
-원본은 payments만 조회한 뒤 분석 단계에서 `httpx.ReadTimeout`이 발생해 최종 답변을 완료하지 못했다. 아래는 원본 UI에 남은 진행 기록이다. 원본을 성공 응답한 화면처럼 재구성하지 않았다. 두 UI 시연은 base 모의 수치를 같게 고정했고 조회 시각은 각 호출 시각이다.
+![사용자 최초 payments CPU 질문과 로그 분석 표현](day1/evidence/user-screenshots/02-payments-cpu.png)
 
-![원본의 조사 누락과 최종 답변 미완료](day2/evidence/before-main-full.jpg)
+구조화된 서비스·수치·문서·절차 번호를 검증하고, 검증 후 절차는 원문으로 출력한다. 실제 로그 미수집·조치 미실행을 표시한다. 자유 생성 문장 전체의 의미 검증이나 조건 충족의 자동 판정은 아니다.
 
-[시연 조건](day2/evidence/ui-capture-context.json)과 [실제 MCP 통합 기록](day2/results/integration/SUMMARY.md)은 고정 데이터 그래프 평가와 구분한다.
+![같은 payments 질문의 개선](day2/evidence/review-q01-answer.jpg)
 
-### 정보 부족과 시간 초과의 제어 시험
+### 개선 5. 생성·시간 제한과 실패 안내
 
-정보 부족은 web-01을 degraded·알림 없음으로 고정한 입력이다. 임의의 장애 매뉴얼을 선택하지 않고 추가 지표를 요청했다.
+최초 사용자 사진과 별도로 원본을 재현한 payments·cache 요청에서는 분석 단계 ReadTimeout으로 최종 응답을 완료하지 못했다.
 
-![정보 부족 상태 안내](day2/evidence/after-insufficient-controlled.jpg)
+![별도 원본 재현의 최종 답변 미완료](day2/evidence/before-main-viewport.jpg)
 
-시간 초과는 보고 생성 의존성을 30초 지연시키고 시험용 요청 상한을 8초로 낮췄다. 약 8초 뒤 안내하면서 이미 수집한 CPU 91%·메모리 55%를 보존했다. 일반 설정의 요청 상한은 60초다. 이 시험을 20건 비교나 일반 성능에 합산하지 않았다.
+생성512토큰·호출25초·전체60초·최대작성2회를 기본으로 제한하고, 시간 초과나 검증 실패면 수집한 사실을 보존해 안내한다. 같은 질문에서 생성 의존성을30초 지연시키고 시험 상한을8초로 낮춰8.004초에 제한 안내와 두 서비스 관측이 남는 것을 확인했다. 이 제어 시험을 일반 성능이나20건 통계에 합산하지 않는다.
 
-![시간 초과 후 부분 근거 안내](day2/evidence/after-timeout-controlled.jpg)
+![같은 질문의 시간 제한 시험 1](day2/evidence/story-timeout-first.jpg)
 
-[원시 이벤트와 제어 조건](day2/results/presentation-scenarios/SUMMARY.md) · [계획별 구현·발표 대응](presentation/PLAN_COVERAGE.md)
+![같은 제한 시험의 부분 근거 2](day2/evidence/story-timeout-second.jpg)
+
+[시험 조건과 원시 이벤트](day2/results/story-timeout/SUMMARY.md)
+
+### 추가 기능 1. RAG 대응 매뉴얼 검색
+
+서비스별 관측 알림을 bge-m3로 임베딩하고 SQLite에 저장한6개 문서와 코사인 유사도를 계산한다. 임계값0.35이상 후보에서 첫 문서를 선택해 MCP Resource로 원문을 읽는다. 실제 log 질의에서는 disk-full과 유사도0.673이 표시된다. 유사도는 정답 확률이 아니다.
+
+![RAG 검색의 실제 결과](day2/evidence/review-q03-answer.jpg)
+
+### 추가 기능 2. 실제 조회 근거와 미확인 사항 화면
+
+서버의 실제 수집 객체를 최종 이벤트에 포함하고 UI가 서비스·관측 수치·문서 표를 구성한다. 모델 문장과 별도로 근거를 확인할 수 있다. web의 문서 없음과 auth의 지연 문서·유사도, 실제 로그 미수집 등을 보여준다.
+
+![실제 수집 객체로 표시한 근거](day2/evidence/context-healthy-evidence.jpg)
+
+### 추가 기능 3. 회귀 테스트·동일 입력 비교 실행기
+
+질문·고정 지표·분리 세션으로 실행하고 결과 JSON에서 대상 수집·문서 선택·응답 상태·시간을 집계해 보고서를 만든다. 아래는 보존된20건 원시 결과에서 다시 집계한 실제 보고서 화면이며 LLM20건을 새로 실행한 결과는 아니다. 단위 테스트31개도 별도로 다시 통과했다.
+
+![평가 실행기가 실제 생성한 비교 보고서](day2/evidence/story-evaluation-report.jpg)
+
+[최초 7장과 개선 결과 대응](presentation/EVIDENCE_INDEX.md) · [추가 UI·원시 기록](day2/results/contextual-captures/SUMMARY.md) · [단위 테스트31개](day2/tests/unit-tests-story.txt)
 
 ## 5. 동일 입력의 개선 전후 비교
 
@@ -167,7 +190,7 @@ md+=f'''
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 1장과 본편 8장(노트 목표 4분 20초), 질문용 부록 18장으로 구성했다.
+AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 포함 본편 19장(노트 목표 4분 44초), 질문용 부록 17장으로 구성했다.
 '''
 (ROOT/'REPORT.md').write_text(md)
 print('Report generated from saved results.')

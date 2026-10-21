@@ -127,5 +127,19 @@
       24787,
       25021
     ]
+  },
+  "story_revision": {
+    "original_user_pngs": 7,
+    "inventory": "day1/evidence/screenshot_inventory.json",
+    "presentation": "output/presentation/incident-diagnosis-agent-presentation.pptx",
+    "ordering": "five improvement before/after pairs, then three added features implementation/demo",
+    "main_slides": 19,
+    "appendix_slides": 17,
+    "same_query_failure_demo": "day2/results/story-timeout/timeout.json",
+    "controlled_elapsed_seconds": 8.004,
+    "default_request_limit_seconds": 60,
+    "test_request_limit_seconds": 8,
+    "comparison_report_regenerated_without_model_rerun": true,
+    "baseline_failure_screen": "before-main-viewport.jpg"
   }
 }
