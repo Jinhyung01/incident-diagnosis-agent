@@ -38,5 +38,47 @@
     "web_01_runbook": null,
     "auth_runbook": "high-latency",
     "elapsed_seconds_displayed": 7.031
+  },
+  "presentation_revision": {
+    "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+    "before_source": "day1/baseline/original_v2",
+    "before_ports": [
+      8203,
+      8703
+    ],
+    "after_ports": [
+      8202,
+      8702
+    ],
+    "data_control": "원본 jitter=0, 개선 MONITORING_FIXED=true. 실제 MCP 호출과 원본 UI 사용.",
+    "same_web_01_values": {
+      "status": "healthy",
+      "cpu_percent": 34.0,
+      "memory_percent": 48.0,
+      "alerts": []
+    },
+    "before": {
+      "completed": true,
+      "observed_targets": [
+        "web-01"
+      ],
+      "runbook": "db-down",
+      "answer": "auth-service 커넥션 풀에 대한 구체적 데이터 수집되지 않음. DB 리플리케이션 상태 확인 필요 (runbook 단계 2 참조).",
+      "screens": [
+        "before-healthy-answer-revision.jpg",
+        "before-healthy-prompt-revision.jpg"
+      ]
+    },
+    "after": {
+      "observed_targets": [
+        "web-01",
+        "auth-service"
+      ],
+      "web_01_runbook": null,
+      "auth_runbook": "high-latency",
+      "screen": "after-healthy-full.jpg"
+    },
+    "process_screen": "after-process-revision.jpg",
+    "note": "기존 20건 평가와 별도인 발표 증빙용 실제 UI 재실행. 개선 과정 화면은 13.547초로, 기존 after-main-full.jpg의 8.515초와 다른 호출이다."
   }
 }

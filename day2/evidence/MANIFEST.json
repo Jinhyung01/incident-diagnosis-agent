@@ -30,5 +30,17 @@
   "comparison.jpg": {
     "sha256": "5cc133f83e538b0dbcf345d12a7fbf93ef63509f8dc0a7b1a3370a39007f6280",
     "kind": "measurement report screenshot"
+  },
+  "before-healthy-answer-revision.jpg": {
+    "sha256": "6c0486dd3e28a8ed125b312ff22f5ce8cef927f5230fa59245fd54e27255fc59",
+    "kind": "actual browser UI screenshot"
+  },
+  "before-healthy-prompt-revision.jpg": {
+    "sha256": "9c04768e26a641d03fad3ea70d80cfdb6309a087fa83b56d2b7befd8c7fd991b",
+    "kind": "actual browser UI screenshot"
+  },
+  "after-process-revision.jpg": {
+    "sha256": "ead4052a64e05abfe7b6ea9bc1075a31d83b66d58dd26fca302ce5899370df56",
+    "kind": "actual browser UI screenshot"
   }
 }

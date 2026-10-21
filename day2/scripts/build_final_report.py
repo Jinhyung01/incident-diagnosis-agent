@@ -12,7 +12,7 @@ md=f'''# 운영 장애 진단 AI 에이전트 개선
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-evidence.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -55,6 +55,14 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 아래는 실제 개선 UI에서 두 서비스를 조회한 화면이다. payments에는 CPU, cache에는 메모리 매뉴얼이 연결된다. 공통 원인은 추가 자료가 없어 미확인으로 안내한다.
 
 ![개선 버전의 두 서비스 조회](day2/evidence/after-main-full.jpg)
+
+### 원본의 문제와 같은 입력의 개선 결과
+
+원본에 `web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘`를 입력했다. 실제 진행 기록은 web-01만 조회하고 db-down 문서를 선택했다. 답변은 healthy·CPU 34%·메모리 48%·알림 0건을 인용하면서 auth 미수집과 DB 리플리케이션 확인을 안내했다.
+
+![원본의 실제 최종 답변](day2/evidence/before-healthy-answer-revision.jpg)
+
+최종 프롬프트도 web-01 지표와 DB Down 문서만 포함했다. 개선 버전은 같은 입력·고정 모의 지표에서 두 서비스를 조회하고 정상 web의 문서 검색은 생략하며 auth에 high-latency 문서를 연결했다. 아래 정상·장애 구분 화면이 해당 개선 결과다.
 
 ### 정상·장애 구분
 
@@ -135,7 +143,7 @@ md+=f'''
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 본편 7장 약 4분 50초와 질문용 부록 2장으로 구성했다.
+AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 본편 8장 약 4분 50초와 질문용 부록 4장으로 구성했다.
 '''
 (ROOT/'REPORT.md').write_text(md)
 print('Report generated from saved results.')
