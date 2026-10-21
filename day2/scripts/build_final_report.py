@@ -12,7 +12,7 @@ md=f'''# 운영 장애 진단 AI 에이전트 개선
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-final.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-context.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -68,13 +68,23 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 web-01은 healthy·활성 알림 없음으로 문서 검색을 생략하고, auth-service는 응답 지연 매뉴얼을 연결했다.
 
-![정상 서비스와 장애 서비스 구분](day2/evidence/after-healthy-full.jpg)
+![정상 서비스와 장애 서비스 구분](day2/evidence/context-healthy-full.jpg)
+
+### 실제 질문·응답과 모델 원문
+
+현재 발표는 질문과 최종 답변이 함께 있는 실제 viewport를 사용한다. 긴 답변은 같은 요청의 연속 화면으로 보여주며 전체 페이지 원본도 보존했다. 질문 고정 표시는 CSS 변경이며 답변 문장은 편집하지 않았다.
+
+![같은 질문의 전체 최종 답변](day2/evidence/context-healthy-answer.jpg)
+
+![같은 요청의 조회 근거](day2/evidence/context-healthy-evidence.jpg)
+
+LLM이 실제 반환한 값은 서비스·수치·문서 ID·절차 번호의 JSON이다. 검증 후 코드가 관측과 매뉴얼 원문으로 최종 보고서를 구성한다. 미등록·정보 부족 안내는 보고 LLM을 호출하지 않는다. [질문별 실제 기록](day2/results/contextual-captures/SUMMARY.md)과 [화면별 출처](presentation/EVIDENCE_INDEX.md)를 연결했다. 이 새 호출은 기존 20건 통계와 별도다.
 
 ### 미등록 서비스
 
 billing-service를 auth-service로 바꾸어 조회하지 않고 확인할 등록 서비스 이름을 요청한다.
 
-![미등록 서비스 확인 요청](day2/evidence/after-unknown-confirmation.jpg)
+![미등록 서비스 확인 요청](day2/evidence/context-unknown-full.jpg)
 
 ### 같은 입력의 원본 실행
 
@@ -157,7 +167,7 @@ md+=f'''
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 본편 8장 약 4분 45초와 질문용 부록 5장으로 구성했다.
+AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 1장과 본편 8장(노트 목표 4분 20초), 질문용 부록 6장으로 구성했다.
 '''
 (ROOT/'REPORT.md').write_text(md)
 print('Report generated from saved results.')

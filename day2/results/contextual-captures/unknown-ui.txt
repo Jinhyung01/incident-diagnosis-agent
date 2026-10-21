@@ -1,0 +1,53 @@
+Browser tab: 12, Title: "운영 장애 진단 · 근거 확인", URL: "http://127.0.0.1:8706/".
+0 AXWebArea 운영 장애 진단 · 근거 확인, URL: 127.0.0.1:8706/
+	1 container
+		2 heading 운영 장애 진단, Value: 1
+			3 text 운영 장애 진단
+		4 text 서비스별 상태와 대응 근거를 함께 확인합니다
+		5 button 새 대화, ID: new
+	6 container
+		7 heading 조사할 서비스를 알려주세요, Value: 2
+			8 text 조사할 서비스를 알려주세요
+		9 text 여러 서비스도 한 번에 요청할 수 있습니다.
+		10 button 두 서비스 비교 payments-service · cache-service
+			11 text 두 서비스 비교
+			12 text payments-service · cache-service
+		13 button 정상·장애 상태 구분 web-01 · auth-service
+			14 text 정상·장애 상태 구분
+			15 text web-01 · auth-service
+		16 button 미등록 서비스 확인 billing-service
+			17 text 미등록 서비스 확인
+			18 text billing-service
+		19 button 조치 조건 확인 현재 수치와 매뉴얼 비교
+			20 text 조치 조건 확인
+			21 text 현재 수치와 매뉴얼 비교
+		22 container form
+			23 text 요청 내용
+			24 text entry area (settable) 요청 내용, ID: input
+			25 button 조사 요청, ID: send
+		26 text 교육용 모의 지표를 사용합니다. 실제 로그와 배포 이력은 수집하지 않으며 서버 조치는 실행하지 않습니다.
+		34 container messages
+			35 text 새 대화를 시작했습니다.
+			36 container
+				37 text billing-service 응답이 느려요 조사 결과 미등록 서비스: billing-service. 등록된 다른 서비스로 바꾸어 조회하지 않았습니다. 확인할 등록 서비스 이름을 알려주세요.
+				38 heading 조회 근거, Value: 3
+					39 text 조회 근거
+				40 table
+					41 row
+						42 cell
+							43 text 조회 서비스
+						44 cell
+							45 text 관측 상태
+						46 cell
+							47 text 참고 매뉴얼
+					48 row
+						49 cell
+							50 text 실제 조회한 등록 서비스가 없습니다.
+				51 text 미등록: billing-service
+				52 text 교육용 모의 모니터링 · 실제 로그·배포 이력·의존 관계·시계열 미수집 · 서버 조치는 실행하지 않음
+				53 text 관측·확인 안내 · 0.008초 · 검증 시도 0회
+				54 button (collapsed) 조사 과정과 참고 자료 보기, Secondary Actions: Expand
+					55 text 조사 과정과 참고 자료 보기
+	33 text AI 서비스 개발 Mini-project · Base AI Project 개선
+
+The focused UI element is 0 AXWebArea 운영 장애 진단 · 근거 확인, URL: 127.0.0.1:8706/

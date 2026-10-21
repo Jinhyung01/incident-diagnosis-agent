@@ -54,5 +54,59 @@
   "after-timeout-controlled.jpg": {
     "sha256": "e1a97922352fed9d6b73cbbb95d30a151c5013744d7131ead25a4713e6947028",
     "kind": "actual browser UI screenshot; controlled scenario"
+  },
+  "context-llm-raw.jpg": {
+    "sha256": "1862aac16547c57f84544b053b2bbcb7e3aa34a68dcbcbfd44ccbc4ff6aa9670",
+    "kind": "actual raw model log file viewer screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-healthy-evidence.jpg": {
+    "sha256": "52bf88481d33a07f86560bb2adff4294da99d7ce60b0d6a8b2a3389ec3d620cc",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-healthy-top.jpg": {
+    "sha256": "079320c4f430ceed6cf276ecca7dcc2ce8ce9255d4cd300a294e62314688d358",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-cache-full.jpg": {
+    "sha256": "1bd76a614e818dfa036d9df3f7aec2bcbb4e7dc582e5547a3854aba15e4d7f8d",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-healthy-full.jpg": {
+    "sha256": "c94ac259e6c1e8b49a7294a9cfef35f4a629f9c1ad7ed920bbf2bf154f003627",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-cache-answer.jpg": {
+    "sha256": "580ab61e009ff7b56410922bf11702f18c063447ca4a7efe9924ec6e8b502b52",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-unknown-full.jpg": {
+    "sha256": "40e52dd94bd78b1bbbec672087c1606d1a711c0eed5222ece9f84c8485fec644",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-unknown-frame.jpg": {
+    "sha256": "8a6b9e95cf9fd64a48d1b3590850646375357305699d5053547b60f8f1317b2c",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
+  },
+  "context-healthy-answer.jpg": {
+    "sha256": "3b24256fe08533f9cc0fe8623eba113e4fe82f63deb1da6c9f9a09aa179347f8",
+    "kind": "actual browser UI screenshot",
+    "image_text_edited": false,
+    "ppt_crop_applied": false
   }
 }

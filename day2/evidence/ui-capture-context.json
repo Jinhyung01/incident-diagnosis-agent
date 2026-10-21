@@ -29,7 +29,7 @@
     "validation_attempts_displayed": 1
   },
   "scope": "실제 브라우저 시연 화면이며 20개 고정 데이터 그래프 평가의 시간 통계와 별도",
-  "capture_method": "전체 실제 스크린샷을 보존하고 PPT에서 네이티브 이미지 자르기로 근거 영역을 확대한다.",
+  "capture_method": "현재 context PPT는 실제 전체 페이지 또는 viewport 원본을 비율 유지해 삽입한다. 이미지 자르기·답변 문구 편집 없음. 이전 발표판과 구분한다.",
   "healthy_demo": {
     "targets": [
       "web-01",
@@ -94,5 +94,21 @@
     },
     "production_default_request_seconds": 60,
     "old_comparison_rerun": false
+  },
+  "contextual_revision": {
+    "backend_port": 8206,
+    "proxy_port": 8706,
+    "records": "day2/results/contextual-captures/SUMMARY.md",
+    "evidence_index": "presentation/EVIDENCE_INDEX.md",
+    "monitoring": "original base values, jitter=0",
+    "ui_change": "request sticky CSS only",
+    "screenshots_edited": false,
+    "ppt_image_crop": false,
+    "included_in_20_case_metrics": false,
+    "model_report_calls_observed": {
+      "healthy": 1,
+      "cache": 1,
+      "unknown": 0
+    }
   }
 }

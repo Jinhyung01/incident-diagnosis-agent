@@ -1,0 +1,31 @@
+﻿실제 LLM 호출 기록 (앱 화면 아님)
+
+사용자 질문
+web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘
+
+모델: ollama:qwen3:8b
+
+raw_model_output (원문)
+{
+  "sections": [
+    {
+      "system_name": "web-01",
+      "cpu_percent": 34.0,
+      "memory_percent": 48.0,
+      "runbook_id": "",
+      "step_ids": [],
+      "cause_confirmed": false
+    },
+    {
+      "system_name": "auth-service",
+      "cpu_percent": 78.0,
+      "memory_percent": 61.0,
+      "runbook_id": "high-latency",
+      "step_ids": [1, 2, 3],
+      "cause_confirmed": false
+    }
+  ]
+}
+
+원본 기록: 49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json
+SHA256: faa02a05159496a4ad57fd9d32aa391e0eae68c14ac2192c1a303c01eddd25de

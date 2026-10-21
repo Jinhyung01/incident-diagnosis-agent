@@ -1,0 +1,531 @@
+{
+  "deck": {
+    "title": "운영 장애 진단 AI 에이전트 개선",
+    "audience": "동일 교육과정 교육생과 평가자",
+    "outcome": "원본 문제를 실제 대화로 확인하고 개선 범위·측정·한계를 이해한다",
+    "output_lane": "native-pptx",
+    "format": "16:9",
+    "slide_count": 15,
+    "design_posture": "Product Lab with complete uncropped screenshots and separate cover",
+    "narrative_spine": "Cover / context / original evidence / improved evidence / mechanism / measurement / limits",
+    "main_promise": "질문과 실제 응답을 보존해 개선을 검증할 수 있는 발표",
+    "assumptions": [
+      "본편9장 목표260초, 부록6장은 질의용",
+      "전체 화면 원본은 확대 검토용이며 본편은 연속 viewport도 사용"
+    ]
+  },
+  "slides": [
+    {
+      "number": 1,
+      "action_title": "운영 장애 진단\nAI 에이전트 개선",
+      "role": "cover",
+      "key_message": "과제 1 Base AI Project 개선",
+      "layout": "cover",
+      "visual": "Editable native text and table",
+      "evidence": [
+        "Project implementation and measured records"
+      ],
+      "speaker_note": "[10초] 제공된 Base AI Project에서 조사 대상과 답변 근거가 어긋나는 문제를 개선했습니다. 이진형입니다.",
+      "source_refs": [
+        "REPORT.md"
+      ],
+      "native_content": {
+        "kind": "cover"
+      },
+      "image": null,
+      "caption": "",
+      "values": null
+    },
+    {
+      "number": 2,
+      "action_title": "서비스 증상을 입력하면 지표와 매뉴얼로 보고한다",
+      "role": "context",
+      "key_message": "베이스 프로젝트가 무엇을 하는지 먼저 설명",
+      "layout": "table",
+      "visual": "Editable native text and table",
+      "evidence": [
+        "Project implementation and measured records"
+      ],
+      "speaker_note": "[20초] 서비스 이름과 증상을 입력하면 계획을 세우고 MCP로 모니터링 지표와 매뉴얼을 조회해 보고서를 만드는 베이스입니다. 모니터링은 교육용 모의 데이터이고 실제 서버 조치는 하지 않습니다. FastAPI·LangGraph·MCP가 기존 기반입니다. 원본의 조사와 답변이 요청 범위를 만족하는지 실행해 확인했습니다.",
+      "source_refs": [
+        "day1/baseline/original_v2/agent/graph.py",
+        "day1/baseline/original_v2/mcp_server.py"
+      ],
+      "native_content": {
+        "kind": "table",
+        "table": {
+          "headers": [
+            "처리",
+            "기존 프로그램의 역할"
+          ],
+          "rows": [
+            [
+              "자연어 입력",
+              "서비스 이름과 증상을 전달"
+            ],
+            [
+              "조사 계획·모니터링",
+              "계획을 세우고 MCP Tool로 지표 조회"
+            ],
+            [
+              "대응 매뉴얼",
+              "장애 유형에 맞는 매뉴얼 조회"
+            ],
+            [
+              "보고서 작성",
+              "수집 자료를 바탕으로 LLM이 답변 작성"
+            ]
+          ]
+        }
+      },
+      "image": null,
+      "caption": "기존 기반  FastAPI · LangGraph · MCP",
+      "values": [
+        [
+          "처리",
+          "기존 프로그램의 역할"
+        ],
+        [
+          "자연어 입력",
+          "서비스 이름과 증상을 전달"
+        ],
+        [
+          "조사 계획·모니터링",
+          "계획을 세우고 MCP Tool로 지표 조회"
+        ],
+        [
+          "대응 매뉴얼",
+          "장애 유형에 맞는 매뉴얼 조회"
+        ],
+        [
+          "보고서 작성",
+          "수집 자료를 바탕으로 LLM이 답변 작성"
+        ]
+      ]
+    },
+    {
+      "number": 3,
+      "action_title": "원본은 두 서비스 중 web-01만 조사했다",
+      "role": "proof",
+      "key_message": "질문과 최종 답변을 포함한 원본 전체 화면",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/before-healthy-answer-revision.jpg",
+      "evidence": [
+        "day2/evidence/before-healthy-answer-revision.jpg"
+      ],
+      "speaker_note": "[35초] 질문은 web-01과 auth-service를 함께 확인해 달라는 내용입니다. 원본 전체 화면에서 진행 기록은 web-01만 조회했고 db-down을 선택했습니다. 최종 답변은 healthy·CPU 34%·알림 0건을 인용하면서 DB 리플리케이션 확인을 권합니다. auth 데이터가 수집되지 않았다는 문장도 그대로 남아 있습니다. 이 결과로 대상 누락과 상태에 맞지 않는 매뉴얼 선택을 개선 과제로 정했습니다.",
+      "source_refs": [
+        "day2/evidence/before-healthy-answer-revision.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/before-healthy-answer-revision.jpg",
+      "caption": "auth 미조회 · 정상 지표에 DB 장애 절차 안내",
+      "values": null
+    },
+    {
+      "number": 4,
+      "action_title": "같은 질문에서 두 서비스를 각각 확인했다",
+      "role": "proof",
+      "key_message": "실제 질문과 최종 답변 전체를 포함한 개선 화면",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/context-healthy-answer.jpg",
+      "evidence": [
+        "day2/evidence/context-healthy-answer.jpg"
+      ],
+      "speaker_note": "[35초] 같은 질문과 고정 지표로 새로 실행했습니다. 화면의 실제 질문 아래 web-01은 CPU 34%, 메모리 48%이고 정상이라 문서를 생략합니다. auth는 추가 조회해 p95 2.4초·커넥션 풀 92%와 high-latency 문서를 연결했습니다. 이 화면에는 최종 답변 전체가 보이고 다음 화면은 같은 요청의 근거 표까지 내려간 연속 캡처입니다. 질문은 긴 답변에서도 상단에 고정하도록 UI만 보완했습니다. 답변 문구는 편집하지 않았습니다.",
+      "source_refs": [
+        "day2/evidence/context-healthy-answer.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-healthy-answer.jpg",
+      "caption": "동일 요청·고정 지표의 새 실행. 답변 문구 편집 없음",
+      "values": null
+    },
+    {
+      "number": 5,
+      "action_title": "조회 근거와 미확인 사항도 함께 표시했다",
+      "role": "proof",
+      "key_message": "같은 질문이 남은 연속 화면에서 서비스별 문서와 한계를 확인",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/context-healthy-evidence.jpg",
+      "evidence": [
+        "day2/evidence/context-healthy-evidence.jpg"
+      ],
+      "speaker_note": "[20초] 같은 답변의 아래쪽입니다. 질문이 상단에 남아 있고 서비스 두 개의 조회 근거와 문서, 유사도, 미확인 범위를 확인할 수 있습니다. 실제 로그·시계열·의존 관계가 없으므로 공통 원인은 확정하지 않습니다. 새 시연의 12.425초는 한 번의 UI 실행 시간이며 뒤의 20건 비교 통계와 구분합니다.",
+      "source_refs": [
+        "day2/evidence/context-healthy-evidence.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-healthy-evidence.jpg",
+      "caption": "앞 장과 같은 요청의 연속 화면 · 전체 원본은 부록 15장",
+      "values": null
+    },
+    {
+      "number": 6,
+      "action_title": "대상·문서·수치를 검증하고 실패를 안내한다",
+      "role": "mechanism",
+      "key_message": "원래 계획한 개선 5개와 기능 추가 3개를 구현",
+      "layout": "table",
+      "visual": "Editable native text and table",
+      "evidence": [
+        "Project implementation and measured records"
+      ],
+      "speaker_note": "[45초] 다섯 가지 개선입니다. 명시 대상 전체로 계획 누락을 보완하고, 미등록은 다른 서비스로 대체하지 않고 등록 이름을 요청합니다. 정상·장애·정보 부족을 구분해 서비스별 알림으로 RAG 검색합니다. LLM은 구조화 JSON으로 수치·문서·절차 번호를 선택하고 코드가 검증한 뒤 조건을 매뉴얼 원문으로 표시합니다. 생성 512토큰, 호출 25초·요청 60초·최대 두 번 작성 제한을 두고 강제 통과 대신 안내합니다. 추가 기능은 RAG 검색, 근거 화면, 회귀·비교 실행기입니다. 조건 충족 자동 판정이나 자유 문장 전체의 의미 검증은 아닙니다.",
+      "source_refs": [
+        "all_total_vue_student/agent/targets.py",
+        "all_total_vue_student/agent/retrieval.py",
+        "all_total_vue_student/agent/validation.py",
+        "all_total_vue_student/agent/evidence.py",
+        "all_total_vue_student/server.py"
+      ],
+      "native_content": {
+        "kind": "table",
+        "table": {
+          "headers": [
+            "개선",
+            "구현"
+          ],
+          "rows": [
+            [
+              "대상 누락",
+              "요청한 서비스 전체로 계획 보완"
+            ],
+            [
+              "미등록 대상",
+              "임의 대체 없이 등록 이름 확인 요청"
+            ],
+            [
+              "매뉴얼 선택",
+              "상태 구분, 서비스별 알림으로 RAG 검색"
+            ],
+            [
+              "답변 검증",
+              "수치·문서·절차 대조, 조건 원문 보존"
+            ],
+            [
+              "실패 처리",
+              "512토큰·25초/60초·최대 2회 작성, 실패 안내"
+            ]
+          ]
+        }
+      },
+      "image": null,
+      "caption": "추가 기능  RAG 검색 · 근거 화면 · 회귀 테스트와 전후 비교",
+      "values": [
+        [
+          "개선",
+          "구현"
+        ],
+        [
+          "대상 누락",
+          "요청한 서비스 전체로 계획 보완"
+        ],
+        [
+          "미등록 대상",
+          "임의 대체 없이 등록 이름 확인 요청"
+        ],
+        [
+          "매뉴얼 선택",
+          "상태 구분, 서비스별 알림으로 RAG 검색"
+        ],
+        [
+          "답변 검증",
+          "수치·문서·절차 대조, 조건 원문 보존"
+        ],
+        [
+          "실패 처리",
+          "512토큰·25초/60초·최대 2회 작성, 실패 안내"
+        ]
+      ]
+    },
+    {
+      "number": 7,
+      "action_title": "미등록 서비스는 등록 이름을 다시 요청한다",
+      "role": "proof",
+      "key_message": "입력과 실제 확인 요청 응답을 함께 제시",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/context-unknown-frame.jpg",
+      "evidence": [
+        "day2/evidence/context-unknown-frame.jpg"
+      ],
+      "speaker_note": "[20초] billing-service 요청입니다. 실제 응답은 미등록이며 다른 서비스를 조회하지 않았다고 표시하고 등록 이름을 요청합니다. 근거 표에도 실제 조회 대상이 없다고 나옵니다. auth 기본 처리였던 기존 정책을 사용자 의도에 맞춰 변경한 것입니다. 이 경로는 LLM 보고 생성을 생략하는 코드 안내이며 모델이 생성한 답변으로 부르지 않습니다.",
+      "source_refs": [
+        "day2/evidence/context-unknown-frame.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-unknown-frame.jpg",
+      "caption": "미등록 안내 경로: LLM 보고 생성·다른 서비스 조회 생략",
+      "values": null
+    },
+    {
+      "number": 8,
+      "action_title": "고정 질문 20개에서 대상 누락이 줄었다",
+      "role": "data exhibit",
+      "key_message": "비교의 분모와 안내 응답, 생성 설정 변경을 공개",
+      "layout": "table",
+      "visual": "Editable native text and table",
+      "evidence": [
+        "Project implementation and measured records"
+      ],
+      "speaker_note": "[45초] 같은 질문·고정 지표·같은 모델의 비교입니다. 등록 대상 수집은 17개에서 20개, 단일 정답 문서는 11개에서 12개로 바뀌었습니다. 양쪽 모두 완료한 16개 요청의 중앙값은 35.94초에서 4.45초입니다. 생성 설정과 출력 형식도 바뀌어 RAG만의 효과라고 할 수 없습니다. 완료 20건은 검증13·관측확인안내4·대화2·검증실패안내1입니다. 이 비교 뒤 안내 문구를 보완했고 전체 통계 재측정은 하지 않았습니다. 새 시연은 별도 기록입니다.",
+      "source_refs": [
+        "day2/results/comparison/summary.json",
+        "day2/results/comparison/REPORT.md"
+      ],
+      "native_content": {
+        "kind": "table",
+        "table": {
+          "headers": [
+            "지표",
+            "원본",
+            "개선"
+          ],
+          "rows": [
+            [
+              "등록 대상 수집",
+              "17 / 20",
+              "20 / 20"
+            ],
+            [
+              "단일 정답 문서 Top-1",
+              "11 / 12",
+              "12 / 12"
+            ],
+            [
+              "완료한 동일 16건 중앙값",
+              "35.94초",
+              "4.45초"
+            ],
+            [
+              "최종 응답 완료",
+              "16 / 20",
+              "20 / 20"
+            ]
+          ]
+        }
+      },
+      "image": null,
+      "caption": "동일 질문·고정 지표·모델 / 생성 설정·출력 형식 변경 포함",
+      "values": [
+        [
+          "지표",
+          "원본",
+          "개선"
+        ],
+        [
+          "등록 대상 수집",
+          "17 / 20",
+          "20 / 20"
+        ],
+        [
+          "단일 정답 문서 Top-1",
+          "11 / 12",
+          "12 / 12"
+        ],
+        [
+          "완료한 동일 16건 중앙값",
+          "35.94초",
+          "4.45초"
+        ],
+        [
+          "최종 응답 완료",
+          "16 / 20",
+          "20 / 20"
+        ]
+      ]
+    },
+    {
+      "number": 9,
+      "action_title": "실제 원인 분석과 자동 조치는 남은 과제다",
+      "role": "limitation",
+      "key_message": "현재 성과와 한계 및 선택의 대가를 구분",
+      "layout": "table",
+      "visual": "Editable native text and table",
+      "evidence": [
+        "Project implementation and measured records"
+      ],
+      "speaker_note": "[30초] 교육용 지표와 문서 여섯 개로 검증해 실제 운영 성능으로 일반화할 수 없습니다. 검색에는 임베딩 지연과 오검색 가능성이 있고 원문 기반 출력은 자유 설명을 줄입니다. 시간 제한은 대기를 줄이지만 안내로 끝나는 요청도 만듭니다. 실제 로그·시계열·의존 관계를 연결하고 평가 범위를 넓히는 것이 다음 과제입니다. 이번에는 요청한 대상과 실제 수집 근거에 맞게 보고하도록 개선했습니다.",
+      "source_refs": [
+        "day2/results/comparison/REPORT.md",
+        "day2/results/presentation-scenarios/SUMMARY.md"
+      ],
+      "native_content": {
+        "kind": "table",
+        "table": {
+          "headers": [
+            "선택",
+            "남은 한계"
+          ],
+          "rows": [
+            [
+              "RAG 검색·문서 6개",
+              "검색 지연·오검색 가능, 운영 성능 미검증"
+            ],
+            [
+              "구조화·원문 출력",
+              "자유로운 설명 범위 제한"
+            ],
+            [
+              "생성·시간 상한",
+              "일부 요청은 사실 중심 안내로 종료"
+            ]
+          ]
+        }
+      },
+      "image": null,
+      "caption": "다음 검증  실제 로그·시계열·의존 관계와 평가 문서·질문 확장",
+      "values": [
+        [
+          "선택",
+          "남은 한계"
+        ],
+        [
+          "RAG 검색·문서 6개",
+          "검색 지연·오검색 가능, 운영 성능 미검증"
+        ],
+        [
+          "구조화·원문 출력",
+          "자유로운 설명 범위 제한"
+        ],
+        [
+          "생성·시간 상한",
+          "일부 요청은 사실 중심 안내로 종료"
+        ]
+      ]
+    },
+    {
+      "number": 10,
+      "action_title": "부록 · 실제 LLM 출력은 구조화 JSON이다",
+      "role": "appendix",
+      "key_message": "질문과 실제 저장된 모델 원문을 함께 공개",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/context-llm-raw.jpg",
+      "evidence": [
+        "day2/evidence/context-llm-raw.jpg"
+      ],
+      "speaker_note": "같은 web-01·auth 요청의 실제 qwen3:8b 출력입니다. 실행 래퍼가 반환 값을 변경하지 않고 원문과 usage를 저장했습니다. TXT는 해당 기록을 그대로 읽어 표시한 파일이며 앱 UI 화면과 구분합니다. 모델은 서비스·수치·문서·절차 번호를 선택하고 검증 후 코드가 원문 절차를 출력합니다. 사용자가 보는 전체 보고서를 모델이 자유롭게 쓴 것처럼 설명하지 않습니다.",
+      "source_refs": [
+        "day2/evidence/context-llm-raw.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-llm-raw.jpg",
+      "caption": "실제 실행 로그의 파일 화면. 앱 UI와 구분하며 원시 JSON도 함께 보존",
+      "values": null
+    },
+    {
+      "number": 11,
+      "action_title": "부록 · 재시작 질문과 실제 최종 답변",
+      "role": "appendix",
+      "key_message": "부분 문장 대신 실제 질의와 전체 답변으로 조건 보존 증명",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/context-cache-answer.jpg",
+      "evidence": [
+        "day2/evidence/context-cache-answer.jpg"
+      ],
+      "speaker_note": "cache 메모리 재시작 질문의 실제 새 실행입니다. 관측은 메모리89%이고 원문에는90% 이상일 때의 조건이 있습니다. 조건을 유지하고 조치 미실행을 표시합니다. 조건 충족 자동 판정과 실제 재시작 기능은 구현하지 않았습니다.",
+      "source_refs": [
+        "day2/evidence/context-cache-answer.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-cache-answer.jpg",
+      "caption": "메모리 89% 관측, 90% 조건 원문 유지. 실제 조치 미실행",
+      "values": null
+    },
+    {
+      "number": 12,
+      "action_title": "부록 · 정보 부족이면 매뉴얼을 생략한다",
+      "role": "appendix",
+      "key_message": "질문과 최종 안내 전체를 포함한 제어 시험 화면",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/after-insufficient-controlled.jpg",
+      "evidence": [
+        "day2/evidence/after-insufficient-controlled.jpg"
+      ],
+      "speaker_note": "web-01을 degraded·알림 없음으로 고정한 제어 시험입니다. 실제 MCP·그래프·UI를 사용했고 관련 문서를 임의 선택하지 않고 추가 정보를 요청했습니다. 이 경로는 LLM 보고 생성을 생략한 코드 안내입니다.",
+      "source_refs": [
+        "day2/evidence/after-insufficient-controlled.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/after-insufficient-controlled.jpg",
+      "caption": "제어 시험: degraded·활성 알림 없음 / 일반 성능 통계와 별도",
+      "values": null
+    },
+    {
+      "number": 13,
+      "action_title": "부록 · 시간 초과 후 수집한 사실을 보존한다",
+      "role": "appendix",
+      "key_message": "질문과 최종 시간 제한 안내 전체를 제시",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/after-timeout-controlled.jpg",
+      "evidence": [
+        "day2/evidence/after-timeout-controlled.jpg"
+      ],
+      "speaker_note": "보고 생성 의존성에30초 지연을 주입하고 시험용 요청 상한을8초로 설정했습니다. 기본은60초입니다. 화면은8.003초에 시간 제한을 알리고 기존에 수집한CPU91%·메모리55%와 문서 원문을 보존합니다. 검증된 모델 보고서를 완료하지 못한 경로로, 모델 성공 답변으로 집계하지 않습니다.",
+      "source_refs": [
+        "day2/evidence/after-timeout-controlled.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/after-timeout-controlled.jpg",
+      "caption": "제어 시험: 생성 의존성 지연 30초·요청 상한 8초 / 기본 상한 60초",
+      "values": null
+    },
+    {
+      "number": 14,
+      "action_title": "부록 · 비교 결과 보고서 전체",
+      "role": "appendix",
+      "key_message": "측정 표와 조건을 자르지 않고 보존",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/comparison.jpg",
+      "evidence": [
+        "day2/evidence/comparison.jpg"
+      ],
+      "speaker_note": "20개 결과 JSON으로 만든 비교 보고서의 브라우저 화면입니다. 앱 대화 화면과 구분합니다. 성공 시간의 분모16건과20건, 안내 응답 포함과 생성 설정 변경을 확인할 수 있습니다. 본편의 시간 비교는 양쪽 모두 완료한 동일16개 중앙값을 사용했습니다.",
+      "source_refs": [
+        "day2/evidence/comparison.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/comparison.jpg",
+      "caption": "측정 보고서 화면이며 앱의 모델 응답 화면이 아님",
+      "values": null
+    },
+    {
+      "number": 15,
+      "action_title": "부록 · 개선 실행의 전체 페이지 원본",
+      "role": "appendix",
+      "key_message": "질문·전체 응답·근거·완료 상태를 모두 보존",
+      "layout": "whole-screenshot",
+      "visual": "day2/evidence/context-healthy-full.jpg",
+      "evidence": [
+        "day2/evidence/context-healthy-full.jpg"
+      ],
+      "speaker_note": "본편 4~5장의 연속 캡처와 같은 실행의 전체 페이지 원본입니다. 읽기용 연속 화면과 검토용 전체 원본을 함께 남겼습니다. PPT에 이미지 자르기를 적용하지 않았습니다.",
+      "source_refs": [
+        "day2/evidence/context-healthy-full.jpg"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-healthy-full.jpg",
+      "caption": "본편 4~5장과 같은 실행. 원본 이미지·원시 이벤트는 공개 저장소에서 확인",
+      "values": null
+    }
+  ]
+}
