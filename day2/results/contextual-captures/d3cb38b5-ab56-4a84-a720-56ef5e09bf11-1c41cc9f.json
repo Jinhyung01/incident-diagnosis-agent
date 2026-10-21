@@ -1,0 +1,49 @@
+{
+  "captured_at": "2026-10-21T11:24:40.288811+00:00",
+  "thread_id": "d3cb38b5-ab56-4a84-a720-56ef5e09bf11",
+  "query": "안녕, 너는 누구야?",
+  "model_calls": [],
+  "events": [
+    {
+      "type": "RouteDecided",
+      "route": "chat",
+      "node": "scope"
+    },
+    {
+      "type": "ScopeChecked",
+      "targets": [],
+      "unknown": [],
+      "node": "scope"
+    },
+    {
+      "type": "AnswerToken",
+      "delta": "안녕하세요. 서비스 상태와 대응 매뉴얼을 확인하는 운영 장애 진단 비서입니다."
+    },
+    {
+      "type": "Finalize",
+      "pipeline": "chat-direct",
+      "node": "chat"
+    },
+    {
+      "type": "FinalAnswer",
+      "reply": "안녕하세요. 서비스 상태와 대응 매뉴얼을 확인하는 운영 장애 진단 비서입니다.",
+      "prompt": null,
+      "evidence": {},
+      "metadata": {
+        "answer_status": "chat",
+        "route": "chat",
+        "targets": [],
+        "validation_attempts": 0,
+        "validation_issues": [],
+        "retry_count": 0,
+        "elapsed_seconds": 0.005,
+        "request_timeout_seconds": 60.0,
+        "delivery": "chat",
+        "llm_backend": "ollama",
+        "implementation": "improved-v2"
+      }
+    }
+  ],
+  "data_control": "Original base monitoring values, jitter=0",
+  "answer_replayed_or_replaced": false
+}

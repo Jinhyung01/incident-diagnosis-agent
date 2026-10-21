@@ -2,7 +2,7 @@
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-context.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-review.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -68,7 +68,7 @@ web-01은 healthy·활성 알림 없음으로 문서 검색을 생략하고, aut
 
 ![같은 요청의 조회 근거](day2/evidence/context-healthy-evidence.jpg)
 
-LLM이 실제 반환한 값은 서비스·수치·문서 ID·절차 번호의 JSON이다. 검증 후 코드가 관측과 매뉴얼 원문으로 최종 보고서를 구성한다. 미등록·정보 부족 안내는 보고 LLM을 호출하지 않는다. [질문별 실제 기록](day2/results/contextual-captures/SUMMARY.md)과 [화면별 출처](presentation/EVIDENCE_INDEX.md)를 연결했다. 이 새 호출은 기존 20건 통계와 별도다.
+LLM이 실제 반환한 값은 서비스·수치·문서 ID·절차 번호의 JSON이다. 검증 후 코드가 관측과 매뉴얼 원문으로 최종 보고서를 구성한다. 미등록·정보 부족 안내는 보고 LLM을 호출하지 않는다. [질문별 실제 기록](day2/results/contextual-captures/SUMMARY.md)과 [화면별 출처](presentation/EVIDENCE_INDEX.md)를 연결했다. 이 새 호출은 기존 20건 통계와 별도다. 수업의 원래 10개 시나리오는 [전체 UI 증빙 목록](presentation/EVIDENCE_INDEX.md#수업의-원래-10개-시나리오)에서 각각 질문·실제 응답·원시 기록으로 연결했다. Q05·Q08은 직전 완료 화면을 재사용하고 나머지를 보강했다. 이름 회상은 같은 DB·대화의 서버 재시작 뒤 실제로 확인했다.
 
 ### 미등록 서비스
 
@@ -156,4 +156,4 @@ billing-service를 auth-service로 바꾸어 조회하지 않고 확인할 등�
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 1장과 본편 8장(노트 목표 4분 20초), 질문용 부록 6장으로 구성했다.
+AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 1장과 본편 8장(노트 목표 4분 20초), 질문용 부록 18장으로 구성했다.

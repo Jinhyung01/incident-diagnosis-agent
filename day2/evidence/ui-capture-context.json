@@ -110,5 +110,22 @@
       "cache": 1,
       "unknown": 0
     }
+  },
+  "whole_deck_review": {
+    "suite": "day2/results/contextual-captures/review-suite.json",
+    "scenario_count": 10,
+    "existing_captures_reused": [
+      "Q05",
+      "Q08"
+    ],
+    "additional_scenarios": 8,
+    "additional_requests": 9,
+    "included_in_20_case_metrics": false,
+    "image_crop": false,
+    "image_text_edited": false,
+    "backend_restart_pids": [
+      24787,
+      25021
+    ]
   }
 }

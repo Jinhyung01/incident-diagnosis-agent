@@ -19,3 +19,20 @@
 캡처 관찰기는 순차 요청용이며 동시 요청 격리 성능을 검증하지 않았다. 최초 저장 이름의 thread 중복 문제를 발견해 요청별 UUID 접미사를 추가했다. 선택한 증빙은 완료된 최종 이벤트와 화면이 일치하는 요청이다. 기록은 덮어쓰지 않는다.
 
 [캡처 목록](../../../presentation/EVIDENCE_INDEX.md) · [실행 래퍼](../../scripts/serve_capture_session.py)
+
+## 전체 검토의 추가 UI 증빙
+
+원래10개 시나리오를 실제 화면과 연결한 [대응 기록](review-suite.json)을 추가했다. Q05·Q08은 직전 완료 캡처를 재사용하고 나머지8개 시나리오의9개 요청을 이번 검토에서 실행했다. 이는 기존 통합검증10개·11요청이나20건 정량평가를 새로 측정한 숫자가 아니다.
+
+- Q01: payments 확인·CPU 문서 연결. [3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json](3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json)
+- Q02: cache 확인·메모리 문서 연결. [271a4d39-90ec-4732-b7ea-a1515663f5c3-c915a919.json](271a4d39-90ec-4732-b7ea-a1515663f5c3-c915a919.json)
+- Q03: log 확인·디스크 문서 연결. [cc4c77a5-5311-4797-9942-36ec51f66841-17dcde1e.json](cc4c77a5-5311-4797-9942-36ec51f66841-17dcde1e.json)
+- Q04: gateway·payments 각각 조사. [f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json](f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json)
+- Q05: web 정상·auth 지연 문서 분리. [49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json](49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json)
+- Q06: 두 서비스 조사·공통 원인 미확정. [a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json](a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json)
+- Q07: 서비스 이름 확인 요청. [f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json](f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json)
+- Q08: 미등록 안내·임의 대체 생략. [55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json](55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json)
+- Q09: 일반 대화·모니터링 생략. [d3cb38b5-ab56-4a84-a720-56ef5e09bf11-1c41cc9f.json](d3cb38b5-ab56-4a84-a720-56ef5e09bf11-1c41cc9f.json)
+- Q10: 재시작 뒤 사용자 이름 유지. [a32674df-835a-4ed8-889d-49281a8c9b81-db829e26.json](a32674df-835a-4ed8-889d-49281a8c9b81-db829e26.json) · [a32674df-835a-4ed8-889d-49281a8c9b81-a7e8818f.json](a32674df-835a-4ed8-889d-49281a8c9b81-a7e8818f.json)
+
+이름 선언 뒤 캡처 서버를 정상 종료(PID24787)하고 같은DB로 시작(PID25021)한 후 같은thread에서 회상했다. 응답은 사용자님의 이름은 민수입니다였다. 브라우저의 두 턴과 실제 이벤트를 함께 보존했다. 코드가 사용자 역할의 저장 이력을 읽는 기능으로, LLM 장기 기억 성능으로 주장하지 않는다.

@@ -1,0 +1,158 @@
+{
+  "purpose": "Original ten scenario UI evidence; separate from 20-case timing comparison",
+  "same_original_monitoring_base": true,
+  "jitter": 0,
+  "suite": [
+    {
+      "id": "Q01",
+      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
+      "records": [
+        "3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json"
+      ],
+      "screens": [
+        "review-q01-answer.jpg"
+      ],
+      "result": "payments 확인·CPU 문서 연결",
+      "answer_status": "validated",
+      "report_model_calls": 1,
+      "reused_existing_capture": false
+    },
+    {
+      "id": "Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "records": [
+        "271a4d39-90ec-4732-b7ea-a1515663f5c3-c915a919.json"
+      ],
+      "screens": [
+        "review-q02-answer.jpg"
+      ],
+      "result": "cache 확인·메모리 문서 연결",
+      "answer_status": "validated",
+      "report_model_calls": 1,
+      "reused_existing_capture": false
+    },
+    {
+      "id": "Q03",
+      "query": "log-service 디스크 공간이 부족하다는 알림이 왔어요",
+      "records": [
+        "cc4c77a5-5311-4797-9942-36ec51f66841-17dcde1e.json"
+      ],
+      "screens": [
+        "review-q03-answer.jpg"
+      ],
+      "result": "log 확인·디스크 문서 연결",
+      "answer_status": "validated",
+      "report_model_calls": 1,
+      "reused_existing_capture": false
+    },
+    {
+      "id": "Q04",
+      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+      "records": [
+        "f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "screens": [
+        "review-q04-first.jpg",
+        "review-q04-second.jpg"
+      ],
+      "result": "gateway·payments 각각 조사",
+      "answer_status": "validated",
+      "report_model_calls": 1,
+      "reused_existing_capture": false
+    },
+    {
+      "id": "Q05",
+      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+      "records": [
+        "49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
+      ],
+      "screens": [
+        "context-healthy-answer.jpg",
+        "context-healthy-evidence.jpg"
+      ],
+      "result": "web 정상·auth 지연 문서 분리",
+      "answer_status": "validated",
+      "report_model_calls": 1,
+      "reused_existing_capture": true
+    },
+    {
+      "id": "Q06",
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "records": [
+        "a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
+      ],
+      "screens": [
+        "review-q06-first.jpg",
+        "review-q06-second.jpg"
+      ],
+      "result": "두 서비스 조사·공통 원인 미확정",
+      "answer_status": "validated",
+      "report_model_calls": 1,
+      "reused_existing_capture": false
+    },
+    {
+      "id": "Q07",
+      "query": "로그인 응답이 느려요, 원인 확인해주세요",
+      "records": [
+        "f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json"
+      ],
+      "screens": [
+        "review-q07-answer.jpg"
+      ],
+      "result": "서비스 이름 확인 요청",
+      "answer_status": "observation",
+      "report_model_calls": 0,
+      "reused_existing_capture": false
+    },
+    {
+      "id": "Q08",
+      "query": "billing-service 응답이 느려요",
+      "records": [
+        "55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json"
+      ],
+      "screens": [
+        "context-unknown-frame.jpg"
+      ],
+      "result": "미등록 안내·임의 대체 생략",
+      "answer_status": "observation",
+      "report_model_calls": 0,
+      "reused_existing_capture": true
+    },
+    {
+      "id": "Q09",
+      "query": "안녕, 너는 누구야?",
+      "records": [
+        "d3cb38b5-ab56-4a84-a720-56ef5e09bf11-1c41cc9f.json"
+      ],
+      "screens": [
+        "review-q09-answer.jpg"
+      ],
+      "result": "일반 대화·모니터링 생략",
+      "answer_status": "chat",
+      "report_model_calls": 0,
+      "reused_existing_capture": false
+    },
+    {
+      "id": "Q10",
+      "query": "제 이름은 민수입니다",
+      "records": [
+        "a32674df-835a-4ed8-889d-49281a8c9b81-db829e26.json",
+        "a32674df-835a-4ed8-889d-49281a8c9b81-a7e8818f.json"
+      ],
+      "screens": [
+        "review-q10-before-restart.jpg",
+        "review-q10-answer.jpg"
+      ],
+      "result": "재시작 뒤 사용자 이름 유지",
+      "answer_status": "chat",
+      "report_model_calls": 0,
+      "reused_existing_capture": false,
+      "followup_query": "제 이름이 뭐였죠?",
+      "same_thread_id": "a32674df-835a-4ed8-889d-49281a8c9b81",
+      "backend_pid_before": 24787,
+      "backend_pid_after": 25021,
+      "database": "day2/runtime/contextual-captures/session.db",
+      "restart_evidence": "Observed graceful shutdown and fresh server process in exec outputs; screenshots alone do not prove restart."
+    }
+  ]
+}

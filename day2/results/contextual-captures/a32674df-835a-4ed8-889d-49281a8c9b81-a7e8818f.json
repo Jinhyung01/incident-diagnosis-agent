@@ -1,0 +1,49 @@
+{
+  "captured_at": "2026-10-21T11:25:27.408000+00:00",
+  "thread_id": "a32674df-835a-4ed8-889d-49281a8c9b81",
+  "query": "제 이름이 뭐였죠?",
+  "model_calls": [],
+  "events": [
+    {
+      "type": "RouteDecided",
+      "route": "chat",
+      "node": "scope"
+    },
+    {
+      "type": "ScopeChecked",
+      "targets": [],
+      "unknown": [],
+      "node": "scope"
+    },
+    {
+      "type": "AnswerToken",
+      "delta": "사용자님의 이름은 민수입니다."
+    },
+    {
+      "type": "Finalize",
+      "pipeline": "chat-direct",
+      "node": "chat"
+    },
+    {
+      "type": "FinalAnswer",
+      "reply": "사용자님의 이름은 민수입니다.",
+      "prompt": null,
+      "evidence": {},
+      "metadata": {
+        "answer_status": "chat",
+        "route": "chat",
+        "targets": [],
+        "validation_attempts": 0,
+        "validation_issues": [],
+        "retry_count": 0,
+        "elapsed_seconds": 0.009,
+        "request_timeout_seconds": 60.0,
+        "delivery": "chat",
+        "llm_backend": "ollama",
+        "implementation": "improved-v2"
+      }
+    }
+  ],
+  "data_control": "Original base monitoring values, jitter=0",
+  "answer_replayed_or_replaced": false
+}
