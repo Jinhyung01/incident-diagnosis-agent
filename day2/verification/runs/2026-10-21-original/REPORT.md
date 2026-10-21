@@ -259,4 +259,3 @@ payments-service는 오토스케일링 실행 후, cache-service의 상태 및 �
 ```
 
 토큰 이벤트 8개 / 첫 토큰 1.01초 / 최종 답변 1.06초 / 토큰 합계 일치 True
-

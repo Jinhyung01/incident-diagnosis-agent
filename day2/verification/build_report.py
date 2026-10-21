@@ -82,7 +82,7 @@ def main():
             md += [f"입력: {t['message']}", '', '```text', t['reply'] or '최종 답변 없음', '```', '', f"토큰 이벤트 {sc['token_events']}개 / 첫 토큰 {seconds(sc['first_token_seconds'])}초 / 최종 답변 {seconds(sc['final_seconds'])}초 / 토큰 합계 일치 {sc['joined_tokens_match_final']}", '']
     intro='<header><div class="meta">2026-10-21 · 원본 기능 확인</div><h1>쿼리별 통합 검증 결과</h1></header><section class="box"><p>원본 테스트 목적과 변경할 정책을 구분한 실제 호출 기록입니다.</p><p>실제 MCP·로컬 모델·HTTP 스트리밍을 사용하고, 이름 테스트는 별도 SQLite DB로 서버를 재시작했습니다.</p><p class="note">아래 캡처는 시험 기록 페이지의 화면입니다. 원본 채팅 UI 화면과 구분합니다. 원래 실행 스크립트의 DB 삭제 동작은 실행하지 않았고 코드로 확인했습니다.</p></section>'
     (out/'index.html').write_text(document('원본 쿼리 검증 결과',intro+'<section class="box"><table><tr><th>ID</th><th>원래 목적</th><th>응답</th><th>수집 대상</th><th>시간</th><th>기록</th></tr>'+''.join(rows)+'</table></section>'))
-    (out/'REPORT.md').write_text('\n'.join(md)+'\n')
+    (out/'REPORT.md').write_text('\n'.join(md).rstrip()+'\n')
     print(f'Rendered {len(results)} case pages and index.')
 
 
