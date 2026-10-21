@@ -84,6 +84,7 @@ def render_report(collected, targets=(), unknown=(), choices=None, notice=None):
                 + ", ".join(unknown)
                 + ". 등록된 다른 서비스로 바꾸어 조회하지 않았습니다."
             )
+            lines.append("확인할 등록 서비스 이름을 알려주세요.")
         else:
             lines.append("어느 서비스를 확인할까요? 서비스 이름을 알려주세요.")
         return "\n".join(lines)
@@ -129,6 +130,7 @@ def render_report(collected, targets=(), unknown=(), choices=None, notice=None):
         lines.append("조회 실패·미확인: " + ", ".join(missing))
     if unknown:
         lines.append("미등록·미조회: " + ", ".join(unknown))
+        lines.append("미등록 대상 대신 확인할 등록 서비스 이름을 알려주세요.")
     lines += [
         "추가 확인: 실제 로그·배포 이력·시계열은 수집하지 않아 근본 원인과 조치 조건의 지속 여부는 확인하지 못했습니다."
     ]

@@ -42,5 +42,17 @@
   "after-process-revision.jpg": {
     "sha256": "ead4052a64e05abfe7b6ea9bc1075a31d83b66d58dd26fca302ce5899370df56",
     "kind": "actual browser UI screenshot"
+  },
+  "after-unknown-confirmation.jpg": {
+    "sha256": "226bc292dffe96b6c9cae459b96982987728432e843845454f5cb69fa2ba04b7",
+    "kind": "actual browser UI screenshot"
+  },
+  "after-insufficient-controlled.jpg": {
+    "sha256": "b7772f1ef3792f6b5d82c0a8cd6eb8113c5d0003a5f35b19e21c0bb60f08cd5d",
+    "kind": "actual browser UI screenshot; controlled scenario"
+  },
+  "after-timeout-controlled.jpg": {
+    "sha256": "e1a97922352fed9d6b73cbbb95d30a151c5013744d7131ead25a4713e6947028",
+    "kind": "actual browser UI screenshot; controlled scenario"
   }
 }

@@ -1,0 +1,132 @@
+{
+  "query": "web-01 상태를 확인해줘",
+  "controlled_test": true,
+  "fixture": "monitoring-fixture.json",
+  "request_timeout_seconds": 8,
+  "injected_report_delay_seconds": 0,
+  "events": [
+    {
+      "type": "RouteDecided",
+      "route": "incident",
+      "node": "scope"
+    },
+    {
+      "type": "ScopeChecked",
+      "targets": [
+        "web-01"
+      ],
+      "unknown": [],
+      "node": "scope"
+    },
+    {
+      "type": "PlanCreated",
+      "targets": [
+        "web-01"
+      ],
+      "task_count": 1,
+      "recovered_targets": [],
+      "plan_error": null,
+      "node": "plan"
+    },
+    {
+      "type": "GateApplied",
+      "removed_analysis_tasks": 1,
+      "node": "plan"
+    },
+    {
+      "type": "TaskCompleted",
+      "source": "monitoring",
+      "target": "web-01",
+      "retries": 0,
+      "node": "monitoring"
+    },
+    {
+      "type": "RetrievalSkipped",
+      "reason": "정상·미확인·대상 없음",
+      "node": "retrieval"
+    },
+    {
+      "type": "AnalysisSkipped",
+      "scope": "관측 비교 한계 확인",
+      "cause_confirmed": false,
+      "node": "analysis"
+    },
+    {
+      "type": "DraftSkipped",
+      "reason": "매뉴얼 선택 없음; 관측·확인 안내만 출력",
+      "node": "write"
+    },
+    {
+      "type": "Validation",
+      "verdict": "관측·확인 안내",
+      "attempt": 0,
+      "node": "validate"
+    },
+    {
+      "type": "AnswerToken",
+      "delta": "### web-01\n확인된 상태: degraded · CPU 34.0% · 메모리 48.0%\n조회 시각: 2026-10-21T15:33:59.1",
+      "validated": true
+    },
+    {
+      "type": "AnswerToken",
+      "delta": "20339\n상태 판단에 필요한 정보가 부족합니다. 추가 지표와 알림 확인이 필요합니다.\n\n추가 확인: 실제 로그·배포 이력·시계열은 수집하지 않",
+      "validated": true
+    },
+    {
+      "type": "AnswerToken",
+      "delta": "아 근본 원인과 조치 조건의 지속 여부는 확인하지 못했습니다.",
+      "validated": true
+    },
+    {
+      "type": "Finalize",
+      "pipeline": "improved-v2",
+      "answer_status": "observation",
+      "node": "finalize"
+    },
+    {
+      "type": "FinalAnswer",
+      "reply": "### web-01\n확인된 상태: degraded · CPU 34.0% · 메모리 48.0%\n조회 시각: 2026-10-21T15:33:59.120339\n상태 판단에 필요한 정보가 부족합니다. 추가 지표와 알림 확인이 필요합니다.\n\n추가 확인: 실제 로그·배포 이력·시계열은 수집하지 않아 근본 원인과 조치 조건의 지속 여부는 확인하지 못했습니다.",
+      "prompt": null,
+      "evidence": {
+        "services": [
+          {
+            "system_name": "web-01",
+            "state": "insufficient",
+            "monitoring": {
+              "system_name": "web-01",
+              "status": "degraded",
+              "cpu_percent": 34.0,
+              "memory_percent": 48.0,
+              "last_checked": "2026-10-21T15:33:59.120339",
+              "alerts": []
+            },
+            "runbook": null
+          }
+        ],
+        "unregistered": [],
+        "unconfirmed_targets": [],
+        "limitations": [
+          "교육용 모의 모니터링",
+          "실제 로그·배포 이력·의존 관계·시계열 미수집",
+          "서버 조치는 실행하지 않음"
+        ],
+        "errors": []
+      },
+      "metadata": {
+        "answer_status": "observation",
+        "route": "incident",
+        "targets": [
+          "web-01"
+        ],
+        "validation_attempts": 0,
+        "validation_issues": [],
+        "retry_count": 0,
+        "elapsed_seconds": 0.535,
+        "request_timeout_seconds": 8.0,
+        "delivery": "validated-report-chunks",
+        "llm_backend": "ollama",
+        "implementation": "improved-v2"
+      }
+    }
+  ]
+}

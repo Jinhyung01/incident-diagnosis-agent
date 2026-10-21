@@ -80,5 +80,19 @@
     },
     "process_screen": "after-process-revision.jpg",
     "note": "기존 20건 평가와 별도인 발표 증빙용 실제 UI 재실행. 개선 과정 화면은 13.547초로, 기존 after-main-full.jpg의 8.515초와 다른 호출이다."
+  },
+  "supplemental_scenarios": {
+    "report": "day2/results/presentation-scenarios/SUMMARY.md",
+    "screens": [
+      "after-unknown-confirmation.jpg",
+      "after-insufficient-controlled.jpg",
+      "after-timeout-controlled.jpg"
+    ],
+    "controlled_inputs": {
+      "web-01": "degraded without alerts",
+      "payments-service": "30s report dependency delay, 8s request budget"
+    },
+    "production_default_request_seconds": 60,
+    "old_comparison_rerun": false
   }
 }

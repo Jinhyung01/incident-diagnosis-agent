@@ -2,7 +2,7 @@
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-evidence.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-final.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -62,9 +62,9 @@ web-01은 healthy·활성 알림 없음으로 문서 검색을 생략하고, aut
 
 ### 미등록 서비스
 
-billing-service를 auth-service로 바꾸어 조회하지 않는다.
+billing-service를 auth-service로 바꾸어 조회하지 않고 확인할 등록 서비스 이름을 요청한다.
 
-![미등록 서비스 안내](day2/evidence/after-unknown-full.jpg)
+![미등록 서비스 확인 요청](day2/evidence/after-unknown-confirmation.jpg)
 
 ### 같은 입력의 원본 실행
 
@@ -74,7 +74,21 @@ billing-service를 auth-service로 바꾸어 조회하지 않는다.
 
 [시연 조건](day2/evidence/ui-capture-context.json)과 [실제 MCP 통합 기록](day2/results/integration/SUMMARY.md)은 고정 데이터 그래프 평가와 구분한다.
 
+### 정보 부족과 시간 초과의 제어 시험
+
+정보 부족은 web-01을 degraded·알림 없음으로 고정한 입력이다. 임의의 장애 매뉴얼을 선택하지 않고 추가 지표를 요청했다.
+
+![정보 부족 상태 안내](day2/evidence/after-insufficient-controlled.jpg)
+
+시간 초과는 보고 생성 의존성을 30초 지연시키고 시험용 요청 상한을 8초로 낮췄다. 약 8초 뒤 안내하면서 이미 수집한 CPU 91%·메모리 55%를 보존했다. 일반 설정의 요청 상한은 60초다. 이 시험을 20건 비교나 일반 성능에 합산하지 않았다.
+
+![시간 초과 후 부분 근거 안내](day2/evidence/after-timeout-controlled.jpg)
+
+[원시 이벤트와 제어 조건](day2/results/presentation-scenarios/SUMMARY.md) · [계획별 구현·발표 대응](presentation/PLAN_COVERAGE.md)
+
 ## 5. 동일 입력의 개선 전후 비교
+
+20건 비교 후 미등록 확인 요청과 시간 초과 안내 문구를 보완했다. 아래 수치는 문구 보완 전 측정 기록이며 전체 통계를 다시 측정하지 않았다. 조사·검색·검증·제한 로직은 유지하고, 새 문구·실패 분기는 별도 실제 UI 시험과 단위 테스트로 확인했다.
 
 질문 20개·고정 모니터링 데이터·qwen3:0.6b/8b 설정·세션 분리를 맞췄다. 데이터 해시 일치를 확인했다. 실제 MCP 전송 대신 같은 고정 데이터 어댑터를 사용한 그래프 평가이며, 임베딩 검색은 실제 bge-m3를 사용했다.
 
@@ -132,4 +146,4 @@ billing-service를 auth-service로 바꾸어 조회하지 않는다.
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 본편 8장 약 4분 50초와 질문용 부록 4장으로 구성했다.
+AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 본편 8장 약 4분 45초와 질문용 부록 5장으로 구성했다.

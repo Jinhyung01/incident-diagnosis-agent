@@ -1,0 +1,36 @@
+test_get_and_post_reject_empty_and_oversized_input (test_api_limits.InputTests.test_get_and_post_reject_empty_and_oversized_input) ... ok
+test_request_deadline_preserves_collected_facts (test_api_limits.LimitTests.test_request_deadline_preserves_collected_facts) ... ok
+test_failed_validation_never_forces_pass (test_core.AsyncTests.test_failed_validation_never_forces_pass) ... ok
+test_healthy_skips_search (test_core.AsyncTests.test_healthy_skips_search) ... ok
+test_lookup_deadline (test_core.AsyncTests.test_lookup_deadline) ... ok
+test_mismatched_monitoring_target_rejected (test_core.AsyncTests.test_mismatched_monitoring_target_rejected) ... ok
+test_partial_failure_does_not_cancel_success (test_core.AsyncTests.test_partial_failure_does_not_cancel_success) ... ok
+test_search_failure_is_recorded (test_core.AsyncTests.test_search_failure_is_recorded) ... ok
+test_caching_ranking_and_reindex (test_core.RetrievalTests.test_caching_ranking_and_reindex) ... ok
+test_empty_corpus_and_zero_vector (test_core.RetrievalTests.test_empty_corpus_and_zero_vector) ... ok
+test_all_three_regressions (test_core.ScopeTests.test_all_three_regressions) ... ok
+test_boundaries_and_case (test_core.ScopeTests.test_boundaries_and_case) ... ok
+test_mixed_known_unknown (test_core.ScopeTests.test_mixed_known_unknown) ... ok
+test_name_question_does_not_replace_declaration (test_core.ScopeTests.test_name_question_does_not_replace_declaration) ... ok
+test_unknown_does_not_become_auth (test_core.ScopeTests.test_unknown_does_not_become_auth) ... ok
+test_unspecified_does_not_query (test_core.ScopeTests.test_unspecified_does_not_query) ... ok
+test_user_name_only (test_core.ScopeTests.test_user_name_only) ... ok
+test_accept_exact_evidence (test_core.ValidationTests.test_accept_exact_evidence) ... ok
+test_condition_and_source_preserved (test_core.ValidationTests.test_condition_and_source_preserved) ... ok
+test_healthy_has_no_book (test_core.ValidationTests.test_healthy_has_no_book) ... ok
+test_insufficient_and_invalid_metrics (test_core.ValidationTests.test_insufficient_and_invalid_metrics) ... ok
+test_malformed_draft (test_core.ValidationTests.test_malformed_draft) ... ok
+test_reject_cause_confirmation (test_core.ValidationTests.test_reject_cause_confirmation) ... ok
+test_reject_changed_cpu (test_core.ValidationTests.test_reject_changed_cpu) ... ok
+test_reject_free_claims (test_core.ValidationTests.test_reject_free_claims) ... ok
+test_reject_invented_step (test_core.ValidationTests.test_reject_invented_step) ... ok
+test_reject_missing_or_duplicate (test_core.ValidationTests.test_reject_missing_or_duplicate) ... ok
+test_reject_nan_and_boolean (test_core.ValidationTests.test_reject_nan_and_boolean) ... ok
+test_reject_other_service (test_core.ValidationTests.test_reject_other_service) ... ok
+test_reject_wrong_book (test_core.ValidationTests.test_reject_wrong_book) ... ok
+test_unknown_placeholder_is_not_an_observed_zero (test_core.ValidationTests.test_unknown_placeholder_is_not_an_observed_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.078s
+
+OK

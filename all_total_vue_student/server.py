@@ -6,6 +6,7 @@ import os
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,15 +14,15 @@ if os.environ.get("PROJECT_TRACING") != "true":
     os.environ["LANGCHAIN_TRACING_V2"] = "false"
     os.environ["LANGSMITH_TRACING"] = "false"
 
+from agent.deps import SupervisorDeps
+from agent.evidence import evidence_payload, render_report
+from agent.graph import build_graph
+from agent.mcp_client import MCPClient
+from agent.retrieval import MCPRunbookSearch
+from agent.session_store import SqliteSessionStore
 from fastapi import FastAPI, Query
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
-from agent.deps import SupervisorDeps
-from agent.graph import build_graph
-from agent.mcp_client import MCPClient
-from agent.session_store import SqliteSessionStore
-from agent.retrieval import MCPRunbookSearch
-from agent.evidence import render_report, evidence_payload
 
 
 def _build_llms():
@@ -137,16 +138,21 @@ async def execute(message, thread_id):
                         for event in delta["events"][seen:]:
                             yield {**event, "node": node}
                         seen = len(delta["events"])
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - HTTP boundary must preserve partial facts.
         reason = "처리 시간 제한" if isinstance(exc, TimeoutError) else "요청 처리 실패"
         state["answer_status"] = (
             "timeout" if isinstance(exc, TimeoutError) else "fallback"
+        )
+        notice = (
+            "처리 시간 제한에 도달해 조사를 완료하지 못했습니다."
+            if isinstance(exc, TimeoutError)
+            else "요청 처리에 실패해 조사를 완료하지 못했습니다."
         )
         state["final"] = render_report(
             state.get("collected", []),
             state.get("targets", []),
             state.get("unknown", []),
-            notice=f"{reason}로 조사를 완료하지 못했습니다. 현재까지 확인한 내용만 안내합니다.",
+            notice=f"{notice} 현재까지 확인한 내용만 안내합니다.",
         )
         state["evidence"] = evidence_payload(
             state.get("collected", []),
