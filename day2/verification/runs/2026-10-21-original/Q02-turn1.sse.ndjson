@@ -1,0 +1,120 @@
+{"elapsed_seconds": 2.365463, "data": {"type": "RouteDecided", "route": "incident", "node": "route"}}
+{"elapsed_seconds": 4.247782, "data": {"type": "PlanCreated", "task_count": 2, "targets": ["cache-service"], "node": "plan"}}
+{"elapsed_seconds": 4.249041, "data": {"type": "GateApplied", "removed_analysis_tasks": 0, "node": "gate"}}
+{"elapsed_seconds": 4.616478, "data": {"type": "TaskCompleted", "id": "task-0", "source": "monitoring", "target": "cache-service", "retries": 0, "node": "research"}}
+{"elapsed_seconds": 4.617661, "data": {"type": "ReplanCheck", "round": 0, "is_sufficient": false, "gap_task": "task-gap-runbook", "target": "memory-leak", "node": "replan_check"}}
+{"elapsed_seconds": 4.979146, "data": {"type": "TaskCompleted", "id": "task-gap-runbook", "source": "runbook", "target": "memory-leak", "retries": 0, "node": "research"}}
+{"elapsed_seconds": 4.980528, "data": {"type": "ReplanCheck", "round": 1, "is_sufficient": true, "node": "replan_check"}}
+{"elapsed_seconds": 6.710781, "data": {"type": "AnalysisCompleted", "length": 9, "node": "analysis"}}
+{"elapsed_seconds": 95.614964, "data": {"type": "AnswerToken", "attempt": 1, "delta": "1"}}
+{"elapsed_seconds": 95.666015, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 95.719447, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 메"}}
+{"elapsed_seconds": 95.772802, "data": {"type": "AnswerToken", "attempt": 1, "delta": "모"}}
+{"elapsed_seconds": 95.825506, "data": {"type": "AnswerToken", "attempt": 1, "delta": "리"}}
+{"elapsed_seconds": 95.879975, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 사용"}}
+{"elapsed_seconds": 95.934321, "data": {"type": "AnswerToken", "attempt": 1, "delta": "률"}}
+{"elapsed_seconds": 95.988479, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 추"}}
+{"elapsed_seconds": 96.042391, "data": {"type": "AnswerToken", "attempt": 1, "delta": "세"}}
+{"elapsed_seconds": 96.094921, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 확인"}}
+{"elapsed_seconds": 96.147509, "data": {"type": "AnswerToken", "attempt": 1, "delta": ":"}}
+{"elapsed_seconds": 96.200778, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 96.252455, "data": {"type": "AnswerToken", "attempt": 1, "delta": "6"}}
+{"elapsed_seconds": 96.305282, "data": {"type": "AnswerToken", "attempt": 1, "delta": "시간"}}
+{"elapsed_seconds": 96.357206, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 이상"}}
+{"elapsed_seconds": 96.510162, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 꾸"}}
+{"elapsed_seconds": 96.563511, "data": {"type": "AnswerToken", "attempt": 1, "delta": "준"}}
+{"elapsed_seconds": 96.620909, "data": {"type": "AnswerToken", "attempt": 1, "delta": "히"}}
+{"elapsed_seconds": 96.728945, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 증"}}
+{"elapsed_seconds": 96.783384, "data": {"type": "AnswerToken", "attempt": 1, "delta": "가"}}
+{"elapsed_seconds": 96.838865, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 중"}}
+{"elapsed_seconds": 96.894214, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 96.948207, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 97.000019, "data": {"type": "AnswerToken", "attempt": 1, "delta": "2"}}
+{"elapsed_seconds": 97.068586, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 97.11712, "data": {"type": "AnswerToken", "attempt": 1, "delta": " O"}}
+{"elapsed_seconds": 97.174267, "data": {"type": "AnswerToken", "attempt": 1, "delta": "OM"}}
+{"elapsed_seconds": 97.230035, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 직"}}
+{"elapsed_seconds": 97.286933, "data": {"type": "AnswerToken", "attempt": 1, "delta": "전"}}
+{"elapsed_seconds": 97.345258, "data": {"type": "AnswerToken", "attempt": 1, "delta": "("}}
+{"elapsed_seconds": 97.403635, "data": {"type": "AnswerToken", "attempt": 1, "delta": "9"}}
+{"elapsed_seconds": 97.458292, "data": {"type": "AnswerToken", "attempt": 1, "delta": "0"}}
+{"elapsed_seconds": 97.513015, "data": {"type": "AnswerToken", "attempt": 1, "delta": "%"}}
+{"elapsed_seconds": 97.567822, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 이상"}}
+{"elapsed_seconds": 97.621457, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 97.674469, "data": {"type": "AnswerToken", "attempt": 1, "delta": "이"}}
+{"elapsed_seconds": 97.729736, "data": {"type": "AnswerToken", "attempt": 1, "delta": "면"}}
+{"elapsed_seconds": 97.786352, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 재"}}
+{"elapsed_seconds": 97.839974, "data": {"type": "AnswerToken", "attempt": 1, "delta": "시"}}
+{"elapsed_seconds": 97.893263, "data": {"type": "AnswerToken", "attempt": 1, "delta": "작"}}
+{"elapsed_seconds": 97.947305, "data": {"type": "AnswerToken", "attempt": 1, "delta": ","}}
+{"elapsed_seconds": 98.003615, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 현재"}}
+{"elapsed_seconds": 98.058195, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 98.112706, "data": {"type": "AnswerToken", "attempt": 1, "delta": "8"}}
+{"elapsed_seconds": 98.166175, "data": {"type": "AnswerToken", "attempt": 1, "delta": "8"}}
+{"elapsed_seconds": 98.218145, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 98.262431, "data": {"type": "AnswerToken", "attempt": 1, "delta": "7"}}
+{"elapsed_seconds": 98.30645, "data": {"type": "AnswerToken", "attempt": 1, "delta": "%"}}
+{"elapsed_seconds": 98.350377, "data": {"type": "AnswerToken", "attempt": 1, "delta": "로"}}
+{"elapsed_seconds": 98.394277, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 조"}}
+{"elapsed_seconds": 98.438364, "data": {"type": "AnswerToken", "attempt": 1, "delta": "치"}}
+{"elapsed_seconds": 98.482343, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 미"}}
+{"elapsed_seconds": 98.526317, "data": {"type": "AnswerToken", "attempt": 1, "delta": "발"}}
+{"elapsed_seconds": 98.57003, "data": {"type": "AnswerToken", "attempt": 1, "delta": "생"}}
+{"elapsed_seconds": 98.614156, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 98.658022, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 98.702022, "data": {"type": "AnswerToken", "attempt": 1, "delta": "3"}}
+{"elapsed_seconds": 98.746032, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 98.880694, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 힙"}}
+{"elapsed_seconds": 99.016847, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 덤프"}}
+{"elapsed_seconds": 99.061342, "data": {"type": "AnswerToken", "attempt": 1, "delta": "로"}}
+{"elapsed_seconds": 99.112958, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 누"}}
+{"elapsed_seconds": 99.168773, "data": {"type": "AnswerToken", "attempt": 1, "delta": "수"}}
+{"elapsed_seconds": 99.225857, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 원"}}
+{"elapsed_seconds": 99.280059, "data": {"type": "AnswerToken", "attempt": 1, "delta": "인"}}
+{"elapsed_seconds": 99.331623, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 확인"}}
+{"elapsed_seconds": 99.382334, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 99.431607, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 99.476637, "data": {"type": "AnswerToken", "attempt": 1, "delta": "4"}}
+{"elapsed_seconds": 99.530087, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 99.584478, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 최근"}}
+{"elapsed_seconds": 99.629578, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 배"}}
+{"elapsed_seconds": 99.674894, "data": {"type": "AnswerToken", "attempt": 1, "delta": "포"}}
+{"elapsed_seconds": 99.718938, "data": {"type": "AnswerToken", "attempt": 1, "delta": "에"}}
+{"elapsed_seconds": 99.86292, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 캐"}}
+{"elapsed_seconds": 99.906947, "data": {"type": "AnswerToken", "attempt": 1, "delta": "시"}}
+{"elapsed_seconds": 99.95102, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 무"}}
+{"elapsed_seconds": 99.994852, "data": {"type": "AnswerToken", "attempt": 1, "delta": "제"}}
+{"elapsed_seconds": 100.039125, "data": {"type": "AnswerToken", "attempt": 1, "delta": "한"}}
+{"elapsed_seconds": 100.131022, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 증"}}
+{"elapsed_seconds": 100.175092, "data": {"type": "AnswerToken", "attempt": 1, "delta": "가"}}
+{"elapsed_seconds": 100.219145, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 등"}}
+{"elapsed_seconds": 100.309113, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 패"}}
+{"elapsed_seconds": 100.353615, "data": {"type": "AnswerToken", "attempt": 1, "delta": "턴"}}
+{"elapsed_seconds": 100.452773, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 점"}}
+{"elapsed_seconds": 100.506894, "data": {"type": "AnswerToken", "attempt": 1, "delta": "검"}}
+{"elapsed_seconds": 100.554682, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 100.598709, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 100.64288, "data": {"type": "AnswerToken", "attempt": 1, "delta": "5"}}
+{"elapsed_seconds": 100.686719, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 100.730705, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 원"}}
+{"elapsed_seconds": 100.774811, "data": {"type": "AnswerToken", "attempt": 1, "delta": "인"}}
+{"elapsed_seconds": 100.818796, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 배"}}
+{"elapsed_seconds": 100.86257, "data": {"type": "AnswerToken", "attempt": 1, "delta": "포"}}
+{"elapsed_seconds": 100.90644, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 시"}}
+{"elapsed_seconds": 101.012813, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 롤"}}
+{"elapsed_seconds": 101.061913, "data": {"type": "AnswerToken", "attempt": 1, "delta": "백"}}
+{"elapsed_seconds": 101.108639, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 및"}}
+{"elapsed_seconds": 101.155999, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 메"}}
+{"elapsed_seconds": 101.20737, "data": {"type": "AnswerToken", "attempt": 1, "delta": "모"}}
+{"elapsed_seconds": 101.254469, "data": {"type": "AnswerToken", "attempt": 1, "delta": "리"}}
+{"elapsed_seconds": 101.298475, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 상"}}
+{"elapsed_seconds": 101.343536, "data": {"type": "AnswerToken", "attempt": 1, "delta": "한"}}
+{"elapsed_seconds": 101.39317, "data": {"type": "AnswerToken", "attempt": 1, "delta": "선"}}
+{"elapsed_seconds": 101.445102, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 조"}}
+{"elapsed_seconds": 101.489092, "data": {"type": "AnswerToken", "attempt": 1, "delta": "정"}}
+{"elapsed_seconds": 101.532857, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 101.589413, "data": {"type": "DraftWritten", "attempt": 1, "length": 161, "node": "write"}}
+{"elapsed_seconds": 101.593292, "data": {"type": "Validation", "attempt": 1, "verdict": "합격", "node": "validate"}}
+{"elapsed_seconds": 101.594092, "data": {"type": "Finalize", "pipeline": "incident-v2", "node": "finalize"}}
+{"elapsed_seconds": 101.594675, "data": {"type": "FinalAnswer", "reply": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중.  \n2) OOM 직전(90% 이상)이면 재시작, 현재 88.7%로 조치 미발생.  \n3) 힙 덤프로 누수 원인 확인.  \n4) 최근 배포에 캐시 무제한 증가 등 패턴 점검.  \n5) 원인 배포 시 롤백 및 메모리 상한선 조정.", "prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ncache-service 메모리 사용률이 계속 올라가고 있어요\n\n## 수집된 사실\n- 모니터링 cache-service: 상태=degraded, CPU 41.4%, 메모리 88.7%, 알림 2건 ['memory usage climbing steadily over 6h', 'heap near limit']\n- runbook 발췌:\n# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n- 패턴 분석: 특이 패턴 없음."}}
+{"elapsed_seconds": 101.598227, "data": {"type": "DONE"}}

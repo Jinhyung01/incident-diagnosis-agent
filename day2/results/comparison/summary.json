@@ -1,0 +1,43 @@
+{
+  "before": {
+    "cases": 20,
+    "completed": 16,
+    "targets_matched": 17,
+    "targets_expected": 20,
+    "target_scope": 15,
+    "top1": 11,
+    "single_cases": 12,
+    "none_pass": 2,
+    "none_cases": 6,
+    "median_success_seconds": 35.936
+  },
+  "after": {
+    "cases": 20,
+    "completed": 20,
+    "targets_matched": 20,
+    "targets_expected": 20,
+    "target_scope": 20,
+    "top1": 12,
+    "single_cases": 12,
+    "none_pass": 6,
+    "none_cases": 6,
+    "median_success_seconds": 4.454
+  },
+  "after_answer_status": {
+    "validated": 13,
+    "observation": 4,
+    "fallback": 1,
+    "chat": 2
+  },
+  "paired_completed_cases": 16,
+  "paired_median_before_seconds": 35.936,
+  "paired_median_after_seconds": 4.454,
+  "dataset_sha256": "a384b78709e863368fd864d7d001a48ee44d1fea0212cf951757381cb05b249e",
+  "fixture_sha256": "230b02d1a35fa841ea1b86cef92dc8847ed02571d7ee85709a48ff9481ccde7a",
+  "limitations": [
+    "질문별 1회, 20개 교육용 사례",
+    "개선 후 구조화 생성·think=false·512토큰 상한·시간 제한 적용; RAG만의 인과 효과가 아님",
+    "안내 응답도 최종 응답 완료에 포함",
+    "실제 MCP 전송·UI는 별도 통합 시험"
+  ]
+}

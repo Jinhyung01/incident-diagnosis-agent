@@ -12,5 +12,11 @@ session.db*
 PROJECT_PLAN.md
 day1/REGISTRATION_DRAFT.md
 .publication/
+.cache/
+tmp/
+output/.build/
+.codex-finalizer/
+day2/runtime/
+presentation/.build/
 day1/results/*/report.html
 AI-Mini-Project_20261004_2.pdf

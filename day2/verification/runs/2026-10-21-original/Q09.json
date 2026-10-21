@@ -1,0 +1,260 @@
+{
+  "id": "Q09",
+  "query": "안녕, 너는 누구야?",
+  "purpose": "chat 직접 분기 및 FinalAnswer 전 AnswerToken 전달",
+  "thread_id": "verify-Q09",
+  "turns": [
+    {
+      "message": "안녕, 너는 누구야?",
+      "events": [
+        {
+          "elapsed_seconds": 0.746329,
+          "data": {
+            "type": "RouteDecided",
+            "route": "chat",
+            "node": "route"
+          }
+        },
+        {
+          "elapsed_seconds": 1.294918,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "안"
+          }
+        },
+        {
+          "elapsed_seconds": 1.299727,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "녕"
+          }
+        },
+        {
+          "elapsed_seconds": 1.304591,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "하세요"
+          }
+        },
+        {
+          "elapsed_seconds": 1.309514,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "!"
+          }
+        },
+        {
+          "elapsed_seconds": 1.314138,
+          "data": {
+            "type": "AnswerToken",
+            "delta": " 저는"
+          }
+        },
+        {
+          "elapsed_seconds": 1.328529,
+          "data": {
+            "type": "AnswerToken",
+            "delta": " 빠"
+          }
+        },
+        {
+          "elapsed_seconds": 1.333134,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "르"
+          }
+        },
+        {
+          "elapsed_seconds": 1.338045,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "게"
+          }
+        },
+        {
+          "elapsed_seconds": 1.342833,
+          "data": {
+            "type": "AnswerToken",
+            "delta": " 비"
+          }
+        },
+        {
+          "elapsed_seconds": 1.347577,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "서"
+          }
+        },
+        {
+          "elapsed_seconds": 1.352404,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "입니다"
+          }
+        },
+        {
+          "elapsed_seconds": 1.357172,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 1.365402,
+          "data": {
+            "type": "Finalize",
+            "pipeline": "chat-direct",
+            "node": "chat_answer"
+          }
+        },
+        {
+          "elapsed_seconds": 1.366625,
+          "data": {
+            "type": "FinalAnswer",
+            "reply": "안녕하세요! 저는 빠르게 비서입니다.",
+            "prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\n(없음)\n\n## 사용자의 새 메시지\n안녕, 너는 누구야?"
+          }
+        },
+        {
+          "elapsed_seconds": 1.368455,
+          "data": {
+            "type": "DONE"
+          }
+        }
+      ],
+      "reply": "안녕하세요! 저는 빠르게 비서입니다.",
+      "prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\n(없음)\n\n## 사용자의 새 메시지\n안녕, 너는 누구야?",
+      "done": true,
+      "final_received": true,
+      "error": null,
+      "http_status": 200,
+      "content_type": "text/event-stream; charset=utf-8",
+      "elapsed_seconds": 1.369,
+      "stream_checks": {
+        "token_events": 12,
+        "first_token_seconds": 1.294918,
+        "final_seconds": 1.366625,
+        "tokens_before_final": true,
+        "joined_tokens_match_final": true
+      }
+    }
+  ],
+  "observations": [
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:25.266233+09:00",
+      "monotonic": 39507.222161708,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:25.997963+09:00",
+      "monotonic": 39507.953893166,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.route",
+      "output": {
+        "route": "chat",
+        "needs_analysis": false
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 230,
+        "usd": 3.4e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:26.001369+09:00",
+      "monotonic": 39507.957286916,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.chat"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:26.617816+09:00",
+      "monotonic": 39508.57373075,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.chat",
+      "output": "안녕하세요! 저는 빠르게 비서입니다.",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 210,
+        "usd": 3.1e-05
+      }
+    }
+  ],
+  "targets": [],
+  "runbooks": [],
+  "monitoring": [],
+  "stages": [
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:25.266233+09:00",
+      "monotonic": 39507.222161708,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:25.997963+09:00",
+      "monotonic": 39507.953893166,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.route",
+      "output": {
+        "route": "chat",
+        "needs_analysis": false
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 230,
+        "usd": 3.4e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:26.001369+09:00",
+      "monotonic": 39507.957286916,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.chat"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:26.617816+09:00",
+      "monotonic": 39508.57373075,
+      "pid": 15522,
+      "thread_id": "verify-Q09",
+      "query": "안녕, 너는 누구야?",
+      "stage": "fast.chat",
+      "output": "안녕하세요! 저는 빠르게 비서입니다.",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 210,
+        "usd": 3.1e-05
+      }
+    }
+  ],
+  "elapsed_seconds": 1.369,
+  "original_purpose_checks": {
+    "chat_route": true,
+    "no_monitoring_or_runbook": true,
+    "answer_tokens_before_final": true,
+    "token_concat_matches_final": true
+  },
+  "response_complete": true,
+  "status": "completed"
+}

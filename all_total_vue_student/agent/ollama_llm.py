@@ -11,6 +11,7 @@ fc
 사전 조건: `ollama serve` 실행 중 + `ollama pull qwen3:0.6b qwen3:8b`.
 """
 import json
+import os
 import re
 from pathlib import Path
 
@@ -97,11 +98,12 @@ class OllamaLLM:
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": user}],
             "stream": False,
-            "options": {"temperature": 0.0},
+            "think": False,
+            "options": {"temperature": 0.0, "num_predict": int(os.environ.get("OLLAMA_NUM_PREDICT", "512"))},
         }
         if schema is not None:
             payload["format"] = schema
-        resp = httpx.post(OLLAMA_URL, json=payload, timeout=300.0)
+        resp = httpx.post(OLLAMA_URL, json=payload, timeout=float(os.environ.get("LLM_CALL_TIMEOUT_SECONDS", "25")), trust_env=False)
         resp.raise_for_status()
         data = resp.json()
         content = data["message"]["content"]
@@ -120,11 +122,12 @@ class OllamaLLM:
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": user}],
             "stream": True,
-            "options": {"temperature": 0.0},
+            "think": False,
+            "options": {"temperature": 0.0, "num_predict": int(os.environ.get("OLLAMA_NUM_PREDICT", "512"))},
         }
         chunks: list[str] = []
         usage = {"model": self.name, "tokens": 0, "usd": 0.0}
-        async with httpx.AsyncClient(timeout=300.0) as client:
+        async with httpx.AsyncClient(timeout=float(os.environ.get("LLM_CALL_TIMEOUT_SECONDS", "25")), trust_env=False) as client:
             async with client.stream("POST", OLLAMA_URL, json=payload) as resp:
                 resp.raise_for_status()
                 async for line in resp.aiter_lines():

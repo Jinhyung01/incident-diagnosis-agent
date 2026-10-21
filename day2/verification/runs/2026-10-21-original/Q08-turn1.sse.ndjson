@@ -1,0 +1,257 @@
+{"elapsed_seconds": 1.320701, "data": {"type": "RouteDecided", "route": "incident", "node": "route"}}
+{"elapsed_seconds": 2.79048, "data": {"type": "PlanCreated", "task_count": 2, "targets": ["auth-service"], "node": "plan"}}
+{"elapsed_seconds": 2.791413, "data": {"type": "GateApplied", "removed_analysis_tasks": 0, "node": "gate"}}
+{"elapsed_seconds": 3.150087, "data": {"type": "TaskCompleted", "id": "task-0", "source": "monitoring", "target": "auth-service", "retries": 0, "node": "research"}}
+{"elapsed_seconds": 3.15083, "data": {"type": "ReplanCheck", "round": 0, "is_sufficient": false, "gap_task": "task-gap-runbook", "target": "high-latency", "node": "replan_check"}}
+{"elapsed_seconds": 3.512921, "data": {"type": "TaskCompleted", "id": "task-gap-runbook", "source": "runbook", "target": "high-latency", "retries": 0, "node": "research"}}
+{"elapsed_seconds": 3.514095, "data": {"type": "ReplanCheck", "round": 1, "is_sufficient": true, "node": "replan_check"}}
+{"elapsed_seconds": 9.189628, "data": {"type": "AnalysisCompleted", "length": 8, "node": "analysis"}}
+{"elapsed_seconds": 42.732672, "data": {"type": "AnswerToken", "attempt": 1, "delta": "1"}}
+{"elapsed_seconds": 42.767481, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 42.810084, "data": {"type": "AnswerToken", "attempt": 1, "delta": " **"}}
+{"elapsed_seconds": 42.852122, "data": {"type": "AnswerToken", "attempt": 1, "delta": "커"}}
+{"elapsed_seconds": 42.894292, "data": {"type": "AnswerToken", "attempt": 1, "delta": "넥"}}
+{"elapsed_seconds": 42.936397, "data": {"type": "AnswerToken", "attempt": 1, "delta": "션"}}
+{"elapsed_seconds": 43.063464, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 풀"}}
+{"elapsed_seconds": 43.105482, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 사용"}}
+{"elapsed_seconds": 43.147909, "data": {"type": "AnswerToken", "attempt": 1, "delta": "률"}}
+{"elapsed_seconds": 43.190441, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 확인"}}
+{"elapsed_seconds": 43.233214, "data": {"type": "AnswerToken", "attempt": 1, "delta": "**:"}}
+{"elapsed_seconds": 43.27524, "data": {"type": "AnswerToken", "attempt": 1, "delta": " p"}}
+{"elapsed_seconds": 43.317391, "data": {"type": "AnswerToken", "attempt": 1, "delta": "9"}}
+{"elapsed_seconds": 43.359569, "data": {"type": "AnswerToken", "attempt": 1, "delta": "5"}}
+{"elapsed_seconds": 43.401527, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 지"}}
+{"elapsed_seconds": 43.443981, "data": {"type": "AnswerToken", "attempt": 1, "delta": "연"}}
+{"elapsed_seconds": 43.486181, "data": {"type": "AnswerToken", "attempt": 1, "delta": "시간"}}
+{"elapsed_seconds": 43.528329, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 43.570627, "data": {"type": "AnswerToken", "attempt": 1, "delta": "2"}}
+{"elapsed_seconds": 43.612736, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 43.654972, "data": {"type": "AnswerToken", "attempt": 1, "delta": "4"}}
+{"elapsed_seconds": 43.69697, "data": {"type": "AnswerToken", "attempt": 1, "delta": "s"}}
+{"elapsed_seconds": 43.739334, "data": {"type": "AnswerToken", "attempt": 1, "delta": " ("}}
+{"elapsed_seconds": 43.78226, "data": {"type": "AnswerToken", "attempt": 1, "delta": "임"}}
+{"elapsed_seconds": 43.824362, "data": {"type": "AnswerToken", "attempt": 1, "delta": "계"}}
+{"elapsed_seconds": 43.866877, "data": {"type": "AnswerToken", "attempt": 1, "delta": "치"}}
+{"elapsed_seconds": 43.909096, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 43.95137, "data": {"type": "AnswerToken", "attempt": 1, "delta": "1"}}
+{"elapsed_seconds": 43.993525, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 44.036121, "data": {"type": "AnswerToken", "attempt": 1, "delta": "0"}}
+{"elapsed_seconds": 44.078578, "data": {"type": "AnswerToken", "attempt": 1, "delta": "s"}}
+{"elapsed_seconds": 44.120763, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 초"}}
+{"elapsed_seconds": 44.162983, "data": {"type": "AnswerToken", "attempt": 1, "delta": "과"}}
+{"elapsed_seconds": 44.205277, "data": {"type": "AnswerToken", "attempt": 1, "delta": "),"}}
+{"elapsed_seconds": 44.289864, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 커"}}
+{"elapsed_seconds": 44.332144, "data": {"type": "AnswerToken", "attempt": 1, "delta": "넥"}}
+{"elapsed_seconds": 44.374368, "data": {"type": "AnswerToken", "attempt": 1, "delta": "션"}}
+{"elapsed_seconds": 44.501445, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 풀"}}
+{"elapsed_seconds": 44.543618, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 사용"}}
+{"elapsed_seconds": 44.585964, "data": {"type": "AnswerToken", "attempt": 1, "delta": "률"}}
+{"elapsed_seconds": 44.62818, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 44.670524, "data": {"type": "AnswerToken", "attempt": 1, "delta": "9"}}
+{"elapsed_seconds": 44.712589, "data": {"type": "AnswerToken", "attempt": 1, "delta": "2"}}
+{"elapsed_seconds": 44.754732, "data": {"type": "AnswerToken", "attempt": 1, "delta": "%"}}
+{"elapsed_seconds": 44.797609, "data": {"type": "AnswerToken", "attempt": 1, "delta": " ("}}
+{"elapsed_seconds": 44.839533, "data": {"type": "AnswerToken", "attempt": 1, "delta": "임"}}
+{"elapsed_seconds": 44.881946, "data": {"type": "AnswerToken", "attempt": 1, "delta": "계"}}
+{"elapsed_seconds": 44.924434, "data": {"type": "AnswerToken", "attempt": 1, "delta": "치"}}
+{"elapsed_seconds": 44.966553, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 45.008896, "data": {"type": "AnswerToken", "attempt": 1, "delta": "9"}}
+{"elapsed_seconds": 45.051254, "data": {"type": "AnswerToken", "attempt": 1, "delta": "0"}}
+{"elapsed_seconds": 45.093441, "data": {"type": "AnswerToken", "attempt": 1, "delta": "%"}}
+{"elapsed_seconds": 45.135846, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 초"}}
+{"elapsed_seconds": 45.178028, "data": {"type": "AnswerToken", "attempt": 1, "delta": "과"}}
+{"elapsed_seconds": 45.220382, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 45.262839, "data": {"type": "AnswerToken", "attempt": 1, "delta": "로"}}
+{"elapsed_seconds": 45.305417, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 지"}}
+{"elapsed_seconds": 45.347812, "data": {"type": "AnswerToken", "attempt": 1, "delta": "연"}}
+{"elapsed_seconds": 45.390102, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 원"}}
+{"elapsed_seconds": 45.43232, "data": {"type": "AnswerToken", "attempt": 1, "delta": "인"}}
+{"elapsed_seconds": 45.474352, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 추"}}
+{"elapsed_seconds": 45.516569, "data": {"type": "AnswerToken", "attempt": 1, "delta": "정"}}
+{"elapsed_seconds": 45.559146, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 45.601395, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 45.643679, "data": {"type": "AnswerToken", "attempt": 1, "delta": "2"}}
+{"elapsed_seconds": 45.686281, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 45.728739, "data": {"type": "AnswerToken", "attempt": 1, "delta": " **"}}
+{"elapsed_seconds": 45.771703, "data": {"type": "AnswerToken", "attempt": 1, "delta": "커"}}
+{"elapsed_seconds": 45.814021, "data": {"type": "AnswerToken", "attempt": 1, "delta": "넥"}}
+{"elapsed_seconds": 45.856305, "data": {"type": "AnswerToken", "attempt": 1, "delta": "션"}}
+{"elapsed_seconds": 45.983446, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 풀"}}
+{"elapsed_seconds": 46.025787, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 확"}}
+{"elapsed_seconds": 46.067968, "data": {"type": "AnswerToken", "attempt": 1, "delta": "장"}}
+{"elapsed_seconds": 46.110403, "data": {"type": "AnswerToken", "attempt": 1, "delta": "/"}}
+{"elapsed_seconds": 46.152744, "data": {"type": "AnswerToken", "attempt": 1, "delta": "타"}}
+{"elapsed_seconds": 46.198676, "data": {"type": "AnswerToken", "attempt": 1, "delta": "임"}}
+{"elapsed_seconds": 46.241182, "data": {"type": "AnswerToken", "attempt": 1, "delta": "아"}}
+{"elapsed_seconds": 46.283666, "data": {"type": "AnswerToken", "attempt": 1, "delta": "웃"}}
+{"elapsed_seconds": 46.326166, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 조"}}
+{"elapsed_seconds": 46.368834, "data": {"type": "AnswerToken", "attempt": 1, "delta": "치"}}
+{"elapsed_seconds": 46.411497, "data": {"type": "AnswerToken", "attempt": 1, "delta": "**:"}}
+{"elapsed_seconds": 46.539432, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 풀"}}
+{"elapsed_seconds": 46.581917, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 크"}}
+{"elapsed_seconds": 46.624565, "data": {"type": "AnswerToken", "attempt": 1, "delta": "기"}}
+{"elapsed_seconds": 46.666883, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 확"}}
+{"elapsed_seconds": 46.709204, "data": {"type": "AnswerToken", "attempt": 1, "delta": "장"}}
+{"elapsed_seconds": 46.751755, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 또는"}}
+{"elapsed_seconds": 46.79447, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 느"}}
+{"elapsed_seconds": 46.836808, "data": {"type": "AnswerToken", "attempt": 1, "delta": "린"}}
+{"elapsed_seconds": 46.964107, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 쿼"}}
+{"elapsed_seconds": 47.00661, "data": {"type": "AnswerToken", "attempt": 1, "delta": "리"}}
+{"elapsed_seconds": 47.049757, "data": {"type": "AnswerToken", "attempt": 1, "delta": "/"}}
+{"elapsed_seconds": 47.093433, "data": {"type": "AnswerToken", "attempt": 1, "delta": "외"}}
+{"elapsed_seconds": 47.137291, "data": {"type": "AnswerToken", "attempt": 1, "delta": "부"}}
+{"elapsed_seconds": 47.182951, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 호출"}}
+{"elapsed_seconds": 47.269286, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 타"}}
+{"elapsed_seconds": 47.311655, "data": {"type": "AnswerToken", "attempt": 1, "delta": "임"}}
+{"elapsed_seconds": 47.354336, "data": {"type": "AnswerToken", "attempt": 1, "delta": "아"}}
+{"elapsed_seconds": 47.397381, "data": {"type": "AnswerToken", "attempt": 1, "delta": "웃"}}
+{"elapsed_seconds": 47.440038, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 적용"}}
+{"elapsed_seconds": 47.48226, "data": {"type": "AnswerToken", "attempt": 1, "delta": "하여"}}
+{"elapsed_seconds": 47.609626, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 풀"}}
+{"elapsed_seconds": 47.652739, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 사용"}}
+{"elapsed_seconds": 47.69562, "data": {"type": "AnswerToken", "attempt": 1, "delta": "률"}}
+{"elapsed_seconds": 47.780884, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 완"}}
+{"elapsed_seconds": 47.823252, "data": {"type": "AnswerToken", "attempt": 1, "delta": "화"}}
+{"elapsed_seconds": 47.865601, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 47.907993, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 47.950946, "data": {"type": "AnswerToken", "attempt": 1, "delta": "3"}}
+{"elapsed_seconds": 47.99339, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 48.036308, "data": {"type": "AnswerToken", "attempt": 1, "delta": " **"}}
+{"elapsed_seconds": 48.078437, "data": {"type": "AnswerToken", "attempt": 1, "delta": "지"}}
+{"elapsed_seconds": 48.121041, "data": {"type": "AnswerToken", "attempt": 1, "delta": "연"}}
+{"elapsed_seconds": 48.163313, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 분"}}
+{"elapsed_seconds": 48.205752, "data": {"type": "AnswerToken", "attempt": 1, "delta": "산"}}
+{"elapsed_seconds": 48.248312, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 대"}}
+{"elapsed_seconds": 48.29053, "data": {"type": "AnswerToken", "attempt": 1, "delta": "응"}}
+{"elapsed_seconds": 48.332891, "data": {"type": "AnswerToken", "attempt": 1, "delta": "**:"}}
+{"elapsed_seconds": 48.37535, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 48.4178, "data": {"type": "AnswerToken", "attempt": 1, "delta": "5"}}
+{"elapsed_seconds": 48.460314, "data": {"type": "AnswerToken", "attempt": 1, "delta": "분"}}
+{"elapsed_seconds": 48.502803, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 내"}}
+{"elapsed_seconds": 48.545219, "data": {"type": "AnswerToken", "attempt": 1, "delta": " p"}}
+{"elapsed_seconds": 48.587785, "data": {"type": "AnswerToken", "attempt": 1, "delta": "9"}}
+{"elapsed_seconds": 48.630269, "data": {"type": "AnswerToken", "attempt": 1, "delta": "5"}}
+{"elapsed_seconds": 48.672663, "data": {"type": "AnswerToken", "attempt": 1, "delta": "가"}}
+{"elapsed_seconds": 48.715038, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 48.757604, "data": {"type": "AnswerToken", "attempt": 1, "delta": "1"}}
+{"elapsed_seconds": 48.800806, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 48.843789, "data": {"type": "AnswerToken", "attempt": 1, "delta": "0"}}
+{"elapsed_seconds": 48.886722, "data": {"type": "AnswerToken", "attempt": 1, "delta": "s"}}
+{"elapsed_seconds": 48.932985, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 이"}}
+{"elapsed_seconds": 48.978825, "data": {"type": "AnswerToken", "attempt": 1, "delta": "하"}}
+{"elapsed_seconds": 49.021444, "data": {"type": "AnswerToken", "attempt": 1, "delta": "로"}}
+{"elapsed_seconds": 49.063963, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 회"}}
+{"elapsed_seconds": 49.107085, "data": {"type": "AnswerToken", "attempt": 1, "delta": "복"}}
+{"elapsed_seconds": 49.149546, "data": {"type": "AnswerToken", "attempt": 1, "delta": "되지"}}
+{"elapsed_seconds": 49.192334, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 않"}}
+{"elapsed_seconds": 49.235163, "data": {"type": "AnswerToken", "attempt": 1, "delta": "으면"}}
+{"elapsed_seconds": 49.362863, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 캐"}}
+{"elapsed_seconds": 49.405247, "data": {"type": "AnswerToken", "attempt": 1, "delta": "시"}}
+{"elapsed_seconds": 49.447775, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 계"}}
+{"elapsed_seconds": 49.490285, "data": {"type": "AnswerToken", "attempt": 1, "delta": "층"}}
+{"elapsed_seconds": 49.532722, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 또는"}}
+{"elapsed_seconds": 49.619076, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 읽"}}
+{"elapsed_seconds": 49.661593, "data": {"type": "AnswerToken", "attempt": 1, "delta": "기"}}
+{"elapsed_seconds": 49.74664, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 복"}}
+{"elapsed_seconds": 49.789669, "data": {"type": "AnswerToken", "attempt": 1, "delta": "제"}}
+{"elapsed_seconds": 49.832186, "data": {"type": "AnswerToken", "attempt": 1, "delta": "본"}}
+{"elapsed_seconds": 49.874561, "data": {"type": "AnswerToken", "attempt": 1, "delta": "으로"}}
+{"elapsed_seconds": 49.960808, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 트"}}
+{"elapsed_seconds": 50.003363, "data": {"type": "AnswerToken", "attempt": 1, "delta": "래"}}
+{"elapsed_seconds": 50.046259, "data": {"type": "AnswerToken", "attempt": 1, "delta": "픽"}}
+{"elapsed_seconds": 50.088711, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 분"}}
+{"elapsed_seconds": 50.131463, "data": {"type": "AnswerToken", "attempt": 1, "delta": "산"}}
+{"elapsed_seconds": 50.174564, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 50.217229, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 50.26021, "data": {"type": "AnswerToken", "attempt": 1, "delta": "4"}}
+{"elapsed_seconds": 50.303183, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 50.346237, "data": {"type": "AnswerToken", "attempt": 1, "delta": " **"}}
+{"elapsed_seconds": 50.389149, "data": {"type": "AnswerToken", "attempt": 1, "delta": "근"}}
+{"elapsed_seconds": 50.432416, "data": {"type": "AnswerToken", "attempt": 1, "delta": "본"}}
+{"elapsed_seconds": 50.475448, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 원"}}
+{"elapsed_seconds": 50.518375, "data": {"type": "AnswerToken", "attempt": 1, "delta": "인"}}
+{"elapsed_seconds": 50.561116, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 분"}}
+{"elapsed_seconds": 50.604126, "data": {"type": "AnswerToken", "attempt": 1, "delta": "석"}}
+{"elapsed_seconds": 50.647005, "data": {"type": "AnswerToken", "attempt": 1, "delta": "**:"}}
+{"elapsed_seconds": 50.689911, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 정"}}
+{"elapsed_seconds": 50.73288, "data": {"type": "AnswerToken", "attempt": 1, "delta": "상"}}
+{"elapsed_seconds": 50.775819, "data": {"type": "AnswerToken", "attempt": 1, "delta": "화"}}
+{"elapsed_seconds": 50.818482, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 후"}}
+{"elapsed_seconds": 50.861351, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 느"}}
+{"elapsed_seconds": 50.903911, "data": {"type": "AnswerToken", "attempt": 1, "delta": "린"}}
+{"elapsed_seconds": 51.031905, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 쿼"}}
+{"elapsed_seconds": 51.074453, "data": {"type": "AnswerToken", "attempt": 1, "delta": "리"}}
+{"elapsed_seconds": 51.116971, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 로"}}
+{"elapsed_seconds": 51.159663, "data": {"type": "AnswerToken", "attempt": 1, "delta": "그"}}
+{"elapsed_seconds": 51.202804, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 분"}}
+{"elapsed_seconds": 51.24562, "data": {"type": "AnswerToken", "attempt": 1, "delta": "석"}}
+{"elapsed_seconds": 51.288222, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 및"}}
+{"elapsed_seconds": 51.330709, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 후"}}
+{"elapsed_seconds": 51.373237, "data": {"type": "AnswerToken", "attempt": 1, "delta": "속"}}
+{"elapsed_seconds": 51.416182, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 최"}}
+{"elapsed_seconds": 51.458749, "data": {"type": "AnswerToken", "attempt": 1, "delta": "적"}}
+{"elapsed_seconds": 51.501075, "data": {"type": "AnswerToken", "attempt": 1, "delta": "화"}}
+{"elapsed_seconds": 51.629302, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 티"}}
+{"elapsed_seconds": 51.67149, "data": {"type": "AnswerToken", "attempt": 1, "delta": "켓"}}
+{"elapsed_seconds": 51.714165, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 등"}}
+{"elapsed_seconds": 51.756673, "data": {"type": "AnswerToken", "attempt": 1, "delta": "록"}}
+{"elapsed_seconds": 51.799643, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 51.842059, "data": {"type": "AnswerToken", "attempt": 1, "delta": "  \n"}}
+{"elapsed_seconds": 51.884625, "data": {"type": "AnswerToken", "attempt": 1, "delta": "5"}}
+{"elapsed_seconds": 51.927781, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 51.97068, "data": {"type": "AnswerToken", "attempt": 1, "delta": " **"}}
+{"elapsed_seconds": 52.013547, "data": {"type": "AnswerToken", "attempt": 1, "delta": "모"}}
+{"elapsed_seconds": 52.056155, "data": {"type": "AnswerToken", "attempt": 1, "delta": "니"}}
+{"elapsed_seconds": 52.098571, "data": {"type": "AnswerToken", "attempt": 1, "delta": "터"}}
+{"elapsed_seconds": 52.140946, "data": {"type": "AnswerToken", "attempt": 1, "delta": "링"}}
+{"elapsed_seconds": 52.183735, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 상태"}}
+{"elapsed_seconds": 52.226429, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 확인"}}
+{"elapsed_seconds": 52.268992, "data": {"type": "AnswerToken", "attempt": 1, "delta": "**:"}}
+{"elapsed_seconds": 52.311559, "data": {"type": "AnswerToken", "attempt": 1, "delta": " auth"}}
+{"elapsed_seconds": 52.354115, "data": {"type": "AnswerToken", "attempt": 1, "delta": "-service"}}
+{"elapsed_seconds": 52.396986, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 상태"}}
+{"elapsed_seconds": 52.439542, "data": {"type": "AnswerToken", "attempt": 1, "delta": " degraded"}}
+{"elapsed_seconds": 52.482154, "data": {"type": "AnswerToken", "attempt": 1, "delta": "("}}
+{"elapsed_seconds": 52.524949, "data": {"type": "AnswerToken", "attempt": 1, "delta": "8"}}
+{"elapsed_seconds": 52.567298, "data": {"type": "AnswerToken", "attempt": 1, "delta": "1"}}
+{"elapsed_seconds": 52.609873, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 52.652491, "data": {"type": "AnswerToken", "attempt": 1, "delta": "9"}}
+{"elapsed_seconds": 52.695318, "data": {"type": "AnswerToken", "attempt": 1, "delta": "%"}}
+{"elapsed_seconds": 52.737873, "data": {"type": "AnswerToken", "attempt": 1, "delta": " CPU"}}
+{"elapsed_seconds": 52.781001, "data": {"type": "AnswerToken", "attempt": 1, "delta": ","}}
+{"elapsed_seconds": 52.823714, "data": {"type": "AnswerToken", "attempt": 1, "delta": " "}}
+{"elapsed_seconds": 52.86611, "data": {"type": "AnswerToken", "attempt": 1, "delta": "6"}}
+{"elapsed_seconds": 52.908894, "data": {"type": "AnswerToken", "attempt": 1, "delta": "2"}}
+{"elapsed_seconds": 52.951555, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 52.994131, "data": {"type": "AnswerToken", "attempt": 1, "delta": "9"}}
+{"elapsed_seconds": 53.037181, "data": {"type": "AnswerToken", "attempt": 1, "delta": "%"}}
+{"elapsed_seconds": 53.079799, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 메"}}
+{"elapsed_seconds": 53.122384, "data": {"type": "AnswerToken", "attempt": 1, "delta": "모"}}
+{"elapsed_seconds": 53.165056, "data": {"type": "AnswerToken", "attempt": 1, "delta": "리"}}
+{"elapsed_seconds": 53.207825, "data": {"type": "AnswerToken", "attempt": 1, "delta": ")"}}
+{"elapsed_seconds": 53.250283, "data": {"type": "AnswerToken", "attempt": 1, "delta": "로"}}
+{"elapsed_seconds": 53.292674, "data": {"type": "AnswerToken", "attempt": 1, "delta": ","}}
+{"elapsed_seconds": 53.335506, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 관련"}}
+{"elapsed_seconds": 53.378117, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 리"}}
+{"elapsed_seconds": 53.420657, "data": {"type": "AnswerToken", "attempt": 1, "delta": "전"}}
+{"elapsed_seconds": 53.46344, "data": {"type": "AnswerToken", "attempt": 1, "delta": "/"}}
+{"elapsed_seconds": 53.506177, "data": {"type": "AnswerToken", "attempt": 1, "delta": "인"}}
+{"elapsed_seconds": 53.549055, "data": {"type": "AnswerToken", "attempt": 1, "delta": "스"}}
+{"elapsed_seconds": 53.59187, "data": {"type": "AnswerToken", "attempt": 1, "delta": "턴"}}
+{"elapsed_seconds": 53.634524, "data": {"type": "AnswerToken", "attempt": 1, "delta": "스"}}
+{"elapsed_seconds": 53.677258, "data": {"type": "AnswerToken", "attempt": 1, "delta": "별"}}
+{"elapsed_seconds": 53.720479, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 로"}}
+{"elapsed_seconds": 53.763344, "data": {"type": "AnswerToken", "attempt": 1, "delta": "드"}}
+{"elapsed_seconds": 53.806531, "data": {"type": "AnswerToken", "attempt": 1, "delta": "밸"}}
+{"elapsed_seconds": 53.848977, "data": {"type": "AnswerToken", "attempt": 1, "delta": "런"}}
+{"elapsed_seconds": 53.891451, "data": {"type": "AnswerToken", "attempt": 1, "delta": "서"}}
+{"elapsed_seconds": 53.934516, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 제"}}
+{"elapsed_seconds": 53.977257, "data": {"type": "AnswerToken", "attempt": 1, "delta": "외"}}
+{"elapsed_seconds": 54.019908, "data": {"type": "AnswerToken", "attempt": 1, "delta": " 검"}}
+{"elapsed_seconds": 54.06266, "data": {"type": "AnswerToken", "attempt": 1, "delta": "토"}}
+{"elapsed_seconds": 54.105161, "data": {"type": "AnswerToken", "attempt": 1, "delta": "."}}
+{"elapsed_seconds": 54.163973, "data": {"type": "DraftWritten", "attempt": 1, "length": 378, "node": "write"}}
+{"elapsed_seconds": 54.167908, "data": {"type": "Validation", "attempt": 1, "verdict": "합격", "node": "validate"}}
+{"elapsed_seconds": 54.168866, "data": {"type": "Finalize", "pipeline": "incident-v2", "node": "finalize"}}
+{"elapsed_seconds": 54.170574, "data": {"type": "FinalAnswer", "reply": "1) **커넥션 풀 사용률 확인**: p95 지연시간 2.4s (임계치 1.0s 초과), 커넥션 풀 사용률 92% (임계치 90% 초과)로 지연 원인 추정.  \n2) **커넥션 풀 확장/타임아웃 조치**: 풀 크기 확장 또는 느린 쿼리/외부 호출 타임아웃 적용하여 풀 사용률 완화.  \n3) **지연 분산 대응**: 5분 내 p95가 1.0s 이하로 회복되지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽 분산.  \n4) **근본 원인 분석**: 정상화 후 느린 쿼리 로그 분석 및 후속 최적화 티켓 등록.  \n5) **모니터링 상태 확인**: auth-service 상태 degraded(81.9% CPU, 62.9% 메모리)로, 관련 리전/인스턴스별 로드밸런서 제외 검토.", "prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\nbilling-service 응답이 느려요\n\n## 수집된 사실\n- 모니터링 auth-service: 상태=degraded, CPU 81.9%, 메모리 62.9%, 알림 2건 ['p95 latency 2.4s (threshold 1.0s)', 'connection pool 92% used']\n- runbook 발췌:\n# Runbook: 응답 지연(High Latency) 대응 절차\n\n1. get_monitoring_status로 p95 지연시간과 커넥션 풀 사용률을 확인한다.\n2. 커넥션 풀 사용률이 90%를 넘으면 풀 크기를 늘리거나 느린 쿼리/외부 호출에 타임아웃을 건다.\n3. 지연이 특정 리전/인스턴스에 몰려 있으면 해당 인스턴스를 로드밸런서에서 일시 제외한다.\n4. 5분 내 p95가 임계치(1.0s) 아래로 내려오지 않으면 캐시 계층 또는 읽기 복제본으로 트래픽을 분산한다.\n5. 정상화 후 느린 쿼리 로그를 분석해 근본 원인을 문서화하고 후속 최적화 티켓을 등록한다.\n- 패턴 분석: 특이 패턴 없음"}}
+{"elapsed_seconds": 54.1721, "data": {"type": "DONE"}}

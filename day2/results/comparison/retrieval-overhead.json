@@ -1,0 +1,101 @@
+{
+  "build_seconds": 0.553649,
+  "build": {
+    "cached": false,
+    "documents": 6,
+    "digest": "c7c2ff177813d6327a503d064da8fa9d68b205d22b24387a6dd439512eff7b3a"
+  },
+  "note": "로컬 Ollama 실행 중, 이미 설치된 모델과 OS 캐시를 사용한 소규모 측정. 다운로드·서버 시작 시간 제외.",
+  "searches": [
+    {
+      "query": "CPU 91% (threshold 80%); instance responding slow",
+      "repeat": 1,
+      "seconds": 0.038904,
+      "top1": "cpu-spike"
+    },
+    {
+      "query": "memory usage climbing steadily over 6h; heap near limit",
+      "repeat": 1,
+      "seconds": 0.040557,
+      "top1": "memory-leak"
+    },
+    {
+      "query": "disk usage 95% on /var/log; disk space low",
+      "repeat": 1,
+      "seconds": 0.044277,
+      "top1": "disk-full"
+    },
+    {
+      "query": "upstream timeout (504); network packet loss 3%",
+      "repeat": 1,
+      "seconds": 0.042529,
+      "top1": "network-timeout"
+    },
+    {
+      "query": "p95 latency 2.4s; connection pool 92% used",
+      "repeat": 1,
+      "seconds": 0.041229,
+      "top1": "high-latency"
+    },
+    {
+      "query": "CPU 91% (threshold 80%); instance responding slow",
+      "repeat": 2,
+      "seconds": 0.041218,
+      "top1": "cpu-spike"
+    },
+    {
+      "query": "memory usage climbing steadily over 6h; heap near limit",
+      "repeat": 2,
+      "seconds": 0.040805,
+      "top1": "memory-leak"
+    },
+    {
+      "query": "disk usage 95% on /var/log; disk space low",
+      "repeat": 2,
+      "seconds": 0.04261,
+      "top1": "disk-full"
+    },
+    {
+      "query": "upstream timeout (504); network packet loss 3%",
+      "repeat": 2,
+      "seconds": 0.039965,
+      "top1": "network-timeout"
+    },
+    {
+      "query": "p95 latency 2.4s; connection pool 92% used",
+      "repeat": 2,
+      "seconds": 0.037163,
+      "top1": "high-latency"
+    },
+    {
+      "query": "CPU 91% (threshold 80%); instance responding slow",
+      "repeat": 3,
+      "seconds": 0.038977,
+      "top1": "cpu-spike"
+    },
+    {
+      "query": "memory usage climbing steadily over 6h; heap near limit",
+      "repeat": 3,
+      "seconds": 0.039771,
+      "top1": "memory-leak"
+    },
+    {
+      "query": "disk usage 95% on /var/log; disk space low",
+      "repeat": 3,
+      "seconds": 0.034912,
+      "top1": "disk-full"
+    },
+    {
+      "query": "upstream timeout (504); network packet loss 3%",
+      "repeat": 3,
+      "seconds": 0.038791,
+      "top1": "network-timeout"
+    },
+    {
+      "query": "p95 latency 2.4s; connection pool 92% used",
+      "repeat": 3,
+      "seconds": 0.036701,
+      "top1": "high-latency"
+    }
+  ]
+}

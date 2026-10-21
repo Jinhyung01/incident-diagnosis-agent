@@ -1,0 +1,8 @@
+{
+  "cpu-spike": "CPU utilization spike, processor saturation, high CPU percentage, CPU threshold exceeded. CPU 사용률 급증, 프로세서 과부하, 인스턴스 CPU 포화.",
+  "memory-leak": "Memory usage climbing steadily over hours, heap near limit, out of memory, memory leak. 메모리 지속 증가, 힙 메모리 누수, OOM.",
+  "disk-full": "Disk usage high on /var/log, disk space low, filesystem full, logs consuming storage. 디스크 공간 부족, 로그 파일 용량 증가.",
+  "network-timeout": "Upstream timeout HTTP 504, network packet loss, DNS failure, firewall, load balancer route. 네트워크 타임아웃, 패킷 손실, 서비스 간 통신 장애.",
+  "high-latency": "p95 latency exceeds threshold, connection pool usage high, slow query, request latency. 응답 지연, 커넥션 풀 포화, 느린 쿼리.",
+  "db-down": "Database down, database connection refused, replication failed, database unavailable, failover. DB 중단, 데이터베이스 연결 실패, 복제본 장애."
+}

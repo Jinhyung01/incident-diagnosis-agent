@@ -1,0 +1,72 @@
+{
+  "id": "M01",
+  "repeat": 1,
+  "split": "supplemental",
+  "category": "greeting",
+  "scenario": "base",
+  "expected_behavior": "chat",
+  "turns": [
+    {
+      "query": "안녕, 너는 누구야?",
+      "elapsed_seconds": 0.004,
+      "error": null,
+      "result": {
+        "query": "안녕, 너는 누구야?",
+        "thread_id": "eval-M01-1",
+        "history": [],
+        "route": "chat",
+        "targets": [],
+        "unknown": [],
+        "collected": [],
+        "answer_status": "chat",
+        "final": "안녕하세요. 서비스 상태와 대응 매뉴얼을 확인하는 운영 장애 진단 비서입니다.",
+        "evidence": {},
+        "last_prompt": null,
+        "cost_usd": 0,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "chat"
+          },
+          {
+            "type": "ScopeChecked",
+            "targets": [],
+            "unknown": []
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "chat-direct"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [],
+  "usage": [],
+  "tokens": 0,
+  "elapsed_seconds": 0.004,
+  "error": false,
+  "metrics": {
+    "expected_targets": [],
+    "actual_targets": [],
+    "matched_targets": 0,
+    "expected_target_count": 0,
+    "target_recall": null,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [],
+    "actual_runbooks": [],
+    "runbook_recall": null,
+    "runbook_top1_correct": null,
+    "runbook_none_pass": true,
+    "runbook_scope_pass": true,
+    "route": "chat",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "모니터링 조회 없이 간단한 자기소개"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

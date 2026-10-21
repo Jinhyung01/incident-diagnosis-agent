@@ -12,14 +12,16 @@ server.py는 평소처럼(fake/ollama/openai 아무 백엔드로나) 8100에 미
 실행:
     python3 web_demo_server.py        # http://localhost:8600 에서 채팅 화면 오픈
 """
+
 from pathlib import Path
+import os
 
 import httpx
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 
-BACKEND = "http://127.0.0.1:8100"
+BACKEND = os.environ.get("BACKEND_URL", "http://127.0.0.1:8100")
 HERE = Path(__file__).parent
 
 app = FastAPI()
@@ -41,8 +43,11 @@ async def proxy_health():
 async def proxy_chat(req: Request):
     body = await req.body()
     async with httpx.AsyncClient(timeout=120.0) as client:
-        r = await client.post(f"{BACKEND}/chat", content=body,
-                              headers={"content-type": "application/json"})
+        r = await client.post(
+            f"{BACKEND}/chat",
+            content=body,
+            headers={"content-type": "application/json"},
+        )
     return JSONResponse(r.json(), status_code=r.status_code)
 
 
@@ -51,7 +56,8 @@ async def proxy_stream(message: str, thread_id: str = "web-demo"):
     async def relay():
         async with httpx.AsyncClient(timeout=None) as client:
             async with client.stream(
-                "GET", f"{BACKEND}/chat/stream",
+                "GET",
+                f"{BACKEND}/chat/stream",
                 params={"message": message, "thread_id": thread_id},
             ) as upstream:
                 async for chunk in upstream.aiter_bytes():
@@ -61,5 +67,9 @@ async def proxy_stream(message: str, thread_id: str = "web-demo"):
 
 
 if __name__ == "__main__":
-    print("브라우저에서 http://localhost:8600 을 열어보세요 (server.py가 8100에 떠 있어야 합니다)")
-    uvicorn.run(app, host="0.0.0.0", port=8600)
+    print(
+        "브라우저에서 http://localhost:8600 을 열어보세요 (server.py가 8100에 떠 있어야 합니다)"
+    )
+    uvicorn.run(
+        app, host="127.0.0.1", port=int(os.environ.get("FRONTEND_PORT", "8600"))
+    )

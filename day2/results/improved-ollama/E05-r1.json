@@ -1,0 +1,252 @@
+{
+  "id": "E05",
+  "repeat": 1,
+  "split": "evaluation",
+  "category": "healthy_multiple",
+  "scenario": "all_healthy",
+  "expected_behavior": "healthy",
+  "turns": [
+    {
+      "query": "web-01과 payments-service에 장애가 있는지 둘 다 진단해줘",
+      "elapsed_seconds": 0.702,
+      "error": null,
+      "result": {
+        "query": "web-01과 payments-service에 장애가 있는지 둘 다 진단해줘",
+        "thread_id": "eval-E05-1",
+        "history": [],
+        "route": "incident",
+        "targets": [
+          "web-01",
+          "payments-service"
+        ],
+        "unknown": [],
+        "tasks": [
+          {
+            "id": "monitor-web-01",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "web-01",
+            "status": "pending"
+          },
+          {
+            "id": "monitor-payments-service",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "payments-service",
+            "status": "pending"
+          },
+          {
+            "id": "analysis",
+            "agent": "analysis",
+            "kind": "pattern-analysis",
+            "status": "pending"
+          }
+        ],
+        "needs_analysis": true,
+        "collected": [
+          {
+            "source": "monitoring",
+            "service": "web-01",
+            "data": {
+              "system_name": "web-01",
+              "status": "healthy",
+              "cpu_percent": 34.0,
+              "memory_percent": 48.0,
+              "last_checked": "2026-10-20T09:00:00+09:00",
+              "alerts": []
+            },
+            "retries": 0
+          },
+          {
+            "source": "monitoring",
+            "service": "payments-service",
+            "data": {
+              "system_name": "payments-service",
+              "status": "healthy",
+              "cpu_percent": 32.0,
+              "memory_percent": 48.0,
+              "last_checked": "2026-10-20T09:00:00+09:00",
+              "alerts": []
+            },
+            "retries": 0
+          }
+        ],
+        "retry_count": 0,
+        "analysis_note": "서비스별 관측만 수집함. 로그·시계열·의존 관계가 없어 공통 원인은 미확인.",
+        "draft": null,
+        "choices": [],
+        "validation_feedback": null,
+        "answer_status": "observation",
+        "final": "### web-01\n확인된 상태: healthy · CPU 34.0% · 메모리 48.0%\n조회 시각: 2026-10-20T09:00:00+09:00\n현재 관측은 정상이며 활성 알림이 없습니다. 장애 매뉴얼을 적용하지 않았습니다.\n\n### payments-service\n확인된 상태: healthy · CPU 32.0% · 메모리 48.0%\n조회 시각: 2026-10-20T09:00:00+09:00\n현재 관측은 정상이며 활성 알림이 없습니다. 장애 매뉴얼을 적용하지 않았습니다.\n\n추가 확인: 실제 로그·배포 이력·시계열은 수집하지 않아 근본 원인과 조치 조건의 지속 여부는 확인하지 못했습니다.\n공통 원인: 서비스별 상태는 확인했으나 의존 관계·동시 변화 자료가 없어 확정할 수 없습니다.",
+        "evidence": {
+          "services": [
+            {
+              "system_name": "web-01",
+              "state": "healthy",
+              "monitoring": {
+                "system_name": "web-01",
+                "status": "healthy",
+                "cpu_percent": 34.0,
+                "memory_percent": 48.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": []
+              },
+              "runbook": null
+            },
+            {
+              "system_name": "payments-service",
+              "state": "healthy",
+              "monitoring": {
+                "system_name": "payments-service",
+                "status": "healthy",
+                "cpu_percent": 32.0,
+                "memory_percent": 48.0,
+                "last_checked": "2026-10-20T09:00:00+09:00",
+                "alerts": []
+              },
+              "runbook": null
+            }
+          ],
+          "unregistered": [],
+          "unconfirmed_targets": [],
+          "limitations": [
+            "교육용 모의 모니터링",
+            "실제 로그·배포 이력·의존 관계·시계열 미수집",
+            "서버 조치는 실행하지 않음"
+          ],
+          "errors": []
+        },
+        "cost_usd": 5.9e-05,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "incident"
+          },
+          {
+            "type": "ScopeChecked",
+            "targets": [
+              "web-01",
+              "payments-service"
+            ],
+            "unknown": []
+          },
+          {
+            "type": "PlanCreated",
+            "targets": [
+              "web-01",
+              "payments-service"
+            ],
+            "task_count": 3,
+            "recovered_targets": [],
+            "plan_error": null
+          },
+          {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 0
+          },
+          {
+            "type": "TaskCompleted",
+            "source": "monitoring",
+            "target": "web-01",
+            "retries": 0
+          },
+          {
+            "type": "TaskCompleted",
+            "source": "monitoring",
+            "target": "payments-service",
+            "retries": 0
+          },
+          {
+            "type": "RetrievalSkipped",
+            "reason": "정상·미확인·대상 없음"
+          },
+          {
+            "type": "AnalysisCompleted",
+            "scope": "관측 비교 한계 확인",
+            "cause_confirmed": false
+          },
+          {
+            "type": "DraftSkipped",
+            "reason": "매뉴얼 선택 없음; 관측·확인 안내만 출력"
+          },
+          {
+            "type": "Validation",
+            "verdict": "관측·확인 안내",
+            "attempt": 0
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "improved-v2",
+            "answer_status": "observation"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [
+    {
+      "kind": "monitoring",
+      "target": "web-01",
+      "result": {
+        "system_name": "web-01",
+        "status": "healthy",
+        "cpu_percent": 34.0,
+        "memory_percent": 48.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": []
+      }
+    },
+    {
+      "kind": "monitoring",
+      "target": "payments-service",
+      "result": {
+        "system_name": "payments-service",
+        "status": "healthy",
+        "cpu_percent": 32.0,
+        "memory_percent": 48.0,
+        "last_checked": "2026-10-20T09:00:00+09:00",
+        "alerts": []
+      }
+    }
+  ],
+  "usage": [
+    {
+      "model": "ollama:qwen3:0.6b",
+      "tokens": 393,
+      "usd": 5.9e-05
+    }
+  ],
+  "tokens": 393,
+  "elapsed_seconds": 0.702,
+  "error": false,
+  "metrics": {
+    "expected_targets": [
+      "payments-service",
+      "web-01"
+    ],
+    "actual_targets": [
+      "payments-service",
+      "web-01"
+    ],
+    "matched_targets": 2,
+    "expected_target_count": 2,
+    "target_recall": 1.0,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [],
+    "actual_runbooks": [],
+    "runbook_recall": null,
+    "runbook_top1_correct": null,
+    "runbook_none_pass": true,
+    "runbook_scope_pass": true,
+    "route": "incident",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "두 정상 대상을 모두 조회",
+      "DB 장애 기본값 선택 금지"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

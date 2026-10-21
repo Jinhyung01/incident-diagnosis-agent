@@ -1,0 +1,42 @@
+{
+  "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+  "monitoring": "동일한 원본 base 값, jitter=0. 조회 시각은 실제 각 호출 시각.",
+  "before": {
+    "source": "day1/baseline/original_v2",
+    "backend_port": 8203,
+    "proxy_port": 8703,
+    "data_control": "fixed_original_mcp.py에서 jitter만 0으로 고정; 원본 소스 변경 없음",
+    "final_response_completed": false,
+    "observed_error": "httpx.ReadTimeout",
+    "node": "analysis",
+    "screen": "화면에 남은 진행 기록. payments만 조회, 최종 답변 미완료."
+  },
+  "after": {
+    "source": "all_total_vue_student",
+    "backend_port": 8202,
+    "proxy_port": 8702,
+    "data_control": "MONITORING_FIXED=true",
+    "final_response_completed": true,
+    "elapsed_seconds_displayed": 8.515,
+    "observed_targets": [
+      "payments-service",
+      "cache-service"
+    ],
+    "runbooks": [
+      "cpu-spike",
+      "memory-leak"
+    ],
+    "validation_attempts_displayed": 1
+  },
+  "scope": "실제 브라우저 시연 화면이며 20개 고정 데이터 그래프 평가의 시간 통계와 별도",
+  "capture_method": "전체 실제 스크린샷을 보존하고 PPT에서 네이티브 이미지 자르기로 근거 영역을 확대한다.",
+  "healthy_demo": {
+    "targets": [
+      "web-01",
+      "auth-service"
+    ],
+    "web_01_runbook": null,
+    "auth_runbook": "high-latency",
+    "elapsed_seconds_displayed": 7.031
+  }
+}

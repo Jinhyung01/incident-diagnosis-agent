@@ -1,0 +1,19 @@
+{
+  "health": {
+    "status": "ok",
+    "implementation": "improved-v2",
+    "supervisor_version": "v2",
+    "llm_backend": "ollama",
+    "fast_llm": "ollama:qwen3:0.6b",
+    "quality_llm": "ollama:qwen3:8b",
+    "request_timeout_seconds": 60.0,
+    "max_writes": 2,
+    "embedding_model": "bge-m3"
+  },
+  "monitoring": "fixed original base values; actual MCP transport",
+  "ports": [
+    8204,
+    8704
+  ],
+  "simulated_first_timeout": true
+}

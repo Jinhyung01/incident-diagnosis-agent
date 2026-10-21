@@ -1,0 +1,22 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>Q06</title><style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;background:#f3f5f8;color:#192839;margin:0;padding:30px;line-height:1.55}
+main{max-width:1250px;margin:auto}header{border-bottom:3px solid #1f5eaa;padding-bottom:15px;margin-bottom:18px}h1{font-size:27px;margin:5px 0}h2{font-size:18px;margin:0 0 10px}h3{font-size:15px;margin:12px 0 6px}.meta{font-size:13px;color:#56687c}.query{font-size:19px;font-weight:650;padding:14px;background:#e7eef8;border-radius:8px}.grid{display:grid;grid-template-columns:1fr 1.3fr;gap:16px;margin-top:16px}.box{background:white;border:1px solid #dce2eb;border-radius:8px;padding:18px;margin:14px 0}.grid .box{margin:0}p{margin:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit;font-size:14px;margin:0}.badge{display:inline-block;border-radius:5px;padding:3px 9px;font-size:13px;margin:3px 4px 3px 0}.yes{background:#dff1e7;color:#165338}.no{background:#ffe4df;color:#8c2e22}.info{background:#e8edf3;color:#425367}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border-bottom:1px solid #e0e6ed;text-align:left;padding:9px;vertical-align:top}th{background:#edf2f8}a{color:#1f5eaa}.note{font-size:12px;color:#5d6c7c}footer{margin-top:16px;font-size:12px;color:#5d6c7c}.status{font-weight:650}
+</style><main><header><div class="meta">AI Mini-project · 2026-10-21 · 원본 기능 통합 검증</div><h1>Q06 · 쿼리별 결과 기록</h1><div class="meta">실제 HTTP/SSE · MCP · Ollama / 원본 코드 수정 없음</div></header>
+<div class="query">payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘</div><p><b>원래 테스트 목적:</b> needs_analysis·gate·분석 실행 및 비교 대상 수집 확인</p>
+<p><span class="badge yes">응답 완료</span><span class="badge info">총 56.12초</span><span class="badge info">매뉴얼: cpu-spike</span></p>
+<div class="grid"><section class="box"><h2>목적별 확인 결과</h2><span class="badge no">원래 기준의 대상 선택: 미충족</span><span class="badge yes">분석 필요 플래그: 확인</span><span class="badge yes">분석 작업 유지: 확인</span><span class="badge yes">분석 호출 완료: 확인</span><h3>실제 수집 대상</h3><table><tr><th>대상</th><th>상태</th><th>CPU</th><th>메모리</th></tr><tr><td>payments-service</td><td>degraded</td><td>95.6%</td><td>57.3%</td></tr></table><h3>스트리밍 기록</h3><p>1턴: 토큰 이벤트 271개 · 첫 토큰 43.84초 · 최종 답변 56.12초 · 토큰 합계와 최종 답변 일치: 예</p></section>
+<section class="box"><h2>실제 응답</h2><h3>payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘</h3><pre>1) **CPU 사용률 과다**  
+payments-service의 CPU 사용률이 95.6%로 과부하 상태이며, CPU 91% 경고 기준(80%)을 초과한 것으로 확인됨.  
+
+2) **메모리 사용률 및 인스턴스 응답 지연**  
+메모리 사용률 57.3%와 &#x27;payments-service-3 instance responding slow&#x27; 알림이 발생함.  
+
+3) **공통 원인 추정 및 대응 절차**  
+- **Runbook 기준** CPU 90% 이상 지속 시 오토스케일링 그룹에 인스턴스 추가하여 부하 분산(3단계).  
+- **패턴 분석** 특이 패턴 없음(4단계).  
+- **공통 원인 가능성** cache-service도 동일한 트래픽 증가 또는 특정 요청 패턴으로 인한 부하일 가능성 있으나, 수집된 데이터에 cache-service의 상태 정보가 누락되어 명확한 공통 원인은 확인 불가.  
+
+**추천 대응**  
+payments-service는 오토스케일링 실행 후, cache-service의 상태 및 메트릭을 추가 수집하여 공통 원인 분석.</pre></section></div>
+<section class="box"><h2>결과 해석 · 개선 연결</h2><p>needs_analysis=true, gate의 분석 유지, 실제 분석 호출은 확인했다. 그러나 cache-service는 조사되지 않아 두 서비스 비교라는 목적은 충족하지 못했다. 답변은 cache 정보 누락을 밝혔지만 트래픽 증가 가능성 등 검증되지 않은 가설도 제시했다.</p><p><b>개선 연결:</b> 기존 분석 분기와 gate는 보존한다. 비교 대상의 자료가 모두 수집되었는지 확인하고, 관측 사실·가능성·미확인 사항을 구분한다. 스케일링 지속 조건과 조치 실행 여부도 검증한다.</p></section>
+<footer>시험 기록 화면입니다. 원본 채팅 UI 화면이 아닙니다. 수치·답변·시간은 실제 호출 기록에서 가져왔습니다. <a href="Q06.json">전체 JSON</a> · <a href="index.html">전체 결과</a></footer></main></html>

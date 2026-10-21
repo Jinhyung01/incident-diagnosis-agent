@@ -1,0 +1,125 @@
+{
+  "created_at": "2026-10-21T14:01:40.247341+09:00",
+  "source": "all_total_vue_student",
+  "backend": "ollama",
+  "fast_model": "qwen3:0.6b",
+  "quality_model": "qwen3:8b",
+  "case_ids": [
+    "D01",
+    "D02",
+    "D03",
+    "D04",
+    "D05",
+    "D06",
+    "D07",
+    "D08",
+    "D09",
+    "D10",
+    "D11",
+    "D12",
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "M01",
+    "M02"
+  ],
+  "repeat": 1,
+  "evaluation_mode": "improved graph + fixed-data MCP adapter + real embedding retrieval",
+  "actual_mcp_transport_tested": false,
+  "session_storage": "in-memory isolated history; original SQLite untouched",
+  "flaky_first_tool_call_per_case": false,
+  "fixture_sha256": "230b02d1a35fa841ea1b86cef92dc8847ed02571d7ee85709a48ff9481ccde7a",
+  "dataset_sha256": "a384b78709e863368fd864d7d001a48ee44d1fea0212cf951757381cb05b249e",
+  "sample_data_sha256": "44cf849b6ea4c64bb2ff6911fd99add291cc7a7bb94f56dc1ce562e527be8224",
+  "temperature": 0,
+  "timing": "graph invocation only; excludes warmup/index construction",
+  "cost_note": "cost_usd is a synthetic comparison value, not an invoice.",
+  "factuality": "Manual review required; automatic metrics cover target and runbook selection.",
+  "model_metadata": [
+    {
+      "name": "qwen3:0.6b",
+      "model": "qwen3:0.6b",
+      "modified_at": "2026-10-20T09:48:10.377754559+09:00",
+      "size": 522653767,
+      "digest": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "751.63M",
+        "quantization_level": "Q4_K_M",
+        "context_length": 40960,
+        "embedding_length": 1024
+      },
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ]
+    },
+    {
+      "name": "qwen3:8b",
+      "model": "qwen3:8b",
+      "modified_at": "2026-10-19T15:23:47.373965149+09:00",
+      "size": 5225388164,
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 40960,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ]
+    }
+  ],
+  "implementation": "improved-v2",
+  "generation_changes": {
+    "think": false,
+    "num_predict": 512,
+    "call_timeout_seconds": 25,
+    "max_writes": 2,
+    "request_budget_seconds": 60
+  },
+  "index": {
+    "cached": true,
+    "documents": 6,
+    "digest": "c7c2ff177813d6327a503d064da8fa9d68b205d22b24387a6dd439512eff7b3a"
+  },
+  "implementation_sha256": {
+    "agent/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "agent/deps.py": "837aaa49d277e45bf02904ee3ffe7532a5574afce8f909481c8c40f233b12386",
+    "agent/evidence.py": "9c7d22919bbd169b1ce4937091e43b11fbb3ed1171d01c4e95c9525676856b7f",
+    "agent/fake_llm.py": "8af6ae5c4c804053c6365ff1e54a7e549077a393e4803325cb3021fc2fe977c7",
+    "agent/graph.py": "485e8839ecf2f0ae4858a5700371a03b4012c8b40579ab579515f20b0f437f53",
+    "agent/mcp_client.py": "eadff6c7bf2c5c69834b78d064b4a059934cc8aac14253da578edbf8e0b27542",
+    "agent/nodes.py": "7e00b66b6572883ef688d12aad011a694f745eea9228a66ed9c7ccf0fa586b70",
+    "agent/ollama_llm.py": "a07b02a88a972d7e82eb3758d1c07956d602ed05ee9eb1ee716f92cefd2f8a4d",
+    "agent/openai_llm.py": "1f7b41e6a71df516f152cee1f371dd6a9b9ea9c02b82aee09ed9644db538f647",
+    "agent/reporting.py": "6150388e90e38b099e6526c3949f553b5a2ae6f2ec1e8aaea26dc75cfa1c1463",
+    "agent/research.py": "706de473a229e8cfdf2926c1a7033e8bba41a02912be60ed6482a18d2ce02a1a",
+    "agent/retrieval.py": "a055571808051fed75963032c9417c1cf771e92fc98710685c12a6b85c206c7c",
+    "agent/retry.py": "d2524552348c9faa08b5ce446434bf593677c7028fb38c9e11b03de8839d2a3a",
+    "agent/session_store.py": "cd1f61396ccd815d940be5a3d8929199648273c360c82fbd722163644b7356a6",
+    "agent/supervisor_v1.py": "6080b4b8c3a6bd56c617a560a64d644d5f1e5e2721ad65324a09886a2df6cab8",
+    "agent/targets.py": "a5fadadc39feeb90e677445dbfb6150e03360f9f7ead932d18face85760998de",
+    "agent/validation.py": "7f93ad11ef333f98cec877dafc6bca0d533cbc43dc3a7a9fb5fcf024bda32a3e",
+    "server.py": "c724f33f164108a4339bf193a87173621c86216831f5dd7bbc034eb732c31e8b",
+    "data/runbook_metadata.json": "a4e3a141ae20265abe2405615920171e3260cac1378f8c408becedda62294ba3"
+  }
+}

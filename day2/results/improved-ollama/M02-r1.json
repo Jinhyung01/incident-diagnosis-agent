@@ -1,0 +1,117 @@
+{
+  "id": "M02",
+  "repeat": 1,
+  "split": "supplemental",
+  "category": "name_memory",
+  "scenario": "base",
+  "expected_behavior": "chat",
+  "turns": [
+    {
+      "query": "제 이름은 민수입니다",
+      "elapsed_seconds": 0.001,
+      "error": null,
+      "result": {
+        "query": "제 이름은 민수입니다",
+        "thread_id": "eval-M02-1",
+        "history": [],
+        "route": "chat",
+        "targets": [],
+        "unknown": [],
+        "collected": [],
+        "answer_status": "chat",
+        "final": "반갑습니다, 민수님. 이름을 기억해둘게요.",
+        "evidence": {},
+        "last_prompt": null,
+        "cost_usd": 0,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "chat"
+          },
+          {
+            "type": "ScopeChecked",
+            "targets": [],
+            "unknown": []
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "chat-direct"
+          }
+        ]
+      }
+    },
+    {
+      "query": "제 이름이 뭐였죠?",
+      "elapsed_seconds": 0.001,
+      "error": null,
+      "result": {
+        "query": "제 이름이 뭐였죠?",
+        "thread_id": "eval-M02-1",
+        "history": [
+          {
+            "role": "user",
+            "content": "제 이름은 민수입니다"
+          },
+          {
+            "role": "assistant",
+            "content": "반갑습니다, 민수님. 이름을 기억해둘게요."
+          }
+        ],
+        "route": "chat",
+        "targets": [],
+        "unknown": [],
+        "collected": [],
+        "answer_status": "chat",
+        "final": "사용자님의 이름은 민수입니다.",
+        "evidence": {},
+        "last_prompt": null,
+        "cost_usd": 0,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "chat"
+          },
+          {
+            "type": "ScopeChecked",
+            "targets": [],
+            "unknown": []
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "chat-direct"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [],
+  "usage": [],
+  "tokens": 0,
+  "elapsed_seconds": 0.002,
+  "error": false,
+  "metrics": {
+    "expected_targets": [],
+    "actual_targets": [],
+    "matched_targets": 0,
+    "expected_target_count": 0,
+    "target_recall": null,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [],
+    "actual_runbooks": [],
+    "runbook_recall": null,
+    "runbook_top1_correct": null,
+    "runbook_none_pass": true,
+    "runbook_scope_pass": true,
+    "route": "chat",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "두 번의 실제 요청으로 테스트",
+      "민수를 사용자 이름으로 답함",
+      "에이전트 자기 이름으로 말하지 않음"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

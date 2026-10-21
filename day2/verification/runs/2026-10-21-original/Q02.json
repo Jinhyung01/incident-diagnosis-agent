@@ -1,0 +1,1323 @@
+{
+  "id": "Q02",
+  "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+  "purpose": "cache 인식 및 memory-leak 매뉴얼 선택",
+  "thread_id": "verify-Q02",
+  "turns": [
+    {
+      "message": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "events": [
+        {
+          "elapsed_seconds": 2.365463,
+          "data": {
+            "type": "RouteDecided",
+            "route": "incident",
+            "node": "route"
+          }
+        },
+        {
+          "elapsed_seconds": 4.247782,
+          "data": {
+            "type": "PlanCreated",
+            "task_count": 2,
+            "targets": [
+              "cache-service"
+            ],
+            "node": "plan"
+          }
+        },
+        {
+          "elapsed_seconds": 4.249041,
+          "data": {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 0,
+            "node": "gate"
+          }
+        },
+        {
+          "elapsed_seconds": 4.616478,
+          "data": {
+            "type": "TaskCompleted",
+            "id": "task-0",
+            "source": "monitoring",
+            "target": "cache-service",
+            "retries": 0,
+            "node": "research"
+          }
+        },
+        {
+          "elapsed_seconds": 4.617661,
+          "data": {
+            "type": "ReplanCheck",
+            "round": 0,
+            "is_sufficient": false,
+            "gap_task": "task-gap-runbook",
+            "target": "memory-leak",
+            "node": "replan_check"
+          }
+        },
+        {
+          "elapsed_seconds": 4.979146,
+          "data": {
+            "type": "TaskCompleted",
+            "id": "task-gap-runbook",
+            "source": "runbook",
+            "target": "memory-leak",
+            "retries": 0,
+            "node": "research"
+          }
+        },
+        {
+          "elapsed_seconds": 4.980528,
+          "data": {
+            "type": "ReplanCheck",
+            "round": 1,
+            "is_sufficient": true,
+            "node": "replan_check"
+          }
+        },
+        {
+          "elapsed_seconds": 6.710781,
+          "data": {
+            "type": "AnalysisCompleted",
+            "length": 9,
+            "node": "analysis"
+          }
+        },
+        {
+          "elapsed_seconds": 95.614964,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "1"
+          }
+        },
+        {
+          "elapsed_seconds": 95.666015,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ")"
+          }
+        },
+        {
+          "elapsed_seconds": 95.719447,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 메"
+          }
+        },
+        {
+          "elapsed_seconds": 95.772802,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "모"
+          }
+        },
+        {
+          "elapsed_seconds": 95.825506,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "리"
+          }
+        },
+        {
+          "elapsed_seconds": 95.879975,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 사용"
+          }
+        },
+        {
+          "elapsed_seconds": 95.934321,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "률"
+          }
+        },
+        {
+          "elapsed_seconds": 95.988479,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 추"
+          }
+        },
+        {
+          "elapsed_seconds": 96.042391,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "세"
+          }
+        },
+        {
+          "elapsed_seconds": 96.094921,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 확인"
+          }
+        },
+        {
+          "elapsed_seconds": 96.147509,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ":"
+          }
+        },
+        {
+          "elapsed_seconds": 96.200778,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " "
+          }
+        },
+        {
+          "elapsed_seconds": 96.252455,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "6"
+          }
+        },
+        {
+          "elapsed_seconds": 96.305282,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "시간"
+          }
+        },
+        {
+          "elapsed_seconds": 96.357206,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 이상"
+          }
+        },
+        {
+          "elapsed_seconds": 96.510162,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 꾸"
+          }
+        },
+        {
+          "elapsed_seconds": 96.563511,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "준"
+          }
+        },
+        {
+          "elapsed_seconds": 96.620909,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "히"
+          }
+        },
+        {
+          "elapsed_seconds": 96.728945,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 증"
+          }
+        },
+        {
+          "elapsed_seconds": 96.783384,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "가"
+          }
+        },
+        {
+          "elapsed_seconds": 96.838865,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 중"
+          }
+        },
+        {
+          "elapsed_seconds": 96.894214,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 96.948207,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "  \n"
+          }
+        },
+        {
+          "elapsed_seconds": 97.000019,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "2"
+          }
+        },
+        {
+          "elapsed_seconds": 97.068586,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ")"
+          }
+        },
+        {
+          "elapsed_seconds": 97.11712,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " O"
+          }
+        },
+        {
+          "elapsed_seconds": 97.174267,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "OM"
+          }
+        },
+        {
+          "elapsed_seconds": 97.230035,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 직"
+          }
+        },
+        {
+          "elapsed_seconds": 97.286933,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "전"
+          }
+        },
+        {
+          "elapsed_seconds": 97.345258,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "("
+          }
+        },
+        {
+          "elapsed_seconds": 97.403635,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "9"
+          }
+        },
+        {
+          "elapsed_seconds": 97.458292,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "0"
+          }
+        },
+        {
+          "elapsed_seconds": 97.513015,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "%"
+          }
+        },
+        {
+          "elapsed_seconds": 97.567822,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 이상"
+          }
+        },
+        {
+          "elapsed_seconds": 97.621457,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ")"
+          }
+        },
+        {
+          "elapsed_seconds": 97.674469,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "이"
+          }
+        },
+        {
+          "elapsed_seconds": 97.729736,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "면"
+          }
+        },
+        {
+          "elapsed_seconds": 97.786352,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 재"
+          }
+        },
+        {
+          "elapsed_seconds": 97.839974,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "시"
+          }
+        },
+        {
+          "elapsed_seconds": 97.893263,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "작"
+          }
+        },
+        {
+          "elapsed_seconds": 97.947305,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ","
+          }
+        },
+        {
+          "elapsed_seconds": 98.003615,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 현재"
+          }
+        },
+        {
+          "elapsed_seconds": 98.058195,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " "
+          }
+        },
+        {
+          "elapsed_seconds": 98.112706,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "8"
+          }
+        },
+        {
+          "elapsed_seconds": 98.166175,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "8"
+          }
+        },
+        {
+          "elapsed_seconds": 98.218145,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 98.262431,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "7"
+          }
+        },
+        {
+          "elapsed_seconds": 98.30645,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "%"
+          }
+        },
+        {
+          "elapsed_seconds": 98.350377,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "로"
+          }
+        },
+        {
+          "elapsed_seconds": 98.394277,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 조"
+          }
+        },
+        {
+          "elapsed_seconds": 98.438364,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "치"
+          }
+        },
+        {
+          "elapsed_seconds": 98.482343,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 미"
+          }
+        },
+        {
+          "elapsed_seconds": 98.526317,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "발"
+          }
+        },
+        {
+          "elapsed_seconds": 98.57003,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "생"
+          }
+        },
+        {
+          "elapsed_seconds": 98.614156,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 98.658022,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "  \n"
+          }
+        },
+        {
+          "elapsed_seconds": 98.702022,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "3"
+          }
+        },
+        {
+          "elapsed_seconds": 98.746032,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ")"
+          }
+        },
+        {
+          "elapsed_seconds": 98.880694,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 힙"
+          }
+        },
+        {
+          "elapsed_seconds": 99.016847,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 덤프"
+          }
+        },
+        {
+          "elapsed_seconds": 99.061342,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "로"
+          }
+        },
+        {
+          "elapsed_seconds": 99.112958,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 누"
+          }
+        },
+        {
+          "elapsed_seconds": 99.168773,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "수"
+          }
+        },
+        {
+          "elapsed_seconds": 99.225857,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 원"
+          }
+        },
+        {
+          "elapsed_seconds": 99.280059,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "인"
+          }
+        },
+        {
+          "elapsed_seconds": 99.331623,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 확인"
+          }
+        },
+        {
+          "elapsed_seconds": 99.382334,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 99.431607,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "  \n"
+          }
+        },
+        {
+          "elapsed_seconds": 99.476637,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "4"
+          }
+        },
+        {
+          "elapsed_seconds": 99.530087,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ")"
+          }
+        },
+        {
+          "elapsed_seconds": 99.584478,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 최근"
+          }
+        },
+        {
+          "elapsed_seconds": 99.629578,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 배"
+          }
+        },
+        {
+          "elapsed_seconds": 99.674894,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "포"
+          }
+        },
+        {
+          "elapsed_seconds": 99.718938,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "에"
+          }
+        },
+        {
+          "elapsed_seconds": 99.86292,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 캐"
+          }
+        },
+        {
+          "elapsed_seconds": 99.906947,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "시"
+          }
+        },
+        {
+          "elapsed_seconds": 99.95102,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 무"
+          }
+        },
+        {
+          "elapsed_seconds": 99.994852,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "제"
+          }
+        },
+        {
+          "elapsed_seconds": 100.039125,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "한"
+          }
+        },
+        {
+          "elapsed_seconds": 100.131022,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 증"
+          }
+        },
+        {
+          "elapsed_seconds": 100.175092,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "가"
+          }
+        },
+        {
+          "elapsed_seconds": 100.219145,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 등"
+          }
+        },
+        {
+          "elapsed_seconds": 100.309113,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 패"
+          }
+        },
+        {
+          "elapsed_seconds": 100.353615,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "턴"
+          }
+        },
+        {
+          "elapsed_seconds": 100.452773,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 점"
+          }
+        },
+        {
+          "elapsed_seconds": 100.506894,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "검"
+          }
+        },
+        {
+          "elapsed_seconds": 100.554682,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 100.598709,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "  \n"
+          }
+        },
+        {
+          "elapsed_seconds": 100.64288,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "5"
+          }
+        },
+        {
+          "elapsed_seconds": 100.686719,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": ")"
+          }
+        },
+        {
+          "elapsed_seconds": 100.730705,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 원"
+          }
+        },
+        {
+          "elapsed_seconds": 100.774811,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "인"
+          }
+        },
+        {
+          "elapsed_seconds": 100.818796,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 배"
+          }
+        },
+        {
+          "elapsed_seconds": 100.86257,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "포"
+          }
+        },
+        {
+          "elapsed_seconds": 100.90644,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 시"
+          }
+        },
+        {
+          "elapsed_seconds": 101.012813,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 롤"
+          }
+        },
+        {
+          "elapsed_seconds": 101.061913,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "백"
+          }
+        },
+        {
+          "elapsed_seconds": 101.108639,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 및"
+          }
+        },
+        {
+          "elapsed_seconds": 101.155999,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 메"
+          }
+        },
+        {
+          "elapsed_seconds": 101.20737,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "모"
+          }
+        },
+        {
+          "elapsed_seconds": 101.254469,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "리"
+          }
+        },
+        {
+          "elapsed_seconds": 101.298475,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 상"
+          }
+        },
+        {
+          "elapsed_seconds": 101.343536,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "한"
+          }
+        },
+        {
+          "elapsed_seconds": 101.39317,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "선"
+          }
+        },
+        {
+          "elapsed_seconds": 101.445102,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": " 조"
+          }
+        },
+        {
+          "elapsed_seconds": 101.489092,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "정"
+          }
+        },
+        {
+          "elapsed_seconds": 101.532857,
+          "data": {
+            "type": "AnswerToken",
+            "attempt": 1,
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 101.589413,
+          "data": {
+            "type": "DraftWritten",
+            "attempt": 1,
+            "length": 161,
+            "node": "write"
+          }
+        },
+        {
+          "elapsed_seconds": 101.593292,
+          "data": {
+            "type": "Validation",
+            "attempt": 1,
+            "verdict": "합격",
+            "node": "validate"
+          }
+        },
+        {
+          "elapsed_seconds": 101.594092,
+          "data": {
+            "type": "Finalize",
+            "pipeline": "incident-v2",
+            "node": "finalize"
+          }
+        },
+        {
+          "elapsed_seconds": 101.594675,
+          "data": {
+            "type": "FinalAnswer",
+            "reply": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중.  \n2) OOM 직전(90% 이상)이면 재시작, 현재 88.7%로 조치 미발생.  \n3) 힙 덤프로 누수 원인 확인.  \n4) 최근 배포에 캐시 무제한 증가 등 패턴 점검.  \n5) 원인 배포 시 롤백 및 메모리 상한선 조정.",
+            "prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ncache-service 메모리 사용률이 계속 올라가고 있어요\n\n## 수집된 사실\n- 모니터링 cache-service: 상태=degraded, CPU 41.4%, 메모리 88.7%, 알림 2건 ['memory usage climbing steadily over 6h', 'heap near limit']\n- runbook 발췌:\n# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n- 패턴 분석: 특이 패턴 없음."
+          }
+        },
+        {
+          "elapsed_seconds": 101.598227,
+          "data": {
+            "type": "DONE"
+          }
+        }
+      ],
+      "reply": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중.  \n2) OOM 직전(90% 이상)이면 재시작, 현재 88.7%로 조치 미발생.  \n3) 힙 덤프로 누수 원인 확인.  \n4) 최근 배포에 캐시 무제한 증가 등 패턴 점검.  \n5) 원인 배포 시 롤백 및 메모리 상한선 조정.",
+      "prompt": "[SYSTEM]\n당신은 ICT 운영 보고 작성자다. 수집된 사실만 사용해 한국어로 간결한 대응 보고를 작성하라. 반드시 '1) ... 2) ... 3) ...' 형식의 번호 절차로 답하고, 수치는 수집된 값을 그대로 인용하라.\n\n[USER]\n## 사용자 요청\ncache-service 메모리 사용률이 계속 올라가고 있어요\n\n## 수집된 사실\n- 모니터링 cache-service: 상태=degraded, CPU 41.4%, 메모리 88.7%, 알림 2건 ['memory usage climbing steadily over 6h', 'heap near limit']\n- runbook 발췌:\n# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n- 패턴 분석: 특이 패턴 없음.",
+      "done": true,
+      "final_received": true,
+      "error": null,
+      "http_status": 200,
+      "content_type": "text/event-stream; charset=utf-8",
+      "elapsed_seconds": 101.601,
+      "stream_checks": {
+        "token_events": 107,
+        "first_token_seconds": 95.614964,
+        "final_seconds": 101.594675,
+        "tokens_before_final": true,
+        "joined_tokens_match_final": true
+      }
+    }
+  ],
+  "observations": [
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:42.683050+09:00",
+      "monotonic": 39074.762241541,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:46:45.025110+09:00",
+      "monotonic": 39077.104634916,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.route",
+      "output": {
+        "route": "incident",
+        "needs_analysis": true
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 395,
+        "usd": 5.9e-05
+      }
+    },
+    {
+      "kind": "mcp_prompt",
+      "time": "2026-10-21T09:46:45.049767+09:00",
+      "monotonic": 39077.128955166,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "name": "incident_analysis_prompt",
+      "arguments": {
+        "system_name": "cache-service",
+        "symptom": "cache-service 메모리 사용률이 계속 올라가고 있어요"
+      },
+      "body": "다음 장애에 대해 표준 진단 절차를 수행하세요.\n\n## 장애 정보\n- 시스템: cache-service\n- 증상: cache-service 메모리 사용률이 계속 올라가고 있어요\n\n## 진단 절차 (반드시 순서대로 수행)\n1. get_monitoring_status Tool로 관련 시스템의 현재 상태를 조회하세요.\n2. 증상에 해당하는 runbook(runbook://incident-response/...)을 확인하세요.\n3. 위 정보를 종합해 가능한 원인과 권장 조치를 제시하세요.\n",
+      "mcp_server": "ops"
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:45.049925+09:00",
+      "monotonic": 39077.129109458,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.plan"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:46:46.909515+09:00",
+      "monotonic": 39078.988712416,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.plan",
+      "output": {
+        "needs_analysis": true,
+        "tasks": [
+          {
+            "id": "task-0",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "cache-service",
+            "status": "pending"
+          },
+          {
+            "id": "task-analysis",
+            "agent": "analysis",
+            "kind": "pattern-analysis",
+            "status": "pending"
+          }
+        ]
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 614,
+        "usd": 9.2e-05
+      }
+    },
+    {
+      "kind": "tool_start",
+      "time": "2026-10-21T09:46:47.267973+09:00",
+      "monotonic": 39079.347181583,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "name": "get_monitoring_status",
+      "arguments": {
+        "system_name": "cache-service"
+      },
+      "mcp_server": "ops"
+    },
+    {
+      "kind": "tool_result",
+      "time": "2026-10-21T09:46:47.279021+09:00",
+      "monotonic": 39079.358213208,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "name": "get_monitoring_status",
+      "data": {
+        "system_name": "cache-service",
+        "status": "degraded",
+        "cpu_percent": 41.4,
+        "memory_percent": 88.7,
+        "last_checked": "2026-10-21T09:46:47.275111",
+        "alerts": [
+          "memory usage climbing steadily over 6h",
+          "heap near limit"
+        ]
+      },
+      "mcp_server": "ops"
+    },
+    {
+      "kind": "mcp_resource",
+      "time": "2026-10-21T09:46:47.641582+09:00",
+      "monotonic": 39079.720775583,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "uri": "runbook://incident-response/memory-leak",
+      "body": "# Runbook: 메모리 누수(Memory Leak) 대응 절차\n\n1. get_monitoring_status로 메모리 사용률 추세(시간에 따라 꾸준히 증가하는지)를 확인한다.\n2. OOM 직전(90% 이상)이면 해당 프로세스를 즉시 재시작해 서비스 중단을 막는다 — 재시작은 임시 조치일 뿐임을 기록해둔다.\n3. 힙 덤프 또는 프로파일링 도구로 어떤 객체가 계속 쌓이는지 확인한다.\n4. 캐시 무제한 증가, 커넥션 미반환, 이벤트 리스너 중복 등록 같은 패턴이 최근 배포에 있었는지 점검한다.\n5. 원인이 된 배포가 있으면 롤백하고, 컨테이너 메모리 상한선을 재확인해 재발 시 더 빨리 감지되도록 조정한다.\n",
+      "mcp_server": "ops"
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:47.644670+09:00",
+      "monotonic": 39079.7238555,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.analyze"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:46:49.373151+09:00",
+      "monotonic": 39081.452343208,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.analyze",
+      "output": "특이 패턴 없음.",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 444,
+        "usd": 6.7e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:49.375087+09:00",
+      "monotonic": 39081.454270708,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "quality.write"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:48:24.250969+09:00",
+      "monotonic": 39176.329979916,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "quality.write",
+      "output": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중.  \n2) OOM 직전(90% 이상)이면 재시작, 현재 88.7%로 조치 미발생.  \n3) 힙 덤프로 누수 원인 확인.  \n4) 최근 배포에 캐시 무제한 증가 등 패턴 점검.  \n5) 원인 배포 시 롤백 및 메모리 상한선 조정.",
+      "usage": {
+        "model": "ollama:qwen3:8b",
+        "tokens": 2457,
+        "usd": 0.012285
+      }
+    }
+  ],
+  "targets": [
+    "cache-service"
+  ],
+  "runbooks": [
+    "memory-leak"
+  ],
+  "monitoring": [
+    {
+      "system_name": "cache-service",
+      "status": "degraded",
+      "cpu_percent": 41.4,
+      "memory_percent": 88.7,
+      "last_checked": "2026-10-21T09:46:47.275111",
+      "alerts": [
+        "memory usage climbing steadily over 6h",
+        "heap near limit"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:42.683050+09:00",
+      "monotonic": 39074.762241541,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:46:45.025110+09:00",
+      "monotonic": 39077.104634916,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.route",
+      "output": {
+        "route": "incident",
+        "needs_analysis": true
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 395,
+        "usd": 5.9e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:45.049925+09:00",
+      "monotonic": 39077.129109458,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.plan"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:46:46.909515+09:00",
+      "monotonic": 39078.988712416,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.plan",
+      "output": {
+        "needs_analysis": true,
+        "tasks": [
+          {
+            "id": "task-0",
+            "agent": "research",
+            "kind": "monitoring",
+            "target": "cache-service",
+            "status": "pending"
+          },
+          {
+            "id": "task-analysis",
+            "agent": "analysis",
+            "kind": "pattern-analysis",
+            "status": "pending"
+          }
+        ]
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 614,
+        "usd": 9.2e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:47.644670+09:00",
+      "monotonic": 39079.7238555,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.analyze"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:46:49.373151+09:00",
+      "monotonic": 39081.452343208,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "fast.analyze",
+      "output": "특이 패턴 없음.",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 444,
+        "usd": 6.7e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T09:46:49.375087+09:00",
+      "monotonic": 39081.454270708,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "quality.write"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T09:48:24.250969+09:00",
+      "monotonic": 39176.329979916,
+      "pid": 15522,
+      "thread_id": "verify-Q02",
+      "query": "cache-service 메모리 사용률이 계속 올라가고 있어요",
+      "stage": "quality.write",
+      "output": "1) 메모리 사용률 추세 확인: 6시간 이상 꾸준히 증가 중.  \n2) OOM 직전(90% 이상)이면 재시작, 현재 88.7%로 조치 미발생.  \n3) 힙 덤프로 누수 원인 확인.  \n4) 최근 배포에 캐시 무제한 증가 등 패턴 점검.  \n5) 원인 배포 시 롤백 및 메모리 상한선 조정.",
+      "usage": {
+        "model": "ollama:qwen3:8b",
+        "tokens": 2457,
+        "usd": 0.012285
+      }
+    }
+  ],
+  "elapsed_seconds": 101.601,
+  "original_purpose_checks": {
+    "original_target_selection": true,
+    "original_runbook_selection": true
+  },
+  "response_complete": true,
+  "status": "completed"
+}

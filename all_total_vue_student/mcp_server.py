@@ -8,7 +8,9 @@ FastAPI 백엔드(server.py)가 lifespan에서 이 파일을 subprocess(stdio)�
 - Resource runbook://incident-response/{incident_type} : URI로 식별되는 정적 문서
 - Prompt  incident_analysis_prompt : 여러 Tool을 조합하는 표준 진단 절차를 강제
 """
+
 import json
+import os
 import random
 from datetime import datetime
 from pathlib import Path
@@ -19,6 +21,23 @@ from pydantic import BaseModel, Field
 mcp = FastMCP(name="capstone-all-total-ops")
 
 DATA_DIR = Path(__file__).parent / "data"
+
+from agent.retrieval import RunbookRetriever
+
+retriever = RunbookRetriever(
+    DATA_DIR / "runbooks",
+    Path(
+        os.environ.get(
+            "RUNBOOK_INDEX_PATH", str(DATA_DIR.parent / ".cache/runbooks.sqlite")
+        )
+    ),
+)
+
+
+@mcp.tool()
+def search_runbooks(query: str, k: int = 2) -> dict:
+    """대응 매뉴얼 본문 임베딩을 코사인 유사도로 검색합니다. 원문 URI와 점수를 반환합니다."""
+    return retriever.search(query, k)
 
 
 class SystemStatus(BaseModel):
@@ -33,16 +52,27 @@ class SystemStatus(BaseModel):
 @mcp.tool()
 def get_monitoring_status(system_name: str) -> SystemStatus:
     """지정된 시스템의 현재 모니터링 상태를 조회합니다 (호출마다 값이 달라지는 동적 Tool)."""
-    monitoring_data = json.loads((DATA_DIR / "monitoring.json").read_text())
+    fixture_path = os.environ.get("MONITORING_FIXTURE_PATH")
+    monitoring_data = (
+        json.loads(Path(fixture_path).read_text())
+        if fixture_path
+        else json.loads((DATA_DIR / "monitoring.json").read_text())
+    )
     if system_name not in monitoring_data:
         return SystemStatus(
-            system_name=system_name, status="unknown",
-            cpu_percent=0.0, memory_percent=0.0,
+            system_name=system_name,
+            status="unknown",
+            cpu_percent=0.0,
+            memory_percent=0.0,
             last_checked=datetime.now().isoformat(),
             alerts=[f"System '{system_name}' not found in monitoring"],
         )
     data = monitoring_data[system_name]
-    jitter = random.uniform(-3.0, 8.0)
+    jitter = (
+        0.0
+        if os.environ.get("MONITORING_FIXED") == "true"
+        else random.uniform(-3.0, 8.0)
+    )
     return SystemStatus(
         system_name=system_name,
         status=data["status"],
@@ -81,5 +111,5 @@ def incident_analysis_prompt(system_name: str, symptom: str) -> str:
 if __name__ == "__main__":
     try:
         mcp.run(show_banner=False)
-    except TypeError:   # 구버전 fastmcp 호환
+    except TypeError:  # 구버전 fastmcp 호환
         mcp.run()

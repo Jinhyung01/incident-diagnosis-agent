@@ -1,0 +1,445 @@
+{
+  "id": "Q10",
+  "query": "제 이름은 민수입니다 → 서버 재시작 → 제 이름이 뭐였죠?",
+  "purpose": "같은 thread의 SQLite 재시작 유지 및 SSE 응답 확인",
+  "thread_id": "verify-Q10",
+  "turns": [
+    {
+      "message": "제 이름은 민수입니다",
+      "events": [
+        {
+          "elapsed_seconds": 0.865668,
+          "data": {
+            "type": "RouteDecided",
+            "route": "chat",
+            "node": "route"
+          }
+        },
+        {
+          "elapsed_seconds": 1.247299,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "안"
+          }
+        },
+        {
+          "elapsed_seconds": 1.251874,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "녕"
+          }
+        },
+        {
+          "elapsed_seconds": 1.256679,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "하세요"
+          }
+        },
+        {
+          "elapsed_seconds": 1.261366,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "!"
+          }
+        },
+        {
+          "elapsed_seconds": 1.268569,
+          "data": {
+            "type": "Finalize",
+            "pipeline": "chat-direct",
+            "node": "chat_answer"
+          }
+        },
+        {
+          "elapsed_seconds": 1.269236,
+          "data": {
+            "type": "FinalAnswer",
+            "reply": "안녕하세요!",
+            "prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\n(없음)\n\n## 사용자의 새 메시지\n제 이름은 민수입니다"
+          }
+        },
+        {
+          "elapsed_seconds": 1.271395,
+          "data": {
+            "type": "DONE"
+          }
+        }
+      ],
+      "reply": "안녕하세요!",
+      "prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\n(없음)\n\n## 사용자의 새 메시지\n제 이름은 민수입니다",
+      "done": true,
+      "final_received": true,
+      "error": null,
+      "http_status": 200,
+      "content_type": "text/event-stream; charset=utf-8",
+      "elapsed_seconds": 1.272,
+      "stream_checks": {
+        "token_events": 4,
+        "first_token_seconds": 1.247299,
+        "final_seconds": 1.269236,
+        "tokens_before_final": true,
+        "joined_tokens_match_final": true
+      }
+    },
+    {
+      "message": "제 이름이 뭐였죠?",
+      "events": [
+        {
+          "elapsed_seconds": 0.551285,
+          "data": {
+            "type": "RouteDecided",
+            "route": "chat",
+            "node": "route"
+          }
+        },
+        {
+          "elapsed_seconds": 1.009307,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "저"
+          }
+        },
+        {
+          "elapsed_seconds": 1.013607,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "의"
+          }
+        },
+        {
+          "elapsed_seconds": 1.018387,
+          "data": {
+            "type": "AnswerToken",
+            "delta": " 이름"
+          }
+        },
+        {
+          "elapsed_seconds": 1.02314,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "은"
+          }
+        },
+        {
+          "elapsed_seconds": 1.032822,
+          "data": {
+            "type": "AnswerToken",
+            "delta": " 민"
+          }
+        },
+        {
+          "elapsed_seconds": 1.037571,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "수"
+          }
+        },
+        {
+          "elapsed_seconds": 1.042237,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "입니다"
+          }
+        },
+        {
+          "elapsed_seconds": 1.046999,
+          "data": {
+            "type": "AnswerToken",
+            "delta": "."
+          }
+        },
+        {
+          "elapsed_seconds": 1.054475,
+          "data": {
+            "type": "Finalize",
+            "pipeline": "chat-direct",
+            "node": "chat_answer"
+          }
+        },
+        {
+          "elapsed_seconds": 1.05513,
+          "data": {
+            "type": "FinalAnswer",
+            "reply": "저의 이름은 민수입니다.",
+            "prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\nuser: 제 이름은 민수입니다\nassistant: 안녕하세요!\n\n## 사용자의 새 메시지\n제 이름이 뭐였죠?"
+          }
+        },
+        {
+          "elapsed_seconds": 1.057385,
+          "data": {
+            "type": "DONE"
+          }
+        }
+      ],
+      "reply": "저의 이름은 민수입니다.",
+      "prompt": "[SYSTEM]\n당신은 간결한 한국어 비서다. 한두 문장으로 답하라. 대화 이력에서 사용자가 밝힌 이름이 있으면 정확히 기억해 답하라.\n\n[USER]\n## 지금까지의 대화\nuser: 제 이름은 민수입니다\nassistant: 안녕하세요!\n\n## 사용자의 새 메시지\n제 이름이 뭐였죠?",
+      "done": true,
+      "final_received": true,
+      "error": null,
+      "http_status": 200,
+      "content_type": "text/event-stream; charset=utf-8",
+      "elapsed_seconds": 1.058,
+      "stream_checks": {
+        "token_events": 8,
+        "first_token_seconds": 1.009307,
+        "final_seconds": 1.05513,
+        "tokens_before_final": true,
+        "joined_tokens_match_final": true
+      }
+    }
+  ],
+  "observations": [
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:26.639471+09:00",
+      "monotonic": 39508.595371375,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:27.492495+09:00",
+      "monotonic": 39509.448391291,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.route",
+      "output": {
+        "route": "chat",
+        "needs_analysis": false
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 267,
+        "usd": 4e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:27.495609+09:00",
+      "monotonic": 39509.4514975,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.chat"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:27.896449+09:00",
+      "monotonic": 39509.852337458,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.chat",
+      "output": "안녕하세요!",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 164,
+        "usd": 2.5e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:30.116465+09:00",
+      "monotonic": 39512.072311,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:30.646547+09:00",
+      "monotonic": 39512.60239075,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.route",
+      "output": {
+        "route": "chat",
+        "needs_analysis": false
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 194,
+        "usd": 2.9e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:30.650322+09:00",
+      "monotonic": 39512.606158,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.chat"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:31.151391+09:00",
+      "monotonic": 39513.107227625,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.chat",
+      "output": "저의 이름은 민수입니다.",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 199,
+        "usd": 3e-05
+      }
+    }
+  ],
+  "targets": [],
+  "runbooks": [],
+  "monitoring": [],
+  "stages": [
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:26.639471+09:00",
+      "monotonic": 39508.595371375,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:27.492495+09:00",
+      "monotonic": 39509.448391291,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.route",
+      "output": {
+        "route": "chat",
+        "needs_analysis": false
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 267,
+        "usd": 4e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:27.495609+09:00",
+      "monotonic": 39509.4514975,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.chat"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:27.896449+09:00",
+      "monotonic": 39509.852337458,
+      "pid": 15522,
+      "thread_id": "verify-Q10",
+      "query": "제 이름은 민수입니다",
+      "stage": "fast.chat",
+      "output": "안녕하세요!",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 164,
+        "usd": 2.5e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:30.116465+09:00",
+      "monotonic": 39512.072311,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.route"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:30.646547+09:00",
+      "monotonic": 39512.60239075,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.route",
+      "output": {
+        "route": "chat",
+        "needs_analysis": false
+      },
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 194,
+        "usd": 2.9e-05
+      }
+    },
+    {
+      "kind": "llm_start",
+      "time": "2026-10-21T10:09:30.650322+09:00",
+      "monotonic": 39512.606158,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.chat"
+    },
+    {
+      "kind": "llm_end",
+      "time": "2026-10-21T10:09:31.151391+09:00",
+      "monotonic": 39513.107227625,
+      "pid": 15913,
+      "thread_id": "verify-Q10",
+      "query": "제 이름이 뭐였죠?",
+      "stage": "fast.chat",
+      "output": "저의 이름은 민수입니다.",
+      "usage": {
+        "model": "ollama:qwen3:0.6b",
+        "tokens": 199,
+        "usd": 3e-05
+      }
+    }
+  ],
+  "elapsed_seconds": 2.33,
+  "name_role_review": "AI-assisted review: incorrect attribution; actual reply says 저의 이름은 민수입니다, referring to the assistant rather than the user.",
+  "original_purpose_checks": {
+    "process_pid_changed": true,
+    "sqlite_rows_preserved": true,
+    "user_name_persisted": true,
+    "history_in_final_prompt": true,
+    "answer_contains_name": true,
+    "answer_tokens_before_final": true,
+    "token_concat_matches_final": true
+  },
+  "response_complete": true,
+  "status": "completed",
+  "restart_checks": {
+    "process_pid_changed": true,
+    "sqlite_rows_preserved": true,
+    "user_name_persisted": true
+  },
+  "restart_evidence": {
+    "before_pid": 15522,
+    "after_pid": 15913,
+    "before_rows": [
+      [
+        "user",
+        "제 이름은 민수입니다"
+      ],
+      [
+        "assistant",
+        "안녕하세요!"
+      ]
+    ],
+    "after_rows": [
+      [
+        "user",
+        "제 이름은 민수입니다"
+      ],
+      [
+        "assistant",
+        "안녕하세요!"
+      ]
+    ]
+  }
+}

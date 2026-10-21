@@ -1,7 +1,9 @@
 """Validate evaluation fixtures, metric edge cases, and baseline preservation."""
+
 from __future__ import annotations
 
 import hashlib
+import argparse
 import json
 from pathlib import Path
 
@@ -16,15 +18,19 @@ def read(path):
     return json.loads(path.read_text())
 
 
-async def main():
+async def main(check_live=False):
     manifest = read(DAY1 / "baseline/manifest.json")
     snapshot = DAY1 / "baseline/original_v2"
     for entry in manifest["files"]:
         content = (snapshot / entry["path"]).read_bytes()
-        assert hashlib.sha256(content).hexdigest() == entry["snapshot_sha256"], entry["path"]
-        if not entry["credential_template_redacted"]:
+        assert hashlib.sha256(content).hexdigest() == entry["snapshot_sha256"], entry[
+            "path"
+        ]
+        if check_live and not entry["credential_template_redacted"]:
             live = (ROOT / "all_total_vue_student" / entry["path"]).read_bytes()
-            assert hashlib.sha256(live).hexdigest() == entry["source_sha256"], entry["path"]
+            assert hashlib.sha256(live).hexdigest() == entry["source_sha256"], entry[
+                "path"
+            ]
 
     cases = read(DAY1 / "evaluation/cases.json")["cases"]
     fixtures = read(DAY1 / "evaluation/fixtures.json")
@@ -39,10 +45,14 @@ async def main():
         assert bool(case.get("query")) != bool(case.get("messages"))
 
     adapter = FixedMCP(snapshot, fixtures, "cpu_boundary")
-    result = await adapter.call_tool("get_monitoring_status", {"system_name": "payments-service"})
+    result = await adapter.call_tool(
+        "get_monitoring_status", {"system_name": "payments-service"}
+    )
     assert result["cpu_percent"] == 89.1
     fresh = FixedMCP(snapshot, fixtures, "base")
-    base_result = await fresh.call_tool("get_monitoring_status", {"system_name": "payments-service"})
+    base_result = await fresh.call_tool(
+        "get_monitoring_status", {"system_name": "payments-service"}
+    )
     assert base_result["cpu_percent"] == 91.0, "Scenario leaked into another case"
     assert result["last_checked"] == base_result["last_checked"]
 
@@ -57,13 +67,28 @@ async def main():
     assert m["target_recall"] == 0.5 and m["missing_targets"] == ["cache-service"]
     retry = FixedMCP(snapshot, fixtures, "base", flaky=True)
     try:
-        await retry.call_tool("get_monitoring_status", {"system_name": "payments-service"})
+        await retry.call_tool(
+            "get_monitoring_status", {"system_name": "payments-service"}
+        )
         raise AssertionError("Expected simulated transient failure")
     except asyncio.TimeoutError:
         pass
     await retry.call_tool("get_monitoring_status", {"system_name": "payments-service"})
-    print("PASS: 47 snapshot hashes, unchanged source code, 20 case contracts, fixture isolation, metric edge cases, retry control.")
+    print(
+        "PASS: 47 snapshot hashes, 20 case contracts, fixture isolation, metric edge cases, retry control."
+        + (
+            " Live source unchanged."
+            if check_live
+            else " Improved live source is not required to match baseline."
+        )
+    )
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--check-live-unchanged",
+        action="store_true",
+        help="Only for the pre-improvement stage",
+    )
+    asyncio.run(main(parser.parse_args().check_live_unchanged))

@@ -1,0 +1,120 @@
+{
+  "id": "D09",
+  "repeat": 1,
+  "split": "development",
+  "category": "ambiguous_target",
+  "scenario": "base",
+  "expected_behavior": "clarify",
+  "turns": [
+    {
+      "query": "로그인 응답이 느려요, 원인 확인해주세요",
+      "elapsed_seconds": 0.004,
+      "error": null,
+      "result": {
+        "query": "로그인 응답이 느려요, 원인 확인해주세요",
+        "thread_id": "eval-D09-1",
+        "history": [],
+        "route": "incident",
+        "targets": [],
+        "unknown": [],
+        "tasks": [],
+        "needs_analysis": false,
+        "collected": [],
+        "retry_count": 0,
+        "analysis_note": "서비스별 관측만 수집함. 로그·시계열·의존 관계가 없어 공통 원인은 미확인.",
+        "draft": null,
+        "choices": [],
+        "validation_feedback": null,
+        "answer_status": "observation",
+        "final": "어느 서비스를 확인할까요? 서비스 이름을 알려주세요.",
+        "evidence": {
+          "services": [],
+          "unregistered": [],
+          "unconfirmed_targets": [],
+          "limitations": [
+            "교육용 모의 모니터링",
+            "실제 로그·배포 이력·의존 관계·시계열 미수집",
+            "서버 조치는 실행하지 않음"
+          ],
+          "errors": []
+        },
+        "cost_usd": 0.0,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "incident"
+          },
+          {
+            "type": "ScopeChecked",
+            "targets": [],
+            "unknown": []
+          },
+          {
+            "type": "PlanCreated",
+            "targets": [],
+            "task_count": 0,
+            "recovered_targets": [],
+            "plan_error": null
+          },
+          {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 0
+          },
+          {
+            "type": "RetrievalSkipped",
+            "reason": "정상·미확인·대상 없음"
+          },
+          {
+            "type": "AnalysisSkipped",
+            "scope": "관측 비교 한계 확인",
+            "cause_confirmed": false
+          },
+          {
+            "type": "DraftSkipped",
+            "reason": "매뉴얼 선택 없음; 관측·확인 안내만 출력"
+          },
+          {
+            "type": "Validation",
+            "verdict": "관측·확인 안내",
+            "attempt": 0
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "improved-v2",
+            "answer_status": "observation"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [],
+  "usage": [],
+  "tokens": 0,
+  "elapsed_seconds": 0.004,
+  "error": false,
+  "metrics": {
+    "expected_targets": [],
+    "actual_targets": [],
+    "matched_targets": 0,
+    "expected_target_count": 0,
+    "target_recall": null,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [],
+    "actual_runbooks": [],
+    "runbook_recall": null,
+    "runbook_top1_correct": null,
+    "runbook_none_pass": true,
+    "runbook_scope_pass": true,
+    "route": "incident",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "평가 조건에는 로그인 서비스 별칭이 등록되지 않음",
+      "대상 서비스 확인 요청",
+      "auth-service를 조용히 가정하지 않음"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

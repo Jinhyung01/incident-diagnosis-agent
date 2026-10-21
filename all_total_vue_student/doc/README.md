@@ -1,3 +1,5 @@
+> 아래는 수업 베이스의 설명입니다. 현재 개선 버전의 동작과 검증 범위는 [프로젝트 소개](../../README.md), 실행·평가는 [재현 문서](../../docs/REPRODUCE.md)를 확인해주세요. 원본은 `day1/baseline/original_v2/`에 보존했습니다.
+
 # all_total_vue — 운영 인시던트 대응 에이전트 (Vue 프론트엔드 버전)
 
 `all_total`과 백엔드(server.py, agent/, mcp_server.py 등)는 완전히 동일하고, 브라우저

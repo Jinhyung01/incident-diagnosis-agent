@@ -1,0 +1,125 @@
+{
+  "id": "D08",
+  "repeat": 3,
+  "split": "development",
+  "category": "unknown_target",
+  "scenario": "base",
+  "expected_behavior": "clarify",
+  "turns": [
+    {
+      "query": "billing-service 응답이 느려요",
+      "elapsed_seconds": 0.006,
+      "error": null,
+      "result": {
+        "query": "billing-service 응답이 느려요",
+        "thread_id": "eval-D08-3",
+        "history": [],
+        "route": "incident",
+        "targets": [],
+        "unknown": [
+          "billing-service"
+        ],
+        "tasks": [],
+        "needs_analysis": false,
+        "collected": [],
+        "retry_count": 0,
+        "analysis_note": "서비스별 관측만 수집함. 로그·시계열·의존 관계가 없어 공통 원인은 미확인.",
+        "draft": null,
+        "choices": [],
+        "validation_feedback": null,
+        "answer_status": "observation",
+        "final": "미등록 서비스: billing-service. 등록된 다른 서비스로 바꾸어 조회하지 않았습니다.",
+        "evidence": {
+          "services": [],
+          "unregistered": [
+            "billing-service"
+          ],
+          "unconfirmed_targets": [],
+          "limitations": [
+            "교육용 모의 모니터링",
+            "실제 로그·배포 이력·의존 관계·시계열 미수집",
+            "서버 조치는 실행하지 않음"
+          ],
+          "errors": []
+        },
+        "cost_usd": 0.0,
+        "events": [
+          {
+            "type": "RouteDecided",
+            "route": "incident"
+          },
+          {
+            "type": "ScopeChecked",
+            "targets": [],
+            "unknown": [
+              "billing-service"
+            ]
+          },
+          {
+            "type": "PlanCreated",
+            "targets": [],
+            "task_count": 0,
+            "recovered_targets": [],
+            "plan_error": null
+          },
+          {
+            "type": "GateApplied",
+            "removed_analysis_tasks": 0
+          },
+          {
+            "type": "RetrievalSkipped",
+            "reason": "정상·미확인·대상 없음"
+          },
+          {
+            "type": "AnalysisSkipped",
+            "scope": "관측 비교 한계 확인",
+            "cause_confirmed": false
+          },
+          {
+            "type": "DraftSkipped",
+            "reason": "매뉴얼 선택 없음; 관측·확인 안내만 출력"
+          },
+          {
+            "type": "Validation",
+            "verdict": "관측·확인 안내",
+            "attempt": 0
+          },
+          {
+            "type": "Finalize",
+            "pipeline": "improved-v2",
+            "answer_status": "observation"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [],
+  "usage": [],
+  "tokens": 0,
+  "elapsed_seconds": 0.006,
+  "error": false,
+  "metrics": {
+    "expected_targets": [],
+    "actual_targets": [],
+    "matched_targets": 0,
+    "expected_target_count": 0,
+    "target_recall": null,
+    "missing_targets": [],
+    "unexpected_targets": [],
+    "target_scope_pass": true,
+    "expected_runbooks": [],
+    "actual_runbooks": [],
+    "runbook_recall": null,
+    "runbook_top1_correct": null,
+    "runbook_none_pass": true,
+    "runbook_scope_pass": true,
+    "route": "incident",
+    "review_flags": [],
+    "human_review_status": "pending",
+    "human_review_checklist": [
+      "미등록 서비스임을 알림",
+      "auth-service로 임의 대체 금지"
+    ],
+    "note": "Automatic flags are screening hints, not a factuality score. Target scope assumes the defined evaluation policy."
+  }
+}

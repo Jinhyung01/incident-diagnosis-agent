@@ -4,14 +4,33 @@
 의존성을 SupervisorDeps 하나에 명시적으로 담아 functools.partial로 각 노드에 주입한다.
 파일을 어디로 옮겨도, 단위 테스트에서 mock deps로 갈아 끼워도 동작이 같다.
 """
+
 from dataclasses import dataclass
 from typing import Any
 
 
 @dataclass
 class SupervisorDeps:
-    fast_llm: Any        # Wave 10a — 분류/계획 등 짧은 단계용 저비용 모델
-    quality_llm: Any     # Wave 10a — 최종 답변 작성용 고품질 모델
-    mcp: Any             # Wave 2  — MCP stdio 클라이언트 (Tool/Resource/Prompt)
-    session_store: Any   # Wave 12 — SQLite 세션 저장소
-    version: str         # Wave 14 — SUPERVISOR_VERSION (v1/v2)
+    fast_llm: Any  # Wave 10a — 분류/계획 등 짧은 단계용 저비용 모델
+    quality_llm: Any  # Wave 10a — 최종 답변 작성용 고품질 모델
+    mcp: Any  # Wave 2  — MCP stdio 클라이언트 (Tool/Resource/Prompt)
+    session_store: Any  # Wave 12 — SQLite 세션 저장소
+    version: str  # Wave 14 — SUPERVISOR_VERSION (v1/v2)
+    searcher: Any = None  # Search dependency can be replaced independently in tests.
+    request_timeout: float = 60.0
+    call_timeout: float = 25.0
+    max_writes: int = 2
+    catalog: Any = None
+
+    def __post_init__(self):
+        if self.catalog is None:
+            import json
+            from pathlib import Path
+
+            self.catalog = set(
+                json.loads(
+                    (
+                        Path(__file__).resolve().parent.parent / "data/monitoring.json"
+                    ).read_text()
+                )
+            )

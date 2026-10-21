@@ -1,211 +1,62 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<title>운영 에이전트 채팅 (Vue)</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>운영 장애 진단 · 근거 확인</title>
 <style>
-  :root { color-scheme: dark; }
-  * { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body {
-    margin: 0; height: 100vh; display: flex; flex-direction: column;
-    font-family: -apple-system, "Apple SD Gothic Neo", sans-serif;
-    background: #1e1e2e; color: #e2e2f0;
-    overflow: hidden;   /* #log만 스크롤되게, 바디 자체는 늘어나지 않게 고정 */
-  }
-  #app {
-    flex: 1; min-height: 0;   /* Vue 마운트 루트가 header/#log/form을 감싸므로,
-                                 body의 flex 흐름이 여기까지 이어지게 한다 */
-    display: flex; flex-direction: column;
-  }
-  header {
-    padding: 14px 20px; background: #262638; border-bottom: 1px solid #3a3a52;
-    font-weight: 600; font-size: 15px;
-  }
-  header span { color: #8b8bd8; font-weight: 400; font-size: 13px; margin-left: 8px; }
-  #log {
-    flex: 1; min-height: 0;   /* flex 자식 기본 최소높이(콘텐츠 크기)를 풀어줘야
-                                 내용이 길어져도 바디가 안 늘어나고 여기서만 스크롤됨 */
-    overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px;
-  }
-  #log::-webkit-scrollbar { width: 9px; }
-  #log::-webkit-scrollbar-track { background: transparent; }
-  #log::-webkit-scrollbar-thumb { background: #3a3a52; border-radius: 6px; }
-  #log::-webkit-scrollbar-thumb:hover { background: #4a4a68; }
-  .row { display: flex; }
-  .row.user { justify-content: flex-end; }
-  .bubble {
-    max-width: 70%; padding: 10px 14px; border-radius: 14px; line-height: 1.5;
-    font-size: 14px; white-space: pre-wrap;
-  }
-  .row.user .bubble { background: #5b5bd6; color: white; border-bottom-right-radius: 4px; }
-  .row.agent .bubble { background: #2e2e42; border-bottom-left-radius: 4px; }
-  .steps {
-    max-width: 70%; font-size: 12px; color: #9a9ac0; padding: 6px 14px;
-    display: flex; flex-direction: column; gap: 3px;
-  }
-  .steps .step::before { content: "⏳ "; }
-  .steps .step.done::before { content: "✓ "; color: #7ee787; }
-  .prompt-box {
-    flex-shrink: 0;   /* #log가 스크롤 영역이 되면서(min-height:0) <details>가 flex
-                         자식으로서 내용 없이 찌그러지는 걸 방지 */
-    max-width: 70%; margin-top: -4px; background: #17171f; border: 1px solid #3a3a52;
-    border-radius: 10px; font-size: 12px; overflow: hidden;
-  }
-  .prompt-box summary {
-    cursor: pointer; padding: 7px 12px; color: #8b8bd8; user-select: none;
-    list-style: none;
-  }
-  .prompt-box summary::-webkit-details-marker { display: none; }
-  .prompt-box summary::before { content: "🔍 "; }
-  .prompt-box[open] summary::before { content: "🔽 "; }
-  .prompt-box pre {
-    margin: 0; padding: 10px 12px; border-top: 1px solid #3a3a52;
-    background: #11111a; color: #c3c3e0; white-space: pre-wrap; word-break: break-word;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace; max-height: 320px; overflow-y: auto;
-  }
-  form { display: flex; gap: 8px; padding: 14px 20px; background: #262638; border-top: 1px solid #3a3a52; }
-  input {
-    flex: 1; padding: 11px 14px; border-radius: 10px; border: 1px solid #3a3a52;
-    background: #1e1e2e; color: #e2e2f0; font-size: 14px;
-  }
-  input:focus { outline: 1px solid #5b5bd6; }
-  button {
-    padding: 11px 20px; border-radius: 10px; border: none; background: #5b5bd6;
-    color: white; font-size: 14px; cursor: pointer;
-  }
-  button:disabled { background: #3a3a52; cursor: default; }
+:root{--ink:#172b3f;--muted:#617386;--line:#d9e2e9;--blue:#174e72;--teal:#12766b;--paper:#f3f6f8}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;font-size:15px;line-height:1.6}header{background:#142c40;color:white;padding:25px 5vw;display:flex;align-items:center;justify-content:space-between}header h1{font-size:23px;margin:0;font-weight:650}header p{font-size:13px;color:#c1d3dd;margin:3px 0 0}button,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:white;border-radius:6px;padding:9px 15px;color:var(--ink)}button:hover{border-color:#527b97}button:disabled{opacity:.5;cursor:wait}header button{background:transparent;color:white;border-color:#698393;font-size:13px}.layout{max-width:1450px;margin:30px auto;display:grid;grid-template-columns:310px minmax(0,1fr);gap:26px;padding:0 4vw}.guide{align-self:start;position:sticky;top:24px}.guide h2{font-size:18px;margin:0 0 6px}.guide p{font-size:13px;color:var(--muted)}.examples{display:flex;flex-direction:column;gap:8px}.examples button{text-align:left;font-size:13px;padding:12px}.examples strong{display:block;font-size:14px}.examples span{color:var(--muted)}form{margin-top:22px}label{display:block;font-size:14px;font-weight:650;margin-bottom:8px}textarea{width:100%;height:138px;padding:12px;resize:vertical;border:1px solid #a9bbc9;border-radius:6px;color:var(--ink);background:white}textarea:focus{outline:2px solid #91bdcf;outline-offset:2px}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}#send{background:var(--blue);color:white;border-color:var(--blue)}.note{font-size:12px;color:var(--muted);margin-top:18px}.empty{border-top:2px solid #658a9d;padding-top:28px;margin-top:5px}.empty h2{font-size:28px;line-height:1.4;margin:0 0 15px}.empty p{max-width:630px;color:var(--muted)}article{background:white;border:1px solid var(--line);padding:25px 28px;margin:0 0 24px;border-radius:8px}.request{font-size:18px;font-weight:650;line-height:1.5;padding-bottom:16px;margin:0 0 16px;border-bottom:1px solid var(--line)}.status{font-size:13px;color:var(--teal);margin-bottom:14px}.answer{font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}.answer h3{font-size:19px;color:var(--blue);margin:22px 0 8px}.answer h3:first-child{margin-top:0}.answer p{margin:5px 0}.evidence{margin-top:25px;border-top:2px solid #adc4cf;padding-top:18px}.evidence h3{font-size:16px;margin:0 0 12px}.evidence table{width:100%;border-collapse:collapse;font-size:16px;table-layout:fixed}.evidence th:nth-child(1){width:24%}.evidence th:nth-child(2){width:31%}.evidence th,.evidence td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}.evidence th{background:#edf3f6}.limitations{font-size:12px;color:var(--muted);margin:12px 0}.meta{font-size:12px;color:var(--muted);margin-top:14px}details{margin-top:14px;font-size:12px;color:var(--muted)}details pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f8;padding:12px;max-height:330px;overflow:auto}summary{cursor:pointer}.failure{color:#934225}footer{max-width:1450px;padding:0 4vw 25px;margin:auto;font-size:12px;color:var(--muted)}@media(max-width:850px){.layout{grid-template-columns:1fr}.guide{position:static}.examples{display:grid;grid-template-columns:1fr 1fr}.guide p,.note{display:none}textarea{height:85px}header{padding:20px}article{padding:20px}header h1{font-size:19px}}
 </style>
 </head>
 <body>
-<div id="app">
-  <header>운영 인시던트 대응 에이전트 <span>{{ backendLabel }}</span></header>
-  <div id="log" ref="logEl">
-    <template v-for="item in log" :key="item.id">
-      <div v-if="item.kind === 'user'" class="row user">
-        <div class="bubble">{{ item.text }}</div>
-      </div>
-
-      <div v-else-if="item.kind === 'steps'" class="steps">
-        <div v-for="(step, i) in item.steps" :key="i" class="step">{{ step }}</div>
-      </div>
-
-      <div v-else-if="item.kind === 'agent'" class="row agent">
-        <div class="bubble">{{ item.text }}</div>
-      </div>
-
-      <details v-else-if="item.kind === 'prompt'" class="prompt-box">
-        <summary>LLM에 전달된 최종 프롬프트 보기</summary>
-        <pre>{{ item.text }}</pre>
-      </details>
-    </template>
-  </div>
-  <form @submit.prevent="onSubmit">
-    <input
-      v-model="input"
-      autocomplete="off"
-      placeholder="예: auth-service 로그인 응답이 느려졌어요. 원인 확인해주세요"
-    />
-    <button type="submit" :disabled="sending">보내기</button>
-  </form>
+<header><div><h1>운영 장애 진단</h1><p>서비스별 상태와 대응 근거를 함께 확인합니다</p></div><button id="new">새 대화</button></header>
+<main class="layout">
+<aside class="guide"><h2>조사할 서비스를 알려주세요</h2><p>여러 서비스도 한 번에 요청할 수 있습니다.</p>
+<div class="examples">
+<button data-query="payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘"><strong>두 서비스 비교</strong><span>payments-service · cache-service</span></button>
+<button data-query="web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘"><strong>정상·장애 상태 구분</strong><span>web-01 · auth-service</span></button>
+<button data-query="billing-service 응답이 느려요"><strong>미등록 서비스 확인</strong><span>billing-service</span></button>
+<button data-query="payments-service CPU가 높아요. 지금 인스턴스를 추가해야 하나요?"><strong>조치 조건 확인</strong><span>현재 수치와 매뉴얼 비교</span></button>
 </div>
-
-<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<form id="form"><label for="input">요청 내용</label><textarea id="input" maxlength="4000" placeholder="예: payments-service와 cache-service 상태를 같이 확인해줘" required></textarea><div class="actions"><button id="stop" type="button" hidden>중단</button><button id="send" type="submit">조사 요청</button></div></form>
+<p class="note">교육용 모의 지표를 사용합니다. 실제 로그와 배포 이력은 수집하지 않으며 서버 조치는 실행하지 않습니다.</p></aside>
+<section id="messages" aria-live="polite"><div class="empty"><h2>어떤 서비스에<br>무슨 일이 있었나요?</h2><p>요청한 서비스를 각각 조회하고, 관련 매뉴얼과 아직 확인하지 못한 내용을 구분해 보여드립니다.</p><p>등록 서비스: auth-service, web-01, payments-service, cache-service, gateway-service, log-service</p></div></section>
+</main><footer>AI 서비스 개발 Mini-project · Base AI Project 개선</footer>
 <script>
-const { createApp, ref, reactive, nextTick } = Vue;
-
-const STEP_LABELS = {
-  PlanCreated: e => `계획 수립: 할 일 ${e.task_count}가지${e.targets?.length ? ` (시스템: ${e.targets.join(', ')})` : ''}`,
-  GateApplied: e => e.removed_analysis_tasks ? `불필요한 작업 ${e.removed_analysis_tasks}건 제거` : null,
-  TaskCompleted: e => (e.source === 'monitoring'
-      ? `모니터링 지표 확인 (시스템: ${e.target})`
-      : `대응 매뉴얼(runbook) 조회 (장애유형: ${e.target})`) + (e.retries ? ' (재시도 성공)' : ''),
-  ReplanCheck: e => e.is_sufficient ? null : `정보 부족 → 장애유형 "${e.target}"로 추가 조사`,
-  DraftWritten: e => `답변 초안 작성 (시도 ${e.attempt})`,
-  Validation: e => e.verdict === '합격' ? '검수 통과' : '검수 반려 → 다시 작성',
-  Finalize: () => '최종 답변 완성',
-};
-
-createApp({
-  setup() {
-    const backendLabel = ref('all_total_vue');
-    const log = ref([]);
-    const input = ref('');
-    const sending = ref(false);
-    const logEl = ref(null);
-    const thread = 't-web-' + Math.random().toString(36).slice(2, 8);
-    let nextId = 0;
-
-    fetch('/health').then(r => r.json()).then(h => {
-      backendLabel.value = `${h.llm_backend} 실모델(${h.fast_llm}/${h.quality_llm}) · all_total_vue`;
-    }).catch(() => {});
-
-    async function scrollToBottom() {
-      await nextTick();
-      if (logEl.value) logEl.value.scrollTop = logEl.value.scrollHeight;
-    }
-
-    function onSubmit() {
-      const text = input.value.trim();
-      if (!text) return;
-
-      log.value.push({ id: nextId++, kind: 'user', text });
-      input.value = '';
-      sending.value = true;
-      scrollToBottom();
-
-      const stepsItem = reactive({ id: nextId++, kind: 'steps', steps: [] });
-      log.value.push(stepsItem);
-      scrollToBottom();
-
-      const url = `/chat/stream?message=${encodeURIComponent(text)}&thread_id=${encodeURIComponent(thread)}`;
-      const es = new EventSource(url);
-      let streamItem = null;
-      let streamAttempt = null;   // write_node 재작성(attempt 증가) 시 새 말풍선으로 끊는다
-
-      es.onmessage = (event) => {
-        if (event.data === '[DONE]') { es.close(); sending.value = false; return; }
-        let e;
-        try { e = JSON.parse(event.data); } catch { return; }
-
-        if (e.type === 'AnswerToken') {
-          if (!streamItem || streamAttempt !== e.attempt) {
-            streamItem = reactive({ id: nextId++, kind: 'agent', text: '' });
-            log.value.push(streamItem);
-            streamAttempt = e.attempt;
-          }
-          streamItem.text += e.delta;
-          scrollToBottom();
-          return;
-        }
-
-        if (e.type === 'FinalAnswer') {
-          if (!streamItem) {
-            streamItem = reactive({ id: nextId++, kind: 'agent', text: '' });
-            log.value.push(streamItem);
-          }
-          streamItem.text = e.reply;   // 토큰 합산 결과와 서버의 최종 텍스트를 일치시킨다
-          if (e.prompt) log.value.push({ id: nextId++, kind: 'prompt', text: e.prompt });
-          streamItem = null;
-          streamAttempt = null;
-          scrollToBottom();
-          return;
-        }
-
-        const fn = STEP_LABELS[e.type];
-        if (!fn) return;
-        const label = fn(e);
-        if (!label) return;
-        stepsItem.steps.push(label);
-        scrollToBottom();
-      };
-
-      es.onerror = () => { es.close(); sending.value = false; };
-    }
-
-    return { backendLabel, log, input, sending, logEl, onSubmit };
-  },
-}).mount('#app');
+const $=s=>document.querySelector(s);const messages=$('#messages');let controller=null;
+let thread=localStorage.getItem('incident-thread')||crypto.randomUUID();localStorage.setItem('incident-thread',thread);
+const text=(tag,value,cls)=>{const e=document.createElement(tag);e.textContent=value;if(cls)e.className=cls;return e};
+function answerInto(el,body){el.replaceChildren();for(const line of body.split('\n')){if(line.startsWith('### '))el.append(text('h3',line.slice(4)));else if(line)el.append(text('p',line))}}
+function showEvidence(article,data){const evidence=data.evidence||{};if(!evidence.services)return;
+ const el=text('section','','evidence');el.append(text('h3','조회 근거'));
+ const table=document.createElement('table');const head=document.createElement('tr');for(const h of ['조회 서비스','관측 상태','참고 매뉴얼'])head.append(text('th',h));table.append(head);if(!evidence.services.length){const row=document.createElement('tr');const cell=text('td','실제 조회한 등록 서비스가 없습니다.');cell.colSpan=3;row.append(cell);table.append(row);}
+ for(const s of evidence.services){const row=document.createElement('tr');row.append(text('td',s.system_name),text('td',s.state==='unknown'?'지표 미확인':`${s.monitoring.status}\nCPU ${s.monitoring.cpu_percent}% · 메모리 ${s.monitoring.memory_percent}%`),text('td',s.runbook?`${s.runbook.title}\n유사도 ${Number(s.runbook.score).toFixed(3)}`:'적용 없음'));table.append(row)}
+ el.append(table);if(evidence.unregistered?.length)el.append(text('p','미등록: '+evidence.unregistered.join(', '),'limitations'));
+ if(evidence.unconfirmed_targets?.length)el.append(text('p','미확인: '+evidence.unconfirmed_targets.join(', '),'limitations'));
+ el.append(text('p',(evidence.limitations||[]).join(' · '),'limitations'));article.append(el);
+}
+function metadata(article,data,events){const m=data.metadata||{};const labels={validated:'근거 검증 완료',observation:'관측·확인 안내',fallback:'사실 중심 안내 응답',timeout:'시간 제한 안내',chat:'일반 대화'};
+ article.append(text('p',`${labels[m.answer_status]||'응답 완료'} · ${m.elapsed_seconds??'-'}초 · 검증 시도 ${m.validation_attempts||0}회`,'meta'));
+ const detail=document.createElement('details');detail.append(text('summary','조사 과정과 참고 자료 보기'));detail.append(text('pre',events.join('\n')));
+ if(data.prompt){const p=document.createElement('details');p.append(text('summary','LLM에 전달된 최종 입력'));p.append(text('pre',data.prompt));detail.append(p)}article.append(detail)
+}
+$('#form').addEventListener('submit',async event=>{event.preventDefault();if(controller)return;const query=$('#input').value.trim();if(!query)return;
+ $('.empty')?.remove();const article=document.createElement('article');article.append(text('p',query,'request'));const status=text('p','조사를 시작합니다…','status');const answer=text('div','','answer');article.append(status,answer);messages.append(article);
+ controller=new AbortController();$('#send').disabled=true;$('#stop').hidden=false;$('#input').value='';let partial='';const events=[];
+ try{const response=await fetch('/chat/stream?'+new URLSearchParams({message:query,thread_id:thread}),{signal:controller.signal});if(!response.ok)throw Error('요청을 처리하지 못했습니다. 입력을 확인해주세요.');
+ const reader=response.body.getReader();const decoder=new TextDecoder();let buffer='';let finished=false;
+ while(true){const {value,done}=await reader.read();buffer+=decoder.decode(value||new Uint8Array(),{stream:!done});const lines=buffer.split('\n');buffer=lines.pop();
+ for(const line of lines){if(!line.startsWith('data:'))continue;const payload=line.slice(5).trim();if(payload==='[DONE]'){finished=true;continue}const data=JSON.parse(payload);
+ if(data.type==='AnswerToken'){partial+=data.delta;answer.textContent=partial;continue}
+ if(data.type==='FinalAnswer'){answerInto(answer,data.reply);showEvidence(article,data);metadata(article,data,events);status.textContent='조사 결과';if(['fallback','timeout'].includes(data.metadata?.answer_status))status.classList.add('failure');continue}
+ const labels={ScopeChecked:'조사 대상 확인',PlanCreated:'누락된 대상 보완',TaskCompleted:'모니터링 수집',TaskFailed:'일부 대상 조회 실패',RunbookSelected:'대응 매뉴얼 검색',DraftWritten:'답변 초안 작성',Validation:'답변 근거 검증',RequestLimited:'처리 제한 안내',EvidenceMissing:'일부 근거 미확인'};
+ if(labels[data.type]){status.textContent=labels[data.type]+(data.target?' · '+data.target:'');events.push(status.textContent+(data.verdict?' · '+data.verdict:''))}}
+ if(done)break}if(!finished)throw Error('연결이 종료되었습니다. 최종 응답 여부를 확인해주세요.');
+ }catch(error){status.textContent=error.name==='AbortError'?'요청을 중단했습니다':error.message;status.classList.add('failure')}
+ finally{controller=null;$('#send').disabled=false;$('#stop').hidden=true}
+});
+$('#stop').onclick=()=>controller?.abort();$('#new').onclick=()=>{if(controller)return;thread=crypto.randomUUID();localStorage.setItem('incident-thread',thread);messages.replaceChildren(text('p','새 대화를 시작했습니다.','meta'));$('#input').focus()};
+for(const button of document.querySelectorAll('[data-query]'))button.onclick=()=>{$('#input').value=button.dataset.query;$('#input').focus()};
+$('#input').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')$('#form').requestSubmit()});
 </script>
-</body>
-</html>
+</body></html>

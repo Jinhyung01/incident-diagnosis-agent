@@ -1,0 +1,68 @@
+{
+  "Q01.jpg": {
+    "bytes": 112620,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x881, components 3",
+    "sha256": "5f18e644ba2b06e5d985fdffb65a0a00945aea28fb3cf35acc8607305a069b4c",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q02.jpg": {
+    "bytes": 101566,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x881, components 3",
+    "sha256": "f347c87491d9ff23adbbcac247dd61794ebe11ef5422d3c606073115dcf353aa",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q03.jpg": {
+    "bytes": 97934,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x881, components 3",
+    "sha256": "25876d09714c202eb5ccb4481f0b4e8312e4e44b7f6a8d3f7657db0022182283",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q04.jpg": {
+    "bytes": 118021,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x881, components 3",
+    "sha256": "28d57c0d4659fe3063f1081e882cfe1df5c359f0eaad1885c38dde8bfb5eaa9e",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q05.jpg": {
+    "bytes": 111291,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x881, components 3",
+    "sha256": "9d70b489fa63aaf86a0c5c2f4b7d5a5b52031c78354f95d97deea2053f0273ba",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q06.jpg": {
+    "bytes": 145763,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x1007, components 3",
+    "sha256": "d2a458bfb4eba7ae7fb7369f846a1d0f8226f9686a6126b8d868e49d83698ea6",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q07.jpg": {
+    "bytes": 102144,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x881, components 3",
+    "sha256": "d19ad0b98cf257ad87ea892670f7d9a6fcc9ea01ea0090830ff73716c144ff6b",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q08.jpg": {
+    "bytes": 120865,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x913, components 3",
+    "sha256": "fbc367fcee8771257683b695e66a46a22da28073ef29674db09e690331fbb750",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q09.jpg": {
+    "bytes": 86451,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x913, components 3",
+    "sha256": "4cb8d013b67f94938837b8a62e61cdc8bf341cc66348081c4198c64c8c04cb02",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "Q10.jpg": {
+    "bytes": 117324,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x1035, components 3",
+    "sha256": "4eb56ce3875907f9e9e4fcf93eb5590aaa2379805e5881463c59fecfd7fceeb2",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  },
+  "index.jpg": {
+    "bytes": 102939,
+    "image_info": "JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1265x820, components 3",
+    "sha256": "410efbbd3a8e17931764d2f7c62c432122bbea7e5843bb4389067a15cb1b5f7e",
+    "kind": "browser screenshot of actual-call report; not original chat UI"
+  }
+}
