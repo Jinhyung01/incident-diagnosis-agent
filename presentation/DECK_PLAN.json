@@ -3,17 +3,19 @@
     "title": "운영 장애 진단 AI 에이전트 개선",
     "audience": "동일 교육과정 교육생·평가자",
     "outcome": "조사 누락·대상 확인·매뉴얼 선택·근거 검증의 개선을 실제 화면과 선택 일치율로 이해한다",
-    "main_promise": "문제·개선 범위·사용 기술·실제 전후 화면·수치·트레이드오프를 코드와 증거로 연결",
+    "main_promise": "왜 잘못된 조사·답변이 나왔는지 실제 사례로 설명하고, 코드에서 바꾼 처리와 전후 결과를 연결한다",
     "output_lane": "native-pptx",
     "format": "16:9",
     "slide_count": 25,
-    "narrative_spine": "표지 / 기존 서비스 / 개선4개·추가3개 / 기술 적용 / 실제 전후 화면 / 추가 기능 / 기준을 합친 전후 그래프 / 한계",
+    "narrative_spine": "기존 서비스 / 개선 목표 / 실제 문제→구현→결과 / 적용 기술 / 추가 기능3개 / 선택 정확성 비교 / 한계와 다음 검증",
     "design_posture": "흰 배경·검정 본문·파란 강조색. 간결한2열 표, 실제 캡처, 선택 정확성 중심의 전후 비교",
     "assumptions": [
-      "표지 포함25장. 대본 배분269초(4분29초), 실제 시간은 구두 리허설로 확인한다.",
+      "표지 포함25장. 5분 발표를 목표로 대본을 구성했으며 배분294초는 계획값이다. 실제 낭독 시간은 리허설로 확인한다.",
       "최초 사용자 PNG 7개를 모두 본문에 포함하고 같은 질문의 개선 결과와 연속 배치한다.",
       "최초 무작위 지표와 고정 재실행의 수치 차이는 개선 효과로 비교하지 않는다."
-    ]
+    ],
+    "script_nonspace_characters": 1750,
+    "script_budget_seconds": 294
   },
   "slides": [
     {
@@ -37,8 +39,10 @@
       "caption": "",
       "values": null,
       "source_slide_number": 1,
-      "duration_seconds": 4,
-      "implementation_notes": []
+      "duration_seconds": 5,
+      "implementation_notes": [],
+      "explanation": "",
+      "prior_slide_number": 1
     },
     {
       "number": 2,
@@ -51,7 +55,7 @@
         "day1/baseline/original_v2/agent",
         "all_total_vue_student/doc/regression_test_queries.md"
       ],
-      "speaker_note": "기존 프로젝트는 서비스 이름과 장애 증상을 입력하면 모니터링 지표와 대응 매뉴얼을 조회해 진단 보고서를 만드는 AI 에이전트입니다.",
+      "speaker_note": "베이스 프로젝트는 서비스 이름과 증상을 입력하면, 모니터링 지표와 대응 매뉴얼을 조회해 진단 보고서를 만드는 에이전트입니다. 다만 교육용 모의 지표를 사용하며 서버를 실제로 복구하는 프로그램은 아닙니다.",
       "source_refs": [
         "day1/baseline/original_v2/doc/README.md",
         "day1/baseline/original_v2/agent/graph.py",
@@ -100,42 +104,44 @@
           "진행 상태·최종 답변 표시, 대화 이력 저장"
         ]
       ],
-      "takeaway": "기존 구조를 활용해 조사 대상과 답변의 신뢰성을 개선",
+      "takeaway": "요청한 대상을 조사하고, 확인한 근거로 답하도록 개선",
       "source_slide_number": 2,
-      "duration_seconds": 18,
+      "duration_seconds": 15,
       "project_name": "서비스 장애를 조사하는 AI 에이전트",
       "project_description": "서비스 이름과 증상을 입력하면 모니터링 지표와 대응 매뉴얼을 조회합니다.\n확인한 상태와 대응 절차를 정리해 진단 보고서로 보여줍니다.",
       "implementation_notes": [
         "기존 프로젝트는 수업에서 제공한 서비스 장애 진단 에이전트다. FastAPI 서버, LangGraph 그래프, MCP Tool·Resource·Prompt, Vue 채팅 화면, SQLite 대화 이력이 이미 있다.",
         "원래 흐름은 route → plan → gate → research → replan_check → analysis → write → validate → finalize다. 일반 대화는 조사 파이프라인을 건너뛴다.",
         "이번 개선에서 실제로 검증한 모델은 Ollama의 qwen3:0.6b/8b다. 모니터링은 교육용 모의 데이터이며 실제 운영 로그·서버 조치는 없다. 기존 기반 전체를 새로 개발했다고 말하지 않는다."
-      ]
+      ],
+      "explanation": "사용자가 자연어로 장애를 설명하면 에이전트가 질문을 분류하고 조사 계획을 세운다. MCP로 상태 지표와 매뉴얼을 가져온 뒤 보고서를 만들며, 웹 화면에는 진행 과정과 최종 답변이 보인다. 이 기본 구조와 SQLite 대화 이력은 수업에서 제공됐다. 이번 작업은 새로운 모니터링 시스템을 만든 것이 아니라, 이 흐름에서 조사와 보고가 잘못되는 부분을 고친 것이다. 수집 도구에는 실제 로그·서비스 의존 관계나 서버 조치 기능이 없으므로 근본 원인을 확인하거나 복구를 수행했다고 말할 수 없다.",
+      "prior_slide_number": 2
     },
     {
       "number": 3,
-      "action_title": "개선 4개와 추가 기능 3개",
+      "action_title": "조사 대상과 답변 근거를 맞추는 네 가지 개선",
       "role": "scope",
       "layout": "scope",
       "key_message": "조사 범위와 답변 근거를 먼저 보완하고 검색·화면·평가를 추가",
       "values": [
         [
-          "개선",
+          "확인한 문제",
           "바꾼 동작"
         ],
         [
-          "누락 방지",
+          "다중 요청 누락",
           "요청한 서비스를 빠짐없이 각각 조회"
         ],
         [
-          "대상 확인",
-          "미등록이거나 이름이 없으면 대상부터 확인"
+          "미등록·대상 없음",
+          "다른 서비스를 대신 조회하지 않고 확인 요청"
         ],
         [
-          "매뉴얼 선택",
-          "서비스 상태와 알림에 맞는 매뉴얼 연결"
+          "부적절한 매뉴얼",
+          "서비스 상태와 실제 알림으로 문서 선택"
         ],
         [
-          "답변 검증",
+          "근거 없는 분석",
           "서비스·수치·절차를 수집 근거와 대조"
         ]
       ],
@@ -144,8 +150,8 @@
         "답변 근거 표시",
         "회귀 테스트·전후 비교"
       ],
-      "speaker_note": "조사 범위, 대상 확인, 매뉴얼 선택, 답변 검증 네 가지를 개선했습니다. 검색과 근거 화면, 비교 평가를 추가했습니다.",
-      "duration_seconds": 12,
+      "speaker_note": "예제 질문을 실행해 보니, 답변이 그럴듯해도 요청한 대상을 조사하지 않거나 근거 없는 분석을 붙이는 문제가 있었습니다. 그래서 조사 대상과 답변 근거가 일치하도록 네 가지를 고쳤습니다. 개선 사례부터 보겠습니다.",
+      "duration_seconds": 14,
       "implementation_notes": [
         "현재 발표 범위는 개선4개·추가3개다. 이름 응답은 회귀 질문에서 확인한 별도 보완이며 새 주요 기능으로 늘리지 않는다.",
         "매뉴얼 선택 개선은 정상·정보 부족·장애 분기이며, RAG는 조사할 서비스의 알림과 문서를 의미로 연결하는 검색 방식이다.",
@@ -164,35 +170,653 @@
         "kind": "table",
         "table": {
           "headers": [
-            "개선",
+            "확인한 문제",
             "바꾼 동작"
           ],
           "rows": [
             [
-              "누락 방지",
+              "다중 요청 누락",
               "요청한 서비스를 빠짐없이 각각 조회"
             ],
             [
-              "대상 확인",
-              "미등록이거나 이름이 없으면 대상부터 확인"
+              "미등록·대상 없음",
+              "다른 서비스를 대신 조회하지 않고 확인 요청"
             ],
             [
-              "매뉴얼 선택",
-              "서비스 상태와 알림에 맞는 매뉴얼 연결"
+              "부적절한 매뉴얼",
+              "서비스 상태와 실제 알림으로 문서 선택"
             ],
             [
-              "답변 검증",
+              "근거 없는 분석",
               "서비스·수치·절차를 수집 근거와 대조"
             ]
           ]
         }
       },
       "image": null,
-      "caption": ""
+      "caption": "",
+      "explanation": "네 개선은 서로 연결된다. 첫째 필요한 대상을 빠짐없이 조사하고, 둘째 이름을 모르면 잘못된 대상을 대신 조사하지 않는다. 셋째 실제 관측 상태로 검색 필요 여부를 결정하고, 넷째 보고에 넣을 대상·수치·문서·절차가 수집 결과에 있는지 확인한다. RAG는 매뉴얼을 찾는 방법을 추가한 것이고, 상태 분기는 매뉴얼을 찾아야 하는 대상을 정하는 개선이다. 근거 화면과 비교 실행기는 이 처리가 사용자에게 보이고 반복해서 확인되도록 추가했다.",
+      "prior_slide_number": 3
     },
     {
       "number": 4,
-      "action_title": "사용 기술과 적용 방법",
+      "action_title": "개선 1 전: cache 조회 없이 공통 원인을 추정",
+      "role": "case",
+      "key_message": "개선 1 전 · cache를 조회하지 않고 원인을 추정했다",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/04-payments-cache.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/04-payments-cache.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "첫 번째는 조사 누락입니다. 결제와 캐시의 공통 원인을 물었지만, 수집된 사실에는 결제만 있습니다. 그런데 답변은 캐시까지 포함해 트래픽 급증을 추정했습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/04-payments-cache.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/04-payments-cache.png",
+      "caption": "",
+      "values": null,
+      "insight": "두 서비스를 요청했지만\npayments만 조회",
+      "explain": "cache 지표와\n공유 리소스 정보가 없음",
+      "quote": "“트래픽 급증 또는\n특정 요청 패턴”",
+      "pair_id": "scope",
+      "stage": "before",
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 3,
+      "duration_seconds": 10,
+      "implementation_notes": [
+        "원본의 _extract_system_name은 최초 언급 서비스 하나만 MCP 계획 문맥으로 넘긴다. 이후 실제 조사 목록은 LLM tasks에 의존해 cache가 빠질 수 있었다.",
+        "사진에서는 수집된 사실에 payments만 있고 cache 자료가 없다. 공통 원인을 확정할 근거도 부족하다."
+      ],
+      "explanation": "원본 캡처에서 요청에는 payments-service와 cache-service가 모두 있지만 최종 프롬프트의 수집 사실에는 payments만 있다. 캐시의 상태를 확인하지 않고 두 서비스의 공통 원인을 추정한 것이 문제다. 모델의 가설을 실제 관측과 같은 수준으로 받아들이기 쉽다는 점에서 위험하다. 단순히 답변을 짧게 바꾸거나 프롬프트에 누락 금지를 쓰는 대신 실제 조회 작업 목록을 코드에서 결정하는 방향을 선택했다.",
+      "prior_slide_number": 5
+    },
+    {
+      "number": 5,
+      "action_title": "개선 1 후: 요청한 서비스로 조회 목록을 구성",
+      "role": "case",
+      "key_message": "같은 질문의 개선 실행 · 원본과 수치가 다른 별도 시점",
+      "layout": "implementation",
+      "visual": "day2/evidence/review-q06-first.jpg",
+      "evidence": [
+        "day2/evidence/review-q06-first.jpg",
+        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
+      ],
+      "speaker_note": "기존에는 실제 조회 목록이 모델의 계획에 의존했습니다. 이를 바꿔 요청에서 등록 서비스를 모두 찾고, 그 목록으로 조회 작업을 다시 구성했습니다. 화면처럼 두 서비스를 각각 조회합니다.",
+      "source_refs": [
+        "day2/evidence/review-q06-first.jpg",
+        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json",
+        "all_total_vue_student/agent/targets.py",
+        "all_total_vue_student/agent/research.py",
+        "all_total_vue_student/agent/nodes.py"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q06-first.jpg",
+      "caption": "",
+      "values": null,
+      "method": "요청한 서비스 목록으로 조회 작업을 다시 구성",
+      "pair_id": "scope",
+      "stage": "after",
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 4,
+      "duration_seconds": 11,
+      "implementation_steps": [
+        "요청문에서 등록된 서비스 이름을 모두 확인",
+        "서비스마다 조회 작업을 구성해 누락 방지",
+        "각 서비스의 모니터링 결과를 따로 수집"
+      ],
+      "implementation_notes": [
+        "agent/targets.py의 select_targets가 등록 목록과 요청 텍스트를 대조해 알려진 대상 전체와 미등록 대상을 나눈다.",
+        "repair_plan은 모델의 tasks를 그대로 실행하지 않고, 확정된 대상마다 monitor-{service} 작업을 다시 만든다. scope_node·plan_node가 이 목록을 보존한다.",
+        "agent/research.py의 collect_monitoring은 확정된 targets 전체를 asyncio.gather로 조회한다. 각 조회의 오류를 개별 기록해 다른 서비스 수집을 취소하지 않는다."
+      ],
+      "explanation": "요청의 등록 서비스 전체를 추출하고, 모델이 제안한 tasks를 실행 권한의 기준으로 삼지 않는다. 확정된 대상마다 모니터링 작업을 다시 만들기 때문에 계획에서 빠진 서비스도 조사한다. 수집은 대상별로 수행하며 한 조회의 실패는 다른 대상의 결과와 분리해서 기록한다. 화면에서 확인할 것은 계획 문장에 서비스가 적혔는지가 아니라 실제 조회 목록에 두 서비스가 있고 각각 관측 결과가 반환됐는지다.",
+      "prior_slide_number": 6
+    },
+    {
+      "number": 6,
+      "action_title": "개선 1 후: 공통 원인은 미확인으로 표시",
+      "role": "case",
+      "key_message": "앞 장과 같은 요청의 연속 화면 · 전체 응답 원본도 보존",
+      "layout": "screen",
+      "visual": "day2/evidence/review-q06-second.jpg",
+      "evidence": [
+        "day2/evidence/review-q06-second.jpg",
+        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
+      ],
+      "speaker_note": "결과도 각각 보여줍니다. 다만 두 서비스가 저하됐다는 사실만으로 공통 원인을 알 수는 없어, 공유 로그와 의존 관계는 미확인으로 남겼습니다.",
+      "source_refs": [
+        "day2/evidence/review-q06-second.jpg",
+        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q06-second.jpg",
+      "caption": "",
+      "values": null,
+      "method": "서비스별 결과는 제시하고, 확인하지 못한 공통 원인은 단정하지 않음",
+      "pair_id": "scope",
+      "stage": "after",
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 5,
+      "duration_seconds": 9,
+      "implementation_notes": [
+        "기존 모델 기반 패턴 추정을 공통 원인 확정 근거로 사용하지 않는다. analysis_node는 현재 도구가 수집하지 않는 로그·시계열·의존 관계의 한계를 명시한다.",
+        "render_report는 두 서비스 이상이면 공통 원인은 미확인이라는 안내를 붙인다. 두 서비스 조사 완료와 공통 원인 규명 성공은 다르다."
+      ],
+      "explanation": "캐시까지 조회했다는 것은 조사 범위 누락이 해결됐다는 증거다. 그러나 두 서비스의 저하가 같은 원인이라는 증거는 아니다. 현재 도구가 공유 DB, 배포 시점, 트래픽 추이, 호출 로그를 조사하지 않으므로 공통 원인은 미확인으로 남긴다. 개선의 성과는 원인을 더 많이 만들어낸 것이 아니라 확인한 사실과 더 조사해야 할 항목을 구분한 데 있다.",
+      "prior_slide_number": 7
+    },
+    {
+      "number": 7,
+      "action_title": "개선 1 전: gateway만 조회",
+      "role": "problem",
+      "key_message": "개선 1 전 · gateway만 조회했다",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/01-gateway-payments.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/01-gateway-payments.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "같은 문제가 게이트웨이에서 결제로 가는 타임아웃 질문에도 있었습니다. 기존에는 게이트웨이만 조회했습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/01-gateway-payments.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/01-gateway-payments.png",
+      "caption": "",
+      "values": null,
+      "insight": "gateway만 조회\npayments는 확인하지 않음",
+      "explain": "연결된 두 서비스 중\n한쪽의 상태를 모름",
+      "quote": "수집된 사실: 모니터링 gateway-service",
+      "pair_id": "gateway",
+      "stage": "before",
+      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+      "source_slide_number": 21,
+      "duration_seconds": 6,
+      "implementation_notes": [
+        "gateway·payments 질문의 원본은 gateway 알림만 조회했다. 네트워크 문서 선택 자체보다 상대 서비스 누락을 추가 사례로 설명한다."
+      ],
+      "explanation": "이 질문은 서로 연결된 두 서비스도 전부 조사하는지 확인하는 추가 사례다. 원본의 네트워크 매뉴얼 선택 자체를 오류라고 주장하는 것이 아니다. 상대 서비스인 payments의 상태를 수집하지 않은 것이 대상 누락 문제다.",
+      "prior_slide_number": 8
+    },
+    {
+      "number": 8,
+      "action_title": "개선 1 후: 요청을 주고받는 양쪽을 조사",
+      "role": "evidence",
+      "key_message": "gateway 네트워크·payments CPU를 각각 조회",
+      "layout": "screen",
+      "visual": "day2/evidence/review-q04-first.jpg",
+      "evidence": [
+        "day2/evidence/review-q04-first.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "speaker_note": "개선 후에는 요청을 보내는 쪽과 받는 쪽을 모두 조사합니다.",
+      "source_refs": [
+        "day2/evidence/review-q04-first.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q04-first.jpg",
+      "caption": "",
+      "values": null,
+      "method": "질문에 나온 두 서비스의 조회 작업을 각각 구성",
+      "pair_id": "gateway",
+      "stage": "after",
+      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+      "source_slide_number": 22,
+      "duration_seconds": 5,
+      "implementation_notes": [
+        "payments·cache와 동일한 대상 추출·작업 재구성 로직을 사용한다. gateway의 network-timeout과 payments의 cpu-spike를 서비스별로 연결한다."
+      ],
+      "explanation": "새로운 별도 알고리즘을 만든 사례가 아니라 앞의 대상 추출과 작업 재구성 처리를 다른 질문에 적용한 사례다. 두 서비스의 실제 조회가 나오는지 보면 같은 개선이 특정 한 문장에만 맞춘 수정인지 확인할 수 있다.",
+      "prior_slide_number": 9
+    },
+    {
+      "number": 9,
+      "action_title": "개선 1 후: 두 서비스의 결과와 근거를 함께 제시",
+      "role": "evidence",
+      "key_message": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
+      "layout": "screen",
+      "visual": "day2/evidence/review-q04-second.jpg",
+      "evidence": [
+        "day2/evidence/review-q04-second.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "speaker_note": "네트워크 알림과 결제의 CPU 문제를 각각 보여주되, 둘의 인과관계까지 확인했다고 답하지는 않습니다.",
+      "source_refs": [
+        "day2/evidence/review-q04-second.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q04-second.jpg",
+      "caption": "",
+      "values": null,
+      "method": "두 서비스의 조회 결과와 참고 매뉴얼을 각각 제시",
+      "pair_id": "gateway",
+      "stage": "after",
+      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+      "source_slide_number": 23,
+      "duration_seconds": 6,
+      "implementation_notes": [
+        "서비스별 수집·오류 분리로 일부 실패가 전체 결과를 지우지 않는다. 이 캡처는 두 서비스가 성공한 사례이며, 부분 실패 분기는 단위 테스트에서 따로 확인했다."
+      ],
+      "explanation": "gateway의 네트워크 알림과 payments의 CPU 알림은 서로 다른 관측이다. 둘 다 확인됐더라도 CPU 급증 때문에 타임아웃이 발생했다고 확정하려면 시간적 관계와 실제 호출 자료가 추가로 필요하다. 따라서 서비스별 관측과 참고 매뉴얼을 제시하고 공통 원인 규명과는 구분한다.",
+      "prior_slide_number": 10
+    },
+    {
+      "number": 10,
+      "action_title": "개선 2 전: billing을 물었는데 auth를 조회",
+      "role": "case",
+      "key_message": "개선 2 전 · billing을 묻자 auth를 조회했다",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/06-billing.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/06-billing.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "두 번째는 다른 서비스로의 대체입니다. 빌링을 물었는데, 실제로는 인증 서비스인 auth를 조회했습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/06-billing.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/06-billing.png",
+      "caption": "",
+      "values": null,
+      "insight": "요청: billing-service\n실제 조회: auth-service",
+      "explain": "미등록 이름을 auth로 대체해\n요청과 다른 대상을 조사",
+      "quote": "수집된 사실: 모니터링 auth-service",
+      "pair_id": "unknown",
+      "stage": "before",
+      "query": "billing-service 응답이 느려요",
+      "source_slide_number": 6,
+      "duration_seconds": 8,
+      "implementation_notes": [
+        "원본의 미등록·미명시 auth fallback은 기존 설계다. 사용자의 대상과 실제 조사 대상을 일치시키기 위한 정책 변경으로 설명한다."
+      ],
+      "explanation": "원본의 auth 기본값은 기존 코드에 있던 정책이다. billing이 미등록일 때 인증 서비스로 대체되면서 요청과 조사 대상이 달라졌다. 기존 명세를 위반한 버그라고 단정하기보다, 장애 진단에서 임의 대체를 허용하지 않도록 정책을 변경했다고 설명한다.",
+      "prior_slide_number": 11
+    },
+    {
+      "number": 11,
+      "action_title": "개선 2 후: 미등록 서비스는 이름부터 확인",
+      "role": "case",
+      "key_message": "같은 질문의 실제 개선 응답 · 코드가 구성한 확인 안내",
+      "layout": "implementation",
+      "visual": "day2/evidence/context-unknown-frame.jpg",
+      "evidence": [
+        "day2/evidence/context-unknown-frame.jpg",
+        "day2/results/contextual-captures/55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json"
+      ],
+      "speaker_note": "미등록 이름을 auth로 바꾸던 기본 처리를 제거했습니다. 등록 목록에 없으면 조회를 진행하지 않고 이름을 확인합니다. 잘못된 대상의 진단을 만드는 일을 막은 것입니다.",
+      "source_refs": [
+        "day2/evidence/context-unknown-frame.jpg",
+        "day2/results/contextual-captures/55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json",
+        "all_total_vue_student/agent/targets.py",
+        "all_total_vue_student/agent/evidence.py"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-unknown-frame.jpg",
+      "caption": "",
+      "values": null,
+      "method": "등록 목록과 대조하고, 임의 대체·모니터링·보고 생성을 생략",
+      "pair_id": "unknown",
+      "stage": "after",
+      "query": "billing-service 응답이 느려요",
+      "source_slide_number": 7,
+      "duration_seconds": 12,
+      "implementation_steps": [
+        "입력한 서비스 이름을 등록 목록과 대조",
+        "미등록이면 다른 서비스를 조회하지 않음",
+        "등록된 서비스 이름을 다시 확인하도록 안내"
+      ],
+      "implementation_notes": [
+        "select_targets가 서비스처럼 보이지만 등록 목록에 없는 billing-service를 unknown에 넣는다. targets가 비면 plan_node가 보고 모델의 계획을 호출하지 않고, 모니터링 수집도 비어 있다.",
+        "문서·관측이 없으면 write_node가 보고 생성을 생략하고 render_report가 등록 이름 확인 안내를 만든다. 안내는 LLM이 작성한 진단 성공으로 세지 않는다.",
+        "등록·미등록 혼합 요청은 등록된 대상은 조사하고, 미등록 대상은 따로 표시한다."
+      ],
+      "explanation": "미등록 이름을 발견하면 등록된 다른 이름으로 조용히 바꾸지 않는다. 조사 가능한 대상이 없을 때에는 계획·모니터링·보고 생성을 생략하고 확인 안내를 반환한다. 등록 대상과 미등록 대상이 섞여 있으면 등록된 대상은 조사하고 미등록 항목은 별도로 알린다. 이 안내를 장애 진단 성공으로 해석해서는 안 된다.",
+      "prior_slide_number": 12
+    },
+    {
+      "number": 12,
+      "action_title": "개선 2 전: 서비스 이름 없이 auth를 조회",
+      "role": "problem",
+      "key_message": "개선 2 전 · 로그인만으로 auth를 조회했다",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/05-login.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/05-login.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "서비스 이름 없이 로그인 지연만 말해도 기존에는 auth를 가정했습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/05-login.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/05-login.png",
+      "caption": "",
+      "values": null,
+      "insight": "서비스 이름이 없는데\nauth-service로 조회",
+      "explain": "대상을 임의로 정하던 처리를\n이름 확인 요청으로 변경",
+      "quote": "모니터링 auth-service",
+      "pair_id": "login",
+      "stage": "before",
+      "query": "로그인 응답이 느려요, 원인 확인해주세요",
+      "source_slide_number": 24,
+      "duration_seconds": 5,
+      "implementation_notes": [
+        "로그인이라는 표현만으로 auth를 선택하던 기본 정책을 변경했다. 등록 별칭을 추가하는 기능은 구현하지 않았다."
+      ],
+      "explanation": "로그인이라는 증상은 인증 서비스를 연상시키지만 시스템마다 명칭과 경로가 다르다. 사용자가 실제로 요청한 서비스 이름이 없으면 auth라고 확정할 근거가 부족하다. 이름이 없을 때도 같은 기본값 제거 정책을 적용했다.",
+      "prior_slide_number": 13
+    },
+    {
+      "number": 13,
+      "action_title": "개선 2 후: 서비스 이름을 먼저 확인",
+      "role": "evidence",
+      "key_message": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
+      "layout": "implementation",
+      "visual": "day2/evidence/review-q07-answer.jpg",
+      "evidence": [
+        "day2/evidence/review-q07-answer.jpg",
+        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json"
+      ],
+      "speaker_note": "이 경우도 대상부터 질문하도록 바꿨습니다. 대상을 추정하는 편의성보다 정확한 조회를 우선한 정책입니다.",
+      "source_refs": [
+        "day2/evidence/review-q07-answer.jpg",
+        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json",
+        "all_total_vue_student/agent/targets.py",
+        "all_total_vue_student/agent/nodes.py"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q07-answer.jpg",
+      "caption": "",
+      "values": null,
+      "method": "대상이 명시되지 않으면 조사 대신 확인 요청",
+      "pair_id": "login",
+      "stage": "after",
+      "query": "로그인 응답이 느려요, 원인 확인해주세요",
+      "source_slide_number": 25,
+      "duration_seconds": 7,
+      "implementation_steps": [
+        "장애 요청에 서비스 이름이 있는지 확인",
+        "auth를 기본 대상으로 쓰던 처리 제거",
+        "조사할 서비스 이름을 먼저 질문"
+      ],
+      "implementation_notes": [
+        "장애 문맥은 인식하지만 명시한 등록 대상이 없으면 빈 target 목록을 유지한다. render_report가 어느 서비스를 확인할지 묻는다.",
+        "이 처리는 새 별칭이나 오타를 자동 해석하는 기능이 아니라 대상 확인 정책이다."
+      ],
+      "explanation": "확인 질문이 한 번 늘어나 편의성은 낮아진다. 대신 잘못된 서비스의 상태를 가져와 사용자의 문제를 진단한 것처럼 보이는 일을 줄인다. 현재 구현은 등록된 서비스명을 명시하도록 요청하며 자연어 별칭을 자동으로 서비스 ID로 확정하는 기능은 추가하지 않았다.",
+      "prior_slide_number": 14
+    },
+    {
+      "number": 14,
+      "action_title": "개선 3 전: 정상인 web에 DB 장애 매뉴얼 연결",
+      "role": "case",
+      "key_message": "개선 3 전 · 정상 web에 DB 장애 절차를 연결했다",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/03-web-auth.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/03-web-auth.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "세 번째는 매뉴얼 선택입니다. web은 정상이고 알림도 없는데 DB 장애 매뉴얼이 붙었습니다. 함께 요청한 auth도 빠졌습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/03-web-auth.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/03-web-auth.png",
+      "caption": "",
+      "values": null,
+      "insight": "web-01은 정상·알림 0건\n선택 문서는 db-down",
+      "explain": "정상 서비스에 장애 절차를 제시\nauth 조회도 누락",
+      "quote": "“DB Down 대응 절차”",
+      "pair_id": "manual",
+      "stage": "before",
+      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+      "source_slide_number": 8,
+      "duration_seconds": 9,
+      "implementation_notes": [
+        "원본은 모니터링 알림의 키워드가 맞지 않으면 db-down으로 대체했다. healthy·알림 없음인 web에 DB 문서를 적용한 사진이다."
+      ],
+      "explanation": "원본에서 web-01은 healthy, CPU 41.0%, 알림 0건인데 DB Down 매뉴얼이 붙었다. 사용자가 CPU 급증이라고 말한 것과 실제 관측 상태가 다르므로 둘을 구분해야 한다. 이 질문은 auth 누락도 함께 드러내지만 여기서는 정상 서비스에 불필요한 장애 문서를 붙이는 문제에 집중한다.",
+      "prior_slide_number": 15
+    },
+    {
+      "number": 15,
+      "action_title": "개선 3 후: 서비스별 상태에 맞는 매뉴얼 선택",
+      "role": "case",
+      "key_message": "개선 3 후 · 정상·장애를 서비스별로 구분했다",
+      "layout": "implementation",
+      "visual": "day2/evidence/context-healthy-answer.jpg",
+      "evidence": [
+        "day2/evidence/context-healthy-answer.jpg",
+        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
+      ],
+      "speaker_note": "조회한 상태와 알림으로 정상, 장애, 정보 부족을 먼저 나눴습니다. 정상인 web은 검색을 생략하고, auth는 실제 지연 알림으로 해당 매뉴얼을 찾습니다. 질문에 적힌 증상만으로 장애를 정하지 않도록 바꿨습니다.",
+      "source_refs": [
+        "day2/evidence/context-healthy-answer.jpg",
+        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json",
+        "all_total_vue_student/agent/evidence.py",
+        "all_total_vue_student/agent/research.py"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/context-healthy-answer.jpg",
+      "caption": "",
+      "values": null,
+      "method": "상태를 먼저 분기: 정상은 검색 생략, 장애는 조회 결과 알림으로 검색",
+      "pair_id": "manual",
+      "stage": "after",
+      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+      "source_slide_number": 9,
+      "duration_seconds": 14,
+      "implementation_steps": [
+        "상태와 활성 알림으로 정상·장애·정보 부족 분류",
+        "정상·정보 부족 서비스는 장애 매뉴얼 검색 생략",
+        "해당 서비스에서 확인한 알림으로 매뉴얼 검색"
+      ],
+      "implementation_notes": [
+        "agent/evidence.py의 monitoring_state는 상태·CPU·메모리 유효성·활성 알림을 확인한다. healthy이고 알림이 없으면 healthy, 유효하지만 활성 알림이 없으면 insufficient, 조사 근거가 있으면 investigate다.",
+        "collect_runbooks는 investigate 서비스만 검색한다. 정상·정보 부족·유효하지 않은 관측은 장애 문서를 임의로 붙이지 않는다.",
+        "검색 입력은 서비스별 상태와 실제 활성 알림이다. 검색 방법의 상세 구현은 추가 기능 RAG에서 설명한다."
+      ],
+      "explanation": "서비스별로 유효한 상태와 수치, 활성 알림을 확인해 정상·장애 조사·정보 부족 등을 나눈다. 정상이나 정보 부족은 장애 문서를 임의로 붙이지 않는다. 조사 대상만 해당 서비스의 실제 알림으로 검색한다. web은 정상으로 남고 auth는 지연 매뉴얼을 받는 결과가 핵심이다. 어떤 매뉴얼이든 하나 반환하는 것을 검색 성공으로 세지 않는다.",
+      "prior_slide_number": 16
+    },
+    {
+      "number": 16,
+      "action_title": "개선 4 전: 조회하지 않은 로그를 분석한 것처럼 답변",
+      "role": "case",
+      "key_message": "개선 4 전 · 로그 미수집인데 분석 결과처럼 답했다",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/02-payments-cpu.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/02-payments-cpu.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "네 번째는 답변 검증입니다. CPU 질문에 로그 분석 결과 특이 패턴이 없다고 했지만, 실제로는 로그를 조회하지 않았습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/02-payments-cpu.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/02-payments-cpu.png",
+      "caption": "",
+      "values": null,
+      "insight": "로그를 조회하지 않고\n분석 결과처럼 답변",
+      "explain": "수집한 자료는 지표·매뉴얼\n로그 분석 근거는 없음",
+      "quote": "“로그 분석 결과\n특이 패턴 없음.”",
+      "pair_id": "ground",
+      "stage": "before",
+      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
+      "source_slide_number": 10,
+      "duration_seconds": 10,
+      "implementation_notes": [
+        "원본의 분석 결과 문장을 수집된 사실처럼 최종 프롬프트에 포함하던 문제다. 실제 도구에는 로그 조회가 없다.",
+        "원본 validate_node는 30자 이상과 1) 포함 여부만 확인했다. 수치·서비스·원인 주장의 근거 검증은 아니었다."
+      ],
+      "explanation": "원본 최종 프롬프트에 특이 패턴 없음이라는 문장이 있지만 실제 로그를 조회한 도구 기록은 없다. 수집 도구가 제공하지 않는 분석을 검수에서도 통과시킨 것이 문제다. CPU 수치가 높다는 관측과 원인·조치가 확인됐다는 해석은 별개다.",
+      "prior_slide_number": 17
+    },
+    {
+      "number": 17,
+      "action_title": "개선 4 후: 수치와 절차를 검증한 뒤 답변",
+      "role": "case",
+      "key_message": "같은 질문의 실제 개선 응답 · 로그 미수집·조치 미실행 명시",
+      "layout": "implementation",
+      "visual": "day2/evidence/review-q01-answer.jpg",
+      "evidence": [
+        "day2/evidence/review-q01-answer.jpg",
+        "day2/results/contextual-captures/3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json"
+      ],
+      "speaker_note": "이제 모델은 서비스와 수치, 문서와 절차 번호를 JSON으로 선택합니다. 코드가 수집 근거와 대조한 뒤, 검증된 절차를 매뉴얼 원문으로 보여줍니다. 따라서 조치의 조건을 보존할 수 있지만, 자유로운 설명은 줄어듭니다.",
+      "source_refs": [
+        "day2/evidence/review-q01-answer.jpg",
+        "day2/results/contextual-captures/3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json",
+        "all_total_vue_student/agent/reporting.py",
+        "all_total_vue_student/agent/validation.py",
+        "all_total_vue_student/agent/evidence.py"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q01-answer.jpg",
+      "caption": "",
+      "values": null,
+      "method": "서비스·수치·문서·절차 번호 검증 후 원문으로 출력",
+      "pair_id": "ground",
+      "stage": "after",
+      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
+      "source_slide_number": 11,
+      "duration_seconds": 17,
+      "implementation_steps": [
+        "모델이 고른 서비스·수치·문서·절차 번호를 JSON으로 받음",
+        "조회 결과와 대조해 다른 대상·수치·문서를 걸러냄",
+        "검증된 매뉴얼의 절차와 조치 조건을 원문으로 표시"
+      ],
+      "implementation_notes": [
+        "StructuredReportLLM은 sections JSON으로 서비스 이름·CPU·메모리·runbook_id·step_ids·cause_confirmed만 출력하도록 한다.",
+        "validate_draft는 누락·중복·범위 밖 서비스, 잘못된 수치, 없는 문서·절차, 원인 확정, 자유 필드를 거절한다.",
+        "검증 후 render_report가 선택된 절차의 원문을 가져온다. 원문의 90% 초과·지속 등의 조건을 모델이 바꿔 쓰지 않는다.",
+        "모든 자유 문장의 의미를 판정하거나 현재 조치 조건 충족을 자동 판단하는 기능은 아니다. 실제 조치도 실행하지 않는다."
+      ],
+      "explanation": "모델이 자유로운 최종 보고서를 그대로 쓰게 하지 않고 서비스, 수치, 매뉴얼 ID, 절차 ID를 구조화해서 선택하게 했다. 코드가 대상 누락·중복, 수치 변경, 문서와 절차의 불일치를 확인한다. 통과한 매뉴얼 절차는 원문으로 출력하므로 CPU가 특정 기준을 넘고 지속될 때라는 조건이 완료 사실로 바뀌는 일을 줄인다. 이것은 자유 문장 전체의 의미를 판정하는 검증기가 아니며, 조치를 실행하거나 실행 여부를 확인하는 기능도 아니다. 원문 출력의 제한은 마지막 트레이드오프와 연결된다.",
+      "prior_slide_number": 18
+    },
+    {
+      "number": 18,
+      "action_title": "대화 개선 전: 사용자 이름을 자기소개에 사용",
+      "role": "problem",
+      "key_message": "대화 회귀 전 · 사용자 이름을 자기소개에 섞었다",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/07-name-recall.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/07-name-recall.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "대화 테스트에서는 사용자 이름 민수를 비서의 이름처럼 답한 문제도 있었습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/07-name-recall.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/07-name-recall.png",
+      "caption": "",
+      "values": null,
+      "insight": "사용자 이름 민수를\n비서 자신의 이름처럼 답변",
+      "explain": "사용자와 비서의 발화를 구분해\n이름을 읽어야 함",
+      "quote": "“민수라는 이름으로…”",
+      "pair_id": "name",
+      "stage": "before",
+      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?",
+      "source_slide_number": 26,
+      "duration_seconds": 5,
+      "implementation_notes": [
+        "초기 계획의 주요 기능으로 늘리지 않고 실행 중 발견한 추가 보완으로 구분한다. 사용자 민수와 비서의 자기소개가 섞인 사례다."
+      ],
+      "explanation": "기본 회귀 질문에는 장애 요청 외에 일반 대화도 포함된다. 사용자가 이름을 말한 뒤 다음 메시지로 이름을 물었을 때, 원본은 사용자 이름을 자신의 자기소개에 사용했다. 이 사례는 주요 개선 네 개와 구분한 대화 처리 보완이다.",
+      "prior_slide_number": 19
+    },
+    {
+      "number": 19,
+      "action_title": "대화 개선 후: 사용자가 밝힌 이름으로 답변",
+      "role": "evidence",
+      "key_message": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
+      "layout": "implementation",
+      "visual": "day2/evidence/review-q10-answer.jpg",
+      "evidence": [
+        "day2/evidence/review-q10-answer.jpg",
+        "day2/results/contextual-captures/review-suite.json"
+      ],
+      "speaker_note": "사용자가 직접 밝힌 이름만 읽도록 보완해, 같은 두 번의 대화에서 민수라고 답하게 했습니다.",
+      "source_refs": [
+        "day2/evidence/review-q10-answer.jpg",
+        "day2/results/contextual-captures/review-suite.json",
+        "all_total_vue_student/agent/targets.py",
+        "all_total_vue_student/agent/session_store.py"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q10-answer.jpg",
+      "caption": "",
+      "values": null,
+      "method": "대화 이력에서 사용자 역할의 이름 선언을 조회",
+      "pair_id": "name",
+      "stage": "after",
+      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?",
+      "source_slide_number": 27,
+      "duration_seconds": 6,
+      "implementation_steps": [
+        "사용자가 직접 밝힌 이름만 읽고, 질문·비서 발화는 제외",
+        "같은 대화 이력에서 가장 최근에 밝힌 이름을 사용"
+      ],
+      "implementation_notes": [
+        "remembered_name은 history에서 role=user인 메시지와 현재 입력만 읽고, '제 이름은 ...입니다' 같은 선언형만 추출한다. assistant 발화와 '이름이 뭐였죠' 질문은 이름 선언으로 보지 않는다.",
+        "추출한 이름의 별도 메모리 DB를 새로 만든 것이 아니다. 기존 SQLite 대화 이력을 활용하고 같은 대화의 최근 사용자 선언을 읽는다.",
+        "서버 재시작 뒤 같은 DB·thread의 이름 응답도 별도 기록으로 검증했다. 캡처 자체가 재시작 과정을 보여주는 것은 아니다."
+      ],
+      "explanation": "대화 이력에서 사용자 역할의 직접적인 이름 선언만 읽고 가장 최근 선언을 사용한다. 질문이나 비서 자신의 문장은 이름의 출처로 사용하지 않는다. 기존 SQLite 이력을 사용하며 새 장기 메모리 저장소를 개발한 것은 아니다.",
+      "prior_slide_number": 20
+    },
+    {
+      "number": 20,
+      "action_title": "개선에 적용한 기술",
       "role": "mechanism",
       "layout": "technology",
       "key_message": "기술명과 실제 변경한 처리, 해결한 문제를 연결",
@@ -219,11 +843,11 @@
         ],
         [
           "단위 테스트\n전후 평가",
-          "핵심 분기 31개를 시험하고\n같은 질문 20개로 전후 결과 비교"
+          "단위 테스트 31개로 핵심 분기를 확인하고\n같은 질문 20개로 전후 결과 비교"
         ]
       ],
-      "speaker_note": "MCP에 검색 도구를 추가하고 RAG로 문서를 찾습니다. 그래프 처리를 모듈로 분리하고 검색기를 주입해 실제 MCP와 고정 평가를 교체합니다. 분기 테스트와 동일 입력 평가로 확인했습니다.",
-      "duration_seconds": 23,
+      "speaker_note": "이 개선은 기존 LangGraph 흐름에서 대상 확인, 수집, 검증을 모듈로 나눠 적용했습니다. 여기에 MCP 검색 도구를 추가했습니다. 검색기는 의존성 주입으로 교체해 실제 실행과 고정 데이터 평가를 같은 처리 흐름으로 시험합니다. 다음은 추가 기능 세 가지입니다.",
+      "duration_seconds": 21,
       "implementation_notes": [
         "MCP: mcp_server.py의 search_runbooks Tool을 추가했다. retrieval.py의 MCPRunbookSearch가 이 Tool을 호출하고, research.py가 검색 결과의 URI로 기존 MCP Resource 원문을 읽는다. MCP 서버 분리나 기존 Tool·Resource 체계를 새로 구현한 성과로 주장하지 않는다.",
         "RAG: runbook 6개 본문·한영 증상 메타데이터와 서비스별 활성 알림을 bge-m3로 임베딩한다. SQLite에 캐시한 정규화 벡터의 코사인 유사도를 계산하고 임계값 0.35, 후보 2개 중 첫 원문을 연결한다. 대규모 벡터 DB나 ANN 검색을 구현한 것은 아니다.",
@@ -273,597 +897,16 @@
             ],
             [
               "단위 테스트\n전후 평가",
-              "핵심 분기 31개를 시험하고\n같은 질문 20개로 전후 결과 비교"
+              "단위 테스트 31개로 핵심 분기를 확인하고\n같은 질문 20개로 전후 결과 비교"
             ]
           ]
         }
       },
       "image": null,
-      "caption": ""
-    },
-    {
-      "number": 5,
-      "action_title": "개선 1 전: cache 조회 없이 공통 원인을 추정",
-      "role": "case",
-      "key_message": "개선 1 전 · cache를 조회하지 않고 원인을 추정했다",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/04-payments-cache.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/04-payments-cache.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "결제와 캐시를 함께 물었는데 결제만 조회했습니다. 캐시 자료 없이 원인을 추정했습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/04-payments-cache.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/04-payments-cache.png",
       "caption": "",
-      "values": null,
-      "insight": "두 서비스를 요청했지만\npayments만 조회",
-      "explain": "cache 지표와\n공유 리소스 정보가 없음",
-      "quote": "“트래픽 급증 또는\n특정 요청 패턴”",
-      "pair_id": "scope",
-      "stage": "before",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
-      "source_slide_number": 3,
-      "duration_seconds": 8,
-      "implementation_notes": [
-        "원본의 _extract_system_name은 최초 언급 서비스 하나만 MCP 계획 문맥으로 넘긴다. 이후 실제 조사 목록은 LLM tasks에 의존해 cache가 빠질 수 있었다.",
-        "사진에서는 수집된 사실에 payments만 있고 cache 자료가 없다. 공통 원인을 확정할 근거도 부족하다."
-      ]
-    },
-    {
-      "number": 6,
-      "action_title": "개선 1 후: 두 서비스를 빠짐없이 조사 1/2",
-      "role": "case",
-      "key_message": "같은 질문의 개선 실행 · 원본과 수치가 다른 별도 시점",
-      "layout": "implementation",
-      "visual": "day2/evidence/review-q06-first.jpg",
-      "evidence": [
-        "day2/evidence/review-q06-first.jpg",
-        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
-      ],
-      "speaker_note": "요청에서 전체 서비스를 뽑고 그 목록으로 조회 작업을 구성했습니다. LLM 계획에서 빠져도 모두 조사합니다.",
-      "source_refs": [
-        "day2/evidence/review-q06-first.jpg",
-        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json",
-        "all_total_vue_student/agent/targets.py",
-        "all_total_vue_student/agent/research.py",
-        "all_total_vue_student/agent/nodes.py"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q06-first.jpg",
-      "caption": "",
-      "values": null,
-      "method": "요청한 서비스 목록으로 조회 작업을 다시 구성",
-      "pair_id": "scope",
-      "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
-      "source_slide_number": 4,
-      "duration_seconds": 12,
-      "implementation_steps": [
-        "요청문에서 등록된 서비스 이름을 모두 확인",
-        "서비스마다 조회 작업을 구성해 누락 방지",
-        "각 서비스의 모니터링 결과를 따로 수집"
-      ],
-      "implementation_notes": [
-        "agent/targets.py의 select_targets가 등록 목록과 요청 텍스트를 대조해 알려진 대상 전체와 미등록 대상을 나눈다.",
-        "repair_plan은 모델의 tasks를 그대로 실행하지 않고, 확정된 대상마다 monitor-{service} 작업을 다시 만든다. scope_node·plan_node가 이 목록을 보존한다.",
-        "agent/research.py의 collect_monitoring은 확정된 targets 전체를 asyncio.gather로 조회한다. 각 조회의 오류를 개별 기록해 다른 서비스 수집을 취소하지 않는다."
-      ]
-    },
-    {
-      "number": 7,
-      "action_title": "개선 1 후: 공통 원인은 미확인으로 표시 2/2",
-      "role": "case",
-      "key_message": "앞 장과 같은 요청의 연속 화면 · 전체 응답 원본도 보존",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q06-second.jpg",
-      "evidence": [
-        "day2/evidence/review-q06-second.jpg",
-        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
-      ],
-      "speaker_note": "공유 의존 관계나 로그를 조사하지 않았으므로 공통 원인은 미확인으로 남깁니다.",
-      "source_refs": [
-        "day2/evidence/review-q06-second.jpg",
-        "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q06-second.jpg",
-      "caption": "",
-      "values": null,
-      "method": "서비스별 결과는 제시하고, 확인하지 못한 공통 원인은 단정하지 않음",
-      "pair_id": "scope",
-      "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
-      "source_slide_number": 5,
-      "duration_seconds": 4,
-      "implementation_notes": [
-        "기존 모델 기반 패턴 추정을 공통 원인 확정 근거로 사용하지 않는다. analysis_node는 현재 도구가 수집하지 않는 로그·시계열·의존 관계의 한계를 명시한다.",
-        "render_report는 두 서비스 이상이면 공통 원인은 미확인이라는 안내를 붙인다. 두 서비스 조사 완료와 공통 원인 규명 성공은 다르다."
-      ]
-    },
-    {
-      "number": 8,
-      "action_title": "개선 1 전: gateway만 조회",
-      "role": "problem",
-      "key_message": "개선 1 전 · gateway만 조회했다",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/01-gateway-payments.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/01-gateway-payments.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "게이트웨이에서 결제로 가는 요청도 한쪽만 조사했습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/01-gateway-payments.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/01-gateway-payments.png",
-      "caption": "",
-      "values": null,
-      "insight": "gateway만 조회\npayments는 확인하지 않음",
-      "explain": "연결된 두 서비스 중\n한쪽의 상태를 모름",
-      "quote": "수집된 사실: 모니터링 gateway-service",
-      "pair_id": "gateway",
-      "stage": "before",
-      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
-      "source_slide_number": 21,
-      "duration_seconds": 5,
-      "implementation_notes": [
-        "gateway·payments 질문의 원본은 gateway 알림만 조회했다. 네트워크 문서 선택 자체보다 상대 서비스 누락을 추가 사례로 설명한다."
-      ]
-    },
-    {
-      "number": 9,
-      "action_title": "개선 1 후: 요청을 주고받는 양쪽을 조사",
-      "role": "evidence",
-      "key_message": "gateway 네트워크·payments CPU를 각각 조회",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q04-first.jpg",
-      "evidence": [
-        "day2/evidence/review-q04-first.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "speaker_note": "같은 대상 보정 처리를 적용해 요청을 보내는 쪽과 받는 쪽을 모두 조회했습니다.",
-      "source_refs": [
-        "day2/evidence/review-q04-first.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q04-first.jpg",
-      "caption": "",
-      "values": null,
-      "method": "질문에 나온 두 서비스의 조회 작업을 각각 구성",
-      "pair_id": "gateway",
-      "stage": "after",
-      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
-      "source_slide_number": 22,
-      "duration_seconds": 5,
-      "implementation_notes": [
-        "payments·cache와 동일한 대상 추출·작업 재구성 로직을 사용한다. gateway의 network-timeout과 payments의 cpu-spike를 서비스별로 연결한다."
-      ]
-    },
-    {
-      "number": 10,
-      "action_title": "개선 1 후: 두 서비스의 결과와 근거를 함께 제시",
-      "role": "evidence",
-      "key_message": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q04-second.jpg",
-      "evidence": [
-        "day2/evidence/review-q04-second.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "speaker_note": "조회는 서비스별로 처리해 일부 실패가 다른 결과를 지우지 않게 했습니다.",
-      "source_refs": [
-        "day2/evidence/review-q04-second.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q04-second.jpg",
-      "caption": "",
-      "values": null,
-      "method": "두 서비스의 조회 결과와 참고 매뉴얼을 각각 제시",
-      "pair_id": "gateway",
-      "stage": "after",
-      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
-      "source_slide_number": 23,
-      "duration_seconds": 4,
-      "implementation_notes": [
-        "서비스별 수집·오류 분리로 일부 실패가 전체 결과를 지우지 않는다. 이 캡처는 두 서비스가 성공한 사례이며, 부분 실패 분기는 단위 테스트에서 따로 확인했다."
-      ]
-    },
-    {
-      "number": 11,
-      "action_title": "개선 2 전: billing을 물었는데 auth를 조회",
-      "role": "case",
-      "key_message": "개선 2 전 · billing을 묻자 auth를 조회했다",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/06-billing.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/06-billing.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "빌링을 물었는데 인증 서비스인 auth를 조회했습니다. 대상이 바뀐 것입니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/06-billing.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/06-billing.png",
-      "caption": "",
-      "values": null,
-      "insight": "요청: billing-service\n실제 조회: auth-service",
-      "explain": "미등록 이름을 auth로 대체해\n요청과 다른 대상을 조사",
-      "quote": "수집된 사실: 모니터링 auth-service",
-      "pair_id": "unknown",
-      "stage": "before",
-      "query": "billing-service 응답이 느려요",
-      "source_slide_number": 6,
-      "duration_seconds": 7,
-      "implementation_notes": [
-        "원본의 미등록·미명시 auth fallback은 기존 설계다. 사용자의 대상과 실제 조사 대상을 일치시키기 위한 정책 변경으로 설명한다."
-      ]
-    },
-    {
-      "number": 12,
-      "action_title": "개선 2 후: 미등록 서비스는 이름부터 확인",
-      "role": "case",
-      "key_message": "같은 질문의 실제 개선 응답 · 코드가 구성한 확인 안내",
-      "layout": "implementation",
-      "visual": "day2/evidence/context-unknown-frame.jpg",
-      "evidence": [
-        "day2/evidence/context-unknown-frame.jpg",
-        "day2/results/contextual-captures/55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json"
-      ],
-      "speaker_note": "등록 목록과 먼저 대조합니다. 미등록이면 조회와 보고 생성을 건너뛰고, 다른 서비스로 바꾸지 않고 이름을 확인합니다.",
-      "source_refs": [
-        "day2/evidence/context-unknown-frame.jpg",
-        "day2/results/contextual-captures/55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json",
-        "all_total_vue_student/agent/targets.py",
-        "all_total_vue_student/agent/evidence.py"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/context-unknown-frame.jpg",
-      "caption": "",
-      "values": null,
-      "method": "등록 목록과 대조하고, 임의 대체·모니터링·보고 생성을 생략",
-      "pair_id": "unknown",
-      "stage": "after",
-      "query": "billing-service 응답이 느려요",
-      "source_slide_number": 7,
-      "duration_seconds": 11,
-      "implementation_steps": [
-        "입력한 서비스 이름을 등록 목록과 대조",
-        "미등록이면 다른 서비스를 조회하지 않음",
-        "등록된 서비스 이름을 다시 확인하도록 안내"
-      ],
-      "implementation_notes": [
-        "select_targets가 서비스처럼 보이지만 등록 목록에 없는 billing-service를 unknown에 넣는다. targets가 비면 plan_node가 보고 모델의 계획을 호출하지 않고, 모니터링 수집도 비어 있다.",
-        "문서·관측이 없으면 write_node가 보고 생성을 생략하고 render_report가 등록 이름 확인 안내를 만든다. 안내는 LLM이 작성한 진단 성공으로 세지 않는다.",
-        "등록·미등록 혼합 요청은 등록된 대상은 조사하고, 미등록 대상은 따로 표시한다."
-      ]
-    },
-    {
-      "number": 13,
-      "action_title": "개선 2 전: 서비스 이름 없이 auth를 조회",
-      "role": "problem",
-      "key_message": "개선 2 전 · 로그인만으로 auth를 조회했다",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/05-login.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/05-login.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "로그인이라는 말만으로 auth를 가정하던 정책도 바꿨습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/05-login.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/05-login.png",
-      "caption": "",
-      "values": null,
-      "insight": "서비스 이름이 없는데\nauth-service로 조회",
-      "explain": "대상을 임의로 정하던 처리를\n이름 확인 요청으로 변경",
-      "quote": "모니터링 auth-service",
-      "pair_id": "login",
-      "stage": "before",
-      "query": "로그인 응답이 느려요, 원인 확인해주세요",
-      "source_slide_number": 24,
-      "duration_seconds": 4,
-      "implementation_notes": [
-        "로그인이라는 표현만으로 auth를 선택하던 기본 정책을 변경했다. 등록 별칭을 추가하는 기능은 구현하지 않았다."
-      ]
-    },
-    {
-      "number": 14,
-      "action_title": "개선 2 후: 서비스 이름을 먼저 확인",
-      "role": "evidence",
-      "key_message": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
-      "layout": "implementation",
-      "visual": "day2/evidence/review-q07-answer.jpg",
-      "evidence": [
-        "day2/evidence/review-q07-answer.jpg",
-        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json"
-      ],
-      "speaker_note": "서비스명이 없으면 auth를 기본값으로 쓰던 처리를 없애고, 대상 확인 안내를 반환합니다.",
-      "source_refs": [
-        "day2/evidence/review-q07-answer.jpg",
-        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json",
-        "all_total_vue_student/agent/targets.py",
-        "all_total_vue_student/agent/nodes.py"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q07-answer.jpg",
-      "caption": "",
-      "values": null,
-      "method": "대상이 명시되지 않으면 조사 대신 확인 요청",
-      "pair_id": "login",
-      "stage": "after",
-      "query": "로그인 응답이 느려요, 원인 확인해주세요",
-      "source_slide_number": 25,
-      "duration_seconds": 6,
-      "implementation_steps": [
-        "장애 요청에 서비스 이름이 있는지 확인",
-        "auth를 기본 대상으로 쓰던 처리 제거",
-        "조사할 서비스 이름을 먼저 질문"
-      ],
-      "implementation_notes": [
-        "장애 문맥은 인식하지만 명시한 등록 대상이 없으면 빈 target 목록을 유지한다. render_report가 어느 서비스를 확인할지 묻는다.",
-        "이 처리는 새 별칭이나 오타를 자동 해석하는 기능이 아니라 대상 확인 정책이다."
-      ]
-    },
-    {
-      "number": 15,
-      "action_title": "개선 3 전: 정상인 web에 DB 장애 매뉴얼 연결",
-      "role": "case",
-      "key_message": "개선 3 전 · 정상 web에 DB 장애 절차를 연결했다",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/03-web-auth.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/03-web-auth.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "정상인 web에 DB 장애 문서를 골랐고, 함께 요청한 auth도 빠졌습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/03-web-auth.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/03-web-auth.png",
-      "caption": "",
-      "values": null,
-      "insight": "web-01은 정상·알림 0건\n선택 문서는 db-down",
-      "explain": "정상 서비스에 장애 절차를 제시\nauth 조회도 누락",
-      "quote": "“DB Down 대응 절차”",
-      "pair_id": "manual",
-      "stage": "before",
-      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
-      "source_slide_number": 8,
-      "duration_seconds": 7,
-      "implementation_notes": [
-        "원본은 모니터링 알림의 키워드가 맞지 않으면 db-down으로 대체했다. healthy·알림 없음인 web에 DB 문서를 적용한 사진이다."
-      ]
-    },
-    {
-      "number": 16,
-      "action_title": "개선 3 후: 서비스별 상태에 맞는 매뉴얼 선택",
-      "role": "case",
-      "key_message": "개선 3 후 · 정상·장애를 서비스별로 구분했다",
-      "layout": "implementation",
-      "visual": "day2/evidence/context-healthy-answer.jpg",
-      "evidence": [
-        "day2/evidence/context-healthy-answer.jpg",
-        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
-      ],
-      "speaker_note": "지표와 알림으로 상태를 먼저 나눕니다. 정상이나 정보 부족이면 문서를 붙이지 않고, 장애 대상은 해당 서비스 알림으로 매뉴얼을 검색합니다.",
-      "source_refs": [
-        "day2/evidence/context-healthy-answer.jpg",
-        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json",
-        "all_total_vue_student/agent/evidence.py",
-        "all_total_vue_student/agent/research.py"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/context-healthy-answer.jpg",
-      "caption": "",
-      "values": null,
-      "method": "상태를 먼저 분기: 정상은 검색 생략, 장애는 조회 결과 알림으로 검색",
-      "pair_id": "manual",
-      "stage": "after",
-      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
-      "source_slide_number": 9,
-      "duration_seconds": 14,
-      "implementation_steps": [
-        "상태와 활성 알림으로 정상·장애·정보 부족 분류",
-        "정상·정보 부족 서비스는 장애 매뉴얼 검색 생략",
-        "해당 서비스에서 확인한 알림으로 매뉴얼 검색"
-      ],
-      "implementation_notes": [
-        "agent/evidence.py의 monitoring_state는 상태·CPU·메모리 유효성·활성 알림을 확인한다. healthy이고 알림이 없으면 healthy, 유효하지만 활성 알림이 없으면 insufficient, 조사 근거가 있으면 investigate다.",
-        "collect_runbooks는 investigate 서비스만 검색한다. 정상·정보 부족·유효하지 않은 관측은 장애 문서를 임의로 붙이지 않는다.",
-        "검색 입력은 서비스별 상태와 실제 활성 알림이다. 검색 방법의 상세 구현은 추가 기능 RAG에서 설명한다."
-      ]
-    },
-    {
-      "number": 17,
-      "action_title": "개선 4 전: 조회하지 않은 로그를 분석한 것처럼 답변",
-      "role": "case",
-      "key_message": "개선 4 전 · 로그 미수집인데 분석 결과처럼 답했다",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/02-payments-cpu.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/02-payments-cpu.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "로그 분석 결과라고 답했지만 실제 로그 조회는 없었습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/02-payments-cpu.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/02-payments-cpu.png",
-      "caption": "",
-      "values": null,
-      "insight": "로그를 조회하지 않고\n분석 결과처럼 답변",
-      "explain": "수집한 자료는 지표·매뉴얼\n로그 분석 근거는 없음",
-      "quote": "“로그 분석 결과\n특이 패턴 없음.”",
-      "pair_id": "ground",
-      "stage": "before",
-      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
-      "source_slide_number": 10,
-      "duration_seconds": 6,
-      "implementation_notes": [
-        "원본의 분석 결과 문장을 수집된 사실처럼 최종 프롬프트에 포함하던 문제다. 실제 도구에는 로그 조회가 없다.",
-        "원본 validate_node는 30자 이상과 1) 포함 여부만 확인했다. 수치·서비스·원인 주장의 근거 검증은 아니었다."
-      ]
-    },
-    {
-      "number": 18,
-      "action_title": "개선 4 후: 수치와 절차를 검증한 뒤 답변",
-      "role": "case",
-      "key_message": "같은 질문의 실제 개선 응답 · 로그 미수집·조치 미실행 명시",
-      "layout": "implementation",
-      "visual": "day2/evidence/review-q01-answer.jpg",
-      "evidence": [
-        "day2/evidence/review-q01-answer.jpg",
-        "day2/results/contextual-captures/3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json"
-      ],
-      "speaker_note": "모델은 수치·문서·절차 번호를 JSON으로 고르게 했습니다. 코드가 근거와 대조하고, 통과한 절차를 원문으로 출력해 조치 조건이 바뀌지 않게 했습니다.",
-      "source_refs": [
-        "day2/evidence/review-q01-answer.jpg",
-        "day2/results/contextual-captures/3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json",
-        "all_total_vue_student/agent/reporting.py",
-        "all_total_vue_student/agent/validation.py",
-        "all_total_vue_student/agent/evidence.py"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q01-answer.jpg",
-      "caption": "",
-      "values": null,
-      "method": "서비스·수치·문서·절차 번호 검증 후 원문으로 출력",
-      "pair_id": "ground",
-      "stage": "after",
-      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
-      "source_slide_number": 11,
-      "duration_seconds": 18,
-      "implementation_steps": [
-        "모델이 고른 서비스·수치·문서·절차 번호를 JSON으로 받음",
-        "조회 결과와 대조해 다른 대상·수치·문서를 걸러냄",
-        "검증된 매뉴얼의 절차와 조치 조건을 원문으로 표시"
-      ],
-      "implementation_notes": [
-        "StructuredReportLLM은 sections JSON으로 서비스 이름·CPU·메모리·runbook_id·step_ids·cause_confirmed만 출력하도록 한다.",
-        "validate_draft는 누락·중복·범위 밖 서비스, 잘못된 수치, 없는 문서·절차, 원인 확정, 자유 필드를 거절한다.",
-        "검증 후 render_report가 선택된 절차의 원문을 가져온다. 원문의 90% 초과·지속 등의 조건을 모델이 바꿔 쓰지 않는다.",
-        "모든 자유 문장의 의미를 판정하거나 현재 조치 조건 충족을 자동 판단하는 기능은 아니다. 실제 조치도 실행하지 않는다."
-      ]
-    },
-    {
-      "number": 19,
-      "action_title": "대화 개선 전: 사용자 이름을 자기소개에 사용",
-      "role": "problem",
-      "key_message": "대화 회귀 전 · 사용자 이름을 자기소개에 섞었다",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/07-name-recall.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/07-name-recall.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "사용자 이름 민수를 비서 자신의 이름처럼 답한 문제도 있었습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/07-name-recall.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/07-name-recall.png",
-      "caption": "",
-      "values": null,
-      "insight": "사용자 이름 민수를\n비서 자신의 이름처럼 답변",
-      "explain": "사용자와 비서의 발화를 구분해\n이름을 읽어야 함",
-      "quote": "“민수라는 이름으로…”",
-      "pair_id": "name",
-      "stage": "before",
-      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?",
-      "source_slide_number": 26,
-      "duration_seconds": 5,
-      "implementation_notes": [
-        "초기 계획의 주요 기능으로 늘리지 않고 실행 중 발견한 추가 보완으로 구분한다. 사용자 민수와 비서의 자기소개가 섞인 사례다."
-      ]
-    },
-    {
-      "number": 20,
-      "action_title": "대화 개선 후: 사용자가 밝힌 이름으로 답변",
-      "role": "evidence",
-      "key_message": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
-      "layout": "implementation",
-      "visual": "day2/evidence/review-q10-answer.jpg",
-      "evidence": [
-        "day2/evidence/review-q10-answer.jpg",
-        "day2/results/contextual-captures/review-suite.json"
-      ],
-      "speaker_note": "이름은 사용자 역할의 선언에서만 읽습니다. 이름 질문과 비서의 자기소개는 제외합니다. 이 부분은 계획 외에 보완한 대화 처리입니다.",
-      "source_refs": [
-        "day2/evidence/review-q10-answer.jpg",
-        "day2/results/contextual-captures/review-suite.json",
-        "all_total_vue_student/agent/targets.py",
-        "all_total_vue_student/agent/session_store.py"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q10-answer.jpg",
-      "caption": "",
-      "values": null,
-      "method": "대화 이력에서 사용자 역할의 이름 선언을 조회",
-      "pair_id": "name",
-      "stage": "after",
-      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?",
-      "source_slide_number": 27,
-      "duration_seconds": 8,
-      "implementation_steps": [
-        "사용자가 직접 밝힌 이름만 읽고, 질문·비서 발화는 제외",
-        "같은 대화 이력에서 가장 최근에 밝힌 이름을 사용"
-      ],
-      "implementation_notes": [
-        "remembered_name은 history에서 role=user인 메시지와 현재 입력만 읽고, '제 이름은 ...입니다' 같은 선언형만 추출한다. assistant 발화와 '이름이 뭐였죠' 질문은 이름 선언으로 보지 않는다.",
-        "추출한 이름의 별도 메모리 DB를 새로 만든 것이 아니다. 기존 SQLite 대화 이력을 활용하고 같은 대화의 최근 사용자 선언을 읽는다.",
-        "서버 재시작 뒤 같은 DB·thread의 이름 응답도 별도 기록으로 검증했다. 캡처 자체가 재시작 과정을 보여주는 것은 아니다."
-      ]
+      "explanation": "대상 확인·수집·검색·보고·검증의 책임을 나눠 기존 LangGraph 노드에 연결했다. MCP 서버에는 매뉴얼 검색 Tool을 추가하고 기존 Resource 원문 읽기를 재사용한다. 검색기는 기존 의존성 구조에 추가했으므로 실행 노드가 특정 검색 구현에 묶이지 않는다. 실제 앱에서는 MCP를 호출하고, 고정 비교 평가에서는 같은 입력과 관측이 유지되는 어댑터를 사용한다. 새 전문 Multi-Agent 시스템이나 새 LangSmith 분석을 구현했다고 주장하지 않는다.",
+      "prior_slide_number": 4,
+      "takeaway": "대상·상태·답변 검증은 코드로 처리하고, 문서는 RAG로 검색"
     },
     {
       "number": 21,
@@ -879,7 +922,7 @@
         "all_total_vue_student/mcp_server.py",
         "day2/results/contextual-captures/cc4c77a5-5311-4797-9942-36ec51f66841-17dcde1e.json"
       ],
-      "speaker_note": "첫 추가 기능은 RAG입니다. 서비스별 알림과 매뉴얼을 bge-m3로 벡터화해 검색하고, 선택한 문서는 MCP로 원문을 읽습니다.",
+      "speaker_note": "첫째는 RAG 검색입니다. 서비스별 알림과 매뉴얼을 bge-m3로 임베딩해 비교하고, 선택한 문서는 MCP로 원문을 읽습니다. 디스크 공간 부족 사례에서 해당 매뉴얼이 연결됩니다. 유사도 영 점 육칠삼은 검색 점수이며 정답 확률은 아닙니다.",
       "source_refs": [
         "day2/evidence/review-q03-answer.jpg",
         "all_total_vue_student/agent/retrieval.py",
@@ -902,14 +945,16 @@
       ],
       "result": "log-service\n디스크 공간 부족\n유사도 0.673",
       "source_slide_number": 15,
-      "duration_seconds": 17,
+      "duration_seconds": 18,
       "method": "검색기를 분리해 교체할 수 있게 하고, 단위 테스트로 확인",
       "implementation_notes": [
         "기존 6개 runbook 본문과 한·영 증상 메타데이터를 bge-m3로 임베딩하고 SQLite에 캐시한다. 문서 변경 시 digest를 확인해 인덱스를 갱신한다.",
         "서비스별 활성 알림을 임베딩하고 정규화한 벡터의 코사인 유사도로 검색한다. 임계값 0.35, 후보 상위 2개 중 첫 문서를 실제 원문과 연결한다.",
         "검색기는 기존 SupervisorDeps에 추가한 searcher로 주입한다. 실행 시 MCP 검색 Tool을 사용하고 고정 데이터 평가에서는 검색 어댑터를 사용한다.",
         "유사도 0.673은 정답 확률이 아니다. 문서 6개 전수 비교이며 대규모 ANN 검색이나 운영 부하 검증은 하지 않았다."
-      ]
+      ],
+      "explanation": "runbook 여섯 개의 본문과 한영 증상 메타데이터를 bge-m3로 임베딩하고 SQLite에 벡터를 캐시한다. 실제 서비스의 활성 알림도 벡터화한 뒤 코사인 유사도로 비교한다. 기준값 0.35를 넘는 후보 중 첫 문서의 URI로 MCP Resource 원문을 읽는다. 문서 내용이 바뀌면 digest로 캐시 갱신을 판단한다. 여섯 문서를 전수 비교하는 규모이므로 대규모 벡터 DB의 처리량을 검증했다고 말하지 않는다. 화면의 0.673은 관련도 점수다.",
+      "prior_slide_number": 21
     },
     {
       "number": 22,
@@ -925,7 +970,7 @@
         "all_total_vue_student/web_chat.html",
         "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
       ],
-      "speaker_note": "두 번째는 근거 화면입니다. 실제 조회한 서비스와 수치, 참고 매뉴얼을 표로 보여주고 확인하지 못한 항목도 함께 표시합니다.",
+      "speaker_note": "둘째는 근거 화면입니다. 모델이 쓴 설명을 그대로 출처로 삼지 않고, 실제 수집 객체에서 서비스와 수치, 문서를 표시합니다. 사용자는 정상 web에는 문서가 없고 auth에는 지연 문서가 붙은 이유를 확인할 수 있습니다.",
       "source_refs": [
         "day2/evidence/context-healthy-evidence.jpg",
         "all_total_vue_student/agent/evidence.py",
@@ -946,11 +991,13 @@
       ],
       "result": "web: 매뉴얼 없음\nauth: 지연 매뉴얼",
       "source_slide_number": 16,
-      "duration_seconds": 12,
+      "duration_seconds": 15,
       "implementation_notes": [
         "evidence_payload는 실제 collected에서 서비스·관측·runbook·미등록·미확인·오류를 구성한다. server.py가 FinalAnswer.evidence에 담고 web_chat.html이 그 객체로 표를 그린다.",
         "모델이 출력한 출처 문자열을 그대로 화면 근거로 쓰지 않는다. 정상 web은 문서 없음, auth는 지연 매뉴얼·유사도가 표시된다."
-      ]
+      ],
+      "explanation": "조회 결과에서 서비스, 관측 수치, 매뉴얼, 미등록 대상, 미확인 항목을 별도 근거 객체로 만든다. 서버가 답변과 함께 보내고 웹이 그 객체를 표로 표시한다. 모델이 작성한 출처 문장을 다시 근거로 보여주는 방식과 다르다. 관측 자료가 없거나 검색을 생략한 이유가 드러나므로 사용자가 보고서 내용을 확인할 수 있다.",
+      "prior_slide_number": 22
     },
     {
       "number": 23,
@@ -965,7 +1012,7 @@
         "day1/results/baseline-ollama/results.json",
         "day2/results/improved-ollama/results.json"
       ],
-      "speaker_note": "세 번째는 자동 비교입니다. 같은 질문과 고정 지표로 전후 실행하고 호출·문서·시간을 집계합니다. 단위 테스트 서른한 개도 통과했습니다.",
+      "speaker_note": "셋째는 회귀 테스트와 전후 비교입니다. 같은 질문 스무 개와 같은 모의 지표를 넣고, 실제 조회 대상과 선택 문서를 정답 목록에 대조합니다. 이 화면은 그 실행 기록입니다. 별도로 단위 테스트 서른한 개로 핵심 분기를 확인했습니다.",
       "source_refs": [
         "day2/evidence/evaluation-cases.jpg",
         "day2/scripts/build_evaluation_evidence.py",
@@ -987,13 +1034,15 @@
       ],
       "result": "실제 기록 비교\n누락 서비스 3개 보완\nauth 대체 조회 생략",
       "source_slide_number": 17,
-      "duration_seconds": 13,
+      "duration_seconds": 17,
       "method": "고정 질문 20개로 전후 비교, 단위 테스트 31개로 핵심 분기 점검",
       "implementation_notes": [
         "평가 정의 cases.json의 expected_targets·expected_runbooks와 실제 calls·elapsed_seconds를 대조한다. 대상 수집은 서비스 수, 범위 일치는 대상 집합이 같은 질문 수, 문서 Top-1은 정답 문서가 하나인 질문만 계산한다.",
         "고정 데이터 그래프 평가 20건과 실제 MCP·SSE·UI 검증은 구분한다. 이 보고서는 보존된 전후 결과 JSON을 집계한 것이며 새 20건 벤치마크를 실행한 것은 아니다.",
         "단위 테스트 31개는 대상 추출·검증·부분 실패·시간 제한·이름 역할 등의 분기다. 20건 실제 모델 평가와 다른 검증이다."
-      ]
+      ],
+      "explanation": "회귀 테스트는 코드가 바뀌어도 대상 추출이나 수치 검증 같은 핵심 분기가 유지되는지 확인한다. 서른한 개 단위 테스트의 기록이 있다. 별도로 원본과 개선판에 같은 질문 스무 개, 같은 고정 지표, 같은 모델 구성을 적용해 실행 기록을 남겼다. 화면은 그 기록을 모은 보고서다. 매뉴얼 검색 임베딩은 실제로 실행했지만 모니터링은 고정 어댑터를 사용하므로 실제 운영 네트워크 지연 시험은 아니다.",
+      "prior_slide_number": 23
     },
     {
       "number": 24,
@@ -1004,8 +1053,8 @@
       "visual": "One grouped native column chart for three selection metrics, raw counts, and secondary timing",
       "image": null,
       "caption": "",
-      "duration_seconds": 28,
-      "speaker_note": "핵심은 선택의 정확성입니다. 서비스 조회는 팔십오에서 백 퍼센트, 조회 대상 일치는 칠십오에서 백 퍼센트, 매뉴얼 선택은 열두 문항 중 열한 개에서 열두 개로 늘었습니다. 이 수치는 조사 대상과 매뉴얼 선택을 평가한 결과입니다. 처리 시간은 아래에 보조 지표로 표시했습니다.",
+      "duration_seconds": 24,
+      "speaker_note": "서비스 조회는 스무 건 중 열일곱 건에서 스무 건으로, 조회 대상이 일치한 질문은 열다섯 개에서 스무 개로 늘었습니다. 단일 정답 매뉴얼은 열두 개 중 열한 개에서 열두 개가 맞았습니다. 진단 전체의 정확도가 아니라 대상과 문서 선택의 평가입니다. 시간은 아래에 보조로 제시했습니다.",
       "implementation_notes": [
         "서비스 조회는 각 요청에서 필요한 등록 대상과 실제 호출 목록을 대조한17/20건·20/20건이다. 서로 다른 서비스20종을 뜻하지 않는다. 같은 서비스가 다른 질문에 나오면 다시 계수한다.",
         "조회 대상 일치는 실제 대상 집합과 기대 집합이 같은15/20문항·20/20문항이다. 누락3건과 auth 대체 조회2건을 보완했으며 미등록·미명시 요청의 확인 정책 변경도 포함한다.",
@@ -1091,7 +1140,9 @@
         "조회 누락 3건 해소",
         "조회 범위 오류 5문항 개선",
         "문서 선택 오류 1문항 개선"
-      ]
+      ],
+      "explanation": "첫 지표의 분모 스무 건은 문항들에서 기대한 서비스 조회의 합계이며 서로 다른 서비스 스무 종류라는 뜻이 아니다. 세 번 누락됐던 조회가 보완됐다. 둘째는 질문마다 실제 조회 대상 집합이 기대 대상 집합과 완전히 같은지 비교해 스무 문항 중 열다섯 개에서 스무 개로 바뀐 것이다. 미등록·대상 없음에서 auth를 조회하지 않는 새 정책도 포함한다. 셋째는 정답 문서가 하나로 정해진 열두 문항에서 첫 문서 선택을 비교한 것이다. 전체 보고서의 의미적 진단 정확도를 직접 평가한 결과는 아니다. 시간은 전후 모두 완료한 같은 열여섯 문항의 중앙값 35.94초와 4.45초다. 생성 설정과 출력 형식도 바뀌었으므로 RAG만의 속도 개선으로 해석하지 않는다.",
+      "prior_slide_number": 24
     },
     {
       "number": 25,
@@ -1103,7 +1154,7 @@
       "evidence": [
         "REPORT.md"
       ],
-      "speaker_note": "문서 여섯 개와 모의 지표라 운영 성능으로 일반화할 수 없습니다. 검색은 지연·오검색을 더하고 원문 출력은 설명을 제한합니다. 다음은 실제 로그와 독립 질문으로 검증하겠습니다. 감사합니다.",
+      "speaker_note": "문서 여섯 개와 모의 지표의 결과라 실제 장애 진단 성능으로 일반화할 수 없습니다. 검색은 지연과 오검색을 추가하고, 원문 출력은 종합 설명을 제한합니다. 이번에는 조사와 답변의 근거를 맞추는 데 집중했고, 다음에는 실제 로그와 새로운 질문으로 검증하겠습니다. 감사합니다.",
       "source_refs": [
         "REPORT.md"
       ],
@@ -1150,15 +1201,17 @@
           "근거를 종합한 자유로운 설명은 제한됨"
         ]
       ],
-      "takeaway": "다음 단계: 실제 로그·시계열 데이터와 새로운 질문으로 검증",
+      "takeaway": "조사와 답변의 근거를 맞추는 개선\n다음 단계는 실제 로그와 새로운 질문으로 검증",
       "source_slide_number": 19,
-      "duration_seconds": 18,
+      "duration_seconds": 25,
       "implementation_notes": [
         "문서 6개·모의 지표·관측한 시험 세트이므로 독립 질문과 실제 운영 자료가 필요하다.",
         "실제 로그·시계열·서비스 의존 관계 수집, 복합 장애 검색과 독립 평가가 다음 과제다. 자동 복구를 구현했다고 말하지 않는다.",
         "검색·임베딩은 처리 부담과 오검색을 더하고, 원문 출력은 자유로운 종합 설명을 제한한다."
       ],
-      "table_height": 330
+      "table_height": 330,
+      "explanation": "기능의 방향은 조사 범위와 보고 근거를 확인 가능하게 하는 것이다. 지금은 작은 문서 집합과 이미 관찰한 고정 질문을 사용하므로 새로운 질문과 운영 자료에서 별도 검증해야 한다. 임베딩·검색은 지연과 오검색을 더하고, 원문 절차 출력은 조건 보존에 유리하지만 복잡한 상황을 종합해서 설명하기 어렵다. 다음에는 실제 로그·시계열·의존 관계를 수집하고 독립 질문으로 선택과 원인 설명을 함께 평가해야 한다.",
+      "prior_slide_number": 25
     }
   ],
   "design": {

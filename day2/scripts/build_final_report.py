@@ -12,7 +12,7 @@ md=f'''# 서비스 장애 진단 AI 에이전트 개선
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-final-talk.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-story-revised.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -139,7 +139,7 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 개선 후에는 think=false, 512토큰 상한, 호출·요청 제한, 구조화 출력과 분기 변경을 적용했다. 이 변경들이 지연 차이에 함께 영향을 줬으므로 RAG만의 효과로 해석하지 않는다. 문서 본문에 한·영 증상 설명도 보강했다. 원본의 가상 비용이나 시간 초과로 누락된 토큰을 실제 비용 절감으로 제시하지 않는다.
 
-![전후 실행 기록으로 만든 비교 그래프](output/presentation/previews-final-talk/slide-24.png)
+![전후 실행 기록으로 만든 비교 그래프](output/presentation/previews-story-revised/slide-24.png)
 
 [그래프 집계 데이터](day2/results/comparison/presentation-metrics.json) · [그래프 데이터 생성 코드](day2/scripts/build_presentation_metrics.py)
 
