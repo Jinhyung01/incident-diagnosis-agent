@@ -2,18 +2,17 @@
   "deck": {
     "title": "운영 장애 진단 AI 에이전트 개선",
     "audience": "동일 교육과정 교육생·평가자",
-    "outcome": "실습1 베이스 소개와 계획5개·추가3개, 기술의 실제 적용, 같은 질문의 전후 화면, 측정 기준·한계를 설명한다",
+    "outcome": "기존 서비스의 조사 누락·대상 확인·매뉴얼·근거 문제를 실제 전후 화면과 구현·측정으로 설명한다",
     "main_promise": "문제·개선 범위·사용 기술·실제 전후 화면·수치·트레이드오프를 코드와 증거로 연결",
     "output_lane": "native-pptx",
     "format": "16:9",
-    "slide_count": 29,
-    "narrative_spine": "표지 / 기존 서비스 소개 / 개선·추가 요약 / 기술 적용 / 문제·구현·전후 캡처 / 추가 기능 / 전후 그래프·실측 캡처 / 한계",
+    "slide_count": 25,
+    "narrative_spine": "표지 / 기존 서비스 / 개선4개·추가3개 / 기술 적용 / 실제 전후 화면 / 추가 기능 / 기준을 합친 전후 그래프 / 한계",
     "design_posture": "실제 질문·응답 캡처는 유지하고, 발표 문구는 역할 중심으로 정리. 측정은 네이티브 그래프와 실제 집계 화면을 연결",
     "assumptions": [
-      "표지 포함29장. 대본 배분292초(4분52초), 상세 구현 노트는 질의용. 실제 시간은 구두 리허설로 확인한다.",
+      "표지 포함25장. 대본 배분266초, 실제 시간은 구두 리허설로 확인한다.",
       "최초 사용자 PNG 7개를 모두 본문에 포함하고 같은 질문의 개선 결과와 연속 배치한다.",
-      "최초 무작위 지표와 고정 재실행의 수치 차이는 개선 효과로 비교하지 않는다.",
-      "시간 초과 지연 주입 시험은 별도 제어 시험이며 20건 측정과 구분한다."
+      "최초 무작위 지표와 고정 재실행의 수치 차이는 개선 효과로 비교하지 않는다."
     ]
   },
   "slides": [
@@ -114,7 +113,7 @@
     },
     {
       "number": 3,
-      "action_title": "개선 5개와 추가 기능 3개",
+      "action_title": "개선 4개와 추가 기능 3개",
       "role": "scope",
       "layout": "scope",
       "key_message": "조사 범위와 답변 근거를 먼저 보완하고 검색·화면·평가를 추가",
@@ -138,10 +137,6 @@
         [
           "답변 검증",
           "수치·서비스·절차를 근거와 대조"
-        ],
-        [
-          "실패 처리",
-          "생성·시간 제한과 수집 사실 안내"
         ]
       ],
       "additions": [
@@ -149,12 +144,12 @@
         "근거·미확인 화면",
         "회귀·전후 비교 평가"
       ],
-      "speaker_note": "개선은 조사 범위, 대상 확인, 매뉴얼 선택, 답변 검증, 실패 처리 다섯 가지입니다. 검색과 근거 화면, 비교 평가를 추가했습니다.",
+      "speaker_note": "조사 범위, 대상 확인, 매뉴얼 선택, 답변 검증 네 가지를 개선했습니다. 검색과 근거 화면, 비교 평가를 추가했습니다.",
       "duration_seconds": 12,
       "implementation_notes": [
-        "등록 시트의 개선 5개·기능 추가 3개를 그대로 실제 구현과 연결한다. 이름 응답은 추가 보완한 대화 처리이며 새 주요 기능으로 늘리지 않는다.",
-        "매뉴얼 선택 개선은 정상·정보 부족·장애 분기이며, RAG는 장애로 조사할 서비스의 알림과 문서를 의미로 연결하는 추가 검색 방식이다.",
-        "다음 기술 표에서 적용 방법을 설명하고, 이후 각 문제의 최초 질문·응답과 같은 질문의 개선 응답을 연속해 보여준다."
+        "현재 발표 범위는 개선4개·추가3개다. 이름 응답은 회귀 질문에서 확인한 별도 보완이며 새 주요 기능으로 늘리지 않는다.",
+        "매뉴얼 선택 개선은 정상·정보 부족·장애 분기이며, RAG는 조사할 서비스의 알림과 문서를 의미로 연결하는 검색 방식이다.",
+        "이후 실제 질문·응답과 같은 질문의 개선 화면을 연속으로 제시한다."
       ],
       "source_refs": [
         "presentation/PLAN_COVERAGE.md",
@@ -188,10 +183,6 @@
             [
               "답변 검증",
               "수치·서비스·절차를 근거와 대조"
-            ],
-            [
-              "실패 처리",
-              "생성·시간 제한과 수집 사실 안내"
             ]
           ]
         }
@@ -223,8 +214,8 @@
         ],
         [
           "LangGraph·모듈화",
-          "대상·수집·검색·보고·검증 분리\n상태별 분기와 최대 2회 검증",
-          "조사 누락과 불필요한 검색,\n검증 실패의 강제 통과 방지"
+          "대상·수집·검색·보고·검증 분리\n서비스 상태별 처리와 검증 연결",
+          "조사 누락·불필요한 검색 방지\n답변의 서비스·수치 검증"
         ],
         [
           "의존성 주입",
@@ -242,7 +233,7 @@
       "implementation_notes": [
         "MCP: mcp_server.py의 search_runbooks Tool을 추가했다. retrieval.py의 MCPRunbookSearch가 이 Tool을 호출하고, research.py가 검색 결과의 URI로 기존 MCP Resource 원문을 읽는다. MCP 서버 분리나 기존 Tool·Resource 체계를 새로 구현한 성과로 주장하지 않는다.",
         "RAG: runbook 6개 본문·한영 증상 메타데이터와 서비스별 활성 알림을 bge-m3로 임베딩한다. SQLite에 캐시한 정규화 벡터의 코사인 유사도를 계산하고 임계값 0.35, 후보 2개 중 첫 원문을 연결한다. 대규모 벡터 DB나 ANN 검색을 구현한 것은 아니다.",
-        "LangGraph·모듈화: 기존 graph.py의 단일 research 처리를 targets.py·research.py·retrieval.py·reporting.py·validation.py 등으로 나눴다. scope와 retrieve 노드 및 상태별 분기를 추가하고 검증 반복을 최대 두 번으로 제한했다. 독립적인 전문 Multi-Agent 서브그래프를 추가한 구현은 아니다.",
+        "LangGraph·모듈화: 기존 그래프 처리를 대상·수집·검색·보고·검증 모듈로 분리하고 범위·상태별 분기를 연결했다. 독립적인 전문 Multi-Agent 서브그래프를 추가한 구현은 아니다.",
         "의존성 주입: 기존 SupervisorDeps에 searcher를 추가했다. 연구 노드는 검색 구현을 직접 만들지 않고 주입된 검색기를 우선 사용한다. 실제 앱은 MCP 검색 Tool, 평가·단위 테스트는 고정 데이터 검색 어댑터를 연결한다.",
         "단위 테스트 31개와 실제 모델 고정 입력 20건은 목적이 다르다. 전자는 대상 추출·수치 변조·부분 실패·시간 제한 등의 코드 분기, 후자는 실제 호출·문서 선택·응답 상태·시간을 확인한다. 실제 MCP·SSE·UI 검증은 별도로 수행했다.",
         "교수님이 나열한 기술은 예시이며 전부 추가하라는 필수 목록으로 쓰여 있지 않다. 기존 LangSmith traceable 장식은 유지하지만 새 추적 연결·대시보드 분석을 검증한 성과에는 포함하지 않는다. 전문 Multi-Agent 확장도 성과로 표기하지 않는다."
@@ -283,8 +274,8 @@
             ],
             [
               "LangGraph·모듈화",
-              "대상·수집·검색·보고·검증 분리\n상태별 분기와 최대 2회 검증",
-              "조사 누락과 불필요한 검색,\n검증 실패의 강제 통과 방지"
+              "대상·수집·검색·보고·검증 분리\n서비스 상태별 처리와 검증 연결",
+              "조사 누락·불필요한 검색 방지\n답변의 서비스·수치 검증"
             ],
             [
               "의존성 주입",
@@ -500,7 +491,7 @@
       "image": "day2/evidence/review-q04-second.jpg",
       "caption": "",
       "values": null,
-      "method": "두 서비스의 조회 결과과 참고 매뉴얼을 각각 제시",
+      "method": "두 서비스의 조회 결과와 참고 매뉴얼을 각각 제시",
       "pair_id": "gateway",
       "stage": "after",
       "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
@@ -771,7 +762,7 @@
     },
     {
       "number": 18,
-      "action_title": "개선 4 후 · 조회 결과과 매뉴얼 원문으로 보고했다",
+      "action_title": "개선 4 후 · 조회 결과와 매뉴얼 원문으로 보고했다",
       "role": "case",
       "key_message": "같은 질문의 실제 개선 응답 · 로그 미수집·조치 미실행 명시",
       "layout": "implementation",
@@ -888,117 +879,6 @@
     },
     {
       "number": 21,
-      "action_title": "개선 5 전 · 시간 초과 뒤 안내가 없었다",
-      "role": "case",
-      "key_message": "별도 원본 재현 · day2/evidence/ui-capture-context.json에 오류 기록",
-      "layout": "before",
-      "visual": "day2/evidence/before-main-viewport.jpg",
-      "evidence": [
-        "day2/evidence/before-main-viewport.jpg",
-        "day2/evidence/ui-capture-context.json",
-        "day2/evidence/ui-capture-context.json"
-      ],
-      "speaker_note": "분석 중 시간 초과가 나면 최종 응답도 실패 안내도 없었습니다.",
-      "source_refs": [
-        "day2/evidence/before-main-viewport.jpg",
-        "day2/evidence/ui-capture-context.json",
-        "day2/evidence/ui-capture-context.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/before-main-viewport.jpg",
-      "caption": "",
-      "values": null,
-      "insight": "분석 단계 시간 초과\n최종 응답·실패 안내 없음",
-      "explain": "실패 원인을 알 수 없음\n수집한 지표도 확인 불가",
-      "quote": "조회 후 최종 응답 없음",
-      "pair_id": "failure",
-      "stage": "before",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
-      "source_slide_number": 12,
-      "duration_seconds": 5,
-      "implementation_notes": [
-        "이 화면은 보존한 베이스를 다시 실행한 진행 화면이다. 분석 단계 ReadTimeout은 연결된 실행 기록으로 확인했다. 화면의 레이아웃 깨짐을 실패 근거로 쓰지 않는다."
-      ]
-    },
-    {
-      "number": 22,
-      "action_title": "개선 5 후 · 시간 제한을 알리고 근거를 보존했다 1/2",
-      "role": "case",
-      "key_message": "제어 시험: 같은 질문·생성 지연 30초·요청 상한 8초(기본 60초)",
-      "layout": "implementation",
-      "visual": "day2/evidence/story-timeout-first.jpg",
-      "evidence": [
-        "day2/evidence/story-timeout-first.jpg",
-        "day2/results/story-timeout/timeout.json",
-        "all_total_vue_student/server.py",
-        "all_total_vue_student/agent/nodes.py"
-      ],
-      "speaker_note": "생성량과 시간을 제한하고 두 번 검증에 실패하면 수집 사실을 안내합니다. 팔 초 제한 시험에서도 부분 근거를 남겼습니다.",
-      "source_refs": [
-        "day2/evidence/story-timeout-first.jpg",
-        "day2/results/story-timeout/timeout.json",
-        "all_total_vue_student/server.py",
-        "all_total_vue_student/agent/nodes.py"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/story-timeout-first.jpg",
-      "caption": "",
-      "values": null,
-      "method": "생성 512토큰·호출 25초·요청 60초, 검증 실패는 최대 2회 후 안내",
-      "pair_id": "failure",
-      "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
-      "source_slide_number": 13,
-      "duration_seconds": 16,
-      "implementation_steps": [
-        "생성 512토큰·호출 25초·전체 60초 제한 (시연은 전체 8초)",
-        "최대 2회 검증, 실패한 초안을 강제 통과시키지 않음",
-        "시간 초과·검증 실패는 이미 수집한 조회 결과으로 안내"
-      ],
-      "implementation_notes": [
-        "Ollama 생성 num_predict=512, 호출 25초, 전체 요청 60초를 기본으로 둔다. write·validate는 최대 두 번으로 제한한다.",
-        "원본은 세 번째 검증 실패를 강제 합격 처리했지만 개선은 fallback으로 분리한다. server.py의 전체 시간 제한 처리도 수집된 collected를 보존해 안내한다.",
-        "같은 payments·cache 질문의 지연 시험은 보고 의존성 30초 지연·전체 상한 8초로 설정했다. 실제 8.004초에 안내했고 이 값은 일반 성능 20건에 합산하지 않았다."
-      ]
-    },
-    {
-      "number": 23,
-      "action_title": "개선 5 후 · 두 서비스의 조회 결과을 남겼다 2/2",
-      "role": "case",
-      "key_message": "앞 장과 같은 제어 시험 · 일반 성능·20건 통계에 합산하지 않음",
-      "layout": "screen",
-      "visual": "day2/evidence/story-timeout-second.jpg",
-      "evidence": [
-        "day2/evidence/story-timeout-second.jpg",
-        "day2/results/story-timeout/timeout.json"
-      ],
-      "speaker_note": "이미 수집한 두 서비스의 지표도 남깁니다. 다음은 추가 기능입니다.",
-      "source_refs": [
-        "day2/evidence/story-timeout-second.jpg",
-        "day2/results/story-timeout/timeout.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/story-timeout-second.jpg",
-      "caption": "",
-      "values": null,
-      "method": "시간 초과 시 이미 수집한 서비스별 조회 결과과 미확인 사항 보존",
-      "pair_id": "failure",
-      "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
-      "source_slide_number": 14,
-      "duration_seconds": 5,
-      "implementation_notes": [
-        "제한·실패 안내도 화면에 응답을 반환하지만 검증된 LLM 보고 성공은 아니다. 두 서비스의 관측 보존을 확인하는 연속 화면이다."
-      ]
-    },
-    {
-      "number": 24,
       "action_title": "추가 1 · 증상에 맞는 매뉴얼을 검색한다",
       "role": "mechanism",
       "key_message": "검색 결과와 원문을 연결 · 유사도는 정답 확률이 아님",
@@ -1044,7 +924,7 @@
       ]
     },
     {
-      "number": 25,
+      "number": 22,
       "action_title": "추가 2 · 답변에 사용한 근거를 화면에 표시한다",
       "role": "proof",
       "key_message": "모델 문장과 별도로 실제 수집 객체에서 근거 표 구성",
@@ -1085,7 +965,7 @@
       ]
     },
     {
-      "number": 26,
+      "number": 23,
       "action_title": "추가 3 · 같은 질문의 결과를 자동 비교한다",
       "role": "proof",
       "key_message": "저장한 실제 측정 결과의 보고서 화면 · 앱 대화 화면과 구분",
@@ -1128,7 +1008,7 @@
       ]
     },
     {
-      "number": 27,
+      "number": 24,
       "action_title": "개선 전후 측정 결과",
       "role": "data exhibit",
       "key_message": "누락 서비스3개 보완, 조회 범위15/20에서20/20, 매뉴얼11/12에서12/12, 동일16건 시간 단축",
@@ -1136,17 +1016,17 @@
       "visual": "Four editable native bar charts from preserved execution records",
       "image": null,
       "caption": "",
-      "duration_seconds": 22,
+      "duration_seconds": 25,
       "speaker_note": "필요한 서비스 수집은 열일곱에서 스무 개로, 조회 범위 일치는 열다섯에서 스무 문항으로 늘었습니다. 매뉴얼 선택도 개선됐습니다. 같은 열여섯 문항의 시간 중앙값은 삼십오 점 구사 초에서 사 점 사오 초입니다. 생성 설정도 함께 바꾼 결과입니다.",
       "implementation_notes": [
         "등록 대상 수집 17/20→20/20은 서비스 수다. D05 payments, D06 cache, D07 auth 누락을 보완했다. 조회 범위 일치는 15/20→20/20이며 auth 대체 조회 2건도 포함한다.",
         "단일 정답 문서 11/12→12/12는 D07의 db-down을 high-latency로 바꾼 결과다. 같은 모델·고정 지표·질문을 사용했다.",
         "양쪽 완료한 동일 16건 중앙값은 35.936→4.454초다. 네트워크 전송·UI 표시·워밍업·인덱스 구축은 제외한다. 생성 설정·분기·출력 형식도 바뀌어 RAG만의 효과가 아니다.",
         "개선 20건은 검증13·관측/확인안내4·대화2·검증실패안내1이다. 응답 완료가 전체 답변의 정확도100%라는 뜻은 아니다. 이후 화면·안내 문구 수정 뒤 전체 시간은 재측정하지 않았다.",
-        "그래프는 보존된 전후40개 실행 기록에서 직접 재집계했다. 세 수집·선택 지표는 개수, 시간은 초 단위이며 각 분모를 제목과 데이터 레이블에 표시한다. 원점을0으로 둔 막대이며 결과 보고서 캡처는 바로 다음 장에 유지한다."
+        "그래프는 보존된 전후40개 실행 기록에서 직접 재집계했다. 세 수집·선택 지표는 개수, 시간은 초 단위이며 각 분모를 제목과 데이터 레이블에 표시한다. 원점을0으로 둔 막대이며 기준을 그래프 장에 합쳤다.",
+        "등록 대상 수는 필요한 서비스와 실제 조회 목록을 대조한다. 범위 일치는 실제 대상 집합과 기대 대상 집합이 같아야 한다. 문서는 단일 정답 질문의 첫 조회를 대조한다. 별도 기준 슬라이드 대신 그래프 아래에 기준을 표시한다."
       ],
       "source_refs": [
-        "day2/evidence/evaluation-criteria.jpg",
         "day2/scripts/build_evaluation_evidence.py",
         "day1/evaluation/cases.json",
         "day1/scripts/run_baseline.py",
@@ -1287,48 +1167,7 @@
       ]
     },
     {
-      "number": 28,
-      "action_title": "실제 측정 기록과 판정 기준",
-      "role": "data exhibit",
-      "key_message": "개선20건 = 검증13 + 관측 안내4 + 대화2 + 검증실패 안내1",
-      "layout": "screen",
-      "visual": "day2/evidence/evaluation-criteria.jpg",
-      "evidence": [
-        "day2/evidence/evaluation-criteria.jpg",
-        "day2/scripts/build_evaluation_evidence.py",
-        "day1/evaluation/cases.json",
-        "day1/scripts/run_baseline.py",
-        "day2/results/comparison/summary.json",
-        "day1/results/baseline-ollama/results.json",
-        "day2/results/improved-ollama/results.json"
-      ],
-      "speaker_note": "같은 실행 기록을 집계한 보고서입니다. 지표별 판정 기준과 응답 안내 포함 여부도 확인할 수 있습니다.",
-      "source_refs": [
-        "day2/evidence/evaluation-criteria.jpg",
-        "day2/scripts/build_evaluation_evidence.py",
-        "day1/evaluation/cases.json",
-        "day1/scripts/run_baseline.py",
-        "day2/results/comparison/summary.json",
-        "day1/results/baseline-ollama/results.json",
-        "day2/results/improved-ollama/results.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/evaluation-criteria.jpg",
-      "caption": "",
-      "values": null,
-      "source_slide_number": 18,
-      "duration_seconds": 3,
-      "implementation_notes": [
-        "등록 대상 수집 17/20→20/20은 서비스 수다. D05 payments, D06 cache, D07 auth 누락을 보완했다. 조회 범위 일치는 15/20→20/20이며 auth 대체 조회 2건도 포함한다.",
-        "단일 정답 문서 11/12→12/12는 D07의 db-down을 high-latency로 바꾼 결과다. 같은 모델·고정 지표·질문을 사용했다.",
-        "양쪽 완료한 동일 16건 중앙값은 35.936→4.454초다. 네트워크 전송·UI 표시·워밍업·인덱스 구축은 제외한다. 생성 설정·분기·출력 형식도 바뀌어 RAG만의 효과가 아니다.",
-        "개선 20건은 검증13·관측/확인안내4·대화2·검증실패안내1이다. 응답 완료가 전체 답변의 정확도100%라는 뜻은 아니다. 이후 화면·안내 문구 수정 뒤 전체 시간은 재측정하지 않았다."
-      ]
-    },
-    {
-      "number": 29,
+      "number": 25,
       "action_title": "한계와 다음 개선 방향",
       "role": "limitation",
       "key_message": "다음 단계  실제 로그·시계열·의존 관계와 독립 질문 검증",
@@ -1360,10 +1199,6 @@
             [
               "구조화·원문 출력",
               "자유로운 종합 설명 범위 제한"
-            ],
-            [
-              "생성·시간 상한",
-              "일부 요청은 확인한 사실만 안내"
             ]
           ]
         }
@@ -1386,10 +1221,6 @@
         [
           "구조화·원문 출력",
           "자유로운 종합 설명 범위 제한"
-        ],
-        [
-          "생성·시간 상한",
-          "일부 요청은 확인한 사실만 안내"
         ]
       ],
       "takeaway": "다음 단계: 실제 로그·시계열 자료 수집과 독립 질문 평가",
@@ -1397,10 +1228,10 @@
       "duration_seconds": 18,
       "implementation_notes": [
         "문서 6개·모의 지표·관측한 시험 세트이므로 독립 질문과 실제 운영 자료가 필요하다.",
-        "검색·임베딩의 처리 부담과 오검색, 원문 출력의 표현 제약, 시간·생성량 상한 때문에 안내로 끝나는 요청이 트레이드오프다.",
-        "실제 로그·시계열·서비스 의존 관계 수집, 복합 장애 검색과 독립 평가가 다음 과제다. 자동 복구를 구현했다고 말하지 않는다."
+        "실제 로그·시계열·서비스 의존 관계 수집, 복합 장애 검색과 독립 평가가 다음 과제다. 자동 복구를 구현했다고 말하지 않는다.",
+        "검색·임베딩은 처리 부담과 오검색을 더하고, 원문 출력은 자유로운 종합 설명을 제한한다."
       ],
-      "table_height": 365
+      "table_height": 315
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-charts.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-revised.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -18,7 +18,6 @@
 | 미등록 대상 처리 | 다른 서비스로 대체하지 않고 등록 이름 확인 요청 | D08 미등록, E06 혼합 |
 | 상태별 매뉴얼 선택 | 정상·정보 부족은 검색 생략, 서비스별 관측 알림으로 검색 | D10 정상, E05 정상 복수 대상 |
 | 근거와 조치 조건 검증 | 서비스·수치·문서·절차 번호 대조, 원인 확정 거절, 조건은 원문 출력 | D11 로그 미수집, D12 CPU 89.1%와 알림 91% |
-| 생성·실패 처리 | 생성 512토큰, 호출 25초·전체 60초 기본 상한, 최대 2회 후 사실 중심 안내 | E06 검증 실패, 단위 테스트의 시간 초과·부분 실패 |
 
 추가한 기능은 RAG 매뉴얼 검색, 실제 조회 서비스·매뉴얼·미확인 사항을 보여주는 근거 화면, 같은 질문·고정 데이터의 회귀 평가다.
 
@@ -28,7 +27,7 @@
 
 | 기술 | 베이스에서 활용 | 직접 추가·변경 |
 |---|---|---|
-| LangGraph·FastAPI | 그래프 흐름·HTTP·SSE·수명 관리 | 범위 확인·수집·검색·검증 노드, 전체 요청 제한과 실패 응답 |
+| LangGraph·FastAPI | 그래프 흐름·HTTP·SSE·수명 관리 | 범위 확인·수집·검색·검증 노드 연결 |
 | MCP | 모니터링 Tool·매뉴얼 Resource·절차 Prompt | search_runbooks Tool, 검색 결과와 원문 연결 |
 | RAG | 없음 | bge-m3, 한·영 증상 설명과 매뉴얼 본문 임베딩, SQLite 저장, 코사인 검색 |
 | 의존성 주입·모듈화 | SupervisorDeps | 대상 식별·수집·검색·보고·검증을 분리, 검색 의존성 교체 |
@@ -87,20 +86,6 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 ![같은 payments 질문의 개선](day2/evidence/review-q01-answer.jpg)
 
-### 개선 5. 생성·시간 제한과 실패 안내
-
-베이스 프로젝트의 payments·cache 요청을 다시 실행했을 때는 분석 단계 ReadTimeout으로 최종 응답을 완료하지 못했다.
-
-![별도 원본 재현의 최종 답변 미완료](day2/evidence/before-main-viewport.jpg)
-
-생성512토큰·호출25초·전체60초·최대작성2회를 기본으로 제한하고, 시간 초과나 검증 실패면 수집한 사실을 보존해 안내한다. 같은 질문에서 생성 의존성을30초 지연시키고 시험 상한을8초로 낮춰8.004초에 제한 안내와 두 서비스 관측이 남는 것을 확인했다. 이 제어 시험을 일반 성능이나20건 통계에 합산하지 않는다.
-
-![같은 질문의 시간 제한 시험 1](day2/evidence/story-timeout-first.jpg)
-
-![같은 제한 시험의 부분 근거 2](day2/evidence/story-timeout-second.jpg)
-
-[시험 조건과 원시 이벤트](day2/results/story-timeout/SUMMARY.md)
-
 ### 추가 기능 1. RAG 대응 매뉴얼 검색
 
 서비스별 관측 알림을 bge-m3로 임베딩하고 SQLite에 저장한6개 문서와 코사인 유사도를 계산한다. 임계값0.35이상 후보에서 첫 문서를 선택해 MCP Resource로 원문을 읽는다. 실제 log 질의에서는 disk-full과 유사도0.673이 표시된다. 유사도는 정답 확률이 아니다.
@@ -144,7 +129,7 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 개선 후에는 think=false, 512토큰 상한, 호출·요청 제한, 구조화 출력과 분기 변경을 적용했다. 이 변경들이 지연 차이에 함께 영향을 줬으므로 RAG만의 효과로 해석하지 않는다. 문서 본문에 한·영 증상 설명도 보강했다. 원본의 가상 비용이나 시간 초과로 누락된 토큰을 실제 비용 절감으로 제시하지 않는다.
 
-![전후 실행 기록으로 만든 비교 그래프](output/presentation/previews-charts/slide-27.png)
+![전후 실행 기록으로 만든 비교 그래프](output/presentation/previews-revised/slide-24.png)
 
 [그래프 집계 데이터](day2/results/comparison/presentation-metrics.json) · [그래프 데이터 생성 코드](day2/scripts/build_presentation_metrics.py)
 
@@ -203,4 +188,4 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-발표자료는 표지 포함 29장이다. [발표 대본과 구현 보충 노트](presentation/REHEARSAL.md)에 설명 순서와 예상 질문을 정리했다.
+발표자료는 표지 포함 25장이다. [발표 대본과 구현 보충 노트](presentation/REHEARSAL.md)에 설명 순서와 예상 질문을 정리했다.

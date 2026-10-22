@@ -7,9 +7,11 @@
     "proxy_port": 8703,
     "data_control": "fixed_original_mcp.py에서 jitter만 0으로 고정; 원본 소스 변경 없음",
     "final_response_completed": false,
-    "observed_error": "httpx.ReadTimeout",
     "node": "analysis",
-    "screen": "화면에 남은 진행 기록. payments만 조회, 최종 답변 미완료."
+    "screen": "응답 전에 사용자가 중단한 진행 화면. 이 화면으로 시간 초과나 실패 안내 부재를 판정하지 않는다.",
+    "earlier_reported_error": "httpx.ReadTimeout",
+    "capture_status": "excluded_from_failure_evidence_after_user_clarification",
+    "can_establish_timeout": false
   },
   "after": {
     "source": "all_total_vue_student",
@@ -131,7 +133,7 @@
   "story_revision": {
     "original_user_pngs": 7,
     "inventory": "day1/evidence/screenshot_inventory.json",
-    "presentation": "output/presentation/incident-diagnosis-agent-charts.pptx",
+    "presentation": "output/presentation/incident-diagnosis-agent-revised.pptx",
     "ordering": "five improvement before/after pairs, then three added features implementation/demo",
     "main_slides": 19,
     "appendix_slides": 17,
@@ -141,5 +143,11 @@
     "test_request_limit_seconds": 8,
     "comparison_report_regenerated_without_model_rerun": true,
     "baseline_failure_screen": "before-main-viewport.jpg"
+  },
+  "evidence_correction": {
+    "source": "사용자 정정",
+    "reason": "모델 응답 전에 직접 종료하고 캡처한 화면",
+    "action": "실패 전후 설명·개선5 발표 제외",
+    "raw_benchmark_records_changed": false
   }
 }

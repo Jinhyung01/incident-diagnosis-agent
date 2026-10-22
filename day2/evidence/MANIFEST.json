@@ -23,11 +23,14 @@
     "sha256": "a1319fa11943b9625835a49f174161ca11932d1d9f0e00a3c586054914fc927d",
     "kind": "actual browser UI screenshot",
     "presentation_usable": false,
-    "note": "Legacy collapsed layout. Current story deck uses the genuine before-main-viewport.jpg from the same execution."
+    "note": "응답 전 사용자 중단 화면으로 정정. 시간 초과·최종 실패의 증거로 사용하지 않음.",
+    "excluded_from_current_presentation": true
   },
   "before-main-viewport.jpg": {
     "sha256": "2a0e1e6e0bd8559f51e4f1a24d81c65e6ba07e0125ad8904489d9737468ab8dc",
-    "kind": "actual browser UI screenshot"
+    "kind": "actual browser UI screenshot",
+    "excluded_from_current_presentation": true,
+    "note": "응답 전 사용자 중단 화면으로 정정. 시간 초과·최종 실패의 증거로 사용하지 않음."
   },
   "comparison.jpg": {
     "sha256": "5cc133f83e538b0dbcf345d12a7fbf93ef63509f8dc0a7b1a3370a39007f6280",
