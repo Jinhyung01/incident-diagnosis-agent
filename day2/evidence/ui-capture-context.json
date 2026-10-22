@@ -131,7 +131,7 @@
   "story_revision": {
     "original_user_pngs": 7,
     "inventory": "day1/evidence/screenshot_inventory.json",
-    "presentation": "output/presentation/incident-diagnosis-agent-ready.pptx",
+    "presentation": "output/presentation/incident-diagnosis-agent-explained.pptx",
     "ordering": "five improvement before/after pairs, then three added features implementation/demo",
     "main_slides": 19,
     "appendix_slides": 17,
