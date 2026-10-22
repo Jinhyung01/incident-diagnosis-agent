@@ -18,7 +18,7 @@
 
 캡처 관찰기는 순차 요청용이며 동시 요청 격리 성능을 검증하지 않았다. 최초 저장 이름의 thread 중복 문제를 발견해 요청별 UUID 접미사를 추가했다. 선택한 증빙은 완료된 최종 이벤트와 화면이 일치하는 요청이다. 기록은 덮어쓰지 않는다.
 
-[캡처 목록](../../../presentation/EVIDENCE_INDEX.md) · [실행 래퍼](../../scripts/serve_capture_session.py)
+[캡처 목록](../../../docs/EVIDENCE.md) · [실행 래퍼](../../scripts/serve_capture_session.py)
 
 ## 전체 검토의 추가 UI 증빙
 

@@ -20,3 +20,10 @@ day2/runtime/
 presentation/.build/
 day1/results/*/report.html
 AI-Mini-Project_20261004_2.pdf
+
+*.local.jpg
+presentation/REHEARSAL.md
+presentation/DECK_PLAN.json
+presentation/OUTLINE.md
+presentation/PLAN_COVERAGE.md
+presentation/REVIEW.md

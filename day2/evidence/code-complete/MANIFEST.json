@@ -1,0 +1,537 @@
+{
+  "kind": "actual-source-excerpt-browser-captures",
+  "method": "Read exact source line ranges into a plain HTML viewer, preserve original text and line numbers, compare DOM text with source, capture with the in-app browser. Separate source ranges have separate headers. Not an IDE screenshot.",
+  "application_code_modified": false,
+  "entries": [
+    {
+      "id": "02-registered-targets",
+      "image": "day2/evidence/code-complete/02-registered-targets.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/agent/targets.py",
+          "start": 13,
+          "end": 22,
+          "highlight": [
+            18,
+            19
+          ],
+          "source_sha256": "a5fadadc39feeb90e677445dbfb6150e03360f9f7ead932d18face85760998de",
+          "snippet": "def select_targets(query: str, registered) -> TargetSelection:\n    text = query.lower()\n    known = sorted(\n        (\n            s\n            for s in registered\n            if re.search(rf\"(?<![a-z0-9_-]){re.escape(s)}(?![a-z0-9_-])\", text)\n        ),\n        key=text.index,\n    )",
+          "code_lines": [
+            {
+              "number": 13,
+              "text": "def select_targets(query: str, registered) -> TargetSelection:"
+            },
+            {
+              "number": 14,
+              "text": "    text = query.lower()"
+            },
+            {
+              "number": 15,
+              "text": "    known = sorted("
+            },
+            {
+              "number": 16,
+              "text": "        ("
+            },
+            {
+              "number": 17,
+              "text": "            s"
+            },
+            {
+              "number": 18,
+              "text": "            for s in registered"
+            },
+            {
+              "number": 19,
+              "text": "            if re.search(rf\"(?<![a-z0-9_-]){re.escape(s)}(?![a-z0-9_-])\", text)"
+            },
+            {
+              "number": 20,
+              "text": "        ),"
+            },
+            {
+              "number": 21,
+              "text": "        key=text.index,"
+            },
+            {
+              "number": 22,
+              "text": "    )"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "a25cca5ecab7e6dbefd3b5e83ff67087fdfbf10e27ad9a5228c1be71ec6200d6"
+    },
+    {
+      "id": "02-missing-target",
+      "image": "day2/evidence/code-complete/02-missing-target.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/agent/nodes.py",
+          "start": 95,
+          "end": 104,
+          "highlight": [
+            95,
+            103,
+            104
+          ],
+          "source_sha256": "7e00b66b6572883ef688d12aad011a694f745eea9228a66ed9c7ccf0fa586b70",
+          "snippet": "    if targets:\n        try:\n            server = await deps.mcp.find_prompt(\"incident_analysis_prompt\")\n            procedure = await deps.mcp.get_prompt(\n                \"incident_analysis_prompt\",\n                {\"system_name\": targets[0], \"symptom\": state[\"query\"]},\n                server=server,\n            )\n            result, usage = await asyncio.wait_for(\n                asyncio.to_thread(deps.fast_llm.plan, state[\"query\"], procedure),",
+          "code_lines": [
+            {
+              "number": 95,
+              "text": "    if targets:"
+            },
+            {
+              "number": 96,
+              "text": "        try:"
+            },
+            {
+              "number": 97,
+              "text": "            server = await deps.mcp.find_prompt(\"incident_analysis_prompt\")"
+            },
+            {
+              "number": 98,
+              "text": "            procedure = await deps.mcp.get_prompt("
+            },
+            {
+              "number": 99,
+              "text": "                \"incident_analysis_prompt\","
+            },
+            {
+              "number": 100,
+              "text": "                {\"system_name\": targets[0], \"symptom\": state[\"query\"]},"
+            },
+            {
+              "number": 101,
+              "text": "                server=server,"
+            },
+            {
+              "number": 102,
+              "text": "            )"
+            },
+            {
+              "number": 103,
+              "text": "            result, usage = await asyncio.wait_for("
+            },
+            {
+              "number": 104,
+              "text": "                asyncio.to_thread(deps.fast_llm.plan, state[\"query\"], procedure),"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "070c507fe061de28227f86213da9aa1d12a4a31642938d53b9a38db832f25183"
+    },
+    {
+      "id": "03-state-and-search",
+      "image": "day2/evidence/code-complete/03-state-and-search.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/agent/evidence.py",
+          "start": 19,
+          "end": 23,
+          "highlight": [
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "source_sha256": "120703434b034825a1fc7b117477c44bf53990b16a387e590b6ed1b862771660",
+          "snippet": "    if data[\"status\"] == \"healthy\" and not data.get(\"alerts\"):\n        return \"healthy\"\n    if not data.get(\"alerts\"):\n        return \"insufficient\"\n    return \"investigate\"",
+          "code_lines": [
+            {
+              "number": 19,
+              "text": "    if data[\"status\"] == \"healthy\" and not data.get(\"alerts\"):"
+            },
+            {
+              "number": 20,
+              "text": "        return \"healthy\""
+            },
+            {
+              "number": 21,
+              "text": "    if not data.get(\"alerts\"):"
+            },
+            {
+              "number": 22,
+              "text": "        return \"insufficient\""
+            },
+            {
+              "number": 23,
+              "text": "    return \"investigate\""
+            }
+          ]
+        },
+        {
+          "file": "all_total_vue_student/agent/research.py",
+          "start": 44,
+          "end": 49,
+          "highlight": [
+            47,
+            49
+          ],
+          "source_sha256": "706de473a229e8cfdf2926c1a7033e8bba41a02912be60ed6482a18d2ce02a1a",
+          "snippet": "    for item in collected:\n        if (\n            item.get(\"source\") != \"monitoring\"\n            or monitoring_state(item[\"data\"]) != \"investigate\"\n        ):\n            continue",
+          "code_lines": [
+            {
+              "number": 44,
+              "text": "    for item in collected:"
+            },
+            {
+              "number": 45,
+              "text": "        if ("
+            },
+            {
+              "number": 46,
+              "text": "            item.get(\"source\") != \"monitoring\""
+            },
+            {
+              "number": 47,
+              "text": "            or monitoring_state(item[\"data\"]) != \"investigate\""
+            },
+            {
+              "number": 48,
+              "text": "        ):"
+            },
+            {
+              "number": 49,
+              "text": "            continue"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "541e1d345be6313283a8bee1a290aefd7982f7cbaab4b158daa914d441713d7f"
+    },
+    {
+      "id": "04-book-and-steps",
+      "image": "day2/evidence/code-complete/04-book-and-steps.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/agent/validation.py",
+          "start": 77,
+          "end": 87,
+          "highlight": [
+            78,
+            79,
+            81,
+            84,
+            87
+          ],
+          "source_sha256": "7f93ad11ef333f98cec877dafc6bca0d533cbc43dc3a7a9fb5fcf024bda32a3e",
+          "snippet": "            book = s[\"book\"]\n            if row.get(\"runbook_id\") != (book[\"id\"] if book else \"\"):\n                problems.append(f\"{name}: 매뉴얼 연결 불일치\")\n            ids = row.get(\"step_ids\")\n            steps = runbook_steps(book[\"body\"]) if book else {}\n            if (\n                not isinstance(ids, list)\n                or any(type(n) is not int or n not in steps for n in ids)\n                or len(ids) != len(set(ids))\n            ):\n                problems.append(f\"{name}: 원문에 없는 절차\")",
+          "code_lines": [
+            {
+              "number": 77,
+              "text": "            book = s[\"book\"]"
+            },
+            {
+              "number": 78,
+              "text": "            if row.get(\"runbook_id\") != (book[\"id\"] if book else \"\"):"
+            },
+            {
+              "number": 79,
+              "text": "                problems.append(f\"{name}: 매뉴얼 연결 불일치\")"
+            },
+            {
+              "number": 80,
+              "text": "            ids = row.get(\"step_ids\")"
+            },
+            {
+              "number": 81,
+              "text": "            steps = runbook_steps(book[\"body\"]) if book else {}"
+            },
+            {
+              "number": 82,
+              "text": "            if ("
+            },
+            {
+              "number": 83,
+              "text": "                not isinstance(ids, list)"
+            },
+            {
+              "number": 84,
+              "text": "                or any(type(n) is not int or n not in steps for n in ids)"
+            },
+            {
+              "number": 85,
+              "text": "                or len(ids) != len(set(ids))"
+            },
+            {
+              "number": 86,
+              "text": "            ):"
+            },
+            {
+              "number": 87,
+              "text": "                problems.append(f\"{name}: 원문에 없는 절차\")"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "4d4ab3ac6895b2bf72bb2d7e677fb6bde650174c13a01f31b70830bc54d13304"
+    },
+    {
+      "id": "05-user-name",
+      "image": "day2/evidence/code-complete/05-user-name.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/agent/targets.py",
+          "start": 56,
+          "end": 57,
+          "highlight": [
+            57
+          ],
+          "source_sha256": "a5fadadc39feeb90e677445dbfb6150e03360f9f7ead932d18face85760998de",
+          "snippet": "def remembered_name(history, query=\"\"):\n    messages = [m[\"content\"] for m in history if m.get(\"role\") == \"user\"] + [query]",
+          "code_lines": [
+            {
+              "number": 56,
+              "text": "def remembered_name(history, query=\"\"):"
+            },
+            {
+              "number": 57,
+              "text": "    messages = [m[\"content\"] for m in history if m.get(\"role\") == \"user\"] + [query]"
+            }
+          ]
+        },
+        {
+          "file": "all_total_vue_student/agent/nodes.py",
+          "start": 52,
+          "end": 58,
+          "highlight": [
+            52,
+            55
+          ],
+          "source_sha256": "7e00b66b6572883ef688d12aad011a694f745eea9228a66ed9c7ccf0fa586b70",
+          "snippet": "    name = remembered_name(state.get(\"history\", []), query)\n    if re.search(r\"이름.*(?:뭐|무엇|기억)\", query):\n        reply = (\n            f\"사용자님의 이름은 {name}입니다.\"\n            if name\n            else \"아직 이름을 확인하지 못했어요. 이름을 알려주세요.\"\n        )",
+          "code_lines": [
+            {
+              "number": 52,
+              "text": "    name = remembered_name(state.get(\"history\", []), query)"
+            },
+            {
+              "number": 53,
+              "text": "    if re.search(r\"이름.*(?:뭐|무엇|기억)\", query):"
+            },
+            {
+              "number": 54,
+              "text": "        reply = ("
+            },
+            {
+              "number": 55,
+              "text": "            f\"사용자님의 이름은 {name}입니다.\""
+            },
+            {
+              "number": 56,
+              "text": "            if name"
+            },
+            {
+              "number": 57,
+              "text": "            else \"아직 이름을 확인하지 못했어요. 이름을 알려주세요.\""
+            },
+            {
+              "number": 58,
+              "text": "        )"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "b1893624e50b953cb6bf0e6bf84d364e33d5b1aad69944372b2de6c47ef15964"
+    },
+    {
+      "id": "06-rag-search",
+      "image": "day2/evidence/code-complete/06-rag-search.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/agent/retrieval.py",
+          "start": 98,
+          "end": 108,
+          "highlight": [
+            100,
+            102,
+            108
+          ],
+          "source_sha256": "a055571808051fed75963032c9417c1cf771e92fc98710685c12a6b85c206c7c",
+          "snippet": "    def search(self, query, k=2):\n        self.build()\n        query_vector = self.embedder.embed([query])[0]\n        with sqlite3.connect(self.database) as db:\n            rows = db.execute(\"SELECT id,body,vector FROM documents\").fetchall()\n        ranked = []\n        for id, body, serialized in rows:\n            vector = json.loads(serialized)\n            if len(vector) != len(query_vector):\n                raise ValueError(\"Embedding dimension mismatch\")\n            score = sum(a * b for a, b in zip(query_vector, vector))",
+          "code_lines": [
+            {
+              "number": 98,
+              "text": "    def search(self, query, k=2):"
+            },
+            {
+              "number": 99,
+              "text": "        self.build()"
+            },
+            {
+              "number": 100,
+              "text": "        query_vector = self.embedder.embed([query])[0]"
+            },
+            {
+              "number": 101,
+              "text": "        with sqlite3.connect(self.database) as db:"
+            },
+            {
+              "number": 102,
+              "text": "            rows = db.execute(\"SELECT id,body,vector FROM documents\").fetchall()"
+            },
+            {
+              "number": 103,
+              "text": "        ranked = []"
+            },
+            {
+              "number": 104,
+              "text": "        for id, body, serialized in rows:"
+            },
+            {
+              "number": 105,
+              "text": "            vector = json.loads(serialized)"
+            },
+            {
+              "number": 106,
+              "text": "            if len(vector) != len(query_vector):"
+            },
+            {
+              "number": 107,
+              "text": "                raise ValueError(\"Embedding dimension mismatch\")"
+            },
+            {
+              "number": 108,
+              "text": "            score = sum(a * b for a, b in zip(query_vector, vector))"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "bdf6aacbbfbc325fd15540044881c5c24bea9b52cb88ab0175cb6a9c7a7dc71a"
+    },
+    {
+      "id": "07-evidence-payload",
+      "image": "day2/evidence/code-complete/07-evidence-payload.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/agent/evidence.py",
+          "start": 55,
+          "end": 65,
+          "highlight": [
+            57,
+            59,
+            60,
+            64,
+            65
+          ],
+          "source_sha256": "120703434b034825a1fc7b117477c44bf53990b16a387e590b6ed1b862771660",
+          "snippet": "        \"services\": [\n            {\n                \"system_name\": s[\"system_name\"],\n                \"state\": s[\"state\"],\n                \"monitoring\": s[\"data\"],\n                \"runbook\": s[\"book\"],\n            }\n            for s in sections\n        ],\n        \"unregistered\": list(unknown),\n        \"unconfirmed_targets\": [s for s in targets if s not in observed],",
+          "code_lines": [
+            {
+              "number": 55,
+              "text": "        \"services\": ["
+            },
+            {
+              "number": 56,
+              "text": "            {"
+            },
+            {
+              "number": 57,
+              "text": "                \"system_name\": s[\"system_name\"],"
+            },
+            {
+              "number": 58,
+              "text": "                \"state\": s[\"state\"],"
+            },
+            {
+              "number": 59,
+              "text": "                \"monitoring\": s[\"data\"],"
+            },
+            {
+              "number": 60,
+              "text": "                \"runbook\": s[\"book\"],"
+            },
+            {
+              "number": 61,
+              "text": "            }"
+            },
+            {
+              "number": 62,
+              "text": "            for s in sections"
+            },
+            {
+              "number": 63,
+              "text": "        ],"
+            },
+            {
+              "number": 64,
+              "text": "        \"unregistered\": list(unknown),"
+            },
+            {
+              "number": 65,
+              "text": "        \"unconfirmed_targets\": [s for s in targets if s not in observed],"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "72e5057eb743965a1575a6d8867260acf1495669a1c62bd02e902ee83e4271d9"
+    },
+    {
+      "id": "08-tests-and-evaluation",
+      "image": "day2/evidence/code-complete/08-tests-and-evaluation.jpg",
+      "parts": [
+        {
+          "file": "all_total_vue_student/tests/test_core.py",
+          "start": 112,
+          "end": 115,
+          "highlight": [
+            114,
+            115
+          ],
+          "source_sha256": "d4cab9b3daa13a9d021c52791c7b5727fbff24e475afde38ea7364dba314eabc",
+          "snippet": "    def test_reject_changed_cpu(self):\n        d = copy.deepcopy(VALID)\n        d[\"sections\"][0][\"cpu_percent\"] = 91\n        self.assertFalse(self.valid(d))",
+          "code_lines": [
+            {
+              "number": 112,
+              "text": "    def test_reject_changed_cpu(self):"
+            },
+            {
+              "number": 113,
+              "text": "        d = copy.deepcopy(VALID)"
+            },
+            {
+              "number": 114,
+              "text": "        d[\"sections\"][0][\"cpu_percent\"] = 91"
+            },
+            {
+              "number": 115,
+              "text": "        self.assertFalse(self.valid(d))"
+            }
+          ]
+        },
+        {
+          "file": "day1/scripts/run_baseline.py",
+          "start": 174,
+          "end": 176,
+          "highlight": [
+            174,
+            175,
+            176
+          ],
+          "source_sha256": "3c1b2ea17e324bc13552f324bdca826325ea9e8ee28d741441f37470bc22c515",
+          "snippet": "        \"missing_targets\": sorted(expected - actual),\n        \"unexpected_targets\": sorted(actual - expected),\n        \"target_scope_pass\": actual == expected,",
+          "code_lines": [
+            {
+              "number": 174,
+              "text": "        \"missing_targets\": sorted(expected - actual),"
+            },
+            {
+              "number": 175,
+              "text": "        \"unexpected_targets\": sorted(actual - expected),"
+            },
+            {
+              "number": 176,
+              "text": "        \"target_scope_pass\": actual == expected,"
+            }
+          ]
+        }
+      ],
+      "image_sha256": "c87f66d56e11bd51fe147f5702e13bc1f28b102d60f53a33c44cda53b042c66c"
+    }
+  ]
+}
