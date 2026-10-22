@@ -12,7 +12,7 @@ md=f'''# 운영 장애 진단 AI 에이전트 개선
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-presentation.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-no-appendix.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -190,7 +190,7 @@ md+=f'''
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 포함 본편 19장(노트 목표 4분 44초), 질문용 부록 17장으로 구성했다.
+AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 포함 26장으로 구성했다. 최초 사용자 캡처 7개를 모두 본문에 넣고 같은 질문의 개선 결과를 바로 연결했다. 노트 배분 목표는 4분 57초이며 실제 구두 리허설은 별도 확인한다.
 '''
 (ROOT/'REPORT.md').write_text(md)
 print('Report generated from saved results.')

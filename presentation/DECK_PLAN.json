@@ -6,13 +6,14 @@
     "main_promise": "사용자 최초 캡처 → 문제 → 구현 → 같은 질문의 개선 결과를 연결",
     "output_lane": "native-pptx",
     "format": "16:9",
-    "slide_count": 36,
-    "narrative_spine": "표지·베이스 소개 / 개선5개 전후 / 추가기능3개 구현·시연 / 통제비교 / 한계 / 전체원본·보조사례",
+    "slide_count": 26,
+    "narrative_spine": "표지·베이스 소개 / 최초7개 질문의 문제와 바로 이어지는 개선 결과 / 실패 처리 / 추가기능3개 구현·시연 / 통제비교 / 한계",
     "design_posture": "White evidence pages, unaltered original PNGs and real UI captures, native readable findings",
     "assumptions": [
-      "본편19장·발표노트목표284초, 부록17장은질의·원본검토용",
-      "모든 사용자 최초7장 포함, 최초 무작위 지표와 고정 재실행 수치를 같은 실행으로 혼동하지 않음",
-      "시간초과는별도지연주입제어시험,20건지연통계와별개"
+      "표지 포함 26장 전체 발표, 노트 배분 297초. 실제 구두 시간은 별도 측정한다.",
+      "최초 사용자 PNG 7개를 모두 본문에 포함하고 같은 질문의 개선 결과와 연속 배치한다.",
+      "최초 무작위 지표와 고정 재실행의 수치 차이는 개선 효과로 비교하지 않는다.",
+      "시간 초과 지연 주입 시험은 별도 제어 시험이며 20건 측정과 구분한다."
     ]
   },
   "slides": [
@@ -26,7 +27,7 @@
       "evidence": [
         "REPORT.md"
       ],
-      "speaker_note": "[8초] 제공된 Base AI Project를 직접 실행한 뒤, 응답에서 발견한 문제를 개선했습니다. 이진형입니다.",
+      "speaker_note": "[6초] 제공된 Base AI Project의 실제 응답에서 문제를 찾아 개선했습니다. 이진형입니다.",
       "source_refs": [
         "REPORT.md"
       ],
@@ -35,7 +36,9 @@
       },
       "image": null,
       "caption": "",
-      "values": null
+      "values": null,
+      "source_slide_number": 1,
+      "duration_seconds": 6
     },
     {
       "number": 2,
@@ -48,7 +51,7 @@
         "day1/baseline/original_v2/agent",
         "all_total_vue_student/doc/regression_test_queries.md"
       ],
-      "speaker_note": "[12초] 서비스 이름과 증상을 입력하면 모니터링과 매뉴얼을 조회해 답변합니다. 제가 처음 실행한 사진에서 문제를 짚고, 같은 질문의 개선 결과를 보여드린 뒤 추가 기능을 설명하겠습니다.",
+      "speaker_note": "[11초] 서비스와 증상을 입력하면 MCP로 지표와 매뉴얼을 조회하고 보고합니다. 처음 실행한 응답의 문제와 같은 질문의 개선 결과를 보여드리겠습니다. 두 화면의 수치는 다른 시점입니다.",
       "source_refs": [
         "day1/baseline/original_v2/agent",
         "all_total_vue_student/doc/regression_test_queries.md"
@@ -96,7 +99,9 @@
           "수집 자료로 운영 보고서 작성"
         ]
       ],
-      "takeaway": "최초 캡처와 개선 화면은 서로 다른 실행이다.\n수치 자체의 변화는 개선 효과로 비교하지 않는다."
+      "takeaway": "최초 캡처와 개선 화면은 서로 다른 실행이다.\n수치 자체의 변화는 개선 효과로 비교하지 않는다.",
+      "source_slide_number": 2,
+      "duration_seconds": 11
     },
     {
       "number": 3,
@@ -109,7 +114,7 @@
         "day1/evidence/user-screenshots/04-payments-cache.png",
         "day1/evidence/OBSERVATIONS.md"
       ],
-      "speaker_note": "[15초] 처음 보낸 원본 사진입니다. payments와 cache를 함께 물었는데 수집 사실에는 payments만 있습니다. cache 자료 없이 공통 원인 후보를 제시했습니다. 이 관찰을 바탕으로 조사 누락을 개선했습니다.",
+      "speaker_note": "[11초] payments와 cache를 함께 물었지만 수집 사실에는 payments만 있습니다. cache를 조회하지 않고 공통 원인을 추측했습니다.",
       "source_refs": [
         "day1/evidence/user-screenshots/04-payments-cache.png",
         "day1/evidence/OBSERVATIONS.md"
@@ -125,7 +130,9 @@
       "quote": "“트래픽 급증 또는 특정 요청 패턴”",
       "pair_id": "scope",
       "stage": "before",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘"
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 3,
+      "duration_seconds": 11
     },
     {
       "number": 4,
@@ -138,7 +145,7 @@
         "day2/evidence/review-q06-first.jpg",
         "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
       ],
-      "speaker_note": "[16초] 대상 목록을 계획과 별도로 추출하고 누락 작업을 보완합니다. 같은 질문에서 payments와 cache를 각각 조회했습니다. CPU·메모리 수치는 별도 시점의 고정 모의 값으로 수치 하락이 개선 성과라는 뜻은 아닙니다.",
+      "speaker_note": "[11초] 요청 대상 목록을 계획과 대조해 빠진 조사를 보완했습니다. 같은 질문에 두 서비스를 각각 조회합니다. 수치 하락을 개선 효과로 해석하지 않습니다.",
       "source_refs": [
         "day2/evidence/review-q06-first.jpg",
         "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
@@ -152,7 +159,9 @@
       "method": "명시한 서비스 전체를 계획과 대조해 빠진 조사를 추가",
       "pair_id": "scope",
       "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘"
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 4,
+      "duration_seconds": 11
     },
     {
       "number": 5,
@@ -165,7 +174,7 @@
         "day2/evidence/review-q06-second.jpg",
         "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
       ],
-      "speaker_note": "[10초] 앞 장과 같은 실행의 이어지는 화면입니다. 두 매뉴얼과 두 서비스 근거가 표시되고 의존 관계·동시 변화 자료가 없어 공통 원인은 미확인으로 남깁니다. 다음 개선은 요청 대상을 다른 서비스로 바꾸는 정책입니다.",
+      "speaker_note": "[6초] 같은 응답의 다음 화면입니다. 두 서비스의 근거를 남기고 공통 원인은 미확인으로 표시합니다.",
       "source_refs": [
         "day2/evidence/review-q06-second.jpg",
         "day2/results/contextual-captures/a19f84a4-7221-45f6-938e-f8dac295ea28-eca497a3.json"
@@ -179,10 +188,101 @@
       "method": "서비스별 근거는 제시하고, 공통 원인 확정은 보류",
       "pair_id": "scope",
       "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘"
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 5,
+      "duration_seconds": 6
     },
     {
       "number": 6,
+      "action_title": "개선 1 전 · gateway만 조회했다",
+      "role": "problem",
+      "key_message": "사용자 2026-10-20 최초 실행",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/01-gateway-payments.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/01-gateway-payments.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "[8초] gateway에서 payments로 가는 타임아웃도 gateway만 조회했습니다. 같은 대상 누락 문제가 다른 질문에도 나타났습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/01-gateway-payments.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/01-gateway-payments.png",
+      "caption": "사용자 2026-10-20 최초 실행",
+      "values": null,
+      "insight": "gateway만 조회\npayments 상태는 미수집",
+      "explain": "문제: 연결된 두 서비스 중\n상대 서비스의 근거가 빠짐",
+      "quote": "수집된 사실: 모니터링 gateway-service",
+      "pair_id": "gateway",
+      "stage": "before",
+      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+      "source_slide_number": 21,
+      "duration_seconds": 8
+    },
+    {
+      "number": 7,
+      "action_title": "개선 1 후 · gateway·payments를 각각 조사했다 1/2",
+      "role": "evidence",
+      "key_message": "gateway 네트워크·payments CPU를 각각 조회",
+      "layout": "screen",
+      "visual": "day2/evidence/review-q04-first.jpg",
+      "evidence": [
+        "day2/evidence/review-q04-first.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "speaker_note": "[8초] 개선 후 gateway와 payments를 각각 조사합니다. 서비스마다 관측한 알림에 맞춰 문서를 찾습니다.",
+      "source_refs": [
+        "day2/evidence/review-q04-first.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q04-first.jpg",
+      "caption": "gateway 네트워크·payments CPU를 각각 조회",
+      "values": null,
+      "method": "명시한 두 서비스의 조사 작업을 각각 보완",
+      "pair_id": "gateway",
+      "stage": "after",
+      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+      "source_slide_number": 22,
+      "duration_seconds": 8
+    },
+    {
+      "number": 8,
+      "action_title": "개선 1 후 · gateway·payments를 각각 조사했다 2/2",
+      "role": "evidence",
+      "key_message": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
+      "layout": "screen",
+      "visual": "day2/evidence/review-q04-second.jpg",
+      "evidence": [
+        "day2/evidence/review-q04-second.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "speaker_note": "[5초] 이어지는 화면에 두 서비스와 문서가 표시됩니다. 의존 관계의 원인은 확정하지 않습니다.",
+      "source_refs": [
+        "day2/evidence/review-q04-second.jpg",
+        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q04-second.jpg",
+      "caption": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
+      "values": null,
+      "method": "명시한 두 서비스의 조사 작업을 각각 보완",
+      "pair_id": "gateway",
+      "stage": "after",
+      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
+      "source_slide_number": 23,
+      "duration_seconds": 5
+    },
+    {
+      "number": 9,
       "action_title": "개선 2 전 · billing을 묻자 auth를 조회했다",
       "role": "case",
       "key_message": "사용자가 직접 실행한 2026-10-20 원본 캡처",
@@ -192,7 +292,7 @@
         "day1/evidence/user-screenshots/06-billing.png",
         "day1/evidence/OBSERVATIONS.md"
       ],
-      "speaker_note": "[12초] billing을 물었지만 실제 수집 사실은 auth입니다. 원래 의도된 기본 정책이지만 사용자가 다른 서비스의 수치로 판단하게 되므로 대상 확인 안내로 정책을 바꿨습니다.",
+      "speaker_note": "[9초] billing을 요청했지만 auth를 조회했습니다. 원래 기본 정책을 요청 대상 확인 정책으로 변경했습니다.",
       "source_refs": [
         "day1/evidence/user-screenshots/06-billing.png",
         "day1/evidence/OBSERVATIONS.md"
@@ -208,10 +308,12 @@
       "quote": "수집된 사실: 모니터링 auth-service",
       "pair_id": "unknown",
       "stage": "before",
-      "query": "billing-service 응답이 느려요"
+      "query": "billing-service 응답이 느려요",
+      "source_slide_number": 6,
+      "duration_seconds": 9
     },
     {
-      "number": 7,
+      "number": 10,
       "action_title": "개선 2 후 · 미등록이면 등록 이름을 다시 묻는다",
       "role": "case",
       "key_message": "같은 질문의 실제 개선 응답 · 코드가 구성한 확인 안내",
@@ -221,7 +323,7 @@
         "day2/evidence/context-unknown-frame.jpg",
         "day2/results/contextual-captures/55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json"
       ],
-      "speaker_note": "[14초] 등록 목록에 없는 대상은 다른 서비스로 대체하지 않습니다. 실제 조회가 없음을 표시하고 확인할 등록 이름을 요청합니다. 이 경로는 LLM이 작성한 보고서가 아닌 코드 안내입니다.",
+      "speaker_note": "[9초] 미등록 서비스는 대체 조회하지 않고 등록 이름을 다시 묻습니다. 실제 조회가 없다는 점도 표시합니다.",
       "source_refs": [
         "day2/evidence/context-unknown-frame.jpg",
         "day2/results/contextual-captures/55c381af-5efe-447d-9430-bf83a5b11c9d-c848919a.json"
@@ -235,10 +337,72 @@
       "method": "등록 목록과 대조하고, 임의 대체·모니터링·보고 생성을 생략",
       "pair_id": "unknown",
       "stage": "after",
-      "query": "billing-service 응답이 느려요"
+      "query": "billing-service 응답이 느려요",
+      "source_slide_number": 7,
+      "duration_seconds": 9
     },
     {
-      "number": 8,
+      "number": 11,
+      "action_title": "개선 2 전 · 로그인만으로 auth를 조회했다",
+      "role": "problem",
+      "key_message": "사용자 2026-10-20 최초 실행",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/05-login.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/05-login.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "[7초] 로그인이라는 말만으로 auth를 조회하던 기본 정책도 같은 문제였습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/05-login.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/05-login.png",
+      "caption": "사용자 2026-10-20 최초 실행",
+      "values": null,
+      "insight": "서비스 이름이 없는데\nauth-service로 조회",
+      "explain": "원래 auth 기본 정책을\n대상 이름 확인 요청으로 변경",
+      "quote": "모니터링 auth-service",
+      "pair_id": "login",
+      "stage": "before",
+      "query": "로그인 응답이 느려요, 원인 확인해주세요",
+      "source_slide_number": 24,
+      "duration_seconds": 7
+    },
+    {
+      "number": 12,
+      "action_title": "개선 2 후 · 서비스 이름을 먼저 확인한다",
+      "role": "evidence",
+      "key_message": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
+      "layout": "screen",
+      "visual": "day2/evidence/review-q07-answer.jpg",
+      "evidence": [
+        "day2/evidence/review-q07-answer.jpg",
+        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json"
+      ],
+      "speaker_note": "[7초] 개선 후에는 서비스 이름을 먼저 묻습니다. 확인 안내는 코드 응답이며 보고 모델을 호출하지 않습니다.",
+      "source_refs": [
+        "day2/evidence/review-q07-answer.jpg",
+        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q07-answer.jpg",
+      "caption": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
+      "values": null,
+      "method": "대상이 명시되지 않으면 조사 대신 확인 요청",
+      "pair_id": "login",
+      "stage": "after",
+      "query": "로그인 응답이 느려요, 원인 확인해주세요",
+      "source_slide_number": 25,
+      "duration_seconds": 7
+    },
+    {
+      "number": 13,
       "action_title": "개선 3 전 · 정상 web에 DB 장애 절차를 연결했다",
       "role": "case",
       "key_message": "사용자가 직접 실행한 2026-10-20 원본 캡처",
@@ -248,7 +412,7 @@
         "day1/evidence/user-screenshots/03-web-auth.png",
         "day1/evidence/OBSERVATIONS.md"
       ],
-      "speaker_note": "[14초] 이 사진도 처음 사용자가 보낸 원본입니다. healthy이고 활성 알림이 없는데 DB Down 절차가 선택됐습니다. 키워드 분류의 기본값과 상태 구분을 보완했습니다.",
+      "speaker_note": "[11초] 원래 web은 정상이고 알림도 없는데 DB Down 문서를 선택했습니다. auth 조사도 빠져 있습니다.",
       "source_refs": [
         "day1/evidence/user-screenshots/03-web-auth.png",
         "day1/evidence/OBSERVATIONS.md"
@@ -264,10 +428,12 @@
       "quote": "“DB Down 대응 절차”",
       "pair_id": "manual",
       "stage": "before",
-      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘"
+      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+      "source_slide_number": 8,
+      "duration_seconds": 11
     },
     {
-      "number": 9,
+      "number": 14,
       "action_title": "개선 3 후 · 정상·장애를 서비스별로 구분했다",
       "role": "case",
       "key_message": "같은 질문의 별도 실행 · web 정상, auth 지연 매뉴얼",
@@ -277,7 +443,7 @@
         "day2/evidence/context-healthy-answer.jpg",
         "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
       ],
-      "speaker_note": "[16초] 상태를 정상·장애·정보 부족으로 나눕니다. 정상 web에는 문서를 붙이지 않고 auth에는 지연 문서를 연결합니다. 문서 선택은 뒤에서 설명할 RAG 검색으로 구현했습니다. 이 실행의34%·48%는 최초41%·51.5%와 다른 시점이며 수치 자체를 개선 효과로 비교하지 않습니다.",
+      "speaker_note": "[12초] 정상·장애·정보 부족을 구분합니다. 정상 web은 문서를 생략하고 auth는 지연 문서를 연결합니다. 최초 사진과 수치가 다른 별도 실행입니다.",
       "source_refs": [
         "day2/evidence/context-healthy-answer.jpg",
         "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
@@ -291,10 +457,12 @@
       "method": "상태를 먼저 분기: 정상은 검색 생략, 장애는 관측 알림으로 검색",
       "pair_id": "manual",
       "stage": "after",
-      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘"
+      "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
+      "source_slide_number": 9,
+      "duration_seconds": 12
     },
     {
-      "number": 10,
+      "number": 15,
       "action_title": "개선 4 전 · 로그 미수집인데 분석 결과처럼 답했다",
       "role": "case",
       "key_message": "사용자가 직접 실행한 2026-10-20 원본 캡처",
@@ -304,7 +472,7 @@
         "day1/evidence/user-screenshots/02-payments-cpu.png",
         "day1/evidence/OBSERVATIONS.md"
       ],
-      "speaker_note": "[14초] payments CPU 질문의 원래 답변입니다. 화면에는 로그 분석 결과라고 쓰였지만 실제 도구는 로그를 조회하지 않았습니다. 패턴 분석 LLM 출력을 관측한 사실과 구분해야 합니다.",
+      "speaker_note": "[12초] payments 답변에는 로그 분석 결과라고 쓰였지만 실제 로그 조회가 없습니다. 추론을 수집한 사실처럼 표현한 문제입니다.",
       "source_refs": [
         "day1/evidence/user-screenshots/02-payments-cpu.png",
         "day1/evidence/OBSERVATIONS.md"
@@ -320,10 +488,12 @@
       "quote": "“로그 분석 결과 특이 패턴 없음.”",
       "pair_id": "ground",
       "stage": "before",
-      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요"
+      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
+      "source_slide_number": 10,
+      "duration_seconds": 12
     },
     {
-      "number": 11,
+      "number": 16,
       "action_title": "개선 4 후 · 관측과 매뉴얼 원문으로 보고했다",
       "role": "case",
       "key_message": "같은 질문의 실제 개선 응답 · 로그 미수집·조치 미실행 명시",
@@ -333,7 +503,7 @@
         "day2/evidence/review-q01-answer.jpg",
         "day2/results/contextual-captures/3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json"
       ],
-      "speaker_note": "[16초] 모델이 구조화 JSON으로 서비스·수치·문서·절차 번호를 선택합니다. 코드가 근거와 대조한 뒤 절차는 원문으로 표시해 조건을 유지합니다. 실제 로그 미수집과 조치 미실행을 밝힙니다. 자유 생성 문장 전체의 의미 검증이나 조치 조건의 자동 판정은 아닙니다.",
+      "speaker_note": "[16초] 모델이 서비스·수치·문서·절차 번호를 JSON으로 선택하면 코드가 근거와 대조합니다. 통과 후 매뉴얼 원문을 표시해 조치 조건을 보존하고, 로그 미수집과 조치 미실행도 밝힙니다.",
       "source_refs": [
         "day2/evidence/review-q01-answer.jpg",
         "day2/results/contextual-captures/3e26b7de-a591-4252-a03e-e3b7abfd824e-8df47df5.json"
@@ -347,10 +517,72 @@
       "method": "서비스·수치·문서·절차 번호 검증 후 원문으로 출력",
       "pair_id": "ground",
       "stage": "after",
-      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요"
+      "query": "payments-service 결제 응답이 느려지고 CPU가 치솟았어요, 원인 확인해주세요",
+      "source_slide_number": 11,
+      "duration_seconds": 16
     },
     {
-      "number": 12,
+      "number": 17,
+      "action_title": "대화 회귀 전 · 사용자 이름을 자기소개에 섞었다",
+      "role": "problem",
+      "key_message": "사용자 2026-10-20 최초 실행",
+      "layout": "before",
+      "visual": "day1/evidence/user-screenshots/07-name-recall.png",
+      "evidence": [
+        "day1/evidence/user-screenshots/07-name-recall.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "speaker_note": "[7초] 이름 질문에서는 사용자 이름 민수를 비서 자기소개에 섞었습니다. 이 사례도 회귀 검증에 넣었습니다.",
+      "source_refs": [
+        "day1/evidence/user-screenshots/07-name-recall.png",
+        "day1/evidence/OBSERVATIONS.md"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day1/evidence/user-screenshots/07-name-recall.png",
+      "caption": "사용자 2026-10-20 최초 실행",
+      "values": null,
+      "insight": "사용자 이름 민수가\n비서의 자기소개에 섞임",
+      "explain": "문제: 사용자·assistant 역할 구분\n회귀 검증에 이름·재시작 사례 포함",
+      "quote": "“민수라는 이름으로…”",
+      "pair_id": "name",
+      "stage": "before",
+      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?",
+      "source_slide_number": 26,
+      "duration_seconds": 7
+    },
+    {
+      "number": 18,
+      "action_title": "대화 회귀 후 · 사용자 이름을 구분해 답한다",
+      "role": "evidence",
+      "key_message": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
+      "layout": "screen",
+      "visual": "day2/evidence/review-q10-answer.jpg",
+      "evidence": [
+        "day2/evidence/review-q10-answer.jpg",
+        "day2/results/contextual-captures/review-suite.json"
+      ],
+      "speaker_note": "[9초] 사용자 역할의 이름 선언만 이력에서 읽도록 바꿨습니다. 같은 두 턴에 민수라고 답합니다. 모델의 장기 기억 성능을 측정한 것은 아닙니다.",
+      "source_refs": [
+        "day2/evidence/review-q10-answer.jpg",
+        "day2/results/contextual-captures/review-suite.json"
+      ],
+      "native_content": {
+        "kind": "default"
+      },
+      "image": "day2/evidence/review-q10-answer.jpg",
+      "caption": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
+      "values": null,
+      "method": "사용자 역할의 선언만 저장·조회, 같은 DB·대화로 재시작 검증",
+      "pair_id": "name",
+      "stage": "after",
+      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?",
+      "source_slide_number": 27,
+      "duration_seconds": 9
+    },
+    {
+      "number": 19,
       "action_title": "개선 5 전 · 추가 재현에서는 답변을 완료하지 못했다",
       "role": "case",
       "key_message": "별도 원본 재현 · day2/evidence/ui-capture-context.json에 오류 기록",
@@ -361,7 +593,7 @@
         "day2/evidence/ui-capture-context.json",
         "day2/evidence/ui-capture-context.json"
       ],
-      "speaker_note": "[12초] 실패 처리는 별도 원본 재현으로 확인했습니다. 같은 payments·cache 질문에서 분석 단계 ReadTimeout이 발생했고 최종 응답을 완료하지 못했습니다. 사용자의 최초 성공 응답 사진과 다른 실행이라는 점을 구분합니다.",
+      "speaker_note": "[9초] 별도 원본 재현에서는 같은 payments·cache 질문이 분석 단계 ReadTimeout으로 끝났습니다. 최초 성공 응답 사진과 다른 실행입니다.",
       "source_refs": [
         "day2/evidence/before-main-viewport.jpg",
         "day2/evidence/ui-capture-context.json",
@@ -378,10 +610,12 @@
       "quote": "진행 화면에 payments 조회만 남음",
       "pair_id": "failure",
       "stage": "before",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘"
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 12,
+      "duration_seconds": 9
     },
     {
-      "number": 13,
+      "number": 20,
       "action_title": "개선 5 후 · 시간 제한을 알리고 근거를 보존했다 1/2",
       "role": "case",
       "key_message": "제어 시험: 같은 질문·생성 지연 30초·요청 상한 8초(기본 60초)",
@@ -393,7 +627,7 @@
         "all_total_vue_student/server.py",
         "all_total_vue_student/agent/nodes.py"
       ],
-      "speaker_note": "[13초] 같은 질문으로 보고 의존성에30초 지연을 주고 시험 상한을8초로 낮췄습니다.8.004초에 시간 제한을 알리면서 이미 수집한 관측을 보존했습니다. 검증된 모델 보고 성공이 아니라 코드가 구성한 제한 안내입니다.",
+      "speaker_note": "[12초] 같은 질문에 보고 의존성 지연을 주고 시험 상한을 8초로 낮췄습니다. 8.004초에 제한 안내와 수집 근거를 반환했습니다. 기본 상한은 60초입니다.",
       "source_refs": [
         "day2/evidence/story-timeout-first.jpg",
         "day2/results/story-timeout/timeout.json",
@@ -409,10 +643,12 @@
       "method": "생성 512토큰·호출 25초·요청 60초, 검증 실패는 최대 2회 후 안내",
       "pair_id": "failure",
       "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘"
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 13,
+      "duration_seconds": 12
     },
     {
-      "number": 14,
+      "number": 21,
       "action_title": "개선 5 후 · 두 서비스의 관측을 남겼다 2/2",
       "role": "case",
       "key_message": "앞 장과 같은 제어 시험 · 일반 성능·20건 통계에 합산하지 않음",
@@ -422,7 +658,7 @@
         "day2/evidence/story-timeout-second.jpg",
         "day2/results/story-timeout/timeout.json"
       ],
-      "speaker_note": "[8초] 같은 제한 시험의 연속 화면입니다. cache까지 두 서비스의 수집 근거가 남아 있습니다. 지금까지가 기존 동작 개선이고, 다음부터 추가 기능 세 개를 각각 설명하겠습니다.",
+      "speaker_note": "[5초] 이어지는 화면에 두 서비스의 관측을 보존했습니다. 여기까지 기존 동작 개선입니다.",
       "source_refs": [
         "day2/evidence/story-timeout-second.jpg",
         "day2/results/story-timeout/timeout.json"
@@ -433,13 +669,15 @@
       "image": "day2/evidence/story-timeout-second.jpg",
       "caption": "앞 장과 같은 제어 시험 · 일반 성능·20건 통계에 합산하지 않음",
       "values": null,
-      "method": "시간 초과 시 현재까지 모은 서비스·수치·매뉴얼로 안내",
+      "method": "시간 초과 시 이미 수집한 서비스별 관측과 미확인 사항 보존",
       "pair_id": "failure",
       "stage": "after",
-      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘"
+      "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
+      "source_slide_number": 14,
+      "duration_seconds": 5
     },
     {
-      "number": 15,
+      "number": 22,
       "action_title": "추가 1 · RAG로 대응 매뉴얼을 검색한다",
       "role": "mechanism",
       "key_message": "검색 결과와 원문을 연결 · 유사도는 정답 확률이 아님",
@@ -452,7 +690,7 @@
         "all_total_vue_student/mcp_server.py",
         "day2/results/contextual-captures/cc4c77a5-5311-4797-9942-36ec51f66841-17dcde1e.json"
       ],
-      "speaker_note": "[22초] 첫 추가 기능은 RAG 검색입니다. 서비스별 관측 알림을 bge-m3로 임베딩하고 SQLite의6개 문서와 코사인 유사도를 계산합니다.0.35이상 후보에서 첫 문서를 골라 MCP Resource 원문을 읽습니다. 실제 log 질의에서는 disk-full이 연결되고 유사도0.673이 표시됩니다. 유사도는 정답 확률이 아닙니다.",
+      "speaker_note": "[22초] 첫 추가 기능은 RAG입니다. 서비스별 알림을 bge-m3로 임베딩해 SQLite의 6개 문서와 코사인 유사도를 계산합니다. 기준 이상 후보의 첫 문서를 MCP Resource로 읽습니다. 실제 log 질문에 disk-full이 연결됩니다. 유사도는 정답 확률이 아닙니다.",
       "source_refs": [
         "day2/evidence/review-q03-answer.jpg",
         "all_total_vue_student/agent/retrieval.py",
@@ -471,10 +709,12 @@
         "SQLite 벡터와 코사인 검색",
         "MCP로 선택한 문서 원문 조회"
       ],
-      "result": "실제 실행\nlog-service → disk-full\n유사도 0.673"
+      "result": "실제 실행\nlog-service → disk-full\n유사도 0.673",
+      "source_slide_number": 15,
+      "duration_seconds": 22
     },
     {
-      "number": 16,
+      "number": 23,
       "action_title": "추가 2 · 답변에 사용한 근거를 화면에 표시한다",
       "role": "proof",
       "key_message": "모델 문장과 별도로 실제 수집 객체에서 근거 표 구성",
@@ -487,7 +727,7 @@
         "all_total_vue_student/web_chat.html",
         "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
       ],
-      "speaker_note": "[18초] 두 번째는 근거 화면입니다. 서버가 실제 수집한 서비스·모니터링·문서 객체를 최종 이벤트에 넣고 화면은 그 객체로 표를 만듭니다. 모델이 주장한 출처를 그대로 믿는 방식이 아닙니다. web에는 문서 없음, auth에는 지연 문서와 유사도, 미확인 항목을 표시합니다.",
+      "speaker_note": "[17초] 두 번째는 근거 화면입니다. 실제 수집 객체를 최종 이벤트에 넣고 화면에서 표로 만듭니다. 실제 조회 서비스·수치·참고 매뉴얼과 미확인 사항을 보여줍니다.",
       "source_refs": [
         "day2/evidence/context-healthy-evidence.jpg",
         "all_total_vue_student/agent/evidence.py",
@@ -506,10 +746,12 @@
         "서비스·수치·문서를\n표로 표시",
         "미확인 항목과\n조치 미실행 표시"
       ],
-      "result": "실제 실행\nweb: 매뉴얼 없음\nauth: 지연 매뉴얼"
+      "result": "실제 실행\nweb: 매뉴얼 없음\nauth: 지연 매뉴얼",
+      "source_slide_number": 16,
+      "duration_seconds": 17
     },
     {
-      "number": 17,
+      "number": 24,
       "action_title": "추가 3 · 회귀 테스트와 전후 비교를 재현한다",
       "role": "proof",
       "key_message": "저장한 실제 측정 결과의 보고서 화면 · 앱 대화 화면과 구분",
@@ -523,7 +765,7 @@
         "day2/tests/unit-tests-story.txt",
         "day2/evidence/story-evaluation-report.jpg"
       ],
-      "speaker_note": "[22초] 세 번째는 평가 실행기입니다. 질문과 고정 지표를 파일로 두고 원본·개선을 분리해 실행합니다. 결과 JSON으로 대상 수집·문서 선택·응답 상태·시간을 계산하고 보고서를 만듭니다. 화면은 실제20건 측정 결과 보고서이며 채팅 UI가 아닙니다. 단위 테스트31개도 별도로 통과했습니다. 기존 원시 실행 결과에서 보고서를 다시 집계했고, 모델 벤치마크20건을 새로 실행한 것은 아닙니다.",
+      "speaker_note": "[19초] 세 번째는 회귀·비교 실행기입니다. 고정 질문과 지표로 실행한 JSON에서 대상 수집·문서·시간을 집계합니다. 화면은 실제 측정 보고서입니다. 기존 20건 원시 결과를 재집계했고 단위 테스트 31개도 별도로 통과했습니다.",
       "source_refs": [
         "day2/evidence/comparison.jpg",
         "day1/scripts/run_baseline.py",
@@ -542,10 +784,12 @@
         "결과 JSON에서\n지표·실패 상태 계산",
         "비교 보고서와 회귀 결과 보존"
       ],
-      "result": "실제 결과 보고서\n고정 시나리오 20개\n단위 테스트 31개"
+      "result": "실제 결과 보고서\n고정 시나리오 20개\n단위 테스트 31개",
+      "source_slide_number": 17,
+      "duration_seconds": 19
     },
     {
-      "number": 18,
+      "number": 25,
       "action_title": "고정 질문·지표 평가에서 대상 누락이 줄었다",
       "role": "data exhibit",
       "key_message": "개선20건 = 검증13 + 관측 안내4 + 대화2 + 검증실패 안내1",
@@ -555,7 +799,7 @@
         "day2/results/comparison/summary.json",
         "day2/results/comparison/REPORT.md"
       ],
-      "speaker_note": "[24초] 사용자 최초 캡처와 다른 고정 평가입니다. 등록 대상 수집은17/20에서20/20, 단일 정답 문서는11/12에서12/12입니다. 양쪽 완료한 같은16건 중앙값은35.94초에서4.45초입니다. 완료20건에는 검증실패 안내1건이 있고 생성 설정도 달라 RAG만의 효과라고 할 수 없습니다. 이후 안내 문구와 화면을 보완했고 전체 통계를 다시 측정하지 않았습니다. 대상 수집의 분모는 서비스 개수이며, Top-1은 정답 문서가 하나인 질문12개입니다.",
+      "speaker_note": "[26초] 고정 평가에서 대상 수집은 서비스 기준 17/20에서 20/20, 단일 정답 문서 선택은 11/12에서 12/12입니다. 양쪽 완료한 같은 16건 시간 중앙값은 35.94초에서 4.45초입니다. 완료에는 안내도 포함되고 생성 설정도 바뀌어 RAG만의 효과로 볼 수 없습니다. 이후 문구와 화면 보완 뒤 전체 시간은 재측정하지 않았습니다.",
       "source_refs": [
         "day2/results/comparison/summary.json",
         "day2/results/comparison/REPORT.md"
@@ -621,10 +865,12 @@
           "20 / 20"
         ]
       ],
-      "takeaway": "개선 20건 = 검증 13 + 관측 안내 4 + 대화 2 + 검증 실패 안내 1"
+      "takeaway": "개선 20건 = 검증 13 + 관측 안내 4 + 대화 2 + 검증 실패 안내 1",
+      "source_slide_number": 18,
+      "duration_seconds": 26
     },
     {
-      "number": 19,
+      "number": 26,
       "action_title": "요청 대상·답변 근거·조건을 맞추도록 개선했다",
       "role": "limitation",
       "key_message": "다음 단계  실제 로그·시계열·의존 관계와 독립 질문 검증",
@@ -633,7 +879,7 @@
       "evidence": [
         "REPORT.md"
       ],
-      "speaker_note": "[18초] 요청한 대상을 조사하고, 근거와 조건을 보존해 보고하도록 개선했습니다. 문서6개와 교육용 지표로 확인해 운영 성능으로 일반화할 수 없고 검색 지연·오검색의 부담도 있습니다. 원문 출력은 설명의 자유도를 줄이고 시간 상한은 안내로 끝나는 요청을 만듭니다. 다음은 실제 로그·시계열·의존 관계와 독립 질문으로 검증하는 것입니다.",
+      "speaker_note": "[22초] 문서 6개와 교육용 지표로 확인해 운영 환경으로 일반화하기 어렵습니다. 검색은 지연과 오검색 부담을 더하고, 원문 출력은 설명의 자유도를 줄입니다. 시간 상한 때문에 안내로 끝나기도 합니다. 다음은 실제 로그·시계열·의존 관계와 독립 질문으로 검증하는 것입니다.",
       "source_refs": [
         "REPORT.md"
       ],
@@ -680,652 +926,9 @@
           "일부 요청은 확인된 사실 안내로 종료"
         ]
       ],
-      "takeaway": "다음 단계  실제 로그·시계열·의존 관계와 독립 질문 검증"
-    },
-    {
-      "number": 20,
-      "action_title": "부록 · 처음 보낸 7장과 개선 결과의 대응",
-      "role": "appendix",
-      "key_message": "전체 원본 PNG·해시·질문별 기록은 EVIDENCE_INDEX.md에 연결",
-      "layout": "table",
-      "visual": "Editable native text and table",
-      "evidence": [
-        "day1/evidence/screenshot_inventory.json"
-      ],
-      "speaker_note": "사용자가10월20일 직접 실행한7장 전체를 누락 없이 연결했습니다. 주요 개선은 본편, 같은 유형의 보조 사례와 이름 회귀는 부록에서 전후로 설명합니다. 초기 캡처와 고정 지표 재실행은 다른 관측 시점입니다.",
-      "source_refs": [
-        "day1/evidence/screenshot_inventory.json"
-      ],
-      "native_content": {
-        "kind": "table",
-        "table": {
-          "headers": [
-            "최초 사용자 캡처",
-            "개선 전",
-            "개선 후"
-          ],
-          "rows": [
-            [
-              "gateway → payments",
-              "21장",
-              "22~23장"
-            ],
-            [
-              "payments CPU",
-              "10장",
-              "11장"
-            ],
-            [
-              "web-01·auth",
-              "8장",
-              "9장"
-            ],
-            [
-              "payments·cache",
-              "3장",
-              "4~5장"
-            ],
-            [
-              "로그인·대상 미명시",
-              "24장",
-              "25장"
-            ],
-            [
-              "billing 미등록",
-              "6장",
-              "7장"
-            ],
-            [
-              "이름 기억",
-              "26장",
-              "27장"
-            ]
-          ]
-        }
-      },
-      "image": null,
-      "caption": "전체 원본 PNG·해시·질문별 기록은 EVIDENCE_INDEX.md에 연결",
-      "values": [
-        [
-          "최초 사용자 캡처",
-          "개선 전",
-          "개선 후"
-        ],
-        [
-          "gateway → payments",
-          "21장",
-          "22~23장"
-        ],
-        [
-          "payments CPU",
-          "10장",
-          "11장"
-        ],
-        [
-          "web-01·auth",
-          "8장",
-          "9장"
-        ],
-        [
-          "payments·cache",
-          "3장",
-          "4~5장"
-        ],
-        [
-          "로그인·대상 미명시",
-          "24장",
-          "25장"
-        ],
-        [
-          "billing 미등록",
-          "6장",
-          "7장"
-        ],
-        [
-          "이름 기억",
-          "26장",
-          "27장"
-        ]
-      ]
-    },
-    {
-      "number": 21,
-      "action_title": "부록 · gateway만 조회한 최초 응답",
-      "role": "appendix",
-      "key_message": "사용자 2026-10-20 최초 실행",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/01-gateway-payments.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/01-gateway-payments.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "같은 다중 서비스 개선의 보조 사례입니다. 최초에는gateway만 확인했습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/01-gateway-payments.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/01-gateway-payments.png",
-      "caption": "사용자 2026-10-20 최초 실행",
-      "values": null,
-      "insight": "gateway만 조회\npayments 상태는 미수집",
-      "explain": "문제: 연결된 두 서비스 중\n상대 서비스의 근거가 빠짐",
-      "quote": "수집된 사실: 모니터링 gateway-service",
-      "pair_id": "gateway",
-      "stage": "before",
-      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요"
-    },
-    {
-      "number": 22,
-      "action_title": "부록 · 같은 gateway 질문의 개선 1/2",
-      "role": "appendix",
-      "key_message": "gateway 네트워크·payments CPU를 각각 조회",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q04-first.jpg",
-      "evidence": [
-        "day2/evidence/review-q04-first.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "speaker_note": "같은 질문의 실제 개선 실행입니다. 두 장의 연속 화면과 전체 페이지 원본을 함께 보존했습니다.",
-      "source_refs": [
-        "day2/evidence/review-q04-first.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q04-first.jpg",
-      "caption": "gateway 네트워크·payments CPU를 각각 조회",
-      "values": null,
-      "method": "명시한 두 서비스의 조사 작업을 각각 보완",
-      "pair_id": "gateway",
-      "stage": "after",
-      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요"
-    },
-    {
-      "number": 23,
-      "action_title": "부록 · 같은 gateway 질문의 개선 2/2",
-      "role": "appendix",
-      "key_message": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q04-second.jpg",
-      "evidence": [
-        "day2/evidence/review-q04-second.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "speaker_note": "같은 질문의 실제 개선 실행입니다. 두 장의 연속 화면과 전체 페이지 원본을 함께 보존했습니다.",
-      "source_refs": [
-        "day2/evidence/review-q04-second.jpg",
-        "day2/results/contextual-captures/f7d637e2-c911-417e-bf3f-3845fed685fa-33205f03.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q04-second.jpg",
-      "caption": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
-      "values": null,
-      "method": "명시한 두 서비스의 조사 작업을 각각 보완",
-      "pair_id": "gateway",
-      "stage": "after",
-      "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요"
-    },
-    {
-      "number": 24,
-      "action_title": "부록 · 로그인 질문을 auth로 가정한 최초 응답",
-      "role": "appendix",
-      "key_message": "사용자 2026-10-20 최초 실행",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/05-login.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/05-login.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "미명시 질문의auth기본 처리는원래 정책입니다. 사용자가요청한대상을확인하도록바꿨습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/05-login.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/05-login.png",
-      "caption": "사용자 2026-10-20 최초 실행",
-      "values": null,
-      "insight": "서비스 이름이 없는데\nauth-service로 조회",
-      "explain": "원래 auth 기본 정책을\n대상 이름 확인 요청으로 변경",
-      "quote": "모니터링 auth-service",
-      "pair_id": "login",
-      "stage": "before",
-      "query": "로그인 응답이 느려요, 원인 확인해주세요"
-    },
-    {
-      "number": 25,
-      "action_title": "부록 · 같은 로그인 질문에 서비스 이름을 요청한다",
-      "role": "appendix",
-      "key_message": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q07-answer.jpg",
-      "evidence": [
-        "day2/evidence/review-q07-answer.jpg",
-        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json"
-      ],
-      "speaker_note": "로그인이라는 말만으로auth를추정하지않고등록서비스이름을묻습니다.",
-      "source_refs": [
-        "day2/evidence/review-q07-answer.jpg",
-        "day2/results/contextual-captures/f4e83364-7451-4377-a65d-6adaac6d4a8f-3fba43e9.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q07-answer.jpg",
-      "caption": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
-      "values": null,
-      "method": "대상이 명시되지 않으면 조사 대신 확인 요청",
-      "pair_id": "login",
-      "stage": "after",
-      "query": "로그인 응답이 느려요, 원인 확인해주세요"
-    },
-    {
-      "number": 26,
-      "action_title": "부록 · 사용자 이름을 자기소개에 섞은 최초 응답",
-      "role": "appendix",
-      "key_message": "사용자 2026-10-20 최초 실행",
-      "layout": "before",
-      "visual": "day1/evidence/user-screenshots/07-name-recall.png",
-      "evidence": [
-        "day1/evidence/user-screenshots/07-name-recall.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "speaker_note": "이름 문제는새주요기능이아닌역할·세션회귀검증으로포함했습니다.",
-      "source_refs": [
-        "day1/evidence/user-screenshots/07-name-recall.png",
-        "day1/evidence/OBSERVATIONS.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day1/evidence/user-screenshots/07-name-recall.png",
-      "caption": "사용자 2026-10-20 최초 실행",
-      "values": null,
-      "insight": "사용자 이름 민수가\n비서의 자기소개에 섞임",
-      "explain": "문제: 사용자·assistant 역할 구분\n회귀 검증에 이름·재시작 사례 포함",
-      "quote": "“민수라는 이름으로…”",
-      "pair_id": "name",
-      "stage": "before",
-      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?"
-    },
-    {
-      "number": 27,
-      "action_title": "부록 · 같은 두 턴에서 사용자 이름을 올바르게 답한다",
-      "role": "appendix",
-      "key_message": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q10-answer.jpg",
-      "evidence": [
-        "day2/evidence/review-q10-answer.jpg",
-        "day2/results/contextual-captures/review-suite.json"
-      ],
-      "speaker_note": "같은이름선언과재질문입니다. 코드가사용자역할이력을읽고사용자님의이름은민수라고답합니다. 모델장기기억성능이아닙니다. 재시작은화면만으로증명하지않고원시thread·제어기록과연결합니다.",
-      "source_refs": [
-        "day2/evidence/review-q10-answer.jpg",
-        "day2/results/contextual-captures/review-suite.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q10-answer.jpg",
-      "caption": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
-      "values": null,
-      "method": "사용자 역할의 선언만 저장·조회, 같은 DB·대화로 재시작 검증",
-      "pair_id": "name",
-      "stage": "after",
-      "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?"
-    },
-    {
-      "number": 28,
-      "action_title": "부록 · 고정 지표로 다시 실행한 원본 web·auth",
-      "role": "appendix",
-      "key_message": "최초 사용자 캡처와 다른 별도 실행 · 고정 지표 비교용",
-      "layout": "screen",
-      "visual": "day2/evidence/before-healthy-answer-revision.jpg",
-      "evidence": [
-        "day2/evidence/before-healthy-answer-revision.jpg",
-        "day2/evidence/ui-capture-context.json"
-      ],
-      "speaker_note": "이사진은사용자최초사진이아닌원본재실행입니다. web34%·48%값을고정한비교용이며최초41%·51.5%와다릅니다.",
-      "source_refs": [
-        "day2/evidence/before-healthy-answer-revision.jpg",
-        "day2/evidence/ui-capture-context.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/before-healthy-answer-revision.jpg",
-      "caption": "최초 사용자 캡처와 다른 별도 실행 · 고정 지표 비교용",
-      "values": null,
-      "method": "원본 재실행: web만 조회·db-down 선택"
-    },
-    {
-      "number": 29,
-      "action_title": "부록 · 같은 고정 지표·질문의 개선 실행",
-      "role": "appendix",
-      "key_message": "앞 장과 같은 질문·고정 모의 값 · 실제 조회 시각은 각 호출 시각",
-      "layout": "screen",
-      "visual": "day2/evidence/context-healthy-answer.jpg",
-      "evidence": [
-        "day2/evidence/context-healthy-answer.jpg",
-        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
-      ],
-      "speaker_note": "앞장의원본재실행과같은web모의값입니다. 개선에서는web·auth를각각조사하고정상web문서는생략합니다.",
-      "source_refs": [
-        "day2/evidence/context-healthy-answer.jpg",
-        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/context-healthy-answer.jpg",
-      "caption": "앞 장과 같은 질문·고정 모의 값 · 실제 조회 시각은 각 호출 시각",
-      "values": null,
-      "method": "정상 web의 문서 생략·auth 지연 문서 연결"
-    },
-    {
-      "number": 30,
-      "action_title": "부록 · 실제 보고 LLM은 JSON을 반환한다",
-      "role": "appendix",
-      "key_message": "실제 모델 원문 파일 화면 · 앱 대화와 구분",
-      "layout": "screen",
-      "visual": "day2/evidence/context-llm-raw.jpg",
-      "evidence": [
-        "day2/evidence/context-llm-raw.jpg",
-        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
-      ],
-      "speaker_note": "실제qwen3:8b가반환한JSON입니다. 코드가검증후최종보고서를구성하며이사진은앱UI가아닌원문로그파일화면입니다.",
-      "source_refs": [
-        "day2/evidence/context-llm-raw.jpg",
-        "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/context-llm-raw.jpg",
-      "caption": "실제 모델 원문 파일 화면 · 앱 대화와 구분",
-      "values": null,
-      "method": "서비스·수치·문서·절차 번호 선택 → 코드 검증 → 원문 보고"
-    },
-    {
-      "number": 31,
-      "action_title": "부록 · 정보가 부족하면 문서를 임의 선택하지 않는다",
-      "role": "appendix",
-      "key_message": "제어 시험: degraded·활성 알림 없음 / 일반 성능에 합산하지 않음",
-      "layout": "screen",
-      "visual": "day2/evidence/after-insufficient-controlled.jpg",
-      "evidence": [
-        "day2/evidence/after-insufficient-controlled.jpg",
-        "day2/results/presentation-scenarios/SUMMARY.md"
-      ],
-      "speaker_note": "degraded·알림없음으로고정한제어시험입니다. 코드안내이며보고LLM을호출하지않습니다.",
-      "source_refs": [
-        "day2/evidence/after-insufficient-controlled.jpg",
-        "day2/results/presentation-scenarios/SUMMARY.md"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/after-insufficient-controlled.jpg",
-      "caption": "제어 시험: degraded·활성 알림 없음 / 일반 성능에 합산하지 않음",
-      "values": null,
-      "method": "정보 부족 분기에서 추가 지표 확인 요청"
-    },
-    {
-      "number": 32,
-      "action_title": "부록 · 원래 Q02 메모리 상승 질문의 개선 응답",
-      "role": "appendix",
-      "key_message": "질문과 실제 최종 응답 전체 · 실제 상태의 자동 조치 판정은 아님",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q02-answer.jpg",
-      "evidence": [
-        "day2/evidence/review-q02-answer.jpg",
-        "day2/results/contextual-captures/271a4d39-90ec-4732-b7ea-a1515663f5c3-c915a919.json"
-      ],
-      "speaker_note": "원래회귀Q02의실제UI입니다. 메모리89%와90%조건원문을보존했습니다.",
-      "source_refs": [
-        "day2/evidence/review-q02-answer.jpg",
-        "day2/results/contextual-captures/271a4d39-90ec-4732-b7ea-a1515663f5c3-c915a919.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q02-answer.jpg",
-      "caption": "질문과 실제 최종 응답 전체 · 실제 상태의 자동 조치 판정은 아님",
-      "values": null,
-      "method": "메모리 관측·매뉴얼 조건 원문·조치 미실행 표시"
-    },
-    {
-      "number": 33,
-      "action_title": "부록 · 원래 Q09 일반 대화 경로",
-      "role": "appendix",
-      "key_message": "실제 인사 요청과 응답 · 코드 응답 경로",
-      "layout": "screen",
-      "visual": "day2/evidence/review-q09-answer.jpg",
-      "evidence": [
-        "day2/evidence/review-q09-answer.jpg",
-        "day2/results/contextual-captures/d3cb38b5-ab56-4a84-a720-56ef5e09bf11-1c41cc9f.json"
-      ],
-      "speaker_note": "일반인사는모니터링을생략하고코드응답합니다. 모델작성성공으로집계하지않습니다.",
-      "source_refs": [
-        "day2/evidence/review-q09-answer.jpg",
-        "day2/results/contextual-captures/d3cb38b5-ab56-4a84-a720-56ef5e09bf11-1c41cc9f.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/review-q09-answer.jpg",
-      "caption": "실제 인사 요청과 응답 · 코드 응답 경로",
-      "values": null,
-      "method": "일반 대화 라우트 → 모니터링 생략"
-    },
-    {
-      "number": 34,
-      "action_title": "부록 · 전후 측정 결과 보고서 원본",
-      "role": "appendix",
-      "key_message": "보고서 전체 · 완료에는 안내 포함·생성 설정 변경 공개",
-      "layout": "screen",
-      "visual": "day2/evidence/comparison.jpg",
-      "evidence": [
-        "day2/evidence/comparison.jpg",
-        "day2/results/comparison/summary.json"
-      ],
-      "speaker_note": "20건의실제결과JSON을계산한보고서화면입니다. 앱채팅화면과구분합니다.",
-      "source_refs": [
-        "day2/evidence/comparison.jpg",
-        "day2/results/comparison/summary.json"
-      ],
-      "native_content": {
-        "kind": "default"
-      },
-      "image": "day2/evidence/comparison.jpg",
-      "caption": "보고서 전체 · 완료에는 안내 포함·생성 설정 변경 공개",
-      "values": null,
-      "method": "양쪽 완료한 동일16건 중앙값은35.94초→4.45초"
-    },
-    {
-      "number": 35,
-      "action_title": "부록 · 원래 10개 시나리오의 전체 대응 1/2",
-      "role": "appendix",
-      "key_message": "전체 질문·실제 응답·원시 이벤트는 EVIDENCE_INDEX.md에 연결",
-      "layout": "table",
-      "visual": "Editable native text and table",
-      "evidence": [
-        "all_total_vue_student/doc/regression_test_queries.md",
-        "day2/results/contextual-captures/review-suite.json"
-      ],
-      "speaker_note": "수업회귀10개전체의목적과개선실행증빙입니다. 최초사용자7장과20건정량평가는서로구분합니다.",
-      "source_refs": [
-        "all_total_vue_student/doc/regression_test_queries.md",
-        "day2/results/contextual-captures/review-suite.json"
-      ],
-      "native_content": {
-        "kind": "table",
-        "table": {
-          "headers": [
-            "원래 시나리오",
-            "실제 확인 결과",
-            "PPT"
-          ],
-          "rows": [
-            [
-              "Q01 payments CPU",
-              "CPU 문서·근거 검증",
-              "10~11장"
-            ],
-            [
-              "Q02 cache 메모리",
-              "메모리 문서·조건 원문",
-              "32장"
-            ],
-            [
-              "Q03 log 디스크",
-              "디스크 문서 검색",
-              "15장"
-            ],
-            [
-              "Q04 gateway·payments",
-              "두 서비스 각각 조사",
-              "21~23장"
-            ],
-            [
-              "Q05 web·auth",
-              "정상·장애 구분",
-              "8~9장"
-            ]
-          ]
-        }
-      },
-      "image": null,
-      "caption": "전체 질문·실제 응답·원시 이벤트는 EVIDENCE_INDEX.md에 연결",
-      "values": [
-        [
-          "원래 시나리오",
-          "실제 확인 결과",
-          "PPT"
-        ],
-        [
-          "Q01 payments CPU",
-          "CPU 문서·근거 검증",
-          "10~11장"
-        ],
-        [
-          "Q02 cache 메모리",
-          "메모리 문서·조건 원문",
-          "32장"
-        ],
-        [
-          "Q03 log 디스크",
-          "디스크 문서 검색",
-          "15장"
-        ],
-        [
-          "Q04 gateway·payments",
-          "두 서비스 각각 조사",
-          "21~23장"
-        ],
-        [
-          "Q05 web·auth",
-          "정상·장애 구분",
-          "8~9장"
-        ]
-      ]
-    },
-    {
-      "number": 36,
-      "action_title": "부록 · 원래 10개 시나리오의 전체 대응 2/2",
-      "role": "appendix",
-      "key_message": "전체 질문·실제 응답·원시 이벤트는 EVIDENCE_INDEX.md에 연결",
-      "layout": "table",
-      "visual": "Editable native text and table",
-      "evidence": [
-        "all_total_vue_student/doc/regression_test_queries.md",
-        "day2/results/contextual-captures/review-suite.json"
-      ],
-      "speaker_note": "수업회귀10개전체의목적과개선실행증빙입니다. 최초사용자7장과20건정량평가는서로구분합니다.",
-      "source_refs": [
-        "all_total_vue_student/doc/regression_test_queries.md",
-        "day2/results/contextual-captures/review-suite.json"
-      ],
-      "native_content": {
-        "kind": "table",
-        "table": {
-          "headers": [
-            "원래 시나리오",
-            "실제 확인 결과",
-            "PPT"
-          ],
-          "rows": [
-            [
-              "Q06 payments·cache",
-              "각각 조사·공통 원인 미확정",
-              "3~5장"
-            ],
-            [
-              "Q07 대상 없는 로그인",
-              "서비스 이름 확인 요청",
-              "24~25장"
-            ],
-            [
-              "Q08 미등록 billing",
-              "임의 대체 생략",
-              "6~7장"
-            ],
-            [
-              "Q09 인사",
-              "일반 대화·모니터링 생략",
-              "33장"
-            ],
-            [
-              "Q10 이름·재시작",
-              "사용자 이름·같은 세션 유지",
-              "26~27장"
-            ]
-          ]
-        }
-      },
-      "image": null,
-      "caption": "전체 질문·실제 응답·원시 이벤트는 EVIDENCE_INDEX.md에 연결",
-      "values": [
-        [
-          "원래 시나리오",
-          "실제 확인 결과",
-          "PPT"
-        ],
-        [
-          "Q06 payments·cache",
-          "각각 조사·공통 원인 미확정",
-          "3~5장"
-        ],
-        [
-          "Q07 대상 없는 로그인",
-          "서비스 이름 확인 요청",
-          "24~25장"
-        ],
-        [
-          "Q08 미등록 billing",
-          "임의 대체 생략",
-          "6~7장"
-        ],
-        [
-          "Q09 인사",
-          "일반 대화·모니터링 생략",
-          "33장"
-        ],
-        [
-          "Q10 이름·재시작",
-          "사용자 이름·같은 세션 유지",
-          "26~27장"
-        ]
-      ]
+      "takeaway": "다음 단계  실제 로그·시계열·의존 관계와 독립 질문 검증",
+      "source_slide_number": 19,
+      "duration_seconds": 22
     }
   ]
 }
