@@ -254,5 +254,27 @@
     "kind": "actual comparison report browser screenshot",
     "image_text_edited": false,
     "ppt_crop_applied": false
+  },
+  "evaluation-cases.jpg": {
+    "sha256": "ea88930e87634bdc0b7bba01300259ad62eb547d25d7fed29a8531272be6ad13",
+    "kind": "evaluation-report-browser-capture",
+    "source_records": [
+      "day1/results/baseline-ollama/results.json",
+      "day2/results/improved-ollama/results.json"
+    ],
+    "generator": "day2/scripts/build_evaluation_evidence.py",
+    "cropped": false,
+    "edited": false
+  },
+  "evaluation-criteria.jpg": {
+    "sha256": "2d67c6f579b70bbbc354a72f47ee030835d15c985b32461f43e6252762040241",
+    "kind": "evaluation-report-browser-capture",
+    "source_records": [
+      "day1/results/baseline-ollama/results.json",
+      "day2/results/improved-ollama/results.json"
+    ],
+    "generator": "day2/scripts/build_evaluation_evidence.py",
+    "cropped": false,
+    "edited": false
   }
 }

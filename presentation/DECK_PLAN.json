@@ -2,13 +2,13 @@
   "deck": {
     "title": "운영 장애 진단 AI 에이전트 개선",
     "audience": "동일 교육과정 교육생·평가자",
-    "outcome": "최초 응답의 문제와 개선 방법·같은 질문의 결과를 이해하고 추가 기능의 구현·동작을 확인한다",
+    "outcome": "기존 응답 문제·같은 질문 개선 결과·추가 기능과 평가 기준 및 실제 기록 증거를 이해한다",
     "main_promise": "사용자 최초 캡처 → 문제 → 구현 → 같은 질문의 개선 결과를 연결",
     "output_lane": "native-pptx",
     "format": "16:9",
     "slide_count": 26,
     "narrative_spine": "표지·베이스 소개 / 최초7개 질문의 문제와 바로 이어지는 개선 결과 / 실패 처리 / 추가기능3개 구현·시연 / 통제비교 / 한계",
-    "design_posture": "White evidence pages, unaltered original PNGs and real UI captures, native readable findings",
+    "design_posture": "최초 질문·답변 캡처와 구현 설명, 제작 과정 문구 제외, 평가 기준이 포함된 실제 보고서 화면",
     "assumptions": [
       "표지 포함 26장 전체 발표, 노트 배분 297초. 실제 구두 시간은 별도 측정한다.",
       "최초 사용자 PNG 7개를 모두 본문에 포함하고 같은 질문의 개선 결과와 연속 배치한다.",
@@ -80,7 +80,7 @@
         }
       },
       "image": null,
-      "caption": "발표 순서  실제 문제 → 개선 결과 → 추가 기능 3개 → 비교·한계",
+      "caption": "",
       "values": [
         [
           "기존 처리",
@@ -99,7 +99,7 @@
           "수집 자료로 운영 보고서 작성"
         ]
       ],
-      "takeaway": "최초 캡처와 개선 화면은 서로 다른 실행이다.\n수치 자체의 변화는 개선 효과로 비교하지 않는다.",
+      "takeaway": "장애 진단 요청의 조사 범위와 답변 근거를 개선했다",
       "source_slide_number": 2,
       "duration_seconds": 11
     },
@@ -107,7 +107,7 @@
       "number": 3,
       "action_title": "개선 1 전 · cache를 조회하지 않고 원인을 추정했다",
       "role": "case",
-      "key_message": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "key_message": "개선 1 전 · cache를 조회하지 않고 원인을 추정했다",
       "layout": "before",
       "visual": "day1/evidence/user-screenshots/04-payments-cache.png",
       "evidence": [
@@ -123,7 +123,7 @@
         "kind": "default"
       },
       "image": "day1/evidence/user-screenshots/04-payments-cache.png",
-      "caption": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "caption": "",
       "values": null,
       "insight": "두 서비스를 요청했지만\npayments만 조회",
       "explain": "관찰: cache 지표·공유 의존 관계가 없음\n문제: 공통 원인을 판단할 근거가 부족",
@@ -154,7 +154,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q06-first.jpg",
-      "caption": "같은 질문의 개선 실행 · 원본과 수치가 다른 별도 시점",
+      "caption": "",
       "values": null,
       "method": "명시한 서비스 전체를 계획과 대조해 빠진 조사를 추가",
       "pair_id": "scope",
@@ -183,7 +183,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q06-second.jpg",
-      "caption": "앞 장과 같은 요청의 연속 화면 · 전체 응답 원본도 보존",
+      "caption": "",
       "values": null,
       "method": "서비스별 근거는 제시하고, 공통 원인 확정은 보류",
       "pair_id": "scope",
@@ -196,7 +196,7 @@
       "number": 6,
       "action_title": "개선 1 전 · gateway만 조회했다",
       "role": "problem",
-      "key_message": "사용자 2026-10-20 최초 실행",
+      "key_message": "개선 1 전 · gateway만 조회했다",
       "layout": "before",
       "visual": "day1/evidence/user-screenshots/01-gateway-payments.png",
       "evidence": [
@@ -212,7 +212,7 @@
         "kind": "default"
       },
       "image": "day1/evidence/user-screenshots/01-gateway-payments.png",
-      "caption": "사용자 2026-10-20 최초 실행",
+      "caption": "",
       "values": null,
       "insight": "gateway만 조회\npayments 상태는 미수집",
       "explain": "문제: 연결된 두 서비스 중\n상대 서비스의 근거가 빠짐",
@@ -243,7 +243,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q04-first.jpg",
-      "caption": "gateway 네트워크·payments CPU를 각각 조회",
+      "caption": "",
       "values": null,
       "method": "명시한 두 서비스의 조사 작업을 각각 보완",
       "pair_id": "gateway",
@@ -272,7 +272,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q04-second.jpg",
-      "caption": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
+      "caption": "",
       "values": null,
       "method": "명시한 두 서비스의 조사 작업을 각각 보완",
       "pair_id": "gateway",
@@ -285,7 +285,7 @@
       "number": 9,
       "action_title": "개선 2 전 · billing을 묻자 auth를 조회했다",
       "role": "case",
-      "key_message": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "key_message": "개선 2 전 · billing을 묻자 auth를 조회했다",
       "layout": "before",
       "visual": "day1/evidence/user-screenshots/06-billing.png",
       "evidence": [
@@ -301,7 +301,7 @@
         "kind": "default"
       },
       "image": "day1/evidence/user-screenshots/06-billing.png",
-      "caption": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "caption": "",
       "values": null,
       "insight": "요청: billing-service\n실제 조회: auth-service",
       "explain": "원래 정책: 미등록 이름은 auth 기본 처리\n문제: 사용자가 요청한 대상과 불일치",
@@ -332,7 +332,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/context-unknown-frame.jpg",
-      "caption": "같은 질문의 실제 개선 응답 · 코드가 구성한 확인 안내",
+      "caption": "",
       "values": null,
       "method": "등록 목록과 대조하고, 임의 대체·모니터링·보고 생성을 생략",
       "pair_id": "unknown",
@@ -345,7 +345,7 @@
       "number": 11,
       "action_title": "개선 2 전 · 로그인만으로 auth를 조회했다",
       "role": "problem",
-      "key_message": "사용자 2026-10-20 최초 실행",
+      "key_message": "개선 2 전 · 로그인만으로 auth를 조회했다",
       "layout": "before",
       "visual": "day1/evidence/user-screenshots/05-login.png",
       "evidence": [
@@ -361,7 +361,7 @@
         "kind": "default"
       },
       "image": "day1/evidence/user-screenshots/05-login.png",
-      "caption": "사용자 2026-10-20 최초 실행",
+      "caption": "",
       "values": null,
       "insight": "서비스 이름이 없는데\nauth-service로 조회",
       "explain": "원래 auth 기본 정책을\n대상 이름 확인 요청으로 변경",
@@ -392,7 +392,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q07-answer.jpg",
-      "caption": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
+      "caption": "",
       "values": null,
       "method": "대상이 명시되지 않으면 조사 대신 확인 요청",
       "pair_id": "login",
@@ -405,7 +405,7 @@
       "number": 13,
       "action_title": "개선 3 전 · 정상 web에 DB 장애 절차를 연결했다",
       "role": "case",
-      "key_message": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "key_message": "개선 3 전 · 정상 web에 DB 장애 절차를 연결했다",
       "layout": "before",
       "visual": "day1/evidence/user-screenshots/03-web-auth.png",
       "evidence": [
@@ -421,7 +421,7 @@
         "kind": "default"
       },
       "image": "day1/evidence/user-screenshots/03-web-auth.png",
-      "caption": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "caption": "",
       "values": null,
       "insight": "web-01: healthy·알림 0건\n선택 문서: db-down",
       "explain": "관찰: CPU 41.0%·메모리 51.5%\n문제: 현재 상태와 무관한 기본 문서 선택",
@@ -436,7 +436,7 @@
       "number": 14,
       "action_title": "개선 3 후 · 정상·장애를 서비스별로 구분했다",
       "role": "case",
-      "key_message": "같은 질문의 별도 실행 · web 정상, auth 지연 매뉴얼",
+      "key_message": "개선 3 후 · 정상·장애를 서비스별로 구분했다",
       "layout": "screen",
       "visual": "day2/evidence/context-healthy-answer.jpg",
       "evidence": [
@@ -452,7 +452,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/context-healthy-answer.jpg",
-      "caption": "같은 질문의 별도 실행 · web 정상, auth 지연 매뉴얼",
+      "caption": "",
       "values": null,
       "method": "상태를 먼저 분기: 정상은 검색 생략, 장애는 관측 알림으로 검색",
       "pair_id": "manual",
@@ -465,7 +465,7 @@
       "number": 15,
       "action_title": "개선 4 전 · 로그 미수집인데 분석 결과처럼 답했다",
       "role": "case",
-      "key_message": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "key_message": "개선 4 전 · 로그 미수집인데 분석 결과처럼 답했다",
       "layout": "before",
       "visual": "day1/evidence/user-screenshots/02-payments-cpu.png",
       "evidence": [
@@ -481,7 +481,7 @@
         "kind": "default"
       },
       "image": "day1/evidence/user-screenshots/02-payments-cpu.png",
-      "caption": "사용자가 직접 실행한 2026-10-20 원본 캡처",
+      "caption": "",
       "values": null,
       "insight": "로그 조회 없이\n분석 결과처럼 답변",
       "explain": "실제 근거: 모니터링 지표·매뉴얼\n문제: 수집 자료와 답변의 주장 불일치",
@@ -512,7 +512,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q01-answer.jpg",
-      "caption": "같은 질문의 실제 개선 응답 · 로그 미수집·조치 미실행 명시",
+      "caption": "",
       "values": null,
       "method": "서비스·수치·문서·절차 번호 검증 후 원문으로 출력",
       "pair_id": "ground",
@@ -525,7 +525,7 @@
       "number": 17,
       "action_title": "대화 회귀 전 · 사용자 이름을 자기소개에 섞었다",
       "role": "problem",
-      "key_message": "사용자 2026-10-20 최초 실행",
+      "key_message": "대화 회귀 전 · 사용자 이름을 자기소개에 섞었다",
       "layout": "before",
       "visual": "day1/evidence/user-screenshots/07-name-recall.png",
       "evidence": [
@@ -541,10 +541,10 @@
         "kind": "default"
       },
       "image": "day1/evidence/user-screenshots/07-name-recall.png",
-      "caption": "사용자 2026-10-20 최초 실행",
+      "caption": "",
       "values": null,
       "insight": "사용자 이름 민수가\n비서의 자기소개에 섞임",
-      "explain": "문제: 사용자·assistant 역할 구분\n회귀 검증에 이름·재시작 사례 포함",
+      "explain": "문제: 사용자와 비서의 이름 혼동\n사용자 역할의 이름 선언만 구분해야 함",
       "quote": "“민수라는 이름으로…”",
       "pair_id": "name",
       "stage": "before",
@@ -572,9 +572,9 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q10-answer.jpg",
-      "caption": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
+      "caption": "",
       "values": null,
-      "method": "사용자 역할의 선언만 저장·조회, 같은 DB·대화로 재시작 검증",
+      "method": "대화 이력에서 사용자 역할의 이름 선언을 조회",
       "pair_id": "name",
       "stage": "after",
       "query": "제 이름은 민수입니다 → 제 이름이 뭐였죠?",
@@ -583,7 +583,7 @@
     },
     {
       "number": 19,
-      "action_title": "개선 5 전 · 추가 재현에서는 답변을 완료하지 못했다",
+      "action_title": "개선 5 전 · 시간 초과 뒤 안내가 없었다",
       "role": "case",
       "key_message": "별도 원본 재현 · day2/evidence/ui-capture-context.json에 오류 기록",
       "layout": "before",
@@ -603,10 +603,10 @@
         "kind": "default"
       },
       "image": "day2/evidence/before-main-viewport.jpg",
-      "caption": "별도 원본 재현의 실제 viewport · ReadTimeout은 실행 기록과 대조",
+      "caption": "",
       "values": null,
-      "insight": "조회 후 분석 단계에서\nReadTimeout·최종 답변 미완료",
-      "explain": "이 사진은 최초 사용자 캡처가 아닌\n보존 원본을 별도로 재실행한 기록",
+      "insight": "분석 단계 시간 초과\n최종 응답·실패 안내 없음",
+      "explain": "문제: 사용자가 처리 상태와\n이미 확인한 지표를 알 수 없음",
       "quote": "진행 화면에 payments 조회만 남음",
       "pair_id": "failure",
       "stage": "before",
@@ -638,7 +638,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/story-timeout-first.jpg",
-      "caption": "제어 시험: 같은 질문·생성 지연 30초·요청 상한 8초(기본 60초)",
+      "caption": "",
       "values": null,
       "method": "생성 512토큰·호출 25초·요청 60초, 검증 실패는 최대 2회 후 안내",
       "pair_id": "failure",
@@ -667,7 +667,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/story-timeout-second.jpg",
-      "caption": "앞 장과 같은 제어 시험 · 일반 성능·20건 통계에 합산하지 않음",
+      "caption": "",
       "values": null,
       "method": "시간 초과 시 이미 수집한 서비스별 관측과 미확인 사항 보존",
       "pair_id": "failure",
@@ -702,7 +702,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/review-q03-answer.jpg",
-      "caption": "검색 결과와 원문을 연결 · 유사도는 정답 확률이 아님",
+      "caption": "",
       "values": null,
       "steps": [
         "서비스별 알림 → bge-m3 임베딩",
@@ -739,7 +739,7 @@
         "kind": "default"
       },
       "image": "day2/evidence/context-healthy-evidence.jpg",
-      "caption": "모델 문장과 별도로 실제 수집 객체에서 근거 표 구성",
+      "caption": "",
       "values": null,
       "steps": [
         "수집 객체를 최종 이벤트에 포함",
@@ -755,117 +755,69 @@
       "action_title": "추가 3 · 회귀 테스트와 전후 비교를 재현한다",
       "role": "proof",
       "key_message": "저장한 실제 측정 결과의 보고서 화면 · 앱 대화 화면과 구분",
-      "layout": "feature",
-      "visual": "day2/evidence/story-evaluation-report.jpg",
+      "layout": "screen",
+      "visual": "day2/evidence/evaluation-cases.jpg",
       "evidence": [
-        "day2/evidence/comparison.jpg",
-        "day1/scripts/run_baseline.py",
-        "day2/scripts/build_comparison.py",
-        "day2/results/comparison/summary.json",
-        "day2/tests/unit-tests-story.txt",
-        "day2/evidence/story-evaluation-report.jpg"
+        "day2/evidence/evaluation-cases.jpg",
+        "day2/scripts/build_evaluation_evidence.py",
+        "day1/results/baseline-ollama/results.json",
+        "day2/results/improved-ollama/results.json"
       ],
-      "speaker_note": "[19초] 세 번째는 회귀·비교 실행기입니다. 고정 질문과 지표로 실행한 JSON에서 대상 수집·문서·시간을 집계합니다. 화면은 실제 측정 보고서입니다. 기존 20건 원시 결과를 재집계했고 단위 테스트 31개도 별도로 통과했습니다.",
+      "speaker_note": "[19초] 세 번째는 회귀·비교 실행기입니다. 같은 질문과 고정 지표로 전후 실행하고 실제 조회 목록·문서·시간을 기록합니다. 화면은 그 기록에서 생성한 보고서입니다. D05부터 D07에서 payments·cache·auth 누락 세 개를 보완했고, D07의 DB 장애 문서를 지연 문서로 바꿨습니다. 앞의 채팅 화면에서도 같은 동작을 확인했습니다.",
       "source_refs": [
-        "day2/evidence/comparison.jpg",
-        "day1/scripts/run_baseline.py",
-        "day2/scripts/build_comparison.py",
-        "day2/results/comparison/summary.json",
-        "day2/tests/unit-tests-story.txt"
+        "day2/evidence/evaluation-cases.jpg",
+        "day2/scripts/build_evaluation_evidence.py",
+        "day1/results/baseline-ollama/results.json",
+        "day2/results/improved-ollama/results.json"
       ],
       "native_content": {
         "kind": "default"
       },
-      "image": "day2/evidence/story-evaluation-report.jpg",
-      "caption": "보존된 20건 원시 결과를 다시 집계한 실제 보고서 · LLM 재측정 아님",
+      "image": "day2/evidence/evaluation-cases.jpg",
+      "caption": "",
       "values": null,
       "steps": [
         "같은 질문·지표로\n원본·개선 각각 실행",
         "결과 JSON에서\n지표·실패 상태 계산",
         "비교 보고서와 회귀 결과 보존"
       ],
-      "result": "실제 결과 보고서\n고정 시나리오 20개\n단위 테스트 31개",
+      "result": "실제 기록 비교\n누락 서비스 3개 보완\nauth 대체 조회 생략",
       "source_slide_number": 17,
-      "duration_seconds": 19
+      "duration_seconds": 19,
+      "method": "고정 질문·지표로 전후 실행하고, 실제 조회·문서·시간을 기록해 비교"
     },
     {
       "number": 25,
-      "action_title": "고정 질문·지표 평가에서 대상 누락이 줄었다",
+      "action_title": "측정 기준과 전후 결과",
       "role": "data exhibit",
       "key_message": "개선20건 = 검증13 + 관측 안내4 + 대화2 + 검증실패 안내1",
-      "layout": "table",
-      "visual": "Editable native text and table",
+      "layout": "screen",
+      "visual": "day2/evidence/evaluation-criteria.jpg",
       "evidence": [
+        "day2/evidence/evaluation-criteria.jpg",
+        "day2/scripts/build_evaluation_evidence.py",
+        "day1/evaluation/cases.json",
+        "day1/scripts/run_baseline.py",
         "day2/results/comparison/summary.json",
-        "day2/results/comparison/REPORT.md"
+        "day1/results/baseline-ollama/results.json",
+        "day2/results/improved-ollama/results.json"
       ],
-      "speaker_note": "[26초] 고정 평가에서 대상 수집은 서비스 기준 17/20에서 20/20, 단일 정답 문서 선택은 11/12에서 12/12입니다. 양쪽 완료한 같은 16건 시간 중앙값은 35.94초에서 4.45초입니다. 완료에는 안내도 포함되고 생성 설정도 바뀌어 RAG만의 효과로 볼 수 없습니다. 이후 문구와 화면 보완 뒤 전체 시간은 재측정하지 않았습니다.",
+      "speaker_note": "[26초] 같은 질문 20개와 고정 지표로 실제 모델·그래프를 실행했습니다. 필요한 서비스 수집은 서비스 기준 17/20에서 20/20, 조회 범위가 정확히 맞는 질문은 15/20에서 20/20입니다. 단일 정답 매뉴얼은 11/12에서 12/12입니다. 양쪽 완료한 동일 16건 실행 시간 중앙값은 35.94초에서 4.45초입니다. 화면 표시·통신 시간은 제외했고 생성 설정도 바뀌었습니다. 응답 반환 20건에는 실패 안내도 포함돼 전체 답변 정확도는 아닙니다.",
       "source_refs": [
+        "day2/evidence/evaluation-criteria.jpg",
+        "day2/scripts/build_evaluation_evidence.py",
+        "day1/evaluation/cases.json",
+        "day1/scripts/run_baseline.py",
         "day2/results/comparison/summary.json",
-        "day2/results/comparison/REPORT.md"
+        "day1/results/baseline-ollama/results.json",
+        "day2/results/improved-ollama/results.json"
       ],
       "native_content": {
-        "kind": "table",
-        "table": {
-          "headers": [
-            "지표",
-            "원본",
-            "개선"
-          ],
-          "rows": [
-            [
-              "등록 대상 수집(서비스 수)",
-              "17 / 20",
-              "20 / 20"
-            ],
-            [
-              "단일 정답 문서 Top-1",
-              "11 / 12",
-              "12 / 12"
-            ],
-            [
-              "완료한 동일 16건 중앙값",
-              "35.94초",
-              "4.45초"
-            ],
-            [
-              "최종 응답 완료",
-              "16 / 20",
-              "20 / 20"
-            ]
-          ]
-        }
+        "kind": "default"
       },
-      "image": null,
-      "caption": "동일 질문·고정 지표·모델 / 생성 설정·출력 형식 변경 포함",
-      "values": [
-        [
-          "지표",
-          "원본",
-          "개선"
-        ],
-        [
-          "등록 대상 수집(서비스 수)",
-          "17 / 20",
-          "20 / 20"
-        ],
-        [
-          "단일 정답 문서 Top-1",
-          "11 / 12",
-          "12 / 12"
-        ],
-        [
-          "완료한 동일 16건 중앙값",
-          "35.94초",
-          "4.45초"
-        ],
-        [
-          "최종 응답 완료",
-          "16 / 20",
-          "20 / 20"
-        ]
-      ],
-      "takeaway": "개선 20건 = 검증 13 + 관측 안내 4 + 대화 2 + 검증 실패 안내 1",
+      "image": "day2/evidence/evaluation-criteria.jpg",
+      "caption": "",
+      "values": null,
       "source_slide_number": 18,
       "duration_seconds": 26
     },
@@ -907,7 +859,7 @@
         }
       },
       "image": null,
-      "caption": "원인 확정·서버 자동 조치·동시 사용자 부하는 구현·검증 범위 밖",
+      "caption": "",
       "values": [
         [
           "선택",

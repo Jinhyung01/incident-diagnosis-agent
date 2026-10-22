@@ -2,7 +2,7 @@
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-no-appendix.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-results.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -141,6 +141,24 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 등록 대상 수집률은 서비스 개수를, 범위 일치는 질문 개수를 분모로 한다. Top-1은 정답 문서가 하나인 12건만 계산하고, 검색 불필요 6건에는 일반 대화 2건도 포함한다. 양쪽 모두 완료한 16건만 비교한 중앙값은 35.94초 → 4.45초다.
 
 개선 후에는 think=false, 512토큰 상한, 호출·요청 제한, 구조화 출력과 분기 변경을 적용했다. 이 변경들이 지연 차이에 함께 영향을 줬으므로 RAG만의 효과로 해석하지 않는다. 문서 본문에 한·영 증상 설명도 보강했다. 원본의 가상 비용이나 시간 초과로 누락된 토큰을 실제 비용 절감으로 제시하지 않는다.
+
+### 판정 기준과 실제 개선 사례
+
+| 항목 | 판정 방식 | 확인된 변화 |
+|---|---|---|
+| 필요한 서비스 수집 | 질문별 기대 등록 대상과 실제 모니터링 호출 목록 교집합을 합산 | 17/20 → 20/20. D05의 payments, D06의 cache, D07의 auth 누락 보완 |
+| 조회 범위 일치 | 실제 대상 집합과 기대 대상 집합이 정확히 같은 질문 수 | 15/20 → 20/20. 누락 3건과 D08·D09의 auth 대체 조회 2건 개선 |
+| 단일 정답 매뉴얼 | 정답 문서가 하나인 12개 질문에서 첫 조회 문서를 대조 | 11/12 → 12/12. D07의 db-down 선택을 high-latency로 변경 |
+| 처리 시간 | 전후 모두 완료한 같은 16개 질문의 그래프 실행 시간 중앙값 | 35.94초 → 4.45초. 화면·통신·워밍업·인덱스 구축 제외 |
+| 최종 응답 반환 | 실행 예외 없이 결과를 반환한 질문 수 | 16/20 → 20/20. 확인·실패 안내를 포함하며 답변 정답률이 아님 |
+
+기대 대상·문서는 `day1/evaluation/cases.json`, 실제 호출·선택·시간은 개선 전후 `results.json`에 기록돼 있다. 이 기준은 등록되지 않거나 명시되지 않은 대상을 확인하도록 변경한 정책을 포함한다. 실제 채팅 캡처는 기능 동작을 보여주고, 아래 평가 보고서 캡처는 같은 조건의 정량 집계를 보여준다.
+
+![실제 실행 기록의 사례별 전후 비교](day2/evidence/evaluation-cases.jpg)
+
+![측정 기준과 집계 결과](day2/evidence/evaluation-criteria.jpg)
+
+[개선 전 원시 실행 기록](day1/results/baseline-ollama/results.json) · [개선 후 원시 실행 기록](day2/results/improved-ollama/results.json) · [평가 정의](day1/evaluation/cases.json) · [집계 코드](day2/scripts/build_evaluation_evidence.py)
 
 ### 반복 실행과 검색 부담
 

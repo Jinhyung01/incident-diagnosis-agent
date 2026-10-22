@@ -34,3 +34,5 @@ RAG·근거UI는 실제 앱 화면, 모델 원문은 실제 로그 파일 화면
 [발표 구조](../presentation/OUTLINE.md) · [최초7장과 전체 증빙](../presentation/EVIDENCE_INDEX.md) · [계획 대응](../presentation/PLAN_COVERAGE.md) · [구조 재검토](../presentation/REVIEW.md)
 
 PowerPoint 앱·발표장 장비의 직접 실행, 실제 구두 발표 시간, 독립 전문가 의미 평가·실제 운영 데이터·동시 사용자 부하는 별도 확인이 필요하다.
+
+전후 측정의 판정 기준·분모와 실제 개선 사례를 결과 보고서에 명시했다. PPT24~25장은 결과 JSON으로 생성한 사례·기준 보고서의 실제 브라우저 캡처다. 슬라이드 날짜·최초 실행·원본 재현 등의 제작 설명은 제거했다.

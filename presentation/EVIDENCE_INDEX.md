@@ -1,6 +1,6 @@
 # 질문·응답과 개선 결과의 증빙
 
-현재 발표자료는 [발표 본문](../output/presentation/incident-diagnosis-agent-no-appendix.pptx)이다. 최초 사용자 PNG 7개를 모두 본문에 원본 그대로 넣었다. 최초 관측과 고정 재실행의 수치는 다른 시점이며 성능 비교는 별도 20건 측정으로 구분한다.
+현재 발표자료는 [발표 본문](../output/presentation/incident-diagnosis-agent-results.pptx)이다. 최초 사용자 PNG 7개를 모두 본문에 원본 그대로 넣었다. 최초 관측과 고정 재실행의 수치는 다른 시점이며 성능 비교는 별도 20건 측정으로 구분한다.
 
 ## 최초 사용자 7장의 전후 위치
 
@@ -39,8 +39,10 @@
 | 21 | 개선 5 후 · 두 서비스의 관측을 남겼다 2/2 | [수정하지 않은 캡처](../day2/evidence/story-timeout-second.jpg) | [기록1](../day2/results/story-timeout/timeout.json) |
 | 22 | 추가 1 · RAG로 대응 매뉴얼을 검색한다 | [수정하지 않은 캡처](../day2/evidence/review-q03-answer.jpg) | [기록1](../all_total_vue_student/agent/retrieval.py) · [기록2](../all_total_vue_student/agent/research.py) · [기록3](../all_total_vue_student/mcp_server.py) · [기록4](../day2/results/contextual-captures/cc4c77a5-5311-4797-9942-36ec51f66841-17dcde1e.json) |
 | 23 | 추가 2 · 답변에 사용한 근거를 화면에 표시한다 | [수정하지 않은 캡처](../day2/evidence/context-healthy-evidence.jpg) | [기록1](../all_total_vue_student/agent/evidence.py) · [기록2](../all_total_vue_student/server.py) · [기록3](../all_total_vue_student/web_chat.html) · [기록4](../day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json) |
-| 24 | 추가 3 · 회귀 테스트와 전후 비교를 재현한다 | [수정하지 않은 캡처](../day2/evidence/story-evaluation-report.jpg) | [기록1](../day2/evidence/comparison.jpg) · [기록2](../day1/scripts/run_baseline.py) · [기록3](../day2/scripts/build_comparison.py) · [기록4](../day2/results/comparison/summary.json) · [기록5](../day2/tests/unit-tests-story.txt) |
 
-PPT는 서로 다른 캡처 파일 22개를 포함한다. 이미지 바이트를 원본과 대조하며 자르기·답변 덮기를 적용하지 않는다. 사진 밖의 문제 해석과 구현 설명은 편집 가능한 텍스트다. 긴 답변은 같은 요청의 연속 viewport로 제시한다.
+| 24 | 추가 3 · 회귀 테스트와 전후 비교를 재현한다 | [실제 평가 보고서 화면](../day2/evidence/evaluation-cases.jpg) | [집계 코드](../day2/scripts/build_evaluation_evidence.py) · [전 실행](../day1/results/baseline-ollama/results.json) · [후 실행](../day2/results/improved-ollama/results.json) |
+| 25 | 측정 기준과 전후 결과 | [실제 평가 보고서 화면](../day2/evidence/evaluation-criteria.jpg) | [집계 코드](../day2/scripts/build_evaluation_evidence.py) · [전 실행](../day1/results/baseline-ollama/results.json) · [후 실행](../day2/results/improved-ollama/results.json) |
+PPT는 서로 다른 캡처 파일 23개를 포함한다. 이미지 바이트를 원본과 대조하며 자르기·답변 덮기를 적용하지 않는다. 사진 밖의 문제 해석과 구현 설명은 편집 가능한 텍스트다. 긴 답변은 같은 요청의 연속 viewport로 제시한다.
 
 그 밖의 회귀 질문과 원시 실행 기록은 [전체 검증 기록](../day2/results/contextual-captures/SUMMARY.md)에 유지한다. PPT에 중복 캡처·질문 위치 목록을 덧붙이지 않는다.
+슬라이드에 날짜·사용자 최초 실행·원본 재현 등의 제작 설명을 넣지 않는다. 출처는 이 문서와 발표자 노트로 추적한다. 측정 기준과 결과 화면은 원시 JSON에서 보고서를 생성한 실제 브라우저 캡처이며 새 모델 실행 결과를 추가한 것이 아니다.

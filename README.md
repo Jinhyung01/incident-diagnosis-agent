@@ -36,4 +36,4 @@ Python, FastAPI, LangGraph, MCP, Ollama, bge-m3, SQLite, 브라우저 JavaScript
 
 실제 운영 로그·시계열·서비스 의존 관계는 수집하지 않습니다. 교육용 모의 데이터의 결과이며, 근본 원인이나 복구를 확정하거나 서버 조치를 실행하는 서비스는 아닙니다.
 
-구현 화면·비교 조건·한계는 [결과 보고서](REPORT.md), 발표 내용은 [발표자료](output/presentation/incident-diagnosis-agent-no-appendix.pptx)에 정리했습니다.
+구현 화면·비교 조건·한계는 [결과 보고서](REPORT.md), 발표 내용은 [발표자료](output/presentation/incident-diagnosis-agent-results.pptx)에 정리했습니다.

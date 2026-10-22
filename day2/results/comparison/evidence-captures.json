@@ -1,0 +1,16 @@
+{
+  "source_before": "day1/results/baseline-ollama/results.json",
+  "source_after": "day2/results/improved-ollama/results.json",
+  "generator": "day2/scripts/build_evaluation_evidence.py",
+  "source_hashes": {
+    "day1/results/baseline-ollama/results.json": "330d7e8942e71da717ff16c74392f08c22df32dd1a4e8b5e175b303163e8110a",
+    "day2/results/improved-ollama/results.json": "f48e425bc788029eec2ddb635f974d93d3c978ee7ada82c0466ab41af3d54bfc",
+    "day2/results/comparison/summary.json": "1c697ba135e332e221bc850cd3e2c91a14c35990e945913dcf36bd8b21209b92"
+  },
+  "screenshots": {
+    "day2/evidence/evaluation-cases.jpg": "ea88930e87634bdc0b7bba01300259ad62eb547d25d7fed29a8531272be6ad13",
+    "day2/evidence/evaluation-criteria.jpg": "2d67c6f579b70bbbc354a72f47ee030835d15c985b32461f43e6252762040241"
+  },
+  "capture_method": "actual local-browser viewport; no cropping or editing",
+  "new_llm_benchmark_run": false
+}
