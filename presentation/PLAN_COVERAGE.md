@@ -4,7 +4,7 @@
 
 | 계획 | 실제 구현 | 발표 |
 |---|---|---|
-| 자연어 장애 진단 요청 | 기존 all_total_vue의 FastAPI·LangGraph·MCP 기반을 활용해 대상·상태·보고 흐름 개선 | 2장 소개,5~23장 전후 |
+| 자연어 장애 진단 요청 | 기존 베이스의 FastAPI·LangGraph·MCP 기반을 활용해 대상·상태·보고 흐름 개선 | 2장 소개,5~23장 전후 |
 | 다중 서비스 조사 | 등록 대상 전체를 직접 추출하고 대상별 조회·오류 분리 | 5~10장 |
 | 답변 근거 표시 | 실제 수집 객체로 서비스·지표·문서·미확인 항목 구성 | 7·10·25장 |
 
@@ -24,7 +24,7 @@
 |---|---|---|
 | RAG 매뉴얼 검색 | bge-m3·SQLite 코사인 검색 후 MCP Resource 원문 연결 | 24장 |
 | 근거·미확인 화면 | FinalAnswer.evidence를 실제 수집 객체로 구성하고 UI 표 렌더링 | 25장 |
-| 회귀·동일 입력 비교 | 고정질문20개·호출/문서/시간 기록 집계, 단위31개 | 26~27장 |
+| 회귀·동일 입력 비교 | 고정질문20개·호출/문서/시간 기록 집계, 단위31개 | 26~28장 |
 
 ## 그 밖에 보완한 부분
 
@@ -44,6 +44,6 @@
 | RAG | [retrieval.py](../all_total_vue_student/agent/retrieval.py)의 bge-m3 임베딩·SQLite 캐시·코사인 검색, [research.py](../all_total_vue_student/agent/research.py)의 원문 연결 | 16·24장 매뉴얼 선택 |
 | LangGraph·모듈화 | [graph.py](../all_total_vue_student/agent/graph.py)·[nodes.py](../all_total_vue_student/agent/nodes.py)의 범위·검색 노드와 검증 반복, 대상·수집·보고·검증 파일 분리 | 6·16·18·22장 구현 단계 |
 | 의존성 주입 | 기존 [SupervisorDeps](../all_total_vue_student/agent/deps.py)에 searcher 추가, MCP·고정 검색 어댑터 교체 | 24장 검색, 26장 고정 평가 |
-| 단위 테스트·평가 | [test_core.py](../all_total_vue_student/tests/test_core.py)의 31개 분기 시험, [평가 정의](../day1/evaluation/cases.json)의 20개 입력과 결과 집계 | 26~27장 보고서, 원시 결과·시험 기록 |
+| 단위 테스트·평가 | [test_core.py](../all_total_vue_student/tests/test_core.py)의 31개 분기 시험, [평가 정의](../day1/evaluation/cases.json)의 20개 입력과 결과 집계 | 26~28장 보고서, 원시 결과·시험 기록 |
 
 기존 LangSmith traceable 코드는 유지하지만 새 추적 분석 성과에는 포함하지 않는다. 전문 Multi-Agent 서브그래프를 추가한 구현도 아니다.

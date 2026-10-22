@@ -2,11 +2,11 @@
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-rubric.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-charts.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
-실습 1인 Base AI Project 개선을 선택했다. 제공된 베이스는 `all_total_vue` 운영 인시던트 대응 에이전트다. 웹 채팅으로 서비스 이름과 증상을 입력하면 LLM이 조사 계획을 세우고 MCP로 모니터링 지표·매뉴얼을 조회해 보고서를 작성한다. FastAPI·LangGraph·SQLite 대화 이력이 있는 기존 구조를 활용했다. 대표 문제는 `payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘`라는 요청에서 payments만 조사하고 cache를 포함한 원인을 추정하는 동작이었다.
+실습 1인 Base AI Project 개선을 선택했다. 제공된 베이스는 서비스 장애 진단 AI 에이전트다. 웹 채팅으로 서비스 이름과 증상을 입력하면 LLM이 조사 계획을 세우고 MCP로 모니터링 지표·매뉴얼을 조회해 보고서를 작성한다. FastAPI·LangGraph·SQLite 대화 이력이 있는 기존 구조를 활용했다. 대표 문제는 `payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘`라는 요청에서 payments만 조사하고 cache를 포함한 원인을 추정하는 동작이었다.
 
 목표는 요청한 대상을 빠짐없이 조사하고, 관측한 사실과 추가 확인이 필요한 내용을 구분하는 것이다. 실제 서버 조치를 자동 실행하거나 근본 원인을 확정하는 기능은 범위에 넣지 않았다.
 
@@ -144,6 +144,10 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 개선 후에는 think=false, 512토큰 상한, 호출·요청 제한, 구조화 출력과 분기 변경을 적용했다. 이 변경들이 지연 차이에 함께 영향을 줬으므로 RAG만의 효과로 해석하지 않는다. 문서 본문에 한·영 증상 설명도 보강했다. 원본의 가상 비용이나 시간 초과로 누락된 토큰을 실제 비용 절감으로 제시하지 않는다.
 
+![전후 실행 기록으로 만든 비교 그래프](output/presentation/previews-charts/slide-27.png)
+
+[그래프 집계 데이터](day2/results/comparison/presentation-metrics.json) · [그래프 데이터 생성 코드](day2/scripts/build_presentation_metrics.py)
+
 ### 판정 기준과 실제 개선 사례
 
 | 항목 | 판정 방식 | 확인된 변화 |
@@ -199,4 +203,4 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-발표자료는 표지 포함 28장이다. [발표 대본과 구현 보충 노트](presentation/REHEARSAL.md)에 설명 순서와 예상 질문을 정리했다.
+발표자료는 표지 포함 29장이다. [발표 대본과 구현 보충 노트](presentation/REHEARSAL.md)에 설명 순서와 예상 질문을 정리했다.

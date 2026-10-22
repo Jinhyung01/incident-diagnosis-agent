@@ -6,11 +6,11 @@
     "main_promise": "문제·개선 범위·사용 기술·실제 전후 화면·수치·트레이드오프를 코드와 증거로 연결",
     "output_lane": "native-pptx",
     "format": "16:9",
-    "slide_count": 28,
-    "narrative_spine": "표지 / 베이스 소개 / 개선·추가 요약 / 사용 기술과 적용 / 문제·구현·전후 캡처 / 추가 기능별 구현·캡처 / 동일 입력 실측 / 한계",
-    "design_posture": "최초 질문·답변 캡처와 구현 설명, 제작 과정 문구 제외, 평가 기준이 포함된 실제 보고서 화면",
+    "slide_count": 29,
+    "narrative_spine": "표지 / 기존 서비스 소개 / 개선·추가 요약 / 기술 적용 / 문제·구현·전후 캡처 / 추가 기능 / 전후 그래프·실측 캡처 / 한계",
+    "design_posture": "실제 질문·응답 캡처는 유지하고, 발표 문구는 역할 중심으로 정리. 측정은 네이티브 그래프와 실제 집계 화면을 연결",
     "assumptions": [
-      "표지 포함 28장. 대본 배분 292초, 상세 구현 노트는 질의용으로 분리. 실제 발표 시간은 구두 리허설로 확인한다.",
+      "표지 포함29장. 대본 배분292초(4분52초), 상세 구현 노트는 질의용. 실제 시간은 구두 리허설로 확인한다.",
       "최초 사용자 PNG 7개를 모두 본문에 포함하고 같은 질문의 개선 결과와 연속 배치한다.",
       "최초 무작위 지표와 고정 재실행의 수치 차이는 개선 효과로 비교하지 않는다.",
       "시간 초과 지연 주입 시험은 별도 제어 시험이며 20건 측정과 구분한다."
@@ -43,7 +43,7 @@
     },
     {
       "number": 2,
-      "action_title": "실습 1 · Base AI Project 개선",
+      "action_title": "기존 프로젝트는 어떤 서비스인가",
       "role": "context",
       "key_message": "발표 순서  실제 문제 → 개선 결과 → 추가 기능 3개 → 비교·한계",
       "layout": "project",
@@ -52,7 +52,7 @@
         "day1/baseline/original_v2/agent",
         "all_total_vue_student/doc/regression_test_queries.md"
       ],
-      "speaker_note": "베이스는 all_total_vue 운영 인시던트 대응 에이전트입니다. 서비스와 증상을 입력하면 MCP로 지표와 매뉴얼을 조회하고 LLM이 보고서를 만드는 웹 서비스입니다.",
+      "speaker_note": "기존 프로젝트는 서비스 이름과 장애 증상을 입력하면 모니터링 지표와 대응 매뉴얼을 조회해 진단 보고서를 만드는 AI 에이전트입니다.",
       "source_refs": [
         "day1/baseline/original_v2/doc/README.md",
         "day1/baseline/original_v2/agent/graph.py",
@@ -104,10 +104,10 @@
       "takeaway": "기존 구조를 활용해 조사 대상·매뉴얼 선택·답변 검증을 개선",
       "source_slide_number": 2,
       "duration_seconds": 18,
-      "project_name": "all_total_vue · 운영 인시던트 대응 에이전트",
-      "project_description": "서비스 장애를 자연어로 질문하면 모니터링 지표와 대응 매뉴얼을 조회하고\n현재 상태와 대응 절차를 진단 보고서로 작성하는 웹 서비스",
+      "project_name": "서비스 장애 진단 AI 에이전트",
+      "project_description": "서비스 이름과 장애 증상을 입력하면 모니터링 지표와 대응 매뉴얼을 조회하고\n현재 상태와 대응 절차를 진단 보고서로 작성하는 웹 서비스",
       "implementation_notes": [
-        "기존 프로젝트: 수업에서 제공한 all_total_vue다. FastAPI 서버, LangGraph v2 그래프, MCP Tool·Resource·Prompt, Vue 채팅 화면, SQLite 대화 이력이 이미 있다.",
+        "기존 프로젝트는 수업에서 제공한 서비스 장애 진단 에이전트다. FastAPI 서버, LangGraph 그래프, MCP Tool·Resource·Prompt, Vue 채팅 화면, SQLite 대화 이력이 이미 있다.",
         "원래 흐름은 route → plan → gate → research → replan_check → analysis → write → validate → finalize다. 일반 대화는 조사 파이프라인을 건너뛴다.",
         "이번 개선에서 실제로 검증한 모델은 Ollama의 qwen3:0.6b/8b다. 모니터링은 교육용 모의 데이터이며 실제 운영 로그·서버 조치는 없다. 기존 기반 전체를 새로 개발했다고 말하지 않는다."
       ]
@@ -213,7 +213,7 @@
         ],
         [
           "MCP",
-          "기존 지표·원문 조회에\nsearch_runbooks Tool 추가",
+          "매뉴얼 검색 Tool 추가\n기존 지표·원문 조회와 연결",
           "검색 결과를 실제\n매뉴얼 원문에 연결"
         ],
         [
@@ -228,7 +228,7 @@
         ],
         [
           "의존성 주입",
-          "SupervisorDeps에 검색기 주입\n실제 MCP·고정 평가 어댑터 교체",
+          "노드에 검색기를 주입\nMCP 검색·고정 평가 검색 교체",
           "검색 구현 교체와\n고정 조건의 평가 지원"
         ],
         [
@@ -273,7 +273,7 @@
           "rows": [
             [
               "MCP",
-              "기존 지표·원문 조회에\nsearch_runbooks Tool 추가",
+              "매뉴얼 검색 Tool 추가\n기존 지표·원문 조회와 연결",
               "검색 결과를 실제\n매뉴얼 원문에 연결"
             ],
             [
@@ -288,7 +288,7 @@
             ],
             [
               "의존성 주입",
-              "SupervisorDeps에 검색기 주입\n실제 MCP·고정 평가 어댑터 교체",
+              "노드에 검색기를 주입\nMCP 검색·고정 평가 검색 교체",
               "검색 구현 교체와\n고정 조건의 평가 지원"
             ],
             [
@@ -362,7 +362,7 @@
       "image": "day2/evidence/review-q06-first.jpg",
       "caption": "",
       "values": null,
-      "method": "명시한 서비스 전체를 계획과 대조해 빠진 조사를 추가",
+      "method": "요청한 서비스 목록으로 조회 작업을 다시 구성",
       "pair_id": "scope",
       "stage": "after",
       "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
@@ -500,7 +500,7 @@
       "image": "day2/evidence/review-q04-second.jpg",
       "caption": "",
       "values": null,
-      "method": "두 서비스의 관측과 참고 매뉴얼을 각각 제시",
+      "method": "두 서비스의 조회 결과과 참고 매뉴얼을 각각 제시",
       "pair_id": "gateway",
       "stage": "after",
       "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
@@ -717,7 +717,7 @@
       "image": "day2/evidence/context-healthy-answer.jpg",
       "caption": "",
       "values": null,
-      "method": "상태를 먼저 분기: 정상은 검색 생략, 장애는 관측 알림으로 검색",
+      "method": "상태를 먼저 분기: 정상은 검색 생략, 장애는 조회 결과 알림으로 검색",
       "pair_id": "manual",
       "stage": "after",
       "query": "web-01 CPU 급증, auth-service 커넥션 풀도 같이 확인해줘",
@@ -726,7 +726,7 @@
       "implementation_steps": [
         "상태·활성 알림으로 정상·장애·정보 부족을 구분",
         "정상·정보 부족은 장애 매뉴얼 검색을 생략",
-        "조사할 서비스의 관측 알림으로 매뉴얼 검색"
+        "해당 서비스에서 확인한 알림으로 매뉴얼 검색"
       ],
       "implementation_notes": [
         "agent/evidence.py의 monitoring_state는 상태·CPU·메모리 유효성·활성 알림을 확인한다. healthy이고 알림이 없으면 healthy, 유효하지만 활성 알림이 없으면 insufficient, 조사 근거가 있으면 investigate다.",
@@ -771,7 +771,7 @@
     },
     {
       "number": 18,
-      "action_title": "개선 4 후 · 관측과 매뉴얼 원문으로 보고했다",
+      "action_title": "개선 4 후 · 조회 결과과 매뉴얼 원문으로 보고했다",
       "role": "case",
       "key_message": "같은 질문의 실제 개선 응답 · 로그 미수집·조치 미실행 명시",
       "layout": "implementation",
@@ -801,7 +801,7 @@
       "source_slide_number": 11,
       "duration_seconds": 18,
       "implementation_steps": [
-        "모델 출력을 서비스·수치·문서·절차 ID의 JSON으로 제한",
+        "JSON에 서비스·수치·문서·절차 번호만 출력",
         "수집된 대상·수치·문서·절차 번호와 대조",
         "검증 후 매뉴얼 원문으로 출력해 조치 조건 유지"
       ],
@@ -957,7 +957,7 @@
       "implementation_steps": [
         "생성 512토큰·호출 25초·전체 60초 제한 (시연은 전체 8초)",
         "최대 2회 검증, 실패한 초안을 강제 통과시키지 않음",
-        "시간 초과·검증 실패는 이미 수집한 관측으로 안내"
+        "시간 초과·검증 실패는 이미 수집한 조회 결과으로 안내"
       ],
       "implementation_notes": [
         "Ollama 생성 num_predict=512, 호출 25초, 전체 요청 60초를 기본으로 둔다. write·validate는 최대 두 번으로 제한한다.",
@@ -967,7 +967,7 @@
     },
     {
       "number": 23,
-      "action_title": "개선 5 후 · 두 서비스의 관측을 남겼다 2/2",
+      "action_title": "개선 5 후 · 두 서비스의 조회 결과을 남겼다 2/2",
       "role": "case",
       "key_message": "앞 장과 같은 제어 시험 · 일반 성능·20건 통계에 합산하지 않음",
       "layout": "screen",
@@ -987,7 +987,7 @@
       "image": "day2/evidence/story-timeout-second.jpg",
       "caption": "",
       "values": null,
-      "method": "시간 초과 시 이미 수집한 서비스별 관측과 미확인 사항 보존",
+      "method": "시간 초과 시 이미 수집한 서비스별 조회 결과과 미확인 사항 보존",
       "pair_id": "failure",
       "stage": "after",
       "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
@@ -1057,7 +1057,7 @@
         "all_total_vue_student/web_chat.html",
         "day2/results/contextual-captures/49ebc8c8-65fc-4aec-bc42-fd1829f048e9.json"
       ],
-      "speaker_note": "두 번째는 근거 화면입니다. 서버가 실제 수집한 객체를 최종 이벤트에 넣고, 화면이 서비스·수치·문서와 미확인 항목을 표로 표시합니다.",
+      "speaker_note": "두 번째는 근거 화면입니다. 실제 조회한 서비스와 수치, 참고 매뉴얼을 표로 보여주고 확인하지 못한 항목도 함께 표시합니다.",
       "source_refs": [
         "day2/evidence/context-healthy-evidence.jpg",
         "all_total_vue_student/agent/evidence.py",
@@ -1072,7 +1072,7 @@
       "caption": "",
       "values": null,
       "steps": [
-        "수집 객체를 최종 이벤트에 포함",
+        "조회한 근거를\n답변과 함께 전송",
         "서비스·수치·문서를\n표로 표시",
         "미확인 항목과\n조치 미실행 표시"
       ],
@@ -1129,7 +1129,166 @@
     },
     {
       "number": 27,
-      "action_title": "측정 기준과 전후 결과",
+      "action_title": "개선 전후 측정 결과",
+      "role": "data exhibit",
+      "key_message": "누락 서비스3개 보완, 조회 범위15/20에서20/20, 매뉴얼11/12에서12/12, 동일16건 시간 단축",
+      "layout": "metrics",
+      "visual": "Four editable native bar charts from preserved execution records",
+      "image": null,
+      "caption": "",
+      "duration_seconds": 22,
+      "speaker_note": "필요한 서비스 수집은 열일곱에서 스무 개로, 조회 범위 일치는 열다섯에서 스무 문항으로 늘었습니다. 매뉴얼 선택도 개선됐습니다. 같은 열여섯 문항의 시간 중앙값은 삼십오 점 구사 초에서 사 점 사오 초입니다. 생성 설정도 함께 바꾼 결과입니다.",
+      "implementation_notes": [
+        "등록 대상 수집 17/20→20/20은 서비스 수다. D05 payments, D06 cache, D07 auth 누락을 보완했다. 조회 범위 일치는 15/20→20/20이며 auth 대체 조회 2건도 포함한다.",
+        "단일 정답 문서 11/12→12/12는 D07의 db-down을 high-latency로 바꾼 결과다. 같은 모델·고정 지표·질문을 사용했다.",
+        "양쪽 완료한 동일 16건 중앙값은 35.936→4.454초다. 네트워크 전송·UI 표시·워밍업·인덱스 구축은 제외한다. 생성 설정·분기·출력 형식도 바뀌어 RAG만의 효과가 아니다.",
+        "개선 20건은 검증13·관측/확인안내4·대화2·검증실패안내1이다. 응답 완료가 전체 답변의 정확도100%라는 뜻은 아니다. 이후 화면·안내 문구 수정 뒤 전체 시간은 재측정하지 않았다.",
+        "그래프는 보존된 전후40개 실행 기록에서 직접 재집계했다. 세 수집·선택 지표는 개수, 시간은 초 단위이며 각 분모를 제목과 데이터 레이블에 표시한다. 원점을0으로 둔 막대이며 결과 보고서 캡처는 바로 다음 장에 유지한다."
+      ],
+      "source_refs": [
+        "day2/evidence/evaluation-criteria.jpg",
+        "day2/scripts/build_evaluation_evidence.py",
+        "day1/evaluation/cases.json",
+        "day1/scripts/run_baseline.py",
+        "day2/results/comparison/summary.json",
+        "day1/results/baseline-ollama/results.json",
+        "day2/results/improved-ollama/results.json",
+        "day2/results/comparison/presentation-metrics.json",
+        "day2/scripts/build_presentation_metrics.py"
+      ],
+      "evidence": [
+        "day2/results/comparison/presentation-metrics.json"
+      ],
+      "native_content": {
+        "kind": "chart",
+        "chart": {
+          "categories": [
+            "개선 전",
+            "개선 후"
+          ],
+          "series": [
+            {
+              "name": "필요한 서비스 수집",
+              "values": [
+                17,
+                20
+              ]
+            }
+          ]
+        },
+        "charts": [
+          {
+            "title": "필요한 서비스 수집 · 총 20개",
+            "values": [
+              17,
+              20
+            ],
+            "labels": [
+              "17/20",
+              "20/20"
+            ],
+            "max": 25.0,
+            "criterion": "필요한 등록 서비스와 실제 조회 목록을 대조"
+          },
+          {
+            "title": "조회 범위 일치 · 총 20문항",
+            "values": [
+              15,
+              20
+            ],
+            "labels": [
+              "15/20",
+              "20/20"
+            ],
+            "max": 25.0,
+            "criterion": "누락과 불필요한 대체 조회가 모두 없는 질문 수"
+          },
+          {
+            "title": "매뉴얼 선택 · 정답 1개인 12문항",
+            "values": [
+              11,
+              12
+            ],
+            "labels": [
+              "11/12",
+              "12/12"
+            ],
+            "max": 15.0,
+            "criterion": "첫 선택 문서가 기대 문서와 같은 질문 수"
+          },
+          {
+            "title": "처리 시간 중앙값 · 같은 16문항",
+            "values": [
+              35.936499999999995,
+              4.454000000000001
+            ],
+            "labels": [
+              "35.94초",
+              "4.45초"
+            ],
+            "max": 47,
+            "criterion": "전후 모두 완료한 같은 질문의 그래프 실행 시간"
+          }
+        ]
+      },
+      "charts": [
+        {
+          "title": "필요한 서비스 수집 · 총 20개",
+          "values": [
+            17,
+            20
+          ],
+          "labels": [
+            "17/20",
+            "20/20"
+          ],
+          "max": 25.0,
+          "criterion": "필요한 등록 서비스와 실제 조회 목록을 대조"
+        },
+        {
+          "title": "조회 범위 일치 · 총 20문항",
+          "values": [
+            15,
+            20
+          ],
+          "labels": [
+            "15/20",
+            "20/20"
+          ],
+          "max": 25.0,
+          "criterion": "누락과 불필요한 대체 조회가 모두 없는 질문 수"
+        },
+        {
+          "title": "매뉴얼 선택 · 정답 1개인 12문항",
+          "values": [
+            11,
+            12
+          ],
+          "labels": [
+            "11/12",
+            "12/12"
+          ],
+          "max": 15.0,
+          "criterion": "첫 선택 문서가 기대 문서와 같은 질문 수"
+        },
+        {
+          "title": "처리 시간 중앙값 · 같은 16문항",
+          "values": [
+            35.936499999999995,
+            4.454000000000001
+          ],
+          "labels": [
+            "35.94초",
+            "4.45초"
+          ],
+          "max": 47,
+          "criterion": "전후 모두 완료한 같은 질문의 그래프 실행 시간"
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "action_title": "실제 측정 기록과 판정 기준",
       "role": "data exhibit",
       "key_message": "개선20건 = 검증13 + 관측 안내4 + 대화2 + 검증실패 안내1",
       "layout": "screen",
@@ -1143,7 +1302,7 @@
         "day1/results/baseline-ollama/results.json",
         "day2/results/improved-ollama/results.json"
       ],
-      "speaker_note": "필요한 서비스 수집은 스무 개 중 열일곱에서 스무 개로, 단일 정답 문서는 열두 건 중 열한 건에서 열두 건으로 늘었습니다. 양쪽 완료한 같은 열여섯 건의 시간 중앙값은 삼십육 초에서 사 점 사오 초입니다. 생성 설정도 함께 바꾼 결과입니다.",
+      "speaker_note": "같은 실행 기록을 집계한 보고서입니다. 지표별 판정 기준과 응답 안내 포함 여부도 확인할 수 있습니다.",
       "source_refs": [
         "day2/evidence/evaluation-criteria.jpg",
         "day2/scripts/build_evaluation_evidence.py",
@@ -1160,7 +1319,7 @@
       "caption": "",
       "values": null,
       "source_slide_number": 18,
-      "duration_seconds": 25,
+      "duration_seconds": 3,
       "implementation_notes": [
         "등록 대상 수집 17/20→20/20은 서비스 수다. D05 payments, D06 cache, D07 auth 누락을 보완했다. 조회 범위 일치는 15/20→20/20이며 auth 대체 조회 2건도 포함한다.",
         "단일 정답 문서 11/12→12/12는 D07의 db-down을 high-latency로 바꾼 결과다. 같은 모델·고정 지표·질문을 사용했다.",
@@ -1169,7 +1328,7 @@
       ]
     },
     {
-      "number": 28,
+      "number": 29,
       "action_title": "한계와 다음 개선 방향",
       "role": "limitation",
       "key_message": "다음 단계  실제 로그·시계열·의존 관계와 독립 질문 검증",
@@ -1204,7 +1363,7 @@
             ],
             [
               "생성·시간 상한",
-              "일부 요청은 관측 안내로 종료"
+              "일부 요청은 확인한 사실만 안내"
             ]
           ]
         }
@@ -1230,7 +1389,7 @@
         ],
         [
           "생성·시간 상한",
-          "일부 요청은 관측 안내로 종료"
+          "일부 요청은 확인한 사실만 안내"
         ]
       ],
       "takeaway": "다음 단계: 실제 로그·시계열 자료 수집과 독립 질문 평가",
