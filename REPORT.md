@@ -2,7 +2,7 @@
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-results.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-ready.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -39,15 +39,15 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 기존 기술을 직접 새로 만들었다고 주장하지 않는다. 전문 멀티에이전트 확장이나 LangSmith 연결 검증은 이번 성과에 포함하지 않았다. OpenAI 경로는 보존 원본에 있으며 개선 버전은 Ollama를 검증했다.
 
-## 4. 최초 실행의 문제와 같은 질문의 개선 결과
+## 4. 실행 결과로 확인한 문제와 개선
 
-개선 전 사진은 사용자가 2026-10-20 직접 실행해 제공한 원본이다. 개선 후는 같은 질문의 별도 실행이다. 최초 모의 지표에는 무작위 변동이 있어 수치가 다르며, CPU·메모리 값의 차이를 개선 효과로 해석하지 않는다. 정량 비교는 다음 절의 고정 질문·지표 평가로 구분한다.
+개선 전후 같은 질문을 입력했다. 모의 지표는 실행 시점에 따라 달라지므로 CPU·메모리 값의 차이를 개선 성과로 비교하지 않는다. 정량 평가는 다음 절의 고정 질문·지표 결과다.
 
 ### 개선 1. 다중 서비스 조사 누락
 
 최초 payments·cache 요청에서는 payments만 수집하고 공통 원인 후보를 제시했다. cache 지표와 공유 의존 관계가 없어 공통 원인을 판단할 근거가 부족했다.
 
-![사용자 최초 payments·cache 질문과 답변](day1/evidence/user-screenshots/04-payments-cache.png)
+![개선 전 payments·cache 질문과 답변](day1/evidence/user-screenshots/04-payments-cache.png)
 
 명시한 서비스 전체를 계획과 대조해 누락 조사를 보완했다. 같은 질문에서 두 서비스를 각각 조회하고, CPU·메모리 매뉴얼을 따로 연결했다. 의존 관계·동시 변화 자료가 없어 공통 원인은 미확인으로 남긴다.
 
@@ -59,7 +59,7 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 최초 billing 요청에서 실제 수집한 대상은 auth였다. 이는 원래 기본 정책이지만 요청 대상과 조회 대상이 달라지는 문제로 보아 정책을 변경했다.
 
-![사용자 최초 billing 질문과 auth 조회](day1/evidence/user-screenshots/06-billing.png)
+![개선 전 billing 질문과 auth 조회](day1/evidence/user-screenshots/06-billing.png)
 
 등록 목록과 대조하고, 미등록이면 다른 서비스의 조회·보고 생성을 생략한 뒤 확인할 이름을 요청한다. 이 응답은 LLM 보고 생성이 아닌 코드 안내다.
 
@@ -69,7 +69,7 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 최초 web·auth 요청은 web이 healthy·알림0건인데 db-down 문서를 선택했다.
 
-![사용자 최초 web·auth 질문과 DB 문서](day1/evidence/user-screenshots/03-web-auth.png)
+![개선 전 web·auth 질문과 DB 문서](day1/evidence/user-screenshots/03-web-auth.png)
 
 상태를 먼저 구분하고 정상은 검색을 생략한다. 같은 질문에서 web은 정상으로, auth는 관측 알림에 맞는 지연 문서로 보고한다. 최초41%·51.5%와 아래34%·48%는 다른 시점의 모의 값이다.
 
@@ -79,7 +79,7 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 최초 payments 답변에는 로그 분석 결과라는 표현이 있지만 실제 로그는 수집하지 않았다.
 
-![사용자 최초 payments CPU 질문과 로그 분석 표현](day1/evidence/user-screenshots/02-payments-cpu.png)
+![개선 전 payments CPU 질문과 로그 분석 표현](day1/evidence/user-screenshots/02-payments-cpu.png)
 
 구조화된 서비스·수치·문서·절차 번호를 검증하고, 검증 후 절차는 원문으로 출력한다. 실제 로그 미수집·조치 미실행을 표시한다. 자유 생성 문장 전체의 의미 검증이나 조건 충족의 자동 판정은 아니다.
 
@@ -87,7 +87,7 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 ### 개선 5. 생성·시간 제한과 실패 안내
 
-최초 사용자 사진과 별도로 원본을 재현한 payments·cache 요청에서는 분석 단계 ReadTimeout으로 최종 응답을 완료하지 못했다.
+베이스 프로젝트의 payments·cache 요청을 다시 실행했을 때는 분석 단계 ReadTimeout으로 최종 응답을 완료하지 못했다.
 
 ![별도 원본 재현의 최종 답변 미완료](day2/evidence/before-main-viewport.jpg)
 
@@ -117,7 +117,7 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 ![평가 실행기가 실제 생성한 비교 보고서](day2/evidence/story-evaluation-report.jpg)
 
-[최초 7장과 개선 결과 대응](presentation/EVIDENCE_INDEX.md) · [추가 UI·원시 기록](day2/results/contextual-captures/SUMMARY.md) · [단위 테스트31개](day2/tests/unit-tests-story.txt)
+[질문별 개선 결과와 증빙](presentation/EVIDENCE_INDEX.md) · [추가 UI·원시 기록](day2/results/contextual-captures/SUMMARY.md) · [단위 테스트31개](day2/tests/unit-tests-story.txt)
 
 ## 5. 동일 입력의 개선 전후 비교
 
@@ -197,4 +197,4 @@ LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-AI 도구를 코드 작성·시험 자동화·자료 작성에 사용했다. 수치의 분모·실패 사례·비교 조건을 확인했고, 의미 정확도의 독립적인 전문가 평가는 수행하지 않았다. 발표는 표지 포함 26장으로 구성했다. 최초 사용자 캡처 7개를 모두 본문에 넣고 같은 질문의 개선 결과를 바로 연결했다. 노트 배분 목표는 4분 57초이며 실제 구두 리허설은 별도 확인한다.
+발표자료는 표지 포함 26장이다. [발표 대본과 화면 지점](presentation/REHEARSAL.md)에 설명 순서와 예상 질문을 정리했다.
