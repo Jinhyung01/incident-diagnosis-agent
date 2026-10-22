@@ -101,6 +101,29 @@ metrics = {
         "새 모델 평가 실행이 아닌 보존 기록의 재집계",
     ],
 }
+quality_denominators = [denominators[0], len(before), denominator]
+quality_counts = [
+    [charts[index]["values"][side] for index in range(3)] for side in range(2)
+]
+metrics["quality"] = {
+    "categories": ["서비스 조회", "조회 대상 일치", "매뉴얼 선택"],
+    "denominators": quality_denominators,
+    "counts": quality_counts,
+    "series": [
+        {
+            "name": name,
+            "values": [
+                round(value / total, 4)
+                for value, total in zip(counts, quality_denominators)
+            ],
+        }
+        for name, counts in zip(["개선 전", "개선 후"], quality_counts)
+    ],
+    "scope": "등록 서비스 조회·대상 집합·단일 정답 매뉴얼 첫 선택의 일치율",
+    "service_count_definition": "요청별 필요한 등록 대상의 합계. 같은 서비스가 다른 질문에 나오면 다시 계수한다.",
+    "semantic_diagnosis_accuracy_measured": False,
+    "timing_is_secondary": True,
+}
 output = ROOT / "day2/results/comparison/presentation-metrics.json"
 output.write_text(json.dumps(metrics, ensure_ascii=False, indent=2) + "\n")
 print("Generated four chart datasets from preserved execution records.")

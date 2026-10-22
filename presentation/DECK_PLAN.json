@@ -2,15 +2,15 @@
   "deck": {
     "title": "운영 장애 진단 AI 에이전트 개선",
     "audience": "동일 교육과정 교육생·평가자",
-    "outcome": "기존 서비스의 조사 누락·대상 확인·매뉴얼·근거 문제를 실제 전후 화면과 구현·측정으로 설명한다",
+    "outcome": "조사 누락·대상 확인·매뉴얼 선택·근거 검증의 개선을 실제 화면과 선택 일치율로 이해한다",
     "main_promise": "문제·개선 범위·사용 기술·실제 전후 화면·수치·트레이드오프를 코드와 증거로 연결",
     "output_lane": "native-pptx",
     "format": "16:9",
     "slide_count": 25,
     "narrative_spine": "표지 / 기존 서비스 / 개선4개·추가3개 / 기술 적용 / 실제 전후 화면 / 추가 기능 / 기준을 합친 전후 그래프 / 한계",
-    "design_posture": "실제 질문·응답 캡처는 유지하고, 발표 문구는 역할 중심으로 정리. 측정은 네이티브 그래프와 실제 집계 화면을 연결",
+    "design_posture": "흰 배경·검정 본문·파란 강조색. 간결한2열 표, 실제 캡처, 선택 정확성 중심의 전후 비교",
     "assumptions": [
-      "표지 포함25장. 대본 배분266초, 실제 시간은 구두 리허설로 확인한다.",
+      "표지 포함25장. 대본 배분269초(4분29초), 실제 시간은 구두 리허설로 확인한다.",
       "최초 사용자 PNG 7개를 모두 본문에 포함하고 같은 질문의 개선 결과와 연속 배치한다.",
       "최초 무작위 지표와 고정 재실행의 수치 차이는 개선 효과로 비교하지 않는다."
     ]
@@ -18,7 +18,7 @@
   "slides": [
     {
       "number": 1,
-      "action_title": "운영 장애 진단\nAI 에이전트 개선",
+      "action_title": "서비스 장애 진단\nAI 에이전트 개선",
       "role": "cover",
       "key_message": "운영 장애 진단\nAI 에이전트 개선",
       "layout": "cover",
@@ -42,7 +42,7 @@
     },
     {
       "number": 2,
-      "action_title": "기존 프로젝트는 어떤 서비스인가",
+      "action_title": "실습 1: 기존 장애 진단 에이전트 개선",
       "role": "context",
       "key_message": "발표 순서  실제 문제 → 개선 결과 → 추가 기능 3개 → 비교·한계",
       "layout": "project",
@@ -61,21 +61,21 @@
         "kind": "table",
         "table": {
           "headers": [
-            "기존 역할",
-            "동작"
+            "구성",
+            "역할"
           ],
           "rows": [
             [
               "LLM·LangGraph",
-              "일반 대화 / 장애 요청 구분, 조사 계획·보고·검증"
+              "질문 분류·조사 계획·답변 작성·검증"
             ],
             [
               "MCP",
-              "서비스 모니터링 지표와 대응 매뉴얼 조회"
+              "모니터링 지표·대응 매뉴얼 조회"
             ],
             [
               "웹 채팅·SQLite",
-              "진행 과정과 최종 응답 표시, 대화 이력 유지"
+              "진행 상태·최종 답변 표시, 대화 이력 저장"
             ]
           ]
         }
@@ -84,27 +84,27 @@
       "caption": "",
       "values": [
         [
-          "기존 역할",
-          "동작"
+          "구성",
+          "역할"
         ],
         [
           "LLM·LangGraph",
-          "일반 대화 / 장애 요청 구분, 조사 계획·보고·검증"
+          "질문 분류·조사 계획·답변 작성·검증"
         ],
         [
           "MCP",
-          "서비스 모니터링 지표와 대응 매뉴얼 조회"
+          "모니터링 지표·대응 매뉴얼 조회"
         ],
         [
           "웹 채팅·SQLite",
-          "진행 과정과 최종 응답 표시, 대화 이력 유지"
+          "진행 상태·최종 답변 표시, 대화 이력 저장"
         ]
       ],
-      "takeaway": "기존 구조를 활용해 조사 대상·매뉴얼 선택·답변 검증을 개선",
+      "takeaway": "기존 구조를 활용해 조사 대상과 답변의 신뢰성을 개선",
       "source_slide_number": 2,
       "duration_seconds": 18,
-      "project_name": "서비스 장애 진단 AI 에이전트",
-      "project_description": "서비스 이름과 장애 증상을 입력하면 모니터링 지표와 대응 매뉴얼을 조회하고\n현재 상태와 대응 절차를 진단 보고서로 작성하는 웹 서비스",
+      "project_name": "서비스 장애를 조사하는 AI 에이전트",
+      "project_description": "서비스 이름과 증상을 입력하면 모니터링 지표와 대응 매뉴얼을 조회합니다.\n확인한 상태와 대응 절차를 정리해 진단 보고서로 보여줍니다.",
       "implementation_notes": [
         "기존 프로젝트는 수업에서 제공한 서비스 장애 진단 에이전트다. FastAPI 서버, LangGraph 그래프, MCP Tool·Resource·Prompt, Vue 채팅 화면, SQLite 대화 이력이 이미 있다.",
         "원래 흐름은 route → plan → gate → research → replan_check → analysis → write → validate → finalize다. 일반 대화는 조사 파이프라인을 건너뛴다.",
@@ -120,29 +120,29 @@
       "values": [
         [
           "개선",
-          "변경한 동작"
+          "바꾼 동작"
         ],
         [
-          "조사 대상",
-          "요청한 서비스 전체를 각각 조회"
+          "누락 방지",
+          "요청한 서비스를 빠짐없이 각각 조회"
         ],
         [
-          "미등록·대상 없음",
-          "다른 서비스로 바꾸지 않고 확인 요청"
+          "대상 확인",
+          "미등록이거나 이름이 없으면 대상부터 확인"
         ],
         [
           "매뉴얼 선택",
-          "상태를 구분하고 서비스별 알림으로 검색"
+          "서비스 상태와 알림에 맞는 매뉴얼 연결"
         ],
         [
           "답변 검증",
-          "수치·서비스·절차를 근거와 대조"
+          "서비스·수치·절차를 수집 근거와 대조"
         ]
       ],
       "additions": [
         "RAG 매뉴얼 검색",
-        "근거·미확인 화면",
-        "회귀·전후 비교 평가"
+        "답변 근거 표시",
+        "회귀 테스트·전후 비교"
       ],
       "speaker_note": "조사 범위, 대상 확인, 매뉴얼 선택, 답변 검증 네 가지를 개선했습니다. 검색과 근거 화면, 비교 평가를 추가했습니다.",
       "duration_seconds": 12,
@@ -165,24 +165,24 @@
         "table": {
           "headers": [
             "개선",
-            "변경한 동작"
+            "바꾼 동작"
           ],
           "rows": [
             [
-              "조사 대상",
-              "요청한 서비스 전체를 각각 조회"
+              "누락 방지",
+              "요청한 서비스를 빠짐없이 각각 조회"
             ],
             [
-              "미등록·대상 없음",
-              "다른 서비스로 바꾸지 않고 확인 요청"
+              "대상 확인",
+              "미등록이거나 이름이 없으면 대상부터 확인"
             ],
             [
               "매뉴얼 선택",
-              "상태를 구분하고 서비스별 알림으로 검색"
+              "서비스 상태와 알림에 맞는 매뉴얼 연결"
             ],
             [
               "답변 검증",
-              "수치·서비스·절차를 근거와 대조"
+              "서비스·수치·절차를 수집 근거와 대조"
             ]
           ]
         }
@@ -199,33 +199,27 @@
       "values": [
         [
           "기술",
-          "적용 방법",
-          "개선에 기여한 부분"
+          "적용한 내용"
         ],
         [
           "MCP",
-          "매뉴얼 검색 Tool 추가\n기존 지표·원문 조회와 연결",
-          "검색 결과를 실제\n매뉴얼 원문에 연결"
+          "매뉴얼 검색 Tool을 추가하고\n기존 모니터링·매뉴얼 원문 조회와 연결"
         ],
         [
           "RAG",
-          "bge-m3 임베딩·SQLite 저장\n코사인 유사도로 문서 검색",
-          "고정 키워드 대신\n서비스별 증상으로 검색"
+          "bge-m3로 문서를 벡터화하고\n서비스별 증상과 유사한 매뉴얼 검색"
         ],
         [
-          "LangGraph·모듈화",
-          "대상·수집·검색·보고·검증 분리\n서비스 상태별 처리와 검증 연결",
-          "조사 누락·불필요한 검색 방지\n답변의 서비스·수치 검증"
+          "LangGraph\n모듈화",
+          "대상 확인·수집·검색·검증을 분리하고\n서비스 상태에 따라 처리 흐름 연결"
         ],
         [
           "의존성 주입",
-          "노드에 검색기를 주입\nMCP 검색·고정 평가 검색 교체",
-          "검색 구현 교체와\n고정 조건의 평가 지원"
+          "검색기를 주입해\n실제 MCP 검색과 고정 평가용 검색 교체"
         ],
         [
-          "단위 테스트·평가",
-          "핵심 분기 단위 테스트 31개\n같은 질문·지표 20건 전후 비교",
-          "대상·수치·실패 분기 검증\n조회·문서·처리 시간 기록"
+          "단위 테스트\n전후 평가",
+          "핵심 분기 31개를 시험하고\n같은 질문 20개로 전후 결과 비교"
         ]
       ],
       "speaker_note": "MCP에 검색 도구를 추가하고 RAG로 문서를 찾습니다. 그래프 처리를 모듈로 분리하고 검색기를 주입해 실제 MCP와 고정 평가를 교체합니다. 분기 테스트와 동일 입력 평가로 확인했습니다.",
@@ -258,34 +252,28 @@
         "table": {
           "headers": [
             "기술",
-            "적용 방법",
-            "개선에 기여한 부분"
+            "적용한 내용"
           ],
           "rows": [
             [
               "MCP",
-              "매뉴얼 검색 Tool 추가\n기존 지표·원문 조회와 연결",
-              "검색 결과를 실제\n매뉴얼 원문에 연결"
+              "매뉴얼 검색 Tool을 추가하고\n기존 모니터링·매뉴얼 원문 조회와 연결"
             ],
             [
               "RAG",
-              "bge-m3 임베딩·SQLite 저장\n코사인 유사도로 문서 검색",
-              "고정 키워드 대신\n서비스별 증상으로 검색"
+              "bge-m3로 문서를 벡터화하고\n서비스별 증상과 유사한 매뉴얼 검색"
             ],
             [
-              "LangGraph·모듈화",
-              "대상·수집·검색·보고·검증 분리\n서비스 상태별 처리와 검증 연결",
-              "조사 누락·불필요한 검색 방지\n답변의 서비스·수치 검증"
+              "LangGraph\n모듈화",
+              "대상 확인·수집·검색·검증을 분리하고\n서비스 상태에 따라 처리 흐름 연결"
             ],
             [
               "의존성 주입",
-              "노드에 검색기를 주입\nMCP 검색·고정 평가 검색 교체",
-              "검색 구현 교체와\n고정 조건의 평가 지원"
+              "검색기를 주입해\n실제 MCP 검색과 고정 평가용 검색 교체"
             ],
             [
-              "단위 테스트·평가",
-              "핵심 분기 단위 테스트 31개\n같은 질문·지표 20건 전후 비교",
-              "대상·수치·실패 분기 검증\n조회·문서·처리 시간 기록"
+              "단위 테스트\n전후 평가",
+              "핵심 분기 31개를 시험하고\n같은 질문 20개로 전후 결과 비교"
             ]
           ]
         }
@@ -295,7 +283,7 @@
     },
     {
       "number": 5,
-      "action_title": "개선 1 전 · cache를 조회하지 않고 원인을 추정했다",
+      "action_title": "개선 1 전: cache 조회 없이 공통 원인을 추정",
       "role": "case",
       "key_message": "개선 1 전 · cache를 조회하지 않고 원인을 추정했다",
       "layout": "before",
@@ -316,7 +304,7 @@
       "caption": "",
       "values": null,
       "insight": "두 서비스를 요청했지만\npayments만 조회",
-      "explain": "cache 지표 없음\n공유 의존 관계도 미확인",
+      "explain": "cache 지표와\n공유 리소스 정보가 없음",
       "quote": "“트래픽 급증 또는\n특정 요청 패턴”",
       "pair_id": "scope",
       "stage": "before",
@@ -330,7 +318,7 @@
     },
     {
       "number": 6,
-      "action_title": "개선 1 후 · 두 서비스를 각각 조사했다 1/2",
+      "action_title": "개선 1 후: 두 서비스를 빠짐없이 조사 1/2",
       "role": "case",
       "key_message": "같은 질문의 개선 실행 · 원본과 수치가 다른 별도 시점",
       "layout": "implementation",
@@ -360,9 +348,9 @@
       "source_slide_number": 4,
       "duration_seconds": 12,
       "implementation_steps": [
-        "질문에서 등록 서비스 전체를 추출",
-        "LLM 계획에 맡기지 않고 대상별 조회 작업을 재구성",
-        "확정한 대상 목록으로 각 서비스의 모니터링 조회"
+        "요청문에서 등록된 서비스 이름을 모두 확인",
+        "서비스마다 조회 작업을 구성해 누락 방지",
+        "각 서비스의 모니터링 결과를 따로 수집"
       ],
       "implementation_notes": [
         "agent/targets.py의 select_targets가 등록 목록과 요청 텍스트를 대조해 알려진 대상 전체와 미등록 대상을 나눈다.",
@@ -372,7 +360,7 @@
     },
     {
       "number": 7,
-      "action_title": "개선 1 후 · 공통 원인은 미확인으로 남겼다 2/2",
+      "action_title": "개선 1 후: 공통 원인은 미확인으로 표시 2/2",
       "role": "case",
       "key_message": "앞 장과 같은 요청의 연속 화면 · 전체 응답 원본도 보존",
       "layout": "screen",
@@ -392,7 +380,7 @@
       "image": "day2/evidence/review-q06-second.jpg",
       "caption": "",
       "values": null,
-      "method": "서비스별 근거는 제시하고, 공통 원인 확정은 보류",
+      "method": "서비스별 결과는 제시하고, 확인하지 못한 공통 원인은 단정하지 않음",
       "pair_id": "scope",
       "stage": "after",
       "query": "payments-service랑 cache-service 둘 다 저하됐는데 공통 원인이 있는지 분석해줘",
@@ -405,7 +393,7 @@
     },
     {
       "number": 8,
-      "action_title": "개선 1 전 · gateway만 조회했다",
+      "action_title": "개선 1 전: gateway만 조회",
       "role": "problem",
       "key_message": "개선 1 전 · gateway만 조회했다",
       "layout": "before",
@@ -425,8 +413,8 @@
       "image": "day1/evidence/user-screenshots/01-gateway-payments.png",
       "caption": "",
       "values": null,
-      "insight": "gateway만 조회\npayments 상태는 미수집",
-      "explain": "연결된 두 서비스 중\n상대 서비스의 근거가 빠짐",
+      "insight": "gateway만 조회\npayments는 확인하지 않음",
+      "explain": "연결된 두 서비스 중\n한쪽의 상태를 모름",
       "quote": "수집된 사실: 모니터링 gateway-service",
       "pair_id": "gateway",
       "stage": "before",
@@ -439,7 +427,7 @@
     },
     {
       "number": 9,
-      "action_title": "개선 1 후 · 요청을 주고받는 두 서비스를 조회했다",
+      "action_title": "개선 1 후: 요청을 주고받는 양쪽을 조사",
       "role": "evidence",
       "key_message": "gateway 네트워크·payments CPU를 각각 조회",
       "layout": "screen",
@@ -459,7 +447,7 @@
       "image": "day2/evidence/review-q04-first.jpg",
       "caption": "",
       "values": null,
-      "method": "명시한 두 서비스의 조사 작업을 각각 보완",
+      "method": "질문에 나온 두 서비스의 조회 작업을 각각 구성",
       "pair_id": "gateway",
       "stage": "after",
       "query": "gateway-service에서 payments-service로 가는 요청이 타임아웃 나고 있어요",
@@ -471,7 +459,7 @@
     },
     {
       "number": 10,
-      "action_title": "개선 1 후 · 두 서비스의 결과와 근거를 제시했다",
+      "action_title": "개선 1 후: 두 서비스의 결과와 근거를 함께 제시",
       "role": "evidence",
       "key_message": "앞 장과 같은 실행 · 두 서비스 근거·공통 원인 미확정",
       "layout": "screen",
@@ -503,7 +491,7 @@
     },
     {
       "number": 11,
-      "action_title": "개선 2 전 · billing을 묻자 auth를 조회했다",
+      "action_title": "개선 2 전: billing을 물었는데 auth를 조회",
       "role": "case",
       "key_message": "개선 2 전 · billing을 묻자 auth를 조회했다",
       "layout": "before",
@@ -524,7 +512,7 @@
       "caption": "",
       "values": null,
       "insight": "요청: billing-service\n실제 조회: auth-service",
-      "explain": "원래 정책: 미등록 이름은 auth 기본 처리\n문제: 사용자가 요청한 대상과 불일치",
+      "explain": "미등록 이름을 auth로 대체해\n요청과 다른 대상을 조사",
       "quote": "수집된 사실: 모니터링 auth-service",
       "pair_id": "unknown",
       "stage": "before",
@@ -537,7 +525,7 @@
     },
     {
       "number": 12,
-      "action_title": "개선 2 후 · 미등록이면 등록 이름을 다시 묻는다",
+      "action_title": "개선 2 후: 미등록 서비스는 이름부터 확인",
       "role": "case",
       "key_message": "같은 질문의 실제 개선 응답 · 코드가 구성한 확인 안내",
       "layout": "implementation",
@@ -566,9 +554,9 @@
       "source_slide_number": 7,
       "duration_seconds": 11,
       "implementation_steps": [
-        "입력한 서비스와 등록 목록을 대조",
-        "미등록이면 모니터링과 보고 생성을 생략",
-        "다른 서비스로 바꾸지 않고 등록 이름을 확인"
+        "입력한 서비스 이름을 등록 목록과 대조",
+        "미등록이면 다른 서비스를 조회하지 않음",
+        "등록된 서비스 이름을 다시 확인하도록 안내"
       ],
       "implementation_notes": [
         "select_targets가 서비스처럼 보이지만 등록 목록에 없는 billing-service를 unknown에 넣는다. targets가 비면 plan_node가 보고 모델의 계획을 호출하지 않고, 모니터링 수집도 비어 있다.",
@@ -578,7 +566,7 @@
     },
     {
       "number": 13,
-      "action_title": "개선 2 전 · 로그인만으로 auth를 조회했다",
+      "action_title": "개선 2 전: 서비스 이름 없이 auth를 조회",
       "role": "problem",
       "key_message": "개선 2 전 · 로그인만으로 auth를 조회했다",
       "layout": "before",
@@ -599,7 +587,7 @@
       "caption": "",
       "values": null,
       "insight": "서비스 이름이 없는데\nauth-service로 조회",
-      "explain": "원래 auth 기본 정책을\n대상 이름 확인 요청으로 변경",
+      "explain": "대상을 임의로 정하던 처리를\n이름 확인 요청으로 변경",
       "quote": "모니터링 auth-service",
       "pair_id": "login",
       "stage": "before",
@@ -612,7 +600,7 @@
     },
     {
       "number": 14,
-      "action_title": "개선 2 후 · 서비스 이름을 먼저 확인한다",
+      "action_title": "개선 2 후: 서비스 이름을 먼저 확인",
       "role": "evidence",
       "key_message": "같은 질문의 실제 개선 응답 · 모니터링·보고 LLM 생략",
       "layout": "implementation",
@@ -641,9 +629,9 @@
       "source_slide_number": 25,
       "duration_seconds": 6,
       "implementation_steps": [
-        "서비스 이름이 없는 장애 요청을 감지",
-        "auth 기본값 적용을 제거",
-        "실제 조회 대신 대상 확인 안내를 반환"
+        "장애 요청에 서비스 이름이 있는지 확인",
+        "auth를 기본 대상으로 쓰던 처리 제거",
+        "조사할 서비스 이름을 먼저 질문"
       ],
       "implementation_notes": [
         "장애 문맥은 인식하지만 명시한 등록 대상이 없으면 빈 target 목록을 유지한다. render_report가 어느 서비스를 확인할지 묻는다.",
@@ -652,7 +640,7 @@
     },
     {
       "number": 15,
-      "action_title": "개선 3 전 · 정상 web에 DB 장애 절차를 연결했다",
+      "action_title": "개선 3 전: 정상인 web에 DB 장애 매뉴얼 연결",
       "role": "case",
       "key_message": "개선 3 전 · 정상 web에 DB 장애 절차를 연결했다",
       "layout": "before",
@@ -672,8 +660,8 @@
       "image": "day1/evidence/user-screenshots/03-web-auth.png",
       "caption": "",
       "values": null,
-      "insight": "web-01: healthy·알림 0건\n선택 문서: db-down",
-      "explain": "정상인데 장애 문서 선택\nauth 조사도 누락",
+      "insight": "web-01은 정상·알림 0건\n선택 문서는 db-down",
+      "explain": "정상 서비스에 장애 절차를 제시\nauth 조회도 누락",
       "quote": "“DB Down 대응 절차”",
       "pair_id": "manual",
       "stage": "before",
@@ -686,7 +674,7 @@
     },
     {
       "number": 16,
-      "action_title": "개선 3 후 · 정상·장애를 서비스별로 구분했다",
+      "action_title": "개선 3 후: 서비스별 상태에 맞는 매뉴얼 선택",
       "role": "case",
       "key_message": "개선 3 후 · 정상·장애를 서비스별로 구분했다",
       "layout": "implementation",
@@ -715,8 +703,8 @@
       "source_slide_number": 9,
       "duration_seconds": 14,
       "implementation_steps": [
-        "상태·활성 알림으로 정상·장애·정보 부족을 구분",
-        "정상·정보 부족은 장애 매뉴얼 검색을 생략",
+        "상태와 활성 알림으로 정상·장애·정보 부족 분류",
+        "정상·정보 부족 서비스는 장애 매뉴얼 검색 생략",
         "해당 서비스에서 확인한 알림으로 매뉴얼 검색"
       ],
       "implementation_notes": [
@@ -727,7 +715,7 @@
     },
     {
       "number": 17,
-      "action_title": "개선 4 전 · 로그 미수집인데 분석 결과처럼 답했다",
+      "action_title": "개선 4 전: 조회하지 않은 로그를 분석한 것처럼 답변",
       "role": "case",
       "key_message": "개선 4 전 · 로그 미수집인데 분석 결과처럼 답했다",
       "layout": "before",
@@ -747,8 +735,8 @@
       "image": "day1/evidence/user-screenshots/02-payments-cpu.png",
       "caption": "",
       "values": null,
-      "insight": "로그 조회 없이\n분석 결과처럼 답변",
-      "explain": "수집 자료: 지표·매뉴얼\n로그 분석 근거는 없음",
+      "insight": "로그를 조회하지 않고\n분석 결과처럼 답변",
+      "explain": "수집한 자료는 지표·매뉴얼\n로그 분석 근거는 없음",
       "quote": "“로그 분석 결과\n특이 패턴 없음.”",
       "pair_id": "ground",
       "stage": "before",
@@ -762,7 +750,7 @@
     },
     {
       "number": 18,
-      "action_title": "개선 4 후 · 조회 결과와 매뉴얼 원문으로 보고했다",
+      "action_title": "개선 4 후: 수치와 절차를 검증한 뒤 답변",
       "role": "case",
       "key_message": "같은 질문의 실제 개선 응답 · 로그 미수집·조치 미실행 명시",
       "layout": "implementation",
@@ -792,9 +780,9 @@
       "source_slide_number": 11,
       "duration_seconds": 18,
       "implementation_steps": [
-        "JSON에 서비스·수치·문서·절차 번호만 출력",
-        "수집된 대상·수치·문서·절차 번호와 대조",
-        "검증 후 매뉴얼 원문으로 출력해 조치 조건 유지"
+        "모델이 고른 서비스·수치·문서·절차 번호를 JSON으로 받음",
+        "조회 결과와 대조해 다른 대상·수치·문서를 걸러냄",
+        "검증된 매뉴얼의 절차와 조치 조건을 원문으로 표시"
       ],
       "implementation_notes": [
         "StructuredReportLLM은 sections JSON으로 서비스 이름·CPU·메모리·runbook_id·step_ids·cause_confirmed만 출력하도록 한다.",
@@ -805,7 +793,7 @@
     },
     {
       "number": 19,
-      "action_title": "대화 개선 전 · 사용자 이름을 자기소개에 섞었다",
+      "action_title": "대화 개선 전: 사용자 이름을 자기소개에 사용",
       "role": "problem",
       "key_message": "대화 회귀 전 · 사용자 이름을 자기소개에 섞었다",
       "layout": "before",
@@ -825,8 +813,8 @@
       "image": "day1/evidence/user-screenshots/07-name-recall.png",
       "caption": "",
       "values": null,
-      "insight": "사용자 이름 민수가\n비서의 자기소개에 섞임",
-      "explain": "사용자와 비서 이름 혼동\n사용자 역할의 선언만 읽기",
+      "insight": "사용자 이름 민수를\n비서 자신의 이름처럼 답변",
+      "explain": "사용자와 비서의 발화를 구분해\n이름을 읽어야 함",
       "quote": "“민수라는 이름으로…”",
       "pair_id": "name",
       "stage": "before",
@@ -839,7 +827,7 @@
     },
     {
       "number": 20,
-      "action_title": "대화 개선 후 · 사용자 이름을 올바르게 답한다",
+      "action_title": "대화 개선 후: 사용자가 밝힌 이름으로 답변",
       "role": "evidence",
       "key_message": "실제 두 턴 전체 · PID24787→25021의 별도 재시작 기록 연결",
       "layout": "implementation",
@@ -868,8 +856,8 @@
       "source_slide_number": 27,
       "duration_seconds": 8,
       "implementation_steps": [
-        "사용자 역할의 이름 선언만 추출, 이름 질문·비서 발화는 제외",
-        "같은 대화 이력에서 사용자가 밝힌 이름을 조회"
+        "사용자가 직접 밝힌 이름만 읽고, 질문·비서 발화는 제외",
+        "같은 대화 이력에서 가장 최근에 밝힌 이름을 사용"
       ],
       "implementation_notes": [
         "remembered_name은 history에서 role=user인 메시지와 현재 입력만 읽고, '제 이름은 ...입니다' 같은 선언형만 추출한다. assistant 발화와 '이름이 뭐였죠' 질문은 이름 선언으로 보지 않는다.",
@@ -879,7 +867,7 @@
     },
     {
       "number": 21,
-      "action_title": "추가 1 · 증상에 맞는 매뉴얼을 검색한다",
+      "action_title": "추가 1: 증상에 맞는 매뉴얼을 RAG로 검색",
       "role": "mechanism",
       "key_message": "검색 결과와 원문을 연결 · 유사도는 정답 확률이 아님",
       "layout": "feature",
@@ -912,10 +900,10 @@
         "SQLite에서 유사한 문서 검색",
         "MCP로 매뉴얼 원문 조회"
       ],
-      "result": "실제 실행\nlog-service → disk-full\n유사도 0.673",
+      "result": "log-service\n디스크 공간 부족\n유사도 0.673",
       "source_slide_number": 15,
       "duration_seconds": 17,
-      "method": "검색기를 의존성으로 분리해 교체·단위 테스트 가능",
+      "method": "검색기를 분리해 교체할 수 있게 하고, 단위 테스트로 확인",
       "implementation_notes": [
         "기존 6개 runbook 본문과 한·영 증상 메타데이터를 bge-m3로 임베딩하고 SQLite에 캐시한다. 문서 변경 시 digest를 확인해 인덱스를 갱신한다.",
         "서비스별 활성 알림을 임베딩하고 정규화한 벡터의 코사인 유사도로 검색한다. 임계값 0.35, 후보 상위 2개 중 첫 문서를 실제 원문과 연결한다.",
@@ -925,7 +913,7 @@
     },
     {
       "number": 22,
-      "action_title": "추가 2 · 답변에 사용한 근거를 화면에 표시한다",
+      "action_title": "추가 2: 답변에 사용한 근거를 함께 표시",
       "role": "proof",
       "key_message": "모델 문장과 별도로 실제 수집 객체에서 근거 표 구성",
       "layout": "feature",
@@ -953,10 +941,10 @@
       "values": null,
       "steps": [
         "조회한 근거를\n답변과 함께 전송",
-        "서비스·수치·문서를\n표로 표시",
-        "미확인 항목과\n조치 미실행 표시"
+        "서비스·수치·매뉴얼을\n표로 표시",
+        "미확인 사항과\n조치 미실행 표시"
       ],
-      "result": "실제 실행\nweb: 매뉴얼 없음\nauth: 지연 매뉴얼",
+      "result": "web: 매뉴얼 없음\nauth: 지연 매뉴얼",
       "source_slide_number": 16,
       "duration_seconds": 12,
       "implementation_notes": [
@@ -966,7 +954,7 @@
     },
     {
       "number": 23,
-      "action_title": "추가 3 · 같은 질문의 결과를 자동 비교한다",
+      "action_title": "추가 3: 같은 질문으로 전후 결과를 자동 비교",
       "role": "proof",
       "key_message": "저장한 실제 측정 결과의 보고서 화면 · 앱 대화 화면과 구분",
       "layout": "screen",
@@ -1000,7 +988,7 @@
       "result": "실제 기록 비교\n누락 서비스 3개 보완\nauth 대체 조회 생략",
       "source_slide_number": 17,
       "duration_seconds": 13,
-      "method": "고정 질문 20개로 전후 비교, 단위 테스트 31개로 분기·검증 점검",
+      "method": "고정 질문 20개로 전후 비교, 단위 테스트 31개로 핵심 분기 점검",
       "implementation_notes": [
         "평가 정의 cases.json의 expected_targets·expected_runbooks와 실제 calls·elapsed_seconds를 대조한다. 대상 수집은 서비스 수, 범위 일치는 대상 집합이 같은 질문 수, 문서 Top-1은 정답 문서가 하나인 질문만 계산한다.",
         "고정 데이터 그래프 평가 20건과 실제 MCP·SSE·UI 검증은 구분한다. 이 보고서는 보존된 전후 결과 JSON을 집계한 것이며 새 20건 벤치마크를 실행한 것은 아니다.",
@@ -1009,22 +997,24 @@
     },
     {
       "number": 24,
-      "action_title": "개선 전후 측정 결과",
+      "action_title": "정확성 평가: 조사 대상과 매뉴얼 선택",
       "role": "data exhibit",
       "key_message": "누락 서비스3개 보완, 조회 범위15/20에서20/20, 매뉴얼11/12에서12/12, 동일16건 시간 단축",
-      "layout": "metrics",
-      "visual": "Four editable native bar charts from preserved execution records",
+      "layout": "quality",
+      "visual": "One grouped native column chart for three selection metrics, raw counts, and secondary timing",
       "image": null,
       "caption": "",
-      "duration_seconds": 25,
-      "speaker_note": "필요한 서비스 수집은 열일곱에서 스무 개로, 조회 범위 일치는 열다섯에서 스무 문항으로 늘었습니다. 매뉴얼 선택도 개선됐습니다. 같은 열여섯 문항의 시간 중앙값은 삼십오 점 구사 초에서 사 점 사오 초입니다. 생성 설정도 함께 바꾼 결과입니다.",
+      "duration_seconds": 28,
+      "speaker_note": "핵심은 선택의 정확성입니다. 서비스 조회는 팔십오에서 백 퍼센트, 조회 대상 일치는 칠십오에서 백 퍼센트, 매뉴얼 선택은 열두 문항 중 열한 개에서 열두 개로 늘었습니다. 이 수치는 조사 대상과 매뉴얼 선택을 평가한 결과입니다. 처리 시간은 아래에 보조 지표로 표시했습니다.",
       "implementation_notes": [
-        "등록 대상 수집 17/20→20/20은 서비스 수다. D05 payments, D06 cache, D07 auth 누락을 보완했다. 조회 범위 일치는 15/20→20/20이며 auth 대체 조회 2건도 포함한다.",
-        "단일 정답 문서 11/12→12/12는 D07의 db-down을 high-latency로 바꾼 결과다. 같은 모델·고정 지표·질문을 사용했다.",
-        "양쪽 완료한 동일 16건 중앙값은 35.936→4.454초다. 네트워크 전송·UI 표시·워밍업·인덱스 구축은 제외한다. 생성 설정·분기·출력 형식도 바뀌어 RAG만의 효과가 아니다.",
-        "개선 20건은 검증13·관측/확인안내4·대화2·검증실패안내1이다. 응답 완료가 전체 답변의 정확도100%라는 뜻은 아니다. 이후 화면·안내 문구 수정 뒤 전체 시간은 재측정하지 않았다.",
-        "그래프는 보존된 전후40개 실행 기록에서 직접 재집계했다. 세 수집·선택 지표는 개수, 시간은 초 단위이며 각 분모를 제목과 데이터 레이블에 표시한다. 원점을0으로 둔 막대이며 기준을 그래프 장에 합쳤다.",
-        "등록 대상 수는 필요한 서비스와 실제 조회 목록을 대조한다. 범위 일치는 실제 대상 집합과 기대 대상 집합이 같아야 한다. 문서는 단일 정답 질문의 첫 조회를 대조한다. 별도 기준 슬라이드 대신 그래프 아래에 기준을 표시한다."
+        "서비스 조회는 각 요청에서 필요한 등록 대상과 실제 호출 목록을 대조한17/20건·20/20건이다. 서로 다른 서비스20종을 뜻하지 않는다. 같은 서비스가 다른 질문에 나오면 다시 계수한다.",
+        "조회 대상 일치는 실제 대상 집합과 기대 집합이 같은15/20문항·20/20문항이다. 누락3건과 auth 대체 조회2건을 보완했으며 미등록·미명시 요청의 확인 정책 변경도 포함한다.",
+        "매뉴얼은 정답 문서가 하나인12문항에서 첫 선택을 대조한11/12·12/12다. D07의 db-down 선택을 high-latency로 바꿨다.",
+        "비율85%·75%·91.7%와 개선 후100%는 위 세 기준의 일치율이다. 원인 진단 전체와 자유 생성 답변의 의미 정확도를 측정한 수치는 아니다. 작은 교육용 평가 세트의 결과다.",
+        "시간은 전후 모두 완료한 같은16문항의 중앙값35.9365초·4.454초를 소수 둘째 자리로 표시했다. UI·통신·워밍업·인덱스 구축은 제외하며 생성 설정·분기·출력 형식도 함께 달라 RAG 단독 효과로 해석하지 않는다.",
+        "비율은 보존된40개 실행 기록을 집계한 presentation-metrics.json에서 읽는다. 기본 데이터 레이블로 표시하고 원시 건수는 본문에도 함께 적는다. 새 모델 평가를 실행한 것은 아니다.",
+        "20건 측정 뒤 안내 문구·화면을 수정했다. 현재 전체 코드가 당시와 동일하다고 주장하지 않으며 전체 시간도 다시 측정하지 않았다.",
+        "시각화 참고: https://www.nngroup.com/articles/choosing-chart-types/ 및 https://www.datawrapper.de/blog/text-in-data-visualizations . 비교 기준·단위·수치를 가깝게 두고 선택 결과에 강조색을 사용했다."
       ],
       "source_refs": [
         "day2/scripts/build_evaluation_evidence.py",
@@ -1043,127 +1033,64 @@
         "kind": "chart",
         "chart": {
           "categories": [
-            "개선 전",
-            "개선 후"
+            "서비스 조회",
+            "조회 대상 일치",
+            "매뉴얼 선택"
           ],
           "series": [
             {
-              "name": "필요한 서비스 수집",
+              "name": "개선 전",
               "values": [
-                17,
-                20
+                0.85,
+                0.75,
+                0.9167
+              ]
+            },
+            {
+              "name": "개선 후",
+              "values": [
+                1.0,
+                1.0,
+                1.0
               ]
             }
           ]
-        },
-        "charts": [
+        }
+      },
+      "quality_chart": {
+        "categories": [
+          "서비스 조회",
+          "조회 대상 일치",
+          "매뉴얼 선택"
+        ],
+        "series": [
           {
-            "title": "필요한 서비스 수집 · 총 20개",
+            "name": "개선 전",
             "values": [
-              17,
-              20
-            ],
-            "labels": [
-              "17/20",
-              "20/20"
-            ],
-            "max": 25.0,
-            "criterion": "필요한 등록 서비스와 실제 조회 목록을 대조"
+              0.85,
+              0.75,
+              0.9167
+            ]
           },
           {
-            "title": "조회 범위 일치 · 총 20문항",
+            "name": "개선 후",
             "values": [
-              15,
-              20
-            ],
-            "labels": [
-              "15/20",
-              "20/20"
-            ],
-            "max": 25.0,
-            "criterion": "누락과 불필요한 대체 조회가 모두 없는 질문 수"
-          },
-          {
-            "title": "매뉴얼 선택 · 정답 1개인 12문항",
-            "values": [
-              11,
-              12
-            ],
-            "labels": [
-              "11/12",
-              "12/12"
-            ],
-            "max": 15.0,
-            "criterion": "첫 선택 문서가 기대 문서와 같은 질문 수"
-          },
-          {
-            "title": "처리 시간 중앙값 · 같은 16문항",
-            "values": [
-              35.936499999999995,
-              4.454000000000001
-            ],
-            "labels": [
-              "35.94초",
-              "4.45초"
-            ],
-            "max": 47,
-            "criterion": "전후 모두 완료한 같은 질문의 그래프 실행 시간"
+              1.0,
+              1.0,
+              1.0
+            ]
           }
         ]
       },
-      "charts": [
-        {
-          "title": "필요한 서비스 수집 · 총 20개",
-          "values": [
-            17,
-            20
-          ],
-          "labels": [
-            "17/20",
-            "20/20"
-          ],
-          "max": 25.0,
-          "criterion": "필요한 등록 서비스와 실제 조회 목록을 대조"
-        },
-        {
-          "title": "조회 범위 일치 · 총 20문항",
-          "values": [
-            15,
-            20
-          ],
-          "labels": [
-            "15/20",
-            "20/20"
-          ],
-          "max": 25.0,
-          "criterion": "누락과 불필요한 대체 조회가 모두 없는 질문 수"
-        },
-        {
-          "title": "매뉴얼 선택 · 정답 1개인 12문항",
-          "values": [
-            11,
-            12
-          ],
-          "labels": [
-            "11/12",
-            "12/12"
-          ],
-          "max": 15.0,
-          "criterion": "첫 선택 문서가 기대 문서와 같은 질문 수"
-        },
-        {
-          "title": "처리 시간 중앙값 · 같은 16문항",
-          "values": [
-            35.936499999999995,
-            4.454000000000001
-          ],
-          "labels": [
-            "35.94초",
-            "4.45초"
-          ],
-          "max": 47,
-          "criterion": "전후 모두 완료한 같은 질문의 그래프 실행 시간"
-        }
+      "count_labels": [
+        "17/20에서 20/20건",
+        "15/20에서 20/20문항",
+        "11/12에서 12/12문항"
+      ],
+      "change_labels": [
+        "조회 누락 3건 해소",
+        "조회 범위 오류 5문항 개선",
+        "문서 선택 오류 1문항 개선"
       ]
     },
     {
@@ -1185,20 +1112,20 @@
         "table": {
           "headers": [
             "선택",
-            "한계·대가"
+            "한계와 보완 과제"
           ],
           "rows": [
             [
               "임베딩·문서 검색",
-              "검색 지연·오검색 가능성"
+              "검색 시간이 추가되고, 잘못된 문서를 고를 수 있음"
             ],
             [
               "문서 6개·모의 지표",
-              "실제 운영 성능·일반화 미검증"
+              "실제 운영 환경의 정확성은 추가 검증 필요"
             ],
             [
               "구조화·원문 출력",
-              "자유로운 종합 설명 범위 제한"
+              "근거를 종합한 자유로운 설명은 제한됨"
             ]
           ]
         }
@@ -1208,22 +1135,22 @@
       "values": [
         [
           "선택",
-          "한계·대가"
+          "한계와 보완 과제"
         ],
         [
           "임베딩·문서 검색",
-          "검색 지연·오검색 가능성"
+          "검색 시간이 추가되고, 잘못된 문서를 고를 수 있음"
         ],
         [
           "문서 6개·모의 지표",
-          "실제 운영 성능·일반화 미검증"
+          "실제 운영 환경의 정확성은 추가 검증 필요"
         ],
         [
           "구조화·원문 출력",
-          "자유로운 종합 설명 범위 제한"
+          "근거를 종합한 자유로운 설명은 제한됨"
         ]
       ],
-      "takeaway": "다음 단계: 실제 로그·시계열 자료 수집과 독립 질문 평가",
+      "takeaway": "다음 단계: 실제 로그·시계열 데이터와 새로운 질문으로 검증",
       "source_slide_number": 19,
       "duration_seconds": 18,
       "implementation_notes": [
@@ -1231,7 +1158,18 @@
         "실제 로그·시계열·서비스 의존 관계 수집, 복합 장애 검색과 독립 평가가 다음 과제다. 자동 복구를 구현했다고 말하지 않는다.",
         "검색·임베딩은 처리 부담과 오검색을 더하고, 원문 출력은 자유로운 종합 설명을 제한한다."
       ],
-      "table_height": 315
+      "table_height": 330
     }
-  ]
+  ],
+  "design": {
+    "background": "#FFFFFF",
+    "ink": "#17191F",
+    "accent": "#3155FF",
+    "muted": "#5C6270",
+    "before": "#AAB1C0",
+    "issue": "#BD4826",
+    "header_fill": "#EEF2FF",
+    "font": "Apple SD Gothic Neo",
+    "table_columns": 2
+  }
 }

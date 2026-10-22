@@ -15,3 +15,5 @@
 - PowerPoint 앱·발표 장비에서 열기와 실제 구두 발표 시간은 별도 확인한다.
 
 [발표 검토](../presentation/REVIEW.md) · [증빙](../presentation/EVIDENCE_INDEX.md) · [현재 범위](../presentation/PLAN_COVERAGE.md)
+
+가독성 보완판은 흰색·검정·파랑을 사용하고 표의 열 수·문장 길이·행 여백을 조정했다.24장은 대상·매뉴얼 선택의 일치율을 우선 비교하고 시간은 보조로 제시한다. 원시 평가 기록은 바꾸지 않고 파생 집계 데이터에 비율을 추가했다.

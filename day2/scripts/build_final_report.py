@@ -8,11 +8,11 @@ rag=json.loads((ROOT/'day2/results/comparison/retrieval-overhead.json').read_tex
 repeats=json.loads((ROOT/'day2/results/comparison/repeats.json').read_text())
 a,b=s['after'],s['before']
 search_median=statistics.median(x['seconds'] for x in rag['searches'])
-md=f'''# 운영 장애 진단 AI 에이전트 개선
+md=f'''# 서비스 장애 진단 AI 에이전트 개선
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-revised.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-final-talk.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -135,13 +135,17 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 응답 완료에는 안내 응답도 포함한다. 개선 후 20건은 구조화 검증 통과 13건, 관측·대상 확인 안내 4건, 일반 대화 2건, 검증 실패 후 안내 1건이다. E06은 두 번의 생성에서도 서비스 범위를 벗어나 반려됐고 payments 관측·매뉴얼 원문과 billing 미등록 안내를 반환했다.
 
-등록 대상 수집률은 서비스 개수를, 범위 일치는 질문 개수를 분모로 한다. Top-1은 정답 문서가 하나인 12건만 계산하고, 검색 불필요 6건에는 일반 대화 2건도 포함한다. 양쪽 모두 완료한 16건만 비교한 중앙값은 {s['paired_median_before_seconds']:.2f}초 → {s['paired_median_after_seconds']:.2f}초다.
+대상 수집률은 요청마다 필요한 서비스 대상을 합산한 건수를, 범위 일치는 질문 수를 분모로 한다. Top-1은 정답 문서가 하나인 12건만 계산하고, 검색 불필요 6건에는 일반 대화 2건도 포함한다. 양쪽 모두 완료한 16건만 비교한 중앙값은 {s['paired_median_before_seconds']:.2f}초 → {s['paired_median_after_seconds']:.2f}초다.
 
 개선 후에는 think=false, 512토큰 상한, 호출·요청 제한, 구조화 출력과 분기 변경을 적용했다. 이 변경들이 지연 차이에 함께 영향을 줬으므로 RAG만의 효과로 해석하지 않는다. 문서 본문에 한·영 증상 설명도 보강했다. 원본의 가상 비용이나 시간 초과로 누락된 토큰을 실제 비용 절감으로 제시하지 않는다.
 
-![전후 실행 기록으로 만든 비교 그래프](output/presentation/previews-revised/slide-24.png)
+![전후 실행 기록으로 만든 비교 그래프](output/presentation/previews-final-talk/slide-24.png)
 
 [그래프 집계 데이터](day2/results/comparison/presentation-metrics.json) · [그래프 데이터 생성 코드](day2/scripts/build_presentation_metrics.py)
+
+### 선택 정확성을 먼저 확인
+
+필요한 서비스 조회는17/20건(85%)에서20/20건, 조회 대상 집합 일치는15/20문항(75%)에서20/20문항, 단일 정답 매뉴얼 선택은11/12문항(91.7%)에서12/12문항으로 바뀌었다. 세 지표는 대상·문서 선택의 일치율이며 전체 원인 진단의 정답률은 아니다. 시간은 보조 지표로 구분한다.
 
 ### 판정 기준과 실제 개선 사례
 
