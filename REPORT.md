@@ -48,63 +48,63 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 최초 payments·cache 요청에서는 payments만 수집하고 공통 원인 후보를 제시했다. cache 지표와 공유 의존 관계가 없어 공통 원인을 판단할 근거가 부족했다.
 
-![개선 전 payments·cache 질문과 답변](day1/evidence/user-screenshots/04-payments-cache.png)
+![개선 전 payments·cache 질문과 답변](docs/evidence/before/04-payments-cache.png)
 
 요청에서 등록 서비스 전체를 직접 추출하고 그 대상별로 조회 작업을 다시 구성했다. 같은 질문에서 두 서비스를 각각 조회하고, CPU·메모리 매뉴얼을 따로 연결했다. 의존 관계·동시 변화 자료가 없어 공통 원인은 미확인으로 남긴다.
 
-![같은 질문의 개선 응답 1](day2/evidence/review-q06-first.jpg)
+![같은 질문의 개선 응답 1](docs/evidence/after/review-q06-first.jpg)
 
-![같은 실행의 개선 응답 2](day2/evidence/review-q06-second.jpg)
+![같은 실행의 개선 응답 2](docs/evidence/after/review-q06-second.jpg)
 
 ### 개선 2. 미등록 대상의 임의 대체
 
 최초 billing 요청에서 실제 수집한 대상은 auth였다. 이는 원래 기본 정책이지만 요청 대상과 조회 대상이 달라지는 문제로 보아 정책을 변경했다.
 
-![개선 전 billing 질문과 auth 조회](day1/evidence/user-screenshots/06-billing.png)
+![개선 전 billing 질문과 auth 조회](docs/evidence/before/06-billing.png)
 
 등록 목록과 대조하고, 미등록이면 다른 서비스의 조회·보고 생성을 생략한 뒤 확인할 이름을 요청한다. 이 응답은 LLM 보고 생성이 아닌 코드 안내다.
 
-![같은 billing 질문의 확인 요청](day2/evidence/context-unknown-frame.jpg)
+![같은 billing 질문의 확인 요청](docs/evidence/after/context-unknown-frame.jpg)
 
 ### 개선 3. 정상·장애·정보 부족과 매뉴얼 선택
 
 최초 web·auth 요청은 web이 healthy·알림0건인데 db-down 문서를 선택했다.
 
-![개선 전 web·auth 질문과 DB 문서](day1/evidence/user-screenshots/03-web-auth.png)
+![개선 전 web·auth 질문과 DB 문서](docs/evidence/before/03-web-auth.png)
 
 상태를 먼저 구분하고 정상은 검색을 생략한다. 같은 질문에서 web은 정상으로, auth는 관측 알림에 맞는 지연 문서로 보고한다. 최초41%·51.5%와 아래34%·48%는 다른 시점의 모의 값이다.
 
-![같은 web·auth 질문의 개선](day2/evidence/context-healthy-answer.jpg)
+![같은 web·auth 질문의 개선](docs/evidence/after/context-healthy-answer.jpg)
 
 ### 개선 4. 수집 근거와 답변·조치 조건의 대조
 
 최초 payments 답변에는 로그 분석 결과라는 표현이 있지만 실제 로그는 수집하지 않았다.
 
-![개선 전 payments CPU 질문과 로그 분석 표현](day1/evidence/user-screenshots/02-payments-cpu.png)
+![개선 전 payments CPU 질문과 로그 분석 표현](docs/evidence/before/02-payments-cpu.png)
 
 구조화된 서비스·수치·문서·절차 번호를 검증하고, 검증 후 절차는 원문으로 출력한다. 실제 로그 미수집·조치 미실행을 표시한다. 자유 생성 문장 전체의 의미 검증이나 조건 충족의 자동 판정은 아니다.
 
-![같은 payments 질문의 개선](day2/evidence/review-q01-answer.jpg)
+![같은 payments 질문의 개선](docs/evidence/after/review-q01-answer.jpg)
 
 ### 추가 기능 1. RAG 대응 매뉴얼 검색
 
 서비스별 관측 알림을 bge-m3로 임베딩하고 SQLite에 저장한6개 문서와 코사인 유사도를 계산한다. 임계값0.35이상 후보에서 첫 문서를 선택해 MCP Resource로 원문을 읽는다. 실제 log 질의에서는 disk-full과 유사도0.673이 표시된다. 유사도는 정답 확률이 아니다.
 
-![RAG 검색의 실제 결과](day2/evidence/review-q03-answer.jpg)
+![RAG 검색의 실제 결과](docs/evidence/after/review-q03-answer.jpg)
 
 ### 추가 기능 2. 실제 조회 근거와 미확인 사항 화면
 
 서버의 실제 수집 객체를 최종 이벤트에 포함하고 UI가 서비스·관측 수치·문서 표를 구성한다. 모델 문장과 별도로 근거를 확인할 수 있다. web의 문서 없음과 auth의 지연 문서·유사도, 실제 로그 미수집 등을 보여준다.
 
-![실제 수집 객체로 표시한 근거](day2/evidence/context-healthy-evidence.jpg)
+![실제 수집 객체로 표시한 근거](docs/evidence/after/context-healthy-evidence.jpg)
 
 ### 추가 기능 3. 회귀 테스트·동일 입력 비교 실행기
 
 질문·고정 지표·분리 세션으로 실행하고 결과 JSON에서 대상 수집·문서 선택·응답 상태·시간을 집계해 보고서를 만든다. 아래는 보존된20건 원시 결과에서 다시 집계한 실제 보고서 화면이며 LLM20건을 새로 실행한 결과는 아니다. 단위 테스트31개도 별도로 다시 통과했다.
 
-![평가 실행기가 실제 생성한 비교 보고서](day2/evidence/story-evaluation-report.jpg)
+![평가 실행기가 실제 생성한 비교 보고서](docs/evidence/after/story-evaluation-report.jpg)
 
-[질문별 개선 결과와 증빙](docs/EVIDENCE.md) · [추가 UI·원시 기록](day2/results/contextual-captures/SUMMARY.md) · [단위 테스트31개](day2/tests/unit-tests-story.txt)
+[질문별 개선 결과와 증빙](docs/EVIDENCE.md) · [추가 UI·원시 기록](evaluation/results/contextual-captures/SUMMARY.md) · [단위 테스트31개](evaluation/test-results/unit-tests-story.txt)
 
 ## 5. 동일 입력의 개선 전후 비교
 
@@ -121,7 +121,7 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 | 불필요한 매뉴얼 검색 생략 | 2/6 | 6/6 |
 | 성공 응답 시간 중앙값 | 35.94초·16건 | 4.45초·20건 |
 
-![전후 측정 기록](day2/evidence/comparison.jpg)
+![전후 측정 기록](docs/evidence/after/comparison.jpg)
 
 응답 완료에는 안내 응답도 포함한다. 개선 후 20건은 구조화 검증 통과 13건, 관측·대상 확인 안내 4건, 일반 대화 2건, 검증 실패 후 안내 1건이다. E06은 두 번의 생성에서도 서비스 범위를 벗어나 반려됐고 payments 관측·매뉴얼 원문과 billing 미등록 안내를 반환했다.
 
@@ -131,7 +131,7 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 ![전후 실행 기록으로 만든 비교 그래프](docs/images/selection-comparison.png)
 
-[그래프 집계 데이터](day2/results/comparison/presentation-metrics.json) · [그래프 데이터 생성 코드](day2/scripts/build_presentation_metrics.py)
+[그래프 집계 데이터](evaluation/results/comparison/presentation-metrics.json) · [그래프 데이터 생성 코드](evaluation/scripts/build_presentation_metrics.py)
 
 ### 선택 정확성을 먼저 확인
 
@@ -147,13 +147,13 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 | 처리 시간 | 전후 모두 완료한 같은 16개 질문의 그래프 실행 시간 중앙값 | 35.94초 → 4.45초. 화면·통신·워밍업·인덱스 구축 제외 |
 | 최종 응답 반환 | 실행 예외 없이 결과를 반환한 질문 수 | 16/20 → 20/20. 확인·실패 안내를 포함하며 답변 정답률이 아님 |
 
-기대 대상·문서는 `day1/evaluation/cases.json`, 실제 호출·선택·시간은 개선 전후 `results.json`에 기록돼 있다. 이 기준은 등록되지 않거나 명시되지 않은 대상을 확인하도록 변경한 정책을 포함한다. 실제 채팅 캡처는 기능 동작을 보여주고, 아래 평가 보고서 캡처는 같은 조건의 정량 집계를 보여준다.
+기대 대상·문서는 `evaluation/data/cases.json`, 실제 호출·선택·시간은 개선 전후 `results.json`에 기록돼 있다. 이 기준은 등록되지 않거나 명시되지 않은 대상을 확인하도록 변경한 정책을 포함한다. 실제 채팅 캡처는 기능 동작을 보여주고, 아래 평가 보고서 캡처는 같은 조건의 정량 집계를 보여준다.
 
-![실제 실행 기록의 사례별 전후 비교](day2/evidence/evaluation-cases.jpg)
+![실제 실행 기록의 사례별 전후 비교](docs/evidence/after/evaluation-cases.jpg)
 
-![측정 기준과 집계 결과](day2/evidence/evaluation-criteria.jpg)
+![측정 기준과 집계 결과](docs/evidence/after/evaluation-criteria.jpg)
 
-[개선 전 원시 실행 기록](day1/results/baseline-ollama/results.json) · [개선 후 원시 실행 기록](day2/results/improved-ollama/results.json) · [평가 정의](day1/evaluation/cases.json) · [집계 코드](day2/scripts/build_evaluation_evidence.py)
+[개선 전 원시 실행 기록](evaluation/results/before/results.json) · [개선 후 원시 실행 기록](evaluation/results/after/results.json) · [평가 정의](evaluation/data/cases.json) · [집계 코드](evaluation/scripts/build_evaluation_evidence.py)
 
 ### 반복 실행과 검색 부담
 
@@ -167,7 +167,7 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 별도 6개 문서 인덱스 구축은 0.554초, 개발용 증상 5개×3회 검색의 중앙값은 0.040초였다. 이미 설치된 모델과 OS 캐시를 사용했고 다운로드·서버 시작 시간은 제외했다. 전체 요청 측정에서는 인덱스 구축과 모델 워밍업을 제외했다.
 
-[사례별 결과와 조건](day2/results/comparison/REPORT.md) · [반복 측정 원문](day2/results/comparison/repeats.json) · [검색 부담 원문](day2/results/comparison/retrieval-overhead.json)
+[사례별 결과와 조건](evaluation/results/comparison/REPORT.md) · [반복 측정 원문](evaluation/results/comparison/repeats.json) · [검색 부담 원문](evaluation/results/comparison/retrieval-overhead.json)
 
 ## 6. 한계와 트레이드오프
 
@@ -190,6 +190,6 @@ MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임�
 
 초기 통합 검증에서는 이름 질문을 새 선언으로 읽는 오류를 발견했다. 선언에 종결 표현을 요구하도록 수정하고 회귀 테스트를 추가한 뒤 전체 평가와 통합 검증을 다시 실행했다. 첫 실패 기록은 로컬에 보존했다.
 
-[실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt)
+[실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](evaluation/test-results/unit-tests.txt)
 
 발표자료는 표지 포함 35장으로, 기존 질문의 문제와 개선 코드·실행 결과, 추가 기능과 평가 결과를 담았다.

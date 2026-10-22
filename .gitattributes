@@ -1,2 +1,2 @@
 # Preserve the original model output, including Markdown line-break spaces.
-day2/verification/runs/** whitespace=-blank-at-eol
+evaluation/results/original-integration/** whitespace=-blank-at-eol

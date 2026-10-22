@@ -1,6 +1,6 @@
 # 실행과 평가 재현
 
-README에는 프로젝트 내용을, 이 문서에는 실행과 비교 조건을 둔다. 원본은 `day1/baseline/original_v2/`, 개선 버전은 `all_total_vue_student/`다. 교육용 모의 데이터이며 실제 서비스 장애나 조치 실행을 검증하지 않는다.
+README에는 프로젝트 내용을, 이 문서에는 실행과 비교 조건을 둔다. 원본은 `baseline/original_v2/`, 개선 버전은 `all_total_vue_student/`다. 교육용 모의 데이터이며 실제 서비스 장애나 조치 실행을 검증하지 않는다.
 
 ## 실행
 
@@ -41,7 +41,7 @@ SQLite 대화 DB는 `session.db`이며 `SESSION_DB_PATH`로 변경할 수 있다
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 -m unittest discover -s all_total_vue_student/tests -v
-PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 day1/scripts/check_preparation.py
+PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 evaluation/scripts/check_preparation.py
 ```
 
 두 번째 검사는 보존 원본·데이터·평가 지표를 확인한다. 개선된 작업 소스가 원본과 같은지는 요구하지 않는다. 최초 단계에서만 `--check-live-unchanged`를 사용할 수 있다.
@@ -49,8 +49,8 @@ PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 day1/scripts/c
 ## 고정 데이터 비교
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 day1/scripts/run_baseline.py --backend ollama --output day2/results/new-before
-PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 day1/scripts/run_baseline.py --source all_total_vue_student --improved --backend ollama --output day2/results/new-after
+PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 evaluation/scripts/run_baseline.py --backend ollama --output evaluation/results/new-before
+PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 evaluation/scripts/run_baseline.py --source all_total_vue_student --improved --backend ollama --output evaluation/results/new-after
 ```
 
 경로가 이미 있으면 덮어쓰지 않는다. 위 예시는 새 폴더명이다. 현재 비교 요약 스크립트는 제출에 사용한 기존 결과 폴더를 읽는다. 새 실행끼리 비교할 때에는 해당 입력 경로를 수정해 별도 결과로 관리한다.
@@ -62,7 +62,7 @@ PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 day1/scripts/r
 ## 실제 MCP·HTTP·SSE·재시작 검증
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 day2/scripts/verify_integration.py --output day2/results/new-integration
+PYTHONDONTWRITEBYTECODE=1 all_total_vue_student/.venv/bin/python3 evaluation/scripts/verify_integration.py --output evaluation/results/new-integration
 ```
 
 8204/8704 포트가 비어 있어야 한다. 임시 서버와 별도 DB만 만들고 종료한다. 고정 모의 지표를 실제 MCP subprocess와 프록시로 조회하고 최초 의도적 실패의 재시도, 스트림 종료·내용 일치, 같은 thread/DB로 재시작한 뒤 이름의 사용자 역할을 확인한다. 장애 답변은 검증이 끝난 뒤 조각을 전송한다. 검증 전 초안의 토큰 스트리밍은 제공하지 않는다.
@@ -71,20 +71,20 @@ OpenAI 백엔드와 실제 운영 데이터, 부하·동시 사용자 성능은 
 
 ## 발표 보완 시나리오 재현
 
-이 시험은 기본 설정의 일반 실행과 별도다. 한 터미널에서 저장소 루트 기준으로 `.venv` Python을 사용해 `day2/scripts/serve_presentation_scenarios.py`를 실행하고, 다른 터미널에서 같은 파일에 `--proxy`를 붙여 실행한다. 브라우저에서 `http://127.0.0.1:8705/`를 연다. 기존 포트와 별개인 8205/8705를 사용한다.
+이 시험은 기본 설정의 일반 실행과 별도다. 한 터미널에서 저장소 루트 기준으로 `.venv` Python을 사용해 `evaluation/scripts/serve_presentation_scenarios.py`를 실행하고, 다른 터미널에서 같은 파일에 `--proxy`를 붙여 실행한다. 브라우저에서 `http://127.0.0.1:8705/`를 연다. 기존 포트와 별개인 8205/8705를 사용한다.
 
 - `billing-service 응답이 느려요`: 미등록·미조회 안내와 등록 서비스 이름 확인 요청.
 - `web-01 상태를 확인해줘`: degraded·알림 없음 fixture로 정보 부족 안내와 매뉴얼 생략.
 - `payments-service 응답이 느려요`: 보고 생성 의존성에 30초 지연, 요청 상한 8초로 시간 초과와 부분 관측 보존 확인.
 
-일반 설정은 요청 60초·호출 25초다. 시험 래퍼가 이 환경에서만 제어 조건을 주입하고 실제 답변을 미리 만들거나 재생하지 않는다. 원시 이벤트는 `day2/results/presentation-scenarios/`에 기록한다. 이 요청을 일반 성능이나 기존 20건 통계에 합산하지 않는다. 사용 중인 포트를 먼저 확인하고 시험 종료 후 두 터미널에서 Ctrl+C로 종료한다.
+일반 설정은 요청 60초·호출 25초다. 시험 래퍼가 이 환경에서만 제어 조건을 주입하고 실제 답변을 미리 만들거나 재생하지 않는다. 원시 이벤트는 `evaluation/results/presentation-scenarios/`에 기록한다. 이 요청을 일반 성능이나 기존 20건 통계에 합산하지 않는다. 사용 중인 포트를 먼저 확인하고 시험 종료 후 두 터미널에서 Ctrl+C로 종료한다.
 
 ## 질문·응답과 실제 모델 원문 기록
 
-`day2/scripts/serve_capture_session.py`를 한 터미널에서 실행하고 다른 터미널에서 같은 파일에 `--proxy`를 붙여 실행한다. 브라우저는 `http://127.0.0.1:8706/`이며 8206/8706 포트를 먼저 확인한다. 모델과 의존성은 기본 실행과 같다. 별도 DB는 `day2/runtime/contextual-captures/`에 저장하며 공개하지 않는다.
+`evaluation/scripts/serve_capture_session.py`를 한 터미널에서 실행하고 다른 터미널에서 같은 파일에 `--proxy`를 붙여 실행한다. 브라우저는 `http://127.0.0.1:8706/`이며 8206/8706 포트를 먼저 확인한다. 모델과 의존성은 기본 실행과 같다. 별도 DB는 `evaluation/runtime/contextual-captures/`에 저장하며 공개하지 않는다.
 
-순차로 질문하면 실제 보고 LLM의 반환값과 SSE 이벤트를 `day2/results/contextual-captures/`에 고유 파일명으로 저장한다. 답변을 대체하지 않는다. 동시 요청의 로그 격리는 이 시험의 범위가 아니다. 앱 화면의 최종 답변과 `raw_model_output`은 구분해 비교한다. `LLM_RAW.txt`는 저장된 JSON의 원문을 보여주는 파생 파일이다. 과거 기록은 덮어쓰지 않으며 이 실행은 기존 20건 통계에 합산하지 않는다. 종료할 때 두 터미널에서 Ctrl+C를 누른다.
+순차로 질문하면 실제 보고 LLM의 반환값과 SSE 이벤트를 `evaluation/results/contextual-captures/`에 고유 파일명으로 저장한다. 답변을 대체하지 않는다. 동시 요청의 로그 격리는 이 시험의 범위가 아니다. 앱 화면의 최종 답변과 `raw_model_output`은 구분해 비교한다. `LLM_RAW.txt`는 저장된 JSON의 원문을 보여주는 파생 파일이다. 과거 기록은 덮어쓰지 않으며 이 실행은 기존 20건 통계에 합산하지 않는다. 종료할 때 두 터미널에서 Ctrl+C를 누른다.
 
 ## 같은 질문의 시간 초과·부분 근거 재현
 
-발표 시연은 `day2/scripts/serve_presentation_scenarios.py --output day2/results/new-story-demo`와 별도 터미널의 같은 명령에 `--proxy`를 붙여 실행한다. 비어 있는 새 폴더를 지정해 이전 기록을 보존한다. 포트8205/8705가 비어 있어야 한다. 같은 payments·cache 질문을 UI에 입력하면 생성 의존성30초 지연·요청 상한8초 시험이 실행된다. 일반 기본60초와 구분한다. 원시 이벤트·실제 화면은 기존20건 시간 통계에 합산하지 않는다.
+발표 시연은 `evaluation/scripts/serve_presentation_scenarios.py --output evaluation/results/new-story-demo`와 별도 터미널의 같은 명령에 `--proxy`를 붙여 실행한다. 비어 있는 새 폴더를 지정해 이전 기록을 보존한다. 포트8205/8705가 비어 있어야 한다. 같은 payments·cache 질문을 UI에 입력하면 생성 의존성30초 지연·요청 상한8초 시험이 실행된다. 일반 기본60초와 구분한다. 원시 이벤트·실제 화면은 기존20건 시간 통계에 합산하지 않는다.

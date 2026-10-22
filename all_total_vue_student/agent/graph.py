@@ -1,6 +1,6 @@
 """Improved v2: scope -> collect -> retrieve -> choose -> validate -> render.
 
-Original implementation is preserved under day1/baseline/original_v2.
+Original implementation is preserved under baseline/original_v2.
 """
 
 from functools import partial

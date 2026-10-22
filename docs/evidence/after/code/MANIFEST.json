@@ -1,0 +1,67 @@
+{
+  "kind": "actual-source-excerpt-browser-captures",
+  "method": "Read exact Python source line ranges; show the unchanged text with line numbers and highlighted lines in a plain HTML excerpt viewer; capture in an isolated headless Chrome session. Not an IDE screenshot.",
+  "source_code_modified": false,
+  "entries": [
+    {
+      "id": "01-target-tasks",
+      "file": "all_total_vue_student/agent/targets.py",
+      "start": 34,
+      "end": 43,
+      "highlight": [
+        39,
+        42
+      ],
+      "source_sha256": "a5fadadc39feeb90e677445dbfb6150e03360f9f7ead932d18face85760998de",
+      "image": "docs/evidence/after/code/01-target-tasks.png",
+      "snippet": "    result = [\n        {\n            \"id\": f\"monitor-{s}\",\n            \"agent\": \"research\",\n            \"kind\": \"monitoring\",\n            \"target\": s,\n            \"status\": \"pending\",\n        }\n        for s in targets\n    ]",
+      "image_sha256": "663e29837b57db875072a958fbb85ba364a3ee2e7c59ee0b590c5de793169040"
+    },
+    {
+      "id": "02-confirm-target",
+      "file": "all_total_vue_student/agent/evidence.py",
+      "start": 80,
+      "end": 90,
+      "highlight": [
+        80,
+        85,
+        87,
+        89
+      ],
+      "source_sha256": "120703434b034825a1fc7b117477c44bf53990b16a387e590b6ed1b862771660",
+      "image": "docs/evidence/after/code/02-confirm-target.png",
+      "snippet": "    if not targets:\n        if unknown:\n            lines.append(\n                \"미등록 서비스: \"\n                + \", \".join(unknown)\n                + \". 등록된 다른 서비스로 바꾸어 조회하지 않았습니다.\"\n            )\n            lines.append(\"확인할 등록 서비스 이름을 알려주세요.\")\n        else:\n            lines.append(\"어느 서비스를 확인할까요? 서비스 이름을 알려주세요.\")\n        return \"\\n\".join(lines)",
+      "image_sha256": "8e625d2d1de909bbd59876bc906414c263bd01637d2a6f30bc7f75a274249cc1"
+    },
+    {
+      "id": "03-skip-runbook",
+      "file": "all_total_vue_student/agent/research.py",
+      "start": 44,
+      "end": 49,
+      "highlight": [
+        47,
+        49
+      ],
+      "source_sha256": "706de473a229e8cfdf2926c1a7033e8bba41a02912be60ed6482a18d2ce02a1a",
+      "image": "docs/evidence/after/code/03-skip-runbook.png",
+      "snippet": "    for item in collected:\n        if (\n            item.get(\"source\") != \"monitoring\"\n            or monitoring_state(item[\"data\"]) != \"investigate\"\n        ):\n            continue",
+      "image_sha256": "ee66fe24dca3766977689c2e2a1d8a0f8a261709e812130da6de3ac14dc0b3fb"
+    },
+    {
+      "id": "04-evidence-check",
+      "file": "all_total_vue_student/agent/validation.py",
+      "start": 67,
+      "end": 76,
+      "highlight": [
+        72,
+        74,
+        75,
+        76
+      ],
+      "source_sha256": "7f93ad11ef333f98cec877dafc6bca0d533cbc43dc3a7a9fb5fcf024bda32a3e",
+      "image": "docs/evidence/after/code/04-evidence-check.png",
+      "snippet": "            for metric in (\"cpu_percent\", \"memory_percent\"):\n                value = row.get(metric)\n                if (\n                    isinstance(value, bool)\n                    or not isinstance(value, (int, float))\n                    or value != s[metric]\n                ):\n                    problems.append(f\"{name}: {metric} 관측값 불일치\")\n            if row.get(\"cause_confirmed\") is not False:\n                problems.append(f\"{name}: 원인 확정 근거 없음\")",
+      "image_sha256": "265efac6908616a24eda483802848cb9f49f9e013720fdd8467a83535c8194a6"
+    }
+  ]
+}
