@@ -12,7 +12,7 @@ md=f'''# 운영 장애 진단 AI 에이전트 개선
 
 이진형 · 과제 1: Base AI Project 개선 · 2026-10-21 구현·검증
 
-[발표자료 다운로드](output/presentation/incident-diagnosis-agent-explained.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
+[발표자료 다운로드](output/presentation/incident-diagnosis-agent-rubric.pptx) · [발표 연습과 예상 질문](presentation/REHEARSAL.md)
 
 ## 1. 주제와 문제
 
@@ -46,6 +46,8 @@ md=f'''# 운영 장애 진단 AI 에이전트 개선
 | 화면 | 수업 Vue 화면은 원본에 보존 | 외부 CDN 없는 HTML·JavaScript, 근거와 미확인 사항 표시 |
 
 LLM은 계획을 제안하고 수집한 관측과 문서의 절차 번호를 구조화해 정리한다. 실제 조회 범위는 코드가 제한한다. 검증된 선택을 매뉴얼 원문으로 출력해 조건을 재작성하지 않는다. 이는 자유 생성 문장 전체의 의미를 검증하는 범용 사실성 평가기는 아니다.
+
+MCP 서버에는 `search_runbooks` Tool을 추가했다. `retrieval.py`가 임베딩 검색을 수행하고 `research.py`가 선택한 매뉴얼 원문을 연결한다. 기존 `SupervisorDeps`에 `searcher`를 추가해 실제 MCP 검색과 고정 평가 어댑터를 교체한다. `graph.py`·`nodes.py`는 범위 확인·수집·검색·검증 흐름을 연결하고, 단위 테스트는 대상 누락·잘못된 수치·부분 실패·시간 제한 같은 분기를 확인한다.
 
 기존 기술을 직접 새로 만들었다고 주장하지 않는다. 전문 멀티에이전트 확장이나 LangSmith 연결 검증은 이번 성과에 포함하지 않았다. OpenAI 경로는 보존 원본에 있으며 개선 버전은 Ollama를 검증했다.
 
@@ -208,7 +210,7 @@ md+=f'''
 
 [실행·평가 재현](docs/REPRODUCE.md) · [원본과 변경 모듈](docs/CHANGES.md) · [단위 테스트 결과](day2/tests/unit-tests.txt) · [최종 점검](day2/FINAL_REVIEW.md)
 
-발표자료는 표지 포함 26장이다. [발표 대본과 구현 보충 노트](presentation/REHEARSAL.md)에 설명 순서와 예상 질문을 정리했다.
+발표자료는 표지 포함 28장이다. [발표 대본과 구현 보충 노트](presentation/REHEARSAL.md)에 설명 순서와 예상 질문을 정리했다.
 '''
 (ROOT/'REPORT.md').write_text(md)
 print('Report generated from saved results.')
